@@ -1,0 +1,215 @@
+{
+  "first": {
+    "sha256": "5e06ff597476a4970cee7bc1ba65f63801953698d1c23695e44818dbd1f140aa",
+    "shots": [
+      {
+        "shot_id": "s1",
+        "shot_revision": 1,
+        "provider": "pillow_mg",
+        "cached": false,
+        "sha256": "3b665458c0091504fa2dfecfb185b8b55fb04ef9603b4c6a162d7cd2eae63f4e",
+        "render_cache_key": "bb6263d7f4fbe58021572e4be03d02a2e7a359ccd44676767b8de29ab4adf210",
+        "asset_sha256": null
+      },
+      {
+        "shot_id": "s2",
+        "shot_revision": 1,
+        "provider": "ffmpeg_media",
+        "cached": false,
+        "sha256": "576f517b525a8855d2a300eb8cde4e564caee75e64534e4133b91745bf2bc86e",
+        "render_cache_key": "e0eb2fcacd58292a6d4e94392aa5c5b522db1bd1a3b9a93e11b82513b9c8bdfb",
+        "asset_sha256": "6c25a5a4c25b99be2c20b7c0cb2cb233d7c8a3b8d2a768fb6dab2adf1afb30e4"
+      },
+      {
+        "shot_id": "s3",
+        "shot_revision": 1,
+        "provider": "pillow_mg",
+        "cached": false,
+        "sha256": "8be9686746555e2983eb86e03e78a25df2f3c1578c561a82fbe63443a5d74a4f",
+        "render_cache_key": "e91c0be11d42c6d7a7b3ca78c9cce4ff2a5130e7c35bacd6c49fc8de04d1bd09",
+        "asset_sha256": null
+      }
+    ],
+    "duration_sec": 20.0,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "audio": "silent_track_no_voiceover",
+    "qa": "technical_probe_passed",
+    "revision": 1
+  },
+  "second": {
+    "sha256": "0846ca50fb60c36e26cdf857610fe418ea056673f35fa12188a8d42c8dc12e6b",
+    "shots": [
+      {
+        "shot_id": "s1",
+        "shot_revision": 1,
+        "provider": "pillow_mg",
+        "cached": true,
+        "sha256": "3b665458c0091504fa2dfecfb185b8b55fb04ef9603b4c6a162d7cd2eae63f4e",
+        "render_cache_key": "bb6263d7f4fbe58021572e4be03d02a2e7a359ccd44676767b8de29ab4adf210",
+        "asset_sha256": null
+      },
+      {
+        "shot_id": "s2",
+        "shot_revision": 1,
+        "provider": "ffmpeg_media",
+        "cached": true,
+        "sha256": "576f517b525a8855d2a300eb8cde4e564caee75e64534e4133b91745bf2bc86e",
+        "render_cache_key": "e0eb2fcacd58292a6d4e94392aa5c5b522db1bd1a3b9a93e11b82513b9c8bdfb",
+        "asset_sha256": "6c25a5a4c25b99be2c20b7c0cb2cb233d7c8a3b8d2a768fb6dab2adf1afb30e4"
+      },
+      {
+        "shot_id": "s3",
+        "shot_revision": 2,
+        "provider": "pillow_mg",
+        "cached": false,
+        "sha256": "c9e7b6790c0fe5876fcd86fc36b905f1f68d88c45e804c03af678f199a434563",
+        "render_cache_key": "9a62e340bc787c707faf711108b752db94ff6016ba512cf1d3bb13f372d82373",
+        "asset_sha256": null
+      }
+    ],
+    "duration_sec": 20.0,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "audio": "silent_track_no_voiceover",
+    "qa": "technical_probe_passed",
+    "revision": 2
+  },
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "mime_codec_string": "avc1.640028",
+        "width": 1920,
+        "height": 1080,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 40,
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "921600/30719",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 307190,
+        "duration": "19.999349",
+        "bit_rate": "114155",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "600",
+        "extradata_size": 46,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "encoder": "Lavc63.1.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "mime_codec_string": "mp4a.40.2",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 1024,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 960000,
+        "duration": "20.000000",
+        "bit_rate": "2275",
+        "nb_frames": "939",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler"
+        }
+      }
+    ],
+    "format": {
+      "filename": "artifacts\\video-poc\\mixed.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "20.000000",
+      "size": "314472",
+      "bit_rate": "125788",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf63.1.101"
+      }
+    }
+  },
+  "render_job_id": "2d5ac303d4074651a711bf7cc7536360"
+}

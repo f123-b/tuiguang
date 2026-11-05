@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "codes": {
+    "AGENT_MODEL_UNCONFIGURED": {
+      "module": "agent"
+    },
+    "AGENT_PLAN_FACT_UNVERIFIED": {
+      "module": "agent"
+    },
+    "AGENT_PROVIDER_RESULT_UNKNOWN": {
+      "module": "main"
+    },
+    "ASSET_FORMAT_INVALID": {
+      "module": "main"
+    },
+    "ASSET_HASH_MISMATCH": {
+      "module": "video"
+    },
+    "ASSET_LICENSE_UNVERIFIED": {
+      "module": "video"
+    },
+    "ASSET_MISSING": {
+      "module": "video"
+    },
+    "ASSET_SIZE_INVALID": {
+      "module": "main"
+    },
+    "AUTH_FORBIDDEN": {
+      "module": "main"
+    },
+    "AUTH_INVALID": {
+      "module": "main"
+    },
+    "AUTH_REQUIRED": {
+      "module": "auth"
+    },
+    "BRAND_LIMIT_REACHED": {
+      "module": "main"
+    },
+    "BUDGET_LIMIT_REACHED": {
+      "module": "jobs"
+    },
+    "CONTENT_ALREADY_REPORTED": {
+      "module": "main"
+    },
+    "CREATOR_LIMIT_REACHED": {
+      "module": "main"
+    },
+    "CREATOR_SCHEDULE_PAUSED": {
+      "module": "jobs"
+    },
+    "CSRF_ORIGIN_DENIED": {
+      "module": "main"
+    },
+    "HANDOFF_DATE_INVALID": {
+      "module": "main"
+    },
+    "HANDOFF_PACKAGE_STALE": {
+      "module": "main"
+    },
+    "HANDOFF_URL_INVALID": {
+      "module": "domains"
+    },
+    "IDEMPOTENCY_KEY_CONFLICT": {
+      "module": "jobs"
+    },
+    "INTERNAL_ERROR": {
+      "module": "main"
+    },
+    "METRICS_FORMAT_INVALID": {
+      "module": "main"
+    },
+    "METRICS_SOURCE_UNVERIFIED": {
+      "module": "domains"
+    },
+    "MODEL_CONSENT_REQUIRED": {
+      "module": "jobs"
+    },
+    "QA_CONTENT_BLOCKED": {
+      "module": "main"
+    },
+    "QA_MEDIA_INVALID": {
+      "module": "video"
+    },
+    "RESOURCE_NOT_FOUND": {
+      "module": "domains"
+    },
+    "RUN_NOT_SKIPPABLE": {
+      "module": "main"
+    },
+    "RUN_VERSION_UNSUPPORTED": {
+      "module": "jobs"
+    },
+    "VALIDATION_ERROR": {
+      "module": "main"
+    },
+    "VID_COMPOSE_FAILED": {
+      "module": "video"
+    },
+    "VID_DURATION_INVALID": {
+      "module": "video"
+    },
+    "VID_IR_INVALID": {
+      "module": "video"
+    },
+    "VID_MEDIA_INVALID": {
+      "module": "video"
+    },
+    "VID_OUTPUT_NOT_READY": {
+      "module": "main"
+    },
+    "VID_PROVIDER_UNSUPPORTED": {
+      "module": "video"
+    },
+    "VID_SHOT_LOCKED": {
+      "module": "main"
+    },
+    "VID_SHOT_NOT_FOUND": {
+      "module": "main"
+    }
+  }
+}
