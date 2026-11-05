@@ -50,13 +50,19 @@ def model_settings():
     )
     if any(not os.getenv(key) for key in required):
         raise DomainError("AGENT_MODEL_UNCONFIGURED", "模型或费用信息未配置，未发起付费请求")
+    try:
+        input_price = int(os.environ["MODEL_INPUT_CENTS_PER_MILLION"])
+        output_price = int(os.environ["MODEL_OUTPUT_CENTS_PER_MILLION"])
+        max_tokens = int(os.getenv("MODEL_MAX_OUTPUT_TOKENS", "1800"))
+    except ValueError:
+        raise DomainError("AGENT_MODEL_UNCONFIGURED", "模型价格和输出上限必须为整数，未发起请求") from None
     settings = {
         "key": os.environ["MODEL_API_KEY"],
         "model": os.environ["MODEL_ID"],
         "base_url": os.getenv("MODEL_BASE_URL", "https://api.openai.com/v1").rstrip("/"),
-        "input_price": int(os.environ["MODEL_INPUT_CENTS_PER_MILLION"]),
-        "output_price": int(os.environ["MODEL_OUTPUT_CENTS_PER_MILLION"]),
-        "max_tokens": int(os.getenv("MODEL_MAX_OUTPUT_TOKENS", "1800")),
+        "input_price": input_price,
+        "output_price": output_price,
+        "max_tokens": max_tokens,
     }
     if (
         min(settings["input_price"], settings["output_price"]) < 0

@@ -180,3 +180,15 @@ def test_traceparent_propagates_and_no_secret_in_errors(client):
     secret = "secret-password-short"
     r = client.post("/api/v1/auth/register", json={"password": secret})
     assert secret not in r.text
+
+
+def test_invalid_model_price_is_a_diagnosable_failure(client, creator_profile, monkeypatch):
+    configure_model(monkeypatch)
+    monkeypatch.setenv("MODEL_INPUT_CENTS_PER_MILLION", "not-a-price")
+    with SessionLocal() as db:
+        creator = db.get(Creator, creator_profile["id"])
+        creator.model_consent = True
+        db.commit()
+        enqueue(db, creator, "2026-11-04", "invalid-price")
+        process_pending(db)
+        assert db.scalar(select(Run)).error_code == "AGENT_MODEL_UNCONFIGURED"

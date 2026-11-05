@@ -102,6 +102,10 @@ export default function Workspace({ path }: { path: string }) {
   const [themeReady, setThemeReady] = useState(false);
   const [loginRequired, setLoginRequired] = useState(path === "/auth/login");
 
+  useEffect(() => {
+    if (store && path === "/auth/login") router.replace("/dashboard");
+  }, [store, path, router]);
+
   const refresh = useCallback(async () => {
     const [
       user,

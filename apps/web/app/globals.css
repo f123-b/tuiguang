@@ -2740,17 +2740,3 @@ main {
 .sidebar-bottom {
   padding-top: 4px;
 }
-
-.sidebar {
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
-.sidebar > * {
-  flex-shrink: 0;
-}
-.sidebar nav {
-  flex-shrink: 0;
-}
-.sidebar-bottom {
-  padding-top: 4px;
-}

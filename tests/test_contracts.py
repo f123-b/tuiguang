@@ -29,3 +29,15 @@ def test_openapi_and_ir_schema_are_generated_from_implementation():
     manifest = release_manifest()
     assert len(manifest["git_sha"]) == 40
     assert manifest["stable"] is False
+
+
+def test_error_catalog_covers_key_domain_failures():
+    catalog = json.loads(Path("packages/schemas/error-codes.json").read_text(encoding="utf-8"))["codes"]
+    assert {
+        "AUTH_REQUIRED",
+        "QA_CONTENT_BLOCKED",
+        "BUDGET_LIMIT_REACHED",
+        "AGENT_PROVIDER_RESULT_UNKNOWN",
+        "AGENT_MODEL_UNCONFIGURED",
+        "RUN_VERSION_UNSUPPORTED",
+    } <= set(catalog)

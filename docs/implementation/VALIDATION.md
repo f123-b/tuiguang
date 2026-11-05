@@ -4,7 +4,7 @@
 
 | 检查 | 实际命令 / 操作 | 结果 |
 |---|---|---|
-| 业务 / 权限 / 任务 / 媒体 / 迁移 / 契约 | `.venv/Scripts/python.exe -m pytest -q` | 21 passed，退出 0 |
+| 业务 / 权限 / 任务 / 媒体 / 迁移 / 契约 | `.venv/Scripts/python.exe -m pytest -q` | 23 passed，退出 0 |
 | Python 静态检查 | `python -m ruff check services tests infra scripts` | All checks passed，退出 0 |
 | TypeScript | `npm.cmd run typecheck` | 退出 0 |
 | Web 生产构建 | `npm.cmd run build` | 最终模块拆分后复跑通过，动态路由生成成功，退出 0 |
@@ -40,3 +40,5 @@
 ## CI 首轮故障记录
 
 观察证据：Actions 42027030417 / API PostgreSQL 在容器初始化阶段返回 `docker create: unknown shorthand flag: 'U'`，业务用例尚未启动。原因已由实际命令确认：GitHub runner 将单引号健康检查命令拆开。已改为 Docker 参数接受的双引号并关闭矩阵 fail-fast，让 SQLite / PostgreSQL 分别给出结果。Web 与 Python 漏洞扫描在该轮已通过。修复后的完整结果以最终 Actions 链接为准，不将首轮失败改写为通过。
+
+补充回归：给模型价格配置填入非数字可复现 ValueError，导致原 Worker 中断；新增失败用例后修复为 `AGENT_MODEL_UNCONFIGURED` 持久化失败。回归通过，不执行外部付费请求。
