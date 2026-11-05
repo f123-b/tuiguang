@@ -17,7 +17,7 @@ def test_runtime_receipts_validate_actual_events(client, creator_profile):
     assert len(diagnostic["receipts"]) >= 3
     for receipt in diagnostic["receipts"]:
         validate(receipt, schema)
-    assert diagnostic["run"]["release"]["agent_graph_version"] == "creator_graph@1"
+    assert diagnostic["run"]["release"]["agent_graph_version"] == "creator_graph@2"
 
 
 def test_openapi_and_ir_schema_are_generated_from_implementation():

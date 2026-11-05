@@ -1,0 +1,83 @@
+{
+  "environment": "local_synthetic_qa",
+  "runs": [
+    {
+      "creator_run_id": "edabb151f677412a89c2c044c83bd73b",
+      "trace_id": "523084435e52464704b509db20d1312e",
+      "operational_date": "2026-11-10",
+      "status": "completed",
+      "release": {
+        "release_id": "creator-0.2.0-dev",
+        "application_version": "0.2.0-dev",
+        "git_sha": "d89051c45b565926e31c2f4f84bc0334a8d0f8d4",
+        "database_migration": "0002",
+        "agent_graph_version": "creator_graph@2",
+        "prompt_version": "fact_bound@2",
+        "video_ir_schema_version": "1.0",
+        "provider_adapter_version": "pillow_ffmpeg@1",
+        "model_id": null,
+        "model_revision": null,
+        "template_version": "local_editorial@2",
+        "license_inventory_revision": "667ed09e3c4f1ed51b30b8ce6a7716dcd1537b0ebb5bf5f7798a38700a18eff7",
+        "environment": "development",
+        "stable": false,
+        "generation_mode": "template"
+      },
+      "input_snapshot": {
+        "entry_id": "252d8a1680d74f2797bb012ad8d7553d",
+        "revision": 1,
+        "title": "叙流开发版（验收测试） · 使用前检查",
+        "angle": "使用前检查",
+        "fact_refs": [
+          "27655c343f384d049f7d1cb9b9089a4e"
+        ],
+        "brand_revision": 1
+      },
+      "content": {
+        "id": "a7ae964d85db4d8797966d07fbff8c54",
+        "title": "叙流开发版（验收测试） · 使用前检查",
+        "generation_source": "template",
+        "status": "awaiting_user_review"
+      }
+    },
+    {
+      "creator_run_id": "b3b6ebd475dc4fc79ed19cfddf90c8d1",
+      "trace_id": "523084435e52464704b509db20d1312e",
+      "operational_date": "2026-11-06",
+      "status": "completed",
+      "release": {
+        "release_id": "creator-0.2.0-dev",
+        "application_version": "0.2.0-dev",
+        "git_sha": "d89051c45b565926e31c2f4f84bc0334a8d0f8d4",
+        "database_migration": "0002",
+        "agent_graph_version": "creator_graph@2",
+        "prompt_version": "fact_bound@2",
+        "video_ir_schema_version": "1.0",
+        "provider_adapter_version": "pillow_ffmpeg@1",
+        "model_id": null,
+        "model_revision": null,
+        "template_version": "local_editorial@2",
+        "license_inventory_revision": "667ed09e3c4f1ed51b30b8ce6a7716dcd1537b0ebb5bf5f7798a38700a18eff7",
+        "environment": "development",
+        "stable": false,
+        "generation_mode": "template"
+      },
+      "input_snapshot": {
+        "entry_id": "8a522ac13bde43bfa4cc0484d41162b4",
+        "revision": 3,
+        "title": "叙流计划验收：核对事实来源",
+        "angle": "工作流整理",
+        "fact_refs": [
+          "27655c343f384d049f7d1cb9b9089a4e"
+        ],
+        "brand_revision": 1
+      },
+      "content": {
+        "id": "5d455cf4caaf47e99456b80b327b5f3f",
+        "title": "叙流计划验收：核对事实来源",
+        "generation_source": "template",
+        "status": "awaiting_user_review"
+      }
+    }
+  ]
+}

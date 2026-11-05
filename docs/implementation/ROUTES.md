@@ -8,14 +8,14 @@
 | 02 | `/onboarding/welcome` | Help | 实际功能说明；独立多步向导未实现 |
 | 03 | `/onboarding/brand` | BrandPage / brands | 真实品牌表单，与品牌页共用 |
 | 04 | `/onboarding/creator` | CreatorPage / creators | 频率/时区/预算；保存开启 |
-| 05 | `/onboarding/preview` | CalendarPage / calendar | 14 日规则预览，无 AI 规划 |
+| 05 | `/onboarding/preview` | CalendarPage / calendar | 14 日持久计划；规则规划，无 AI 热度分析 |
 | 06 | `/dashboard` | Overview / dashboard | 真实任务、计数、无数据态 |
-| 07 | `/creator` | CreatorPage / creators | 状态、暂停恢复、今日任务 |
+| 07 | `/creator` | CreatorPage / creators | 状态、暂停恢复、今日任务、下一次制作 |
 | 08 | `/creator/edit` | CreatorPage / PATCH creator | 设置真实持久化 |
 | 09 | `/creator/activity` | ActivityPage / creator-runs | 实际状态、错误和跳过未开始任务 |
-| 10 | `/calendar` | CalendarPage / calendar | 规则日历；拖拽与改期未实现 |
-| 11 | `/topics` | CalendarPage | 方向预览；语义去重/选题审批未实现 |
-| 12 | `/topics/:id` | CalendarPage | 复用计划预览；独立详情待实现 |
+| 10 | `/calendar` | CalendarPage / calendar、plan、prepare | 持久日历、规则补齐、最多 7 篇确认备稿；无拖拽 |
+| 11 | `/topics` | CalendarPage | 复用真实日历；语义去重未实现 |
+| 12 | `/topics/:id` | TopicPage / topics | 详情、事实来源、编辑/锁定/确认、日期交换/跳过、单篇备稿；执行依据冻结 |
 | 13 | `/campaigns` | ContentLibrary / content | 真实草稿、筛选、进入编辑 |
 | 14 | `/studio/article/:id` | ArticlePage / content | 编辑、预审、审核、发布包；无多图画布 |
 | 15 | `/studio/covers` | 单个封面模板说明 | 真 PNG 由发布包生成；多模板编辑待做 |

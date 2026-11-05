@@ -64,6 +64,22 @@ class Creator(TenantRecord, Base):
     __table_args__ = (CheckConstraint("daily_budget_cents >= 0 AND monthly_budget_cents >= 0"),)
 
 
+class EditorialEntry(TenantRecord, Base):
+    __tablename__ = "editorial_entries"
+    creator_id: Mapped[str] = mapped_column(ForeignKey("creator_profiles.id"))
+    date: Mapped[str] = mapped_column(String(10))
+    title: Mapped[str] = mapped_column(String(180))
+    angle: Mapped[str] = mapped_column(String(40))
+    fact_refs: Mapped[list] = mapped_column(JSON, default=list)
+    brand_revision: Mapped[int] = mapped_column(Integer)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    locked: Mapped[bool] = mapped_column(Boolean, default=False)
+    source: Mapped[str] = mapped_column(String(30), default="rule_based_plan")
+    rationale: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), default="approved")
+    __table_args__ = (UniqueConstraint("creator_id", "date"),)
+
+
 class Run(TenantRecord, Base):
     __tablename__ = "creator_runs"
     creator_id: Mapped[str] = mapped_column(ForeignKey("creator_profiles.id"))
@@ -76,6 +92,10 @@ class Run(TenantRecord, Base):
     error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
     release: Mapped[dict] = mapped_column(JSON)
     lease_until: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    editorial_entry_id: Mapped[str | None] = mapped_column(
+        ForeignKey("editorial_entries.id"), nullable=True, unique=True
+    )
+    input_snapshot: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     __table_args__ = (
         UniqueConstraint("creator_id", "operational_date", "slot"),
         UniqueConstraint("workspace_id", "idempotency_key"),
@@ -190,6 +210,7 @@ class BudgetEntry(TenantRecord, Base):
     creator_id: Mapped[str] = mapped_column(ForeignKey("creator_profiles.id"))
     run_id: Mapped[str] = mapped_column(ForeignKey("creator_runs.id"), unique=True)
     operational_date: Mapped[str] = mapped_column(String(10))
+    billing_date: Mapped[str | None] = mapped_column(String(10), nullable=True)
     reserved_cents: Mapped[int] = mapped_column(Integer)
     actual_cents: Mapped[int | None] = mapped_column(Integer, nullable=True)
     status: Mapped[str] = mapped_column(String(30), default="reserved")
