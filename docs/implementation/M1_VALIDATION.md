@@ -20,8 +20,8 @@
 | 本机开发库 | 停止 API/Worker，SQLite backup 后启动迁移 | 0001→0002 已完成；升级前备份在私有 `.data/backups/pre-0002-20261105-225127.db`，未提交 |
 | 浏览器交互 | agent-browser `xuliu-dev`，测试工作区 | 已实际补齐、改题、锁定、确认、跳过、交换日期；勾选两篇并明确同意后成功入队，后台生成待审稿 |
 | 路由与视口 | `SMOKE_*_ID=实际测试资源 node scripts/browser-smoke.mjs` | 35 路由、18 个视口检查通过（总览/日历/详情，各 375/390/768/1024/1440/1920px），无横向溢出，退出 0 |
-| PostgreSQL 17 | [Actions 42051765716](https://github.com/f123-b/tuiguang/actions/runs/42051765716)，提交 `350a51d` | 36 passed，含隔离 0001→0002 迁移和旧记录保留；退出 0 |
-| SQLite CI | 同一 Actions | 35 passed / 1 skipped（该矩阵不连接 PostgreSQL）；退出 0 |
+| PostgreSQL 17 | [Actions 42053502778](https://github.com/f123-b/tuiguang/actions/runs/42053502778)，代码提交 `9bafda9` | 37 passed，含批量事实缓存修复、隔离 0001→0002 迁移和旧记录保留；退出 0 |
+| SQLite CI | 同一 Actions | 36 passed / 1 skipped（该矩阵不连接 PostgreSQL）；退出 0 |
 | 供应链 / Web CI | 同一 Actions | npm ci / typecheck / boundary / build / npm audit 均通过，0 vulnerabilities；pip-audit 报告 No known vulnerabilities found |
 
 影响范围：EDITORIAL / CREATOR / AGENT / Web 页面、OpenAPI、数据库 0002、graph@2、fact_bound@2、local_editorial@2。视频 IR 1.0 / pillow_ffmpeg@1 未变更；实际 20s 视频和缓存回归继续通过。新图可恢复 v1 无计划快照任务，生成模式/模型版本仍必须一致。
@@ -34,4 +34,4 @@
 
 浏览器证据：[日历桌面](../evidence/editorial-calendar-desktop.png)、[日历手机](../evidence/editorial-calendar-mobile.png)、[选题桌面](../evidence/editorial-topic-desktop.png)、[批量确认](../evidence/editorial-batch-desktop.png)、[路由/视口回执](../evidence/editorial-browser-smoke.json)、[两个实际备稿任务回执](../evidence/editorial-run-receipts.json)。两个任务均 completed，内容标题与冻结选题一致；回执采于提交前本地开发进程，git_sha 指向基线，不能当作已发行构建证明。测试后已将测试创作者恢复暂停。首轮脚本曾在 `/auth/login` 的登录后跳转尚未完成时报告“无标题”；已让脚本等待实际内容出现，再复跑通过。不是把首次失败改写为通过。
 
-批量期间事实变更的补充复现：`test_brand_change_between_batch_drafts_is_seen_in_same_worker_session` 在第一篇生成后从另一个 DB session 更新品牌版本，原实现实际调用了两次图（断言应为一次），失败退出 1。根因是 `expire_on_commit=False` 的 Worker 会话持有上一篇的 Brand ORM 对象，`db.get` 命中缓存。修复为每次执行前显式 refresh 品牌证据，刷新后再构建输入状态；第二篇收到 `EDITORIAL_FACTS_STALE`，不调用生成图。完整本地回归已通过；修复后远端检查以 PR #4 当前 head 为准。
+批量期间事实变更的补充复现：`test_brand_change_between_batch_drafts_is_seen_in_same_worker_session` 在第一篇生成后从另一个 DB session 更新品牌版本，原实现实际调用了两次图（断言应为一次），失败退出 1。根因是 `expire_on_commit=False` 的 Worker 会话持有上一篇的 Brand ORM 对象，`db.get` 命中缓存。修复为每次执行前显式 refresh 品牌证据，刷新后再构建输入状态；第二篇收到 `EDITORIAL_FACTS_STALE`，不调用生成图。完整本地与远端回归均通过；PR #4 的文档后续提交不改变已验证代码，最终头检查仍须通过。

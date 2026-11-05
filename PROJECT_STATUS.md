@@ -20,7 +20,7 @@
 | CSV / XLSX 指标导入 | ✅ 基础已实际运行 | 预览、确认、去重、负数/日期校验、来源与窗口、NULL；当前使用固定模板，未实现字段映射 |
 | 成长 / 记忆 / 周报 | ⚠️ 记录汇总 | 展示真实工作区事实；无 AI 周报、策略提案审批、偏好学习 |
 | 可观测与版本 | ⚠️ 基础已实际运行 | OTel spans、脱敏持久事件、运行快照、错误/诊断接口；无生产采集后端、SLO 或告警部署 |
-| CI / 依赖门禁 | ✅ 已实际运行 | [M1 Actions 42051765716](https://github.com/f123-b/tuiguang/actions/runs/42051765716)：PostgreSQL 36 passed，SQLite 35 passed / 1 skipped；Web 与 Python 漏洞扫描全部通过；未配置仓库分支保护 |
+| CI / 依赖门禁 | ✅ 已实际运行 | [M1 Actions 42053502778](https://github.com/f123-b/tuiguang/actions/runs/42053502778)：PostgreSQL 37 passed，SQLite 36 passed / 1 skipped；Web 与 Python 漏洞扫描全部通过；未配置仓库分支保护 |
 | 商业化 / S3 / Tauri / GPU | ❌ 未实现 | 本轮不部署付费或生产服务 |
 | M7 真实用户试点 | ❌ 未运行 | 测试工作区、样例指标和自报记录不是实际运营试点 |
 
