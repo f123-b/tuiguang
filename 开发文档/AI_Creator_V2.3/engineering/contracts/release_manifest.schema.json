@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/creator/release-manifest.schema.json",
+  "title": "Creator release manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "release_id",
+    "released_at",
+    "application_version",
+    "git_sha",
+    "db_schema_version",
+    "video_ir_schema_version",
+    "agent_graph_version",
+    "prompt_versions",
+    "model_revisions",
+    "provider_adapters",
+    "video_templates",
+    "license_inventory_revision"
+  ],
+  "properties": {
+    "release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "released_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_version": {
+      "type": "string"
+    },
+    "git_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "db_schema_version": {
+      "type": "string"
+    },
+    "video_ir_schema_version": {
+      "type": "string"
+    },
+    "agent_graph_version": {
+      "type": "string"
+    },
+    "prompt_versions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "model_revisions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "provider_adapters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "video_templates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "license_inventory_revision": {
+      "type": "string"
+    },
+    "image_digest": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "timezone": "Asia/Shanghai",
+  "schedule": [
+    "* 1-6 * * 1-5"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "prConcurrentLimit": 3,
+  "packageRules": [
+    {
+      "description": "Never automatically merge major dependencies",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Group safe patches for review",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "reviewed patch dependencies"
+    }
+  ],
+  "automerge": false
+}

@@ -1,0 +1,23 @@
+name: Engineering Kit / Template Checks Only
+'on':
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  docs-and-example-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate engineering starter kit
+        run: python engineering/scripts/validate_contracts.py
+      - name: Run example tests
+        run: python -m unittest discover -s engineering/tests -v
+      - name: Check offline prototype JavaScript syntax
+        run: node --check prototype/app.js
+# WARNING: This is NOT a production quality gate. Add real web/API/Agent/video/database
+# checks, secret scanning and SCA before protecting main with required checks.

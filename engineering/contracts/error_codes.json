@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "codes": {
+    "CREATOR_SCHEDULE_DUPLICATE": {
+      "owner": "creator",
+      "retryable": false,
+      "user_message": "今天的同一任务已存在，可直接查看原任务"
+    },
+    "CREATOR_SCHEDULE_PAUSED": {
+      "owner": "creator",
+      "retryable": false,
+      "user_message": "创作者已暂停，未执行新任务"
+    },
+    "AGENT_PLAN_FACT_UNVERIFIED": {
+      "owner": "agent",
+      "retryable": false,
+      "user_message": "产品事实尚未核实，请先确认资料"
+    },
+    "ASSET_LICENSE_UNVERIFIED": {
+      "owner": "asset",
+      "retryable": false,
+      "user_message": "素材授权信息不完整"
+    },
+    "VID_RENDER_RESOURCE_EXHAUSTED": {
+      "owner": "video",
+      "retryable": true,
+      "user_message": "渲染资源不足，可修改配置后重新尝试失败镜头"
+    },
+    "VID_RENDER_PROVIDER_TIMEOUT": {
+      "owner": "video",
+      "retryable": "conditional",
+      "user_message": "视频引擎响应超时，请先核对生成任务状态"
+    },
+    "VID_COMPOSE_FAILED": {
+      "owner": "video",
+      "retryable": true,
+      "user_message": "视频合成失败，可重新执行合成步骤"
+    },
+    "QA_CONTENT_BLOCKED": {
+      "owner": "qa",
+      "retryable": false,
+      "user_message": "内容未通过审核，请检查具体问题"
+    },
+    "HANDOFF_PACKAGE_EXPORT_FAILED": {
+      "owner": "handoff",
+      "retryable": true,
+      "user_message": "发布资料包导出失败"
+    },
+    "METRICS_SOURCE_UNVERIFIED": {
+      "owner": "analytics",
+      "retryable": false,
+      "user_message": "运营数据来源未核实"
+    },
+    "BUDGET_LIMIT_REACHED": {
+      "owner": "billing",
+      "retryable": false,
+      "user_message": "已达到创作预算上限"
+    }
+  }
+}

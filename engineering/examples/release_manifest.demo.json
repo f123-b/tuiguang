@@ -1,0 +1,23 @@
+{
+  "release_id": "demo-not-a-real-release",
+  "released_at": "2026-11-05T00:00:00Z",
+  "application_version": "0.0.0-demo",
+  "git_sha": "0000000000000000000000000000000000000000",
+  "db_schema_version": "design-only",
+  "video_ir_schema_version": "1.0-design",
+  "agent_graph_version": "creator_graph@design",
+  "prompt_versions": {
+    "planner": "design-v1"
+  },
+  "model_revisions": {
+    "video": "not-installed"
+  },
+  "provider_adapters": {
+    "motion_canvas": "not-installed"
+  },
+  "video_templates": {
+    "software_intro": "draft"
+  },
+  "license_inventory_revision": "not-audited",
+  "image_digest": null
+}
