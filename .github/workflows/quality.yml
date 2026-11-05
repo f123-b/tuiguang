@@ -12,6 +12,7 @@ jobs:
   api:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         database: [sqlite, postgres]
     services:
@@ -22,7 +23,9 @@ jobs:
           POSTGRES_PASSWORD: test-only-ci
           POSTGRES_DB: creator_test
         ports: ['5432:5432']
-        options: --health-cmd 'pg_isready -U test' --health-interval 5s --health-timeout 5s --health-retries 10
+        options: >-
+          --health-cmd "pg_isready -U test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
     env:
       PYTHONPATH: services/api
       JWT_SECRET: test-only-ci-secret-at-least-32-characters
