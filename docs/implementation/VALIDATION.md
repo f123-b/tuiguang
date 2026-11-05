@@ -42,3 +42,5 @@
 观察证据：Actions 42027030417 / API PostgreSQL 在容器初始化阶段返回 `docker create: unknown shorthand flag: 'U'`，业务用例尚未启动。原因已由实际命令确认：GitHub runner 将单引号健康检查命令拆开。已改为 Docker 参数接受的双引号并关闭矩阵 fail-fast，让 SQLite / PostgreSQL 分别给出结果。Web 与 Python 漏洞扫描在该轮已通过。修复后的完整结果以最终 Actions 链接为准，不将首轮失败改写为通过。
 
 补充回归：给模型价格配置填入非数字可复现 ValueError，导致原 Worker 中断；新增失败用例后修复为 `AGENT_MODEL_UNCONFIGURED` 持久化失败。回归通过，不执行外部付费请求。
+
+CI 第二次问题：SQLite 矩阵显式传入空 `TEST_DATABASE_URL`，测试 fixture 将空串当成有效连接地址，导致用例收集失败。用相同空环境变量在本机已复现，现改为空值回退隔离 SQLite；该问题不涉及应用数据库配置或生产数据。

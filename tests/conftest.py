@@ -5,7 +5,7 @@ from pathlib import Path
 
 _temp = tempfile.TemporaryDirectory()
 os.environ["DATA_DIR"] = _temp.name
-os.environ["DATABASE_URL"] = os.getenv("TEST_DATABASE_URL", "sqlite:///" + str(Path(_temp.name) / "test.db"))
+os.environ["DATABASE_URL"] = os.getenv("TEST_DATABASE_URL") or "sqlite:///" + str(Path(_temp.name) / "test.db")
 os.environ["JWT_SECRET"] = "test-only-secret-32-characters-or-more"
 os.environ["GENERATION_MODE"] = "template"
 
