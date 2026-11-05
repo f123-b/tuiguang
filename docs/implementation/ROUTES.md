@@ -1,0 +1,40 @@
+# 32 个目标屏幕与本轮实际对应
+
+可访问不等于完整实现。统一 Shell 提供加载、错误、权限错误与空状态；后端以工作区校验权限。本轮深浅主题和 375–1920px 响应式共用同一套 tokens。
+
+| ID | 路由 | 实际页面 / API | 本轮范围 |
+|---|---|---|---|
+| 01 | `/auth/login` | Auth / auth | 邮箱注册登录；手机号未实现 |
+| 02 | `/onboarding/welcome` | Help | 实际功能说明；独立多步向导未实现 |
+| 03 | `/onboarding/brand` | BrandPage / brands | 真实品牌表单，与品牌页共用 |
+| 04 | `/onboarding/creator` | CreatorPage / creators | 频率/时区/预算；保存开启 |
+| 05 | `/onboarding/preview` | CalendarPage / calendar | 14 日规则预览，无 AI 规划 |
+| 06 | `/dashboard` | Overview / dashboard | 真实任务、计数、无数据态 |
+| 07 | `/creator` | CreatorPage / creators | 状态、暂停恢复、今日任务 |
+| 08 | `/creator/edit` | CreatorPage / PATCH creator | 设置真实持久化 |
+| 09 | `/creator/activity` | ActivityPage / creator-runs | 实际状态、错误和跳过未开始任务 |
+| 10 | `/calendar` | CalendarPage / calendar | 规则日历；拖拽与改期未实现 |
+| 11 | `/topics` | CalendarPage | 方向预览；语义去重/选题审批未实现 |
+| 12 | `/topics/:id` | CalendarPage | 复用计划预览；独立详情待实现 |
+| 13 | `/campaigns` | ContentLibrary / content | 真实草稿、筛选、进入编辑 |
+| 14 | `/studio/article/:id` | ArticlePage / content | 编辑、预审、审核、发布包；无多图画布 |
+| 15 | `/studio/covers` | 单个封面模板说明 | 真 PNG 由发布包生成；多模板编辑待做 |
+| 16 | `/studio/assets` | AssetsPage / assets | 上传、来源、许可、哈希、下载 |
+| 17 | `/studio/video/new` | VideoCreate / videos | MG、素材、混合模式；高级引擎明确不可用 |
+| 18 | `/studio/video/:id` | VideoEditor / scenes | 镜头参数、时间线、实际播放/下载 |
+| 19 | `/studio/video/:id/storyboard` | VideoEditor | 复用分镜编辑；拖拽/AI 局部修改待做 |
+| 20 | `/studio/video/:id/render` | VideoEditor / render-jobs | 真后台渲染；完整 QA 面板待做 |
+| 21 | `/compliance` | ContentLibrary | 审核筛选；风险看内容详情 |
+| 22 | `/compliance/:id` | ContentLibrary | 独立逐帧报告待做，不伪造平台审核 |
+| 23 | `/publish` | PublishPage / handoff | 真 ZIP、文案、登记、撤销 |
+| 24 | `/publish/package/:id` | PublishPage | 指定发布包详情；历史失效检查 |
+| 25 | `/publish/guide/:platform` | PublishPage 内指引 | 仅官方站点首页及通用检查；未核实当前平台逐步 UI |
+| 26 | `/publish/record/:id` | PublishPage 内表单 | 五项清单、时区日期、可选安全链接、用户自报 |
+| 27 | `/analytics` | AnalyticsPage / analytics | 真实来源/窗口分组，缺失未知 |
+| 28 | `/analytics/import` | AnalyticsPage / import | 固定 CSV/XLSX 模板，预览确认；自由字段映射待做 |
+| 29 | `/growth` | GrowthPage | 真实记录汇总，AI 周报明确待接入 |
+| 30 | `/growth/memory` | GrowthPage | 偏好记忆/策略版本未实现 |
+| 31 | `/brand` | BrandPage | 事实来源/核实、版本、失效传播 |
+| 32 | `/settings`、`/help` | SettingsPage、HelpPage | 模型状态/预算入口/实际手册；支付与完整隐私导出待做 |
+
+工程扩展 `/ops/diagnostics` 与 `/ops/releases` 展示当前工作区事件和真实开发版本；完整基础设施维护/告警/工单 UI 尚未实施。`packages/schemas/openapi.json` 为实际可用 API，不能根据目标设计表猜测其他接口已经存在。

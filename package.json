@@ -1,0 +1,22 @@
+{
+  "name": "xuliu-creator",
+  "version": "0.1.0-dev",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "packages/ui"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "typecheck": "npm run typecheck --workspace apps/web",
+    "check:boundary": "node scripts/check-boundary.mjs"
+  },
+  "engines": {
+    "node": ">=22.9.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10"
+  }
+}

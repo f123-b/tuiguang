@@ -1,0 +1,134 @@
+{
+  "$defs": {
+    "Shot": {
+      "additionalProperties": false,
+      "properties": {
+        "shot_id": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Shot Id",
+          "type": "string"
+        },
+        "shot_revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Shot Revision",
+          "type": "integer"
+        },
+        "provider": {
+          "enum": [
+            "pillow_mg",
+            "ffmpeg_media",
+            "comfy_wan",
+            "blender"
+          ],
+          "title": "Provider",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "motion_graphics",
+            "screen_demo",
+            "montage",
+            "ai_creative_scene",
+            "three_d"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "duration_frames": {
+          "maximum": 1800,
+          "minimum": 15,
+          "title": "Duration Frames",
+          "type": "integer"
+        },
+        "caption": {
+          "default": "",
+          "maxLength": 180,
+          "title": "Caption",
+          "type": "string"
+        },
+        "asset_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Id"
+        },
+        "locked": {
+          "default": false,
+          "title": "Locked",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "shot_id",
+        "provider",
+        "kind",
+        "duration_frames"
+      ],
+      "title": "Shot",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "brand_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Brand Id",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "width": {
+      "default": 1920,
+      "enum": [
+        1080,
+        1920
+      ],
+      "title": "Width",
+      "type": "integer"
+    },
+    "height": {
+      "default": 1080,
+      "enum": [
+        1080,
+        1920
+      ],
+      "title": "Height",
+      "type": "integer"
+    },
+    "fps": {
+      "const": 30,
+      "default": 30,
+      "title": "Fps",
+      "type": "integer"
+    },
+    "shots": {
+      "items": {
+        "$ref": "#/$defs/Shot"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "title": "Shots",
+      "type": "array"
+    }
+  },
+  "required": [
+    "brand_id",
+    "name",
+    "shots"
+  ],
+  "title": "VideoInput",
+  "type": "object"
+}

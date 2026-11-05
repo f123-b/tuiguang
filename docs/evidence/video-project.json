@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "35d9ee5f7f19487993345a00faecf4e8",
+  "name": "MG 与真实素材混合视频验收",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "shots": [
+    {
+      "shot_id": "s1",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 200,
+      "caption": "产品故事，持续发生",
+      "asset_id": null,
+      "locked": false
+    },
+    {
+      "shot_id": "s2",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "screen_demo",
+      "duration_frames": 200,
+      "caption": "授权素材画面",
+      "asset_id": "05477efbbe734546a4275f28ee6b904e",
+      "locked": false
+    },
+    {
+      "shot_id": "s3",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 200,
+      "caption": "仅修改第三镜头",
+      "asset_id": null,
+      "locked": false
+    }
+  ]
+}
