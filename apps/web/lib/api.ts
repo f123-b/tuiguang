@@ -56,6 +56,26 @@ export type Creator = {
   daily_budget_cents: number;
   monthly_budget_cents: number;
   model_consent: boolean;
+  next_run_at: string | null;
+};
+export type EditorialEntry = {
+  id: string;
+  creator_id: string;
+  date: string;
+  title: string;
+  angle: string;
+  fact_refs: string[];
+  fact_evidence: Fact[];
+  available_facts: Fact[];
+  facts_stale: boolean;
+  brand_revision: number;
+  revision: number;
+  locked: boolean;
+  source: string;
+  rationale: string;
+  status: string;
+  due_at: string;
+  run_id: string | null;
 };
 export type Content = {
   id: string;
@@ -78,6 +98,12 @@ export type Run = {
   trace_id: string;
   error_code: string | null;
   release: Record<string, unknown>;
+  input_snapshot: {
+    entry_id: string;
+    revision: number;
+    title: string;
+    angle: string;
+  } | null;
 };
 export type Asset = {
   id: string;

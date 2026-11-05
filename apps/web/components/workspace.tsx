@@ -55,7 +55,8 @@ import { AssetsPage } from "./pages/assets";
 import { Auth } from "./pages/auth";
 import { BrandPage } from "./pages/brand";
 import { ArticlePage, ContentLibrary } from "./pages/content";
-import { ActivityPage, CalendarPage, CreatorPage } from "./pages/creator";
+import { ActivityPage, CreatorPage } from "./pages/creator";
+import { CalendarPage, TopicPage } from "./pages/editorial";
 import { GrowthPage } from "./pages/growth";
 import { HelpPage } from "./pages/help";
 import { Overview } from "./pages/overview";
@@ -316,7 +317,7 @@ export default function Workspace({ path }: { path: string }) {
             <span className="avatar">{store?.user.name[0] || "我"}</span>
             <span>
               {store?.user.name || "正在加载"}
-              <small>本地开发版 · 0.1.0</small>
+              <small>本地开发版 · 0.2.0</small>
             </span>
             <LogOut size={15} />
           </button>
@@ -496,11 +497,9 @@ function PageContent(props: PageProps) {
     ) : (
       <CreatorPage {...props} />
     );
-  if (
-    ["/calendar", "/topics", "/onboarding/preview"].includes(path) ||
-    path.startsWith("/topics/")
-  )
+  if (["/calendar", "/topics", "/onboarding/preview"].includes(path))
     return <CalendarPage {...props} />;
+  if (path.startsWith("/topics/")) return <TopicPage {...props} />;
   if (path.startsWith("/studio/article/")) return <ArticlePage {...props} />;
   if (path === "/campaigns" || path.startsWith("/compliance"))
     return <ContentLibrary {...props} />;

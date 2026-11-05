@@ -52,6 +52,27 @@
     "CSRF_ORIGIN_DENIED": {
       "module": "main"
     },
+    "EDITORIAL_ALREADY_EXECUTED": {
+      "module": "editorial_api"
+    },
+    "EDITORIAL_APPROVAL_REQUIRED": {
+      "module": "jobs"
+    },
+    "EDITORIAL_DATE_EXPIRED": {
+      "module": "editorial_api"
+    },
+    "EDITORIAL_DATE_INVALID": {
+      "module": "editorial_api"
+    },
+    "EDITORIAL_FACTS_STALE": {
+      "module": "editorial"
+    },
+    "EDITORIAL_PATCH_INVALID": {
+      "module": "editorial_api"
+    },
+    "EDITORIAL_REVISION_CONFLICT": {
+      "module": "jobs"
+    },
     "HANDOFF_DATE_INVALID": {
       "module": "main"
     },
@@ -75,6 +96,9 @@
     },
     "MODEL_CONSENT_REQUIRED": {
       "module": "jobs"
+    },
+    "NOT_FOUND": {
+      "module": "editorial_api"
     },
     "QA_CONTENT_BLOCKED": {
       "module": "main"

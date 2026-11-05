@@ -12,7 +12,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from opentelemetry import propagate
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from PIL import Image, UnidentifiedImageError
-from sqlalchemy import delete, select
+from sqlalchemy import delete, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -34,12 +34,15 @@ from .domains import (
     valid_publication_url,
 )
 from .errors import DomainError
+from .editorial import ensure_plan, lock_creator, serialize_creator
+from .editorial_api import router as editorial_router
 from .jobs import budget_used, enqueue
 from .models import (
     Asset,
     Brand,
     Content,
     Creator,
+    EditorialEntry,
     Event,
     Handoff,
     ImportBatch,
@@ -56,11 +59,12 @@ from .video import PROVIDERS, probe, validate_ir
 
 app = FastAPI(
     title="叙流 · AI 持续创作者",
-    version="0.1.0-dev",
+    version="0.2.0-dev",
     openapi_url="/api/v1/openapi.json",
     docs_url="/api/docs",
     redoc_url=None,
 )
+app.include_router(editorial_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -123,7 +127,7 @@ async def validation_error(request, error):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.1.0-dev"}
+    return {"status": "ok", "version": "0.2.0-dev"}
 
 
 def set_session(response, token):
@@ -274,7 +278,8 @@ def download_asset(asset_id: str, db: DB, user: Actor):
 @app.get("/api/v1/creators")
 def creators(db: DB, user: Actor):
     return [
-        serialize(c) for c in db.scalars(select(Creator).where(Creator.workspace_id == user.workspace_id))
+        serialize_creator(db, c)
+        for c in db.scalars(select(Creator).where(Creator.workspace_id == user.workspace_id))
     ]
 
 
@@ -285,32 +290,37 @@ def create_creator(data: s.CreatorInput, db: DB, user: Actor):
         raise DomainError("CREATOR_LIMIT_REACHED", "首版支持一个持续创作者，可编辑现有设置")
     creator = Creator(workspace_id=user.workspace_id, **data.model_dump())
     db.add(creator)
+    db.flush()
+    ensure_plan(db, creator)
     db.commit()
-    return serialize(creator)
+    return serialize_creator(db, creator)
 
 
 @app.get("/api/v1/creators/{creator_id}")
 def get_creator(creator_id: str, db: DB, user: Actor):
-    return serialize(owned(db, Creator, creator_id, user.workspace_id))
+    return serialize_creator(db, owned(db, Creator, creator_id, user.workspace_id))
 
 
 @app.patch("/api/v1/creators/{creator_id}")
 def edit_creator(creator_id: str, data: s.CreatorInput, db: DB, user: Actor):
     creator = owned(db, Creator, creator_id, user.workspace_id)
     owned(db, Brand, data.brand_id, user.workspace_id)
+    lock_creator(db, creator)
     for key, value in data.model_dump().items():
         setattr(creator, key, value)
+    ensure_plan(db, creator)
     db.commit()
-    return serialize(creator)
+    return serialize_creator(db, creator)
 
 
 @app.post("/api/v1/creators/{creator_id}/pause")
 def pause_creator(creator_id: str, db: DB, user: Actor, request: Request):
     creator = owned(db, Creator, creator_id, user.workspace_id)
+    lock_creator(db, creator)
     creator.status = "paused_by_user"
     record(db, user.workspace_id, request.state.trace_id, "creator.pause", "ok")
     db.commit()
-    return serialize(creator)
+    return serialize_creator(db, creator)
 
 
 @app.post("/api/v1/creators/{creator_id}/resume")
@@ -318,6 +328,7 @@ def resume_creator(creator_id: str, db: DB, user: Actor):
     from .models import BudgetEntry
 
     creator = owned(db, Creator, creator_id, user.workspace_id)
+    lock_creator(db, creator)
     unresolved = db.scalar(
         select(BudgetEntry).where(BudgetEntry.creator_id == creator.id, BudgetEntry.status == "reserved")
     )
@@ -325,7 +336,9 @@ def resume_creator(creator_id: str, db: DB, user: Actor):
         raise DomainError("AGENT_PROVIDER_RESULT_UNKNOWN", "有未核对的模型费用，暂不能恢复")
     creator.status = "active"
     db.commit()
-    return serialize(creator)
+    ensure_plan(db, creator)
+    db.commit()
+    return serialize_creator(db, creator)
 
 
 @app.post("/api/v1/creators/{creator_id}/run-today")
@@ -342,24 +355,6 @@ def run_today(
     run, created = enqueue(db, creator, day, idempotency_key, request.state.trace_id)
     response.status_code = 201 if created else 200
     return serialize(run)
-
-
-@app.get("/api/v1/creators/{creator_id}/calendar")
-def calendar(creator_id: str, db: DB, user: Actor):
-    from .agent import ANGLES
-
-    creator = owned(db, Creator, creator_id, user.workspace_id)
-    start = datetime.now(ZoneInfo(creator.timezone)).date()
-    return [
-        {
-            "date": (start + timedelta(days=d)).isoformat(),
-            "title": ANGLES[(start.toordinal() + d) % 14],
-            "scheduled": (start + timedelta(days=d)).weekday() in creator.weekdays,
-            "kind": "article",
-            "source": "rule_based_plan",
-        }
-        for d in range(14)
-    ]
 
 
 @app.get("/api/v1/creator-runs")
@@ -417,9 +412,15 @@ def run_diagnostic(run_id: str, db: DB, user: Actor):
 @app.post("/api/v1/creator-runs/{run_id}/skip")
 def skip_run(run_id: str, db: DB, user: Actor):
     run = owned(db, Run, run_id, user.workspace_id)
-    if run.status != "queued":
+    changed = db.execute(
+        update(Run)
+        .where(Run.id == run.id, Run.status == "queued")
+        .values(status="skipped", stage="user_skipped")
+    )
+    if changed.rowcount != 1:
         raise DomainError("RUN_NOT_SKIPPABLE", "只能跳过尚未开始的任务")
-    run.status, run.stage = "skipped", "user_skipped"
+    if run.editorial_entry_id:
+        db.get(EditorialEntry, run.editorial_entry_id).status = "skipped"
     db.commit()
     return serialize(run)
 

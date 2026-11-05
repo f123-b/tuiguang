@@ -77,6 +77,11 @@ export const statusLabels: Record<string, string> = {
   user_reported_published: "用户登记已发布",
   ready: "成片就绪",
   needs_human_review: "需人工复核",
+  planned: "待确认选题",
+  approved: "已确认选题",
+  rest: "休息日",
+  needs_review: "事实需复核",
+  expired: "已过期",
 };
 
 export function StatusBadge({ status }: { status: string }) {

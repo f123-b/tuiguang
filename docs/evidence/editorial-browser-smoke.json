@@ -1,0 +1,504 @@
+{
+  "routes": [
+    {
+      "route": "/auth/login",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让产品的故事，持续发生。",
+        "叙流内容官（验收测试），为下一次分享做准备",
+        "今日创作流程",
+        "需要你关注",
+        "最近的内容",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流计划验收：核对事实来源",
+        "叙流计划验收：核对事实来源",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/welcome",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "从第一篇内容，到持续创作",
+        "告诉创作者，什么是真的",
+        "设定你的创作节奏",
+        "把内容调整到你满意",
+        "让产品故事动起来",
+        "最后的发布，由你完成",
+        "让真实数据回流"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/brand",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "真实的产品，是好内容的起点",
+        "编辑品牌资料",
+        "让每一个卖点都有出处",
+        "已记录的事实"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/creator",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "为创作设定一个好节奏"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/preview",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把未来的创作，安排妥当"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让产品的故事，持续发生。",
+        "叙流内容官（验收测试），为下一次分享做准备",
+        "今日创作流程",
+        "需要你关注",
+        "最近的内容",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流计划验收：核对事实来源",
+        "叙流计划验收：核对事实来源",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/creator",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "叙流内容官（验收测试）",
+        "叙流内容官（验收测试）",
+        "¥5.00",
+        "¥100.00",
+        "每周 7 天",
+        "下一次制作",
+        "开始一次真实创作"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/creator/edit",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "为创作设定一个好节奏"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/creator/activity",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "每一步创作，都有迹可循"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把未来的创作，安排妥当"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/topics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把未来的创作，安排妥当"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "叙流计划验收：核对事实来源",
+        "选题与依据",
+        "确认制作安排"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/campaigns",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把真实的价值，写成好内容",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流计划验收：核对事实来源",
+        "叙流计划验收：核对事实来源",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/a7ae964d85db4d8797966d07fbff8c54",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把每一句话，调整到恰到好处",
+        "叙流开发版（验收测试） · 使用前检查",
+        "内容预审与人工复核"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "封面模板",
+        "让产品的故事被更多人看见"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/assets",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让每一份素材，都有清楚的来处",
+        "上传品牌素材",
+        "素材库 0",
+        "素材库等待你的第一份资料"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/new",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "一个故事，可以有很多种表达",
+        "建立可编辑的视频工程",
+        "我的视频项目"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/afd2c0957ca1444fac5d23230d4afa62",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "MG 宣传片（验收测试）",
+        "分镜列表",
+        "统一时间线",
+        "镜头属性"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/afd2c0957ca1444fac5d23230d4afa62/storyboard",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "MG 宣传片（验收测试）",
+        "分镜列表",
+        "统一时间线",
+        "镜头属性"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/afd2c0957ca1444fac5d23230d4afa62/render",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "MG 宣传片（验收测试）",
+        "分镜列表",
+        "统一时间线",
+        "镜头属性"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/compliance",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "好内容，经得起再看一眼",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流计划验收：核对事实来源",
+        "叙流计划验收：核对事实来源",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/compliance/a7ae964d85db4d8797966d07fbff8c54",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "好内容，经得起再看一眼",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流开发版（验收测试） · 使用前检查",
+        "叙流计划验收：核对事实来源",
+        "叙流计划验收：核对事实来源",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "已保存你的发布登记",
+        "用户登记已发布"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish/package/8009ad07ef534682aff0dcd08b225d4f",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "已保存你的发布登记",
+        "用户登记已发布"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish/guide/xiaohongshu",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "已保存你的发布登记",
+        "用户登记已发布"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish/record/8009ad07ef534682aff0dcd08b225d4f",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "叙流开发版（验收测试） · 真实体验记录",
+        "已保存你的发布登记",
+        "用户登记已发布"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/analytics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "用事实看效果，让数据有出处",
+        "小红书 · 2026-11-03 — 2026-11-04"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/analytics/import",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让真实的反馈，回到创作里",
+        "上传 → 校验预览 → 确认入库",
+        "小红书 · 2026-11-03 — 2026-11-04"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "每一次迭代，都从真实反馈开始",
+        "观察到的事实",
+        "尚不能确定",
+        "下一步可以做",
+        "AI 周报与策略学习，待下一阶段接入"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/growth/memory",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "每一次迭代，都从真实反馈开始",
+        "观察到的事实",
+        "尚不能确定",
+        "下一步可以做",
+        "AI 周报与策略学习，待下一阶段接入"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "真实的产品，是好内容的起点",
+        "编辑品牌资料",
+        "让每一个卖点都有出处",
+        "已记录的事实"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "清楚的设置，安心的创作",
+        "模型与费用",
+        "工作区与数据"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/help",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "从第一篇内容，到持续创作",
+        "告诉创作者，什么是真的",
+        "设定你的创作节奏",
+        "把内容调整到你满意",
+        "让产品故事动起来",
+        "最后的发布，由你完成",
+        "让真实数据回流"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/ops/diagnostics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "诊断与维护"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/ops/releases",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "运行版本清单"
+      ],
+      "overflow": false
+    }
+  ],
+  "viewports": [
+    {
+      "route": "/dashboard",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "width": 1024,
+      "document": 1024,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "width": 1440,
+      "document": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/topics/8a522ac13bde43bfa4cc0484d41162b4",
+      "width": 1920,
+      "document": 1920,
+      "overflow": false
+    }
+  ]
+}

@@ -2,9 +2,7 @@
 import { Badge, Button, Card, EmptyState, StatusBadge } from "@xuliu/ui";
 import {
   ArrowRight,
-  CalendarDays,
   ChevronRight,
-  FileText,
   Pause,
   Play,
   Settings2,
@@ -12,7 +10,6 @@ import {
   WandSparkles,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { api, post } from "../../lib/api";
 
 import {
@@ -265,6 +262,25 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
           </div>
           <Card>
             <div className="section-heading">
+              <h2>下一次制作</h2>
+              <Link href="/calendar">
+                管理已确认选题
+                <ChevronRight size={15} />
+              </Link>
+            </div>
+            <p>
+              {creator.next_run_at
+                ? new Date(creator.next_run_at).toLocaleString("zh-CN", {
+                    timeZone: creator.timezone,
+                    hour12: false,
+                  }) + `（${creator.timezone}）`
+                : creator.status !== "active"
+                  ? "创作者已暂停，恢复后按照已确认计划继续。"
+                  : "暂无可执行选题，请在日历补齐并确认计划。"}
+            </p>
+          </Card>
+          <Card>
+            <div className="section-heading">
               <h2>开始一次真实创作</h2>
               <Link href="/creator/activity">
                 查看运行日志
@@ -272,7 +288,7 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
               </Link>
             </div>
             <p>
-              按照已核实的品牌事实准备今日草稿，任务会持久保存，重启后可以继续处理。
+              按照日历中已确认的今日选题准备草稿，任务会持久保存，重启后可以继续处理。选题已跳过或待确认时，请先在日历调整。
             </p>
             <Button
               disabled={busy || creator.status !== "active"}
@@ -363,89 +379,6 @@ export function ActivityPage({ store, action, busy }: PageProps) {
           />
         )}
       </Card>
-    </>
-  );
-}
-
-export function CalendarPage({ store }: PageProps) {
-  const [days, setDays] = useState<
-    { date: string; title: string; scheduled: boolean }[]
-  >([]);
-  const [error, setError] = useState("");
-  const creator = store.creators[0];
-  useEffect(() => {
-    if (creator)
-      api<typeof days>(`/creators/${creator.id}/calendar`)
-        .then(setDays)
-        .catch((e) => setError(e.message));
-  }, [creator]);
-  return (
-    <>
-      <PageHeader
-        eyebrow="EDITORIAL CALENDAR"
-        title="给未来的创作，留一点期待"
-        description="未来 14 天规则计划预览。这里安排内容制作时间，发布由你自行完成。"
-      >
-        <Link className="button secondary" href="/creator/edit">
-          <Settings2 size={15} />
-          调整创作频率
-        </Link>
-      </PageHeader>
-      {error && (
-        <div role="alert" className="alert danger">
-          {error}
-        </div>
-      )}
-      {creator ? (
-        <>
-          <div className="info-strip">
-            <CalendarDays size={18} />
-            <span>
-              {creator.timezone} · {creator.hour}:00 开始准备
-            </span>
-            <Badge>规则计划 · 未调用模型</Badge>
-          </div>
-          <div className="calendar-grid">
-            {days.map((d, i) => (
-              <Card
-                className={`calendar-day ${!d.scheduled ? "off" : ""}`}
-                key={d.date}
-              >
-                <div>
-                  <span>
-                    {new Date(d.date + "T12:00:00").toLocaleDateString(
-                      "zh-CN",
-                      { weekday: "short" },
-                    )}
-                  </span>
-                  {i === 0 && <Badge tone="blue">今天</Badge>}
-                </div>
-                <h2>{d.date.slice(8)}</h2>
-                {d.scheduled ? (
-                  <div className="calendar-topic">
-                    <FileText size={14} />
-                    <strong>{d.title}</strong>
-                    <small>根据真实品牌事实准备</small>
-                  </div>
-                ) : (
-                  <p>休息日</p>
-                )}
-                <small>{d.date.slice(0, 7)}</small>
-              </Card>
-            ))}
-          </div>
-        </>
-      ) : (
-        <EmptyState
-          title="先设定创作节奏"
-          description="创建你的创作者后，未来的内容方向会出现在这里。"
-          action={
-            <Link className="button primary" href="/creator">
-              创建创作者
-            </Link>
-          }
-        />
-      )}
     </>
   );
 }

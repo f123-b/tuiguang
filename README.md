@@ -2,7 +2,7 @@
 
 让产品的故事，持续发生。根据用户提供的 V2.3 设计文档开发。
 
-**当前：0.1.0-dev / M0 首轮开发基线。** 可以在本地运行真实的品牌事实、持续任务、图文编辑、视频制作、审核、ZIP 下载、用户发布登记和报表导入。完整商业版本的进度见 [PROJECT_STATUS.md](PROJECT_STATUS.md)，不将原型或未接入的服务算作完成。
+**当前：0.2.0-dev / M1 选题计划增量。** 可以在本地运行真实的品牌事实、持续任务、选题编辑/确认/改期、批量备稿、图文编辑、视频制作、审核、ZIP 下载、用户发布登记和报表导入。完整商业版本的进度见 [PROJECT_STATUS.md](PROJECT_STATUS.md)，不将原型或未接入的服务算作完成。
 
 AI 负责准备内容；你在第三方平台官方页面亲自上传并发布。软件不需要社媒凭据，登记始终显示“用户自行登记，未经平台验证”。
 
@@ -37,7 +37,8 @@ npm run dev
 ## 能实际操作的功能
 
 - 邮箱注册、密码哈希、JWT HttpOnly 会话和退出撤销；所有业务资源按工作区隔离。
-- 一个品牌、一个创作者：事实来源与用户核实、时区、每周频率、预算、暂停/恢复、日任务幂等、14 天规则计划预览。
+- 一个品牌、一个创作者：事实来源与用户核实、时区、每周频率、预算、暂停/恢复、日任务幂等、真实持久化的 14 天计划。
+- 选题可编辑、锁定、跳过、交换日期；改题后重新确认。每次最多确认提前准备 7 篇，执行依据冻结，模型预算计入实际执行日；默认七种规则稿结构，不宣称 AI 热度分析或语义去重。
 - LangGraph 事实约束流程；默认明确标注 **本地规则草稿**。编辑后必须重新审核，品牌事实变更会使待发布包失效。
 - 本地 MG 动画（Pillow）与真实素材/录屏混剪（FFmpeg）；独立 VideoProjectIR、镜头级修改、内容缓存、1920×1080 或 1080×1920 MP4、工程 JSON 导出。当前音轨为静音，TTS / BGM 待接入。
 - 真正生成 PNG 封面、文案、出处与检查表的 ZIP 文件；无任何第三方平台发帖请求。
@@ -83,5 +84,5 @@ npm.cmd run check:boundary
 - [实际模块地图](docs/architecture/IMPLEMENTED_MODULES.md) / [32 个屏幕对应表](docs/implementation/ROUTES.md)
 - [OpenAPI](packages/schemas/openapi.json)，API 启动后 http://localhost:8000/api/docs
 - [实际操作手册](docs/implementation/LOCAL_USER_GUIDE.md) / [备份与恢复](docs/implementation/RECOVERY.md)
-- [开发任务](docs/implementation/M0_TASK.md) / [许可证与供应链台账](LICENSE_INVENTORY.md)
+- [M0 基线任务](docs/implementation/M0_TASK.md) / [本轮 M1 任务](docs/implementation/M1_TASK.md) / [本轮验收](docs/implementation/M1_VALIDATION.md) / [许可证与供应链台账](LICENSE_INVENTORY.md)
 - [原始业务基线](docs/01_产品完整开发方案_人工发布版.md)；`开发文档/` 中的用户原始设计包保留不动。

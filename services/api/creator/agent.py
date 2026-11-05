@@ -14,6 +14,7 @@ class DraftState(TypedDict, total=False):
     day: str
     facts: list[dict]
     draft: dict
+    plan: dict
 
 
 ANGLES = [
@@ -36,6 +37,8 @@ ANGLES = [
 
 def select_facts(state):
     facts = [f for f in state["brand"]["facts"] if f["verified"]]
+    if state.get("plan"):
+        facts = [f for f in facts if f["id"] in state["plan"]["fact_refs"]]
     if not facts:
         raise DomainError("AGENT_PLAN_FACT_UNVERIFIED", "请至少确认一条有来源的产品事实")
     return {"facts": facts}
@@ -90,6 +93,14 @@ def model_messages(state):
                     "style": state["creator"]["style"],
                     "facts": state["facts"],
                     "day": state["day"],
+                    **(
+                        {
+                            "confirmed_topic": state["plan"],
+                            "title_instruction": "使用已确认的标题，正文围绕已确认角度撰写",
+                        }
+                        if state.get("plan")
+                        else {}
+                    ),
                 },
                 ensure_ascii=False,
             ),
@@ -113,6 +124,8 @@ def write_draft(state):
     if os.getenv("GENERATION_MODE", "template") != "openai":
         from datetime import date
 
+        if state.get("plan"):
+            return {"draft": planned_draft(state)}
         angle = ANGLES[date.fromisoformat(state["day"]).toordinal() % len(ANGLES)]
         fact = state["facts"][date.fromisoformat(state["day"]).toordinal() % len(state["facts"])]
         return {
@@ -160,11 +173,66 @@ def write_draft(state):
             / 1_000_000
         )
         draft.update(generation_source="openai", actual_cents=actual)
+        if state.get("plan"):
+            draft["title"] = state["plan"]["title"]
         return {"draft": draft}
     except (httpx.HTTPError, ValueError, KeyError, TypeError):
         raise DomainError(
             "AGENT_PROVIDER_RESULT_UNKNOWN", "模型请求结果或费用待核对，已停止自动重试"
         ) from None
+
+
+def planned_draft(state):
+    """Distinct editorial structures, with claims limited to verified evidence."""
+    plan = state["plan"]
+    angle = plan["angle"]
+    index = ANGLES.index(angle) % 7
+    evidence = "\n".join(f"• {f['claim']}\n  来源：{f['source']}" for f in state["facts"])
+    structures = [
+        (
+            "先看一个已确认的功能",
+            "下面是本次介绍的事实清单：",
+            "了解这项功能后，再结合自己的需求判断是否适用。",
+        ),
+        (
+            "开始之前，先明确目标",
+            "可作为入门参考的已知信息：",
+            "建议先在实际版本中核对界面和操作入口，再尝试使用。",
+        ),
+        (
+            "使用前的核对笔记",
+            "第一步：核对资料。当前有来源的信息是：",
+            "第二步：核对实际版本。第三步：结合自己的文件和场景验证，未验证的效果暂不下结论。",
+        ),
+        (
+            "把操作记录写清楚",
+            "记录的事实依据：",
+            "待补充的体验记录：使用环境、操作过程、遇到的问题。补齐记录后再分享具体结论。",
+        ),
+        (
+            "从自己的使用场景出发",
+            "判断是否适合时，可以先参考：",
+            "可以列出你的目标、输入资料和预期结果，与实际体验逐项对照。",
+        ),
+        (
+            "一个常见问题：目前能确认什么？",
+            "有来源的回答：",
+            "其他功能、适用限制和效果仍需向官方资料或实际版本核实。",
+        ),
+        (
+            "本周资料回顾",
+            "本次回顾中可追溯的信息：",
+            "下一步：补充实际体验与反馈来源，区分已确认事实和待验证想法。",
+        ),
+    ]
+    opening, lead, ending = structures[index]
+    return {
+        "title": plan["title"],
+        "body": f"{state['brand']['name']}｜{angle}\n\n{opening}\n\n{lead}\n{evidence}\n\n{ending}\n\n本地规则草稿；发布前请复核事实、实际版本与 AI 内容标识。",
+        "fact_refs": [f["id"] for f in state["facts"]],
+        "generation_source": "template",
+        "actual_cents": 0,
+    }
 
 
 builder = StateGraph(DraftState)

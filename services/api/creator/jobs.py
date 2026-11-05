@@ -7,29 +7,46 @@ from sqlalchemy.exc import IntegrityError
 
 from .agent import estimated_reservation, graph, select_facts
 from .domains import compliance_report, serialize
+from .editorial import ensure_plan, local_today, lock_creator, snapshot, validate_facts
 from .errors import DomainError
-from .models import Brand, BudgetEntry, Content, Creator, Run
+from .models import Brand, BudgetEntry, Content, Creator, EditorialEntry, Run
 from .observability import record, release_manifest, tracer, trace_context
 
 
-def enqueue(db, creator, day, key, trace_id=None):
+def enqueue(db, creator, day, key, trace_id=None, entry=None, commit=True):
+    lock_creator(db, creator)
     if creator.status != "active":
         raise DomainError("CREATOR_SCHEDULE_PAUSED", "创作者已暂停，未执行新任务")
     existing = db.scalar(select(Run).where(Run.creator_id == creator.id, Run.operational_date == day))
     if existing:
         return existing, False
+    entry = entry or db.scalar(
+        select(EditorialEntry).where(
+            EditorialEntry.creator_id == creator.id,
+            EditorialEntry.date == day,
+        )
+    )
+    if entry:
+        db.refresh(entry)
+        if entry.status != "approved":
+            raise DomainError("EDITORIAL_APPROVAL_REQUIRED", "该选题尚未确认或已跳过")
+        validate_facts(db, creator, entry)
     run = Run(
         workspace_id=creator.workspace_id,
         creator_id=creator.id,
         operational_date=day,
         idempotency_key=key,
         release=release_manifest(),
+        editorial_entry_id=entry.id if entry else None,
+        input_snapshot=snapshot(entry) if entry else None,
     )
     if trace_id:
         run.trace_id = trace_id
     db.add(run)
     try:
-        db.commit()
+        if entry:
+            entry.status = "queued"
+        db.flush()
         record(
             db,
             creator.workspace_id,
@@ -39,7 +56,8 @@ def enqueue(db, creator, day, key, trace_id=None):
             run.id,
             release_id=run.release["release_id"],
         )
-        db.commit()
+        if commit:
+            db.commit()
         return run, True
     except IntegrityError:
         db.rollback()
@@ -53,46 +71,65 @@ def schedule_due(db, now=None):
     now = now or datetime.now(timezone.utc)
     for creator in db.scalars(select(Creator).where(Creator.status == "active")).all():
         local = now.astimezone(ZoneInfo(creator.timezone))
-        if local.weekday() in creator.weekdays and local.hour >= creator.hour:
-            enqueue(db, creator, local.date().isoformat(), f"daily:{creator.id}:{local.date()}")
+        plan = ensure_plan(db, creator, local.date())
+        for old in db.scalars(
+            select(EditorialEntry).where(
+                EditorialEntry.creator_id == creator.id,
+                EditorialEntry.date < local.date().isoformat(),
+                EditorialEntry.status.in_(["approved", "planned", "rest"]),
+            )
+        ):
+            old.status = "expired"
+        db.commit()
+        entry = next((e for e in plan if e.date == local.date().isoformat()), None)
+        if entry and entry.status == "approved" and local.hour >= creator.hour:
+            try:
+                enqueue(db, creator, entry.date, f"daily:{creator.id}:{local.date()}", entry=entry)
+            except DomainError as error:
+                db.rollback()
+                if error.code == "EDITORIAL_FACTS_STALE":
+                    db.refresh(entry)
+                    entry.status = "needs_review"
+                    db.commit()
+                elif error.code != "CREATOR_SCHEDULE_PAUSED":
+                    raise
 
 
 def reserve_budget(db, creator, run, amount):
     # Acquire a write lock before reading the ledger (also serializes SQLite writers).
-    db.execute(update(Creator).where(Creator.id == creator.id).values(status=Creator.status))
-    db.refresh(creator)
+    lock_creator(db, creator)
     if creator.status != "active":
         raise DomainError("CREATOR_SCHEDULE_PAUSED", "创作者已暂停")
     prior = db.scalar(select(BudgetEntry).where(BudgetEntry.run_id == run.id))
-    if prior:
-        if prior.reserved_cents == 0 or prior.status == "cancelled":
-            prior.status, prior.reserved_cents, prior.actual_cents = "reserved", amount, None
-            db.commit()
-            return prior
+    if prior and prior.reserved_cents != 0 and prior.status != "cancelled":
         raise DomainError("AGENT_PROVIDER_RESULT_UNKNOWN", "存在费用预留记录，须人工核对后继续")
+    billing_day = local_today(creator).isoformat()
     entries = db.scalars(
         select(BudgetEntry).where(
             BudgetEntry.creator_id == creator.id,
-            BudgetEntry.operational_date.like(run.operational_date[:7] + "%"),
+            func.coalesce(BudgetEntry.billing_date, BudgetEntry.operational_date).like(billing_day[:7] + "%"),
+            BudgetEntry.run_id != run.id,
         )
     ).all()
     month_total = sum(e.actual_cents if e.actual_cents is not None else e.reserved_cents for e in entries)
     day_total = sum(
         e.actual_cents if e.actual_cents is not None else e.reserved_cents
         for e in entries
-        if e.operational_date == run.operational_date
+        if (e.billing_date or e.operational_date) == billing_day
     )
     if amount + day_total > creator.daily_budget_cents or amount + month_total > creator.monthly_budget_cents:
         creator.status = "paused_by_budget"
         db.commit()
         raise DomainError("BUDGET_LIMIT_REACHED", "已达到创作预算上限")
-    ledger = BudgetEntry(
+    ledger = prior or BudgetEntry(
         workspace_id=creator.workspace_id,
         creator_id=creator.id,
         run_id=run.id,
         operational_date=run.operational_date,
         reserved_cents=amount,
     )
+    ledger.billing_date = billing_day
+    ledger.status, ledger.reserved_cents, ledger.actual_cents = "reserved", amount, None
     db.add(ledger)
     db.commit()
     return ledger
@@ -111,7 +148,7 @@ def process_pending(db):
         if creator.status != "active":
             continue
         current_release = release_manifest()
-        if run.release["agent_graph_version"] != "creator_graph@1" or any(
+        if run.release["agent_graph_version"] not in {"creator_graph@1", "creator_graph@2"} or any(
             run.release.get(k) != current_release.get(k)
             for k in ("generation_mode", "model_id", "model_revision")
         ):
@@ -134,10 +171,23 @@ def process_pending(db):
             existing = db.scalar(select(Content).where(Content.run_id == run.id))
             if existing:
                 run.status = "completed"
+                if run.editorial_entry_id:
+                    db.get(EditorialEntry, run.editorial_entry_id).status = "completed"
                 db.commit()
                 continue
             brand = db.get(Brand, creator.brand_id)
+            plan = None
+            if run.input_snapshot:
+                entry = db.get(EditorialEntry, run.editorial_entry_id)
+                if not entry or snapshot(entry) != run.input_snapshot:
+                    raise DomainError("EDITORIAL_REVISION_CONFLICT", "执行计划版本不一致，任务已停止")
+                validate_facts(db, creator, entry)
+                plan = run.input_snapshot
+            else:
+                db.refresh(brand)
             state = {"brand": serialize(brand), "creator": serialize(creator), "day": run.operational_date}
+            if plan:
+                state["plan"] = plan
             run.stage = "content.script"
             db.commit()
             state.update(select_facts(state))
@@ -176,6 +226,8 @@ def process_pending(db):
             content.compliance = compliance_report(db, content)
             ledger.status, ledger.actual_cents = "settled", result["actual_cents"]
             run.status, run.stage, run.error_code = "completed", "awaiting_user_review", None
+            if run.editorial_entry_id:
+                db.get(EditorialEntry, run.editorial_entry_id).status = "completed"
             record(
                 db,
                 creator.workspace_id,
@@ -192,6 +244,9 @@ def process_pending(db):
             db.rollback()
             run = db.get(Run, run.id)
             run.status, run.error_code = "failed", error.code
+            if run.editorial_entry_id:
+                entry = db.get(EditorialEntry, run.editorial_entry_id)
+                entry.status = "needs_review" if error.code == "EDITORIAL_FACTS_STALE" else "failed"
             if error.code == "AGENT_PROVIDER_RESULT_UNKNOWN":
                 creator = db.get(Creator, run.creator_id)
                 creator.status = "paused_by_error"
