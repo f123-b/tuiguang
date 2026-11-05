@@ -5,7 +5,7 @@
 | 验收 | 实际操作或命令 | 结果 |
 |---|---|---|
 | 功能先失败 | `python -m pytest tests/test_editorial.py -q`，实现前 | 7 failed，POST plan 404，退出 1 |
-| 完整业务回归 | `.venv/Scripts/python.exe -m pytest -q` | 35 passed / 1 skipped，退出 0；跳过为本机没有 PostgreSQL 服务 |
+| 完整业务回归 | `.venv/Scripts/python.exe -m pytest -q` | 批量事实缓存修复后 36 passed / 1 skipped，退出 0；跳过为本机没有 PostgreSQL 服务 |
 | Python 静态检查 | `python -m ruff check services tests infra scripts` | All checks passed，退出 0 |
 | TS / 生产构建 | `npm.cmd run typecheck`、`npm.cmd run build` | 均退出 0 |
 | 边界 | `npm.cmd run check:boundary` | 44 个源码/配置文件通过；既有禁止出网的完整交接测试仍通过 |
@@ -33,3 +33,5 @@
 回滚：先暂停创作者、停止新 Worker，保留 0002 扩展结构和备份；旧 Worker 不理解新计划确认/计费日期，不能继续处理新任务。完整回退从升级前备份在隔离目录恢复并验证，禁止危险 downgrade。详见 [恢复手册](RECOVERY.md)。未部署生产服务。
 
 浏览器证据：[日历桌面](../evidence/editorial-calendar-desktop.png)、[日历手机](../evidence/editorial-calendar-mobile.png)、[选题桌面](../evidence/editorial-topic-desktop.png)、[批量确认](../evidence/editorial-batch-desktop.png)、[路由/视口回执](../evidence/editorial-browser-smoke.json)、[两个实际备稿任务回执](../evidence/editorial-run-receipts.json)。两个任务均 completed，内容标题与冻结选题一致；回执采于提交前本地开发进程，git_sha 指向基线，不能当作已发行构建证明。测试后已将测试创作者恢复暂停。首轮脚本曾在 `/auth/login` 的登录后跳转尚未完成时报告“无标题”；已让脚本等待实际内容出现，再复跑通过。不是把首次失败改写为通过。
+
+批量期间事实变更的补充复现：`test_brand_change_between_batch_drafts_is_seen_in_same_worker_session` 在第一篇生成后从另一个 DB session 更新品牌版本，原实现实际调用了两次图（断言应为一次），失败退出 1。根因是 `expire_on_commit=False` 的 Worker 会话持有上一篇的 Brand ORM 对象，`db.get` 命中缓存。修复为每次执行前显式 refresh 品牌证据，刷新后再构建输入状态；第二篇收到 `EDITORIAL_FACTS_STALE`，不调用生成图。完整本地回归已通过；修复后远端检查以 PR #4 当前 head 为准。

@@ -83,6 +83,9 @@ def ensure_plan(db, creator, start=None):
 
 def validate_facts(db, creator, entry):
     brand = db.get(Brand, creator.brand_id)
+    # Worker sessions may process several drafts; expire cached brand evidence
+    # before each execution so updates in another API session are observed.
+    db.refresh(brand)
     verified = {f["id"]: f for f in brand.facts if f["verified"]}
     if (
         entry.brand_revision != brand.revision

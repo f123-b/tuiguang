@@ -284,6 +284,38 @@ def test_plan_permissions_and_fact_freshness(client, creator_profile):
     assert client.post(f"/api/v1/topics/{entry['id']}/skip", json={"expected_revision": 1}).status_code == 404
 
 
+def test_brand_change_between_batch_drafts_is_seen_in_same_worker_session(
+    client, creator_profile, monkeypatch
+):
+    entries = plan(client, creator_profile)[:2]
+    endpoint = f"/api/v1/creators/{creator_profile['id']}/prepare"
+    assert client.post(endpoint, json=preparation(*entries)).status_code == 200
+    from creator.jobs import graph
+
+    original = graph.invoke
+    calls = []
+
+    def change_after_first(state):
+        result = original(state)
+        calls.append(1)
+        if len(calls) == 1:
+            # Simulate the user updating the brand from a different API session
+            # while this Worker is processing a batch in one long-lived session.
+            with SessionLocal() as other:
+                creator = other.get(Creator, creator_profile["id"])
+                brand = other.get(Brand, creator.brand_id)
+                brand.revision += 1
+                other.commit()
+        return result
+
+    monkeypatch.setattr(graph, "invoke", change_after_first)
+    with SessionLocal() as db:
+        process_pending(db)
+    assert len(calls) == 1
+    assert len(client.get("/api/v1/content/packages").json()) == 1
+    assert any(r["error_code"] == "EDITORIAL_FACTS_STALE" for r in client.get("/api/v1/creator-runs").json())
+
+
 def test_legacy_run_can_continue_and_future_not_auto_run(client, creator_profile):
     days = plan(client, creator_profile)
     with SessionLocal() as db:

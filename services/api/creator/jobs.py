@@ -176,13 +176,18 @@ def process_pending(db):
                 db.commit()
                 continue
             brand = db.get(Brand, creator.brand_id)
-            state = {"brand": serialize(brand), "creator": serialize(creator), "day": run.operational_date}
+            plan = None
             if run.input_snapshot:
                 entry = db.get(EditorialEntry, run.editorial_entry_id)
                 if not entry or snapshot(entry) != run.input_snapshot:
                     raise DomainError("EDITORIAL_REVISION_CONFLICT", "执行计划版本不一致，任务已停止")
                 validate_facts(db, creator, entry)
-                state["plan"] = run.input_snapshot
+                plan = run.input_snapshot
+            else:
+                db.refresh(brand)
+            state = {"brand": serialize(brand), "creator": serialize(creator), "day": run.operational_date}
+            if plan:
+                state["plan"] = plan
             run.stage = "content.script"
             db.commit()
             state.update(select_facts(state))
