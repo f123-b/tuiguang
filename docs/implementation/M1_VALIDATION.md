@@ -20,7 +20,9 @@
 | 本机开发库 | 停止 API/Worker，SQLite backup 后启动迁移 | 0001→0002 已完成；升级前备份在私有 `.data/backups/pre-0002-20261105-225127.db`，未提交 |
 | 浏览器交互 | agent-browser `xuliu-dev`，测试工作区 | 已实际补齐、改题、锁定、确认、跳过、交换日期；勾选两篇并明确同意后成功入队，后台生成待审稿 |
 | 路由与视口 | `SMOKE_*_ID=实际测试资源 node scripts/browser-smoke.mjs` | 35 路由、18 个视口检查通过（总览/日历/详情，各 375/390/768/1024/1440/1920px），无横向溢出，退出 0 |
-| PostgreSQL / 供应链 | GitHub Actions | 待本轮 CI 结果，不用本机 SQLite 代替 PostgreSQL 结论 |
+| PostgreSQL 17 | [Actions 42051765716](https://github.com/f123-b/tuiguang/actions/runs/42051765716)，提交 `350a51d` | 36 passed，含隔离 0001→0002 迁移和旧记录保留；退出 0 |
+| SQLite CI | 同一 Actions | 35 passed / 1 skipped（该矩阵不连接 PostgreSQL）；退出 0 |
+| 供应链 / Web CI | 同一 Actions | npm ci / typecheck / boundary / build / npm audit 均通过，0 vulnerabilities；pip-audit 报告 No known vulnerabilities found |
 
 影响范围：EDITORIAL / CREATOR / AGENT / Web 页面、OpenAPI、数据库 0002、graph@2、fact_bound@2、local_editorial@2。视频 IR 1.0 / pillow_ffmpeg@1 未变更；实际 20s 视频和缓存回归继续通过。新图可恢复 v1 无计划快照任务，生成模式/模型版本仍必须一致。
 
