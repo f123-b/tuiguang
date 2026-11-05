@@ -19,8 +19,9 @@
 | 浏览器核心交互 | agent-browser 会话 `xuliu-dev` | 注册、品牌、创作者、审核、ZIP、用户自报、CSV 预览确认均实际操作 |
 | 路由与响应式 | `node scripts/browser-smoke.mjs` | 35 个路由有实际标题；375 / 390 / 768 / 1024 / 1440 / 1920 六个宽度无横向溢出。仅验证渲染，不表示计划功能全实现 |
 | npm 漏洞扫描 | `npm audit --omit=dev` | 0 vulnerabilities，退出 0 |
-| Python 漏洞扫描 | 本机 pip-audit / GitHub CI python-advisories | 本机 PyPI 超时；远端首轮运行已成功，最新 head 仍需最终核验 |
-| PostgreSQL / Redis / Celery | 本机 `docker info` | Docker daemon 未运行，本机未验收；CI 配置 PostgreSQL 真集成测试 |
+| Python 漏洞扫描 | 本机 pip-audit / GitHub CI python-advisories | 本机 PyPI 超时；最终远端 CI 扫描 112 个包未报告已知漏洞，退出 0 |
+| PostgreSQL | GitHub API postgres 矩阵 | 23 passed，退出 0；本机 Docker 未运行，远端使用真实 PostgreSQL 17 |
+| Redis / Celery | 可选部署入口 | 本机未连接，CI 未验收，不计为正式部署通过 |
 | 外部模型 / GPU / S3 / 支付 / 试点 | 无凭据或服务 | 未运行 / 未实现，不伪造结果 |
 
 ## 可复核产物
@@ -44,3 +45,7 @@
 补充回归：给模型价格配置填入非数字可复现 ValueError，导致原 Worker 中断；新增失败用例后修复为 `AGENT_MODEL_UNCONFIGURED` 持久化失败。回归通过，不执行外部付费请求。
 
 CI 第二次问题：SQLite 矩阵显式传入空 `TEST_DATABASE_URL`，测试 fixture 将空串当成有效连接地址，导致用例收集失败。用相同空环境变量在本机已复现，现改为空值回退隔离 SQLite；该问题不涉及应用数据库配置或生产数据。
+
+## 最终远端结果
+
+[Actions 42028107582](https://github.com/f123-b/tuiguang/actions/runs/42028107582) 在代码 commit `e1f0910500e2313e66fc13acf7ebf9ef40c544bc` 全部通过：API SQLite **23 passed**、API PostgreSQL **23 passed**、Web typecheck/build/npm audit、Python pip-audit。状态快照见 [ci-result.json](../evidence/ci-result.json)。后续交付提交仅同步本文、状态和证据，不修改应用代码；PR 最新检查仍以 GitHub 为准。
