@@ -37,6 +37,15 @@ Schema 文件参见 `engineering/contracts/`。每次发布冻结该版本，避
 - `POST .../build`：expected_revision、confirmed=true；校验当前需求及事实/素材哈希和脚本条件，再幂等建立一个独立视频工程与预览任务。人工确认、高清与发布附件继续使用 0.12 规则。用户需求不是已核实事实。
 - DB 0013 增加 creation_briefs / brief_plans；私有导出包含两表，脚本任务诊断删除 input_snapshot。无新增依赖，Video IR/Provider 版本未变。
 
+## 0.14 真实配音制作
+
+- `POST /api/v1/videos/{id}/narration-jobs`：expected_revision、按镜头顺序的 lines[{shot_id,text}]、voice_id、rate(-5..5)、fit_mode(extend/fixed)、subtitles、usage_confirmed=true；Idempotency-Key。只排队，工作区校验且一次仅有一个活动制作任务，无语言模型或云 TTS 调用。
+- `GET .../narration-jobs` 返回任务状态、阶段、完成镜头数、时长、错误与回执，省略原工程 source。`GET .../{job_id}/audio` 校验工作区、音频文件哈希，返回实际 WAV 试听/下载。私有导出保留完整制作依据。
+- Brief build 可选 narration: NarrationOptions；同时提供时不先排无声预览，直接进入本地配音制作；不提供时兼容原行为。重复同一脚本/声音设置复用既有任务，失败后可在视频工作室修正并重新提交。
+- 固定时长的超长配音拒绝提交到成片；自动适配逐镜延长，锁定镜头不改写，最大单镜 60 秒/总计 120 秒。IR 1.1 增加可选 Shot.freeze_end_frames(default=0)，只允许真实视频且小于镜头总帧；渲染器 @3 校验原素材时扣除停帧部分，使用 FFmpeg tpad 延长末帧。
+- 制作完成自动保存新版本、用户确认用途的音频素材、音轨/字幕、规则报告和预览任务；没有质量确认或高清副作用。completion 指“声音已接入工程并排队预览”，视频最终状态以 RenderJob 为准。
+- `POST /videos/{id}/export-local`：expected_revision、confirmed=true；仅非生产模式，在当前高清审核和输出校验通过后，保存到固定工作区 exports 子目录，返回路径、字节、哈希。包括 MP4、所用音频、SRT 和工程 JSON，无用户可选目标路径；不绕过高清质量门槛。
+
 
 ## 0.12 实际质量接口
 

@@ -11,7 +11,7 @@ from pydantic import Field, SecretStr
 from sqlalchemy import select, update
 from sqlalchemy.orm import Session
 
-from .models import QualityReport, QualityReview, CreationBrief, BriefPlan
+from .models import QualityReport, QualityReview, CreationBrief, BriefPlan, NarrationJob
 from .auth import current_user
 from .db import get_db
 from .domains import verified_file, owned, serialize
@@ -344,6 +344,7 @@ def export_workspace(db: DB, user: Actor, include_files: bool = False):
         QualityReview,
         CreationBrief,
         BriefPlan,
+        NarrationJob,
     )
     document = {
         cls.__tablename__: [

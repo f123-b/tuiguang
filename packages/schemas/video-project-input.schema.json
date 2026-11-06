@@ -143,6 +143,13 @@
           "minimum": 25,
           "title": "Speed Percent",
           "type": "integer"
+        },
+        "freeze_end_frames": {
+          "default": 0,
+          "maximum": 1800,
+          "minimum": 0,
+          "title": "Freeze End Frames",
+          "type": "integer"
         }
       },
       "required": [

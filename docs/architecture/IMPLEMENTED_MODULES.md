@@ -1,4 +1,4 @@
-# 实际模块地图 · 0.13.0-dev
+# 实际模块地图 · 0.14.0-dev
 
 原 `MODULE_MAP.md` 为目标架构；此表索引本轮实际代码，模块负责人均为仓库维护者。
 
@@ -15,6 +15,7 @@
 | GRAPHICS | `graphics.py`、`graphics_api.py`、`pages/graphics.tsx` | 独立图文 IR 1.0，三版式/三尺寸、PNG/JPG、真实预览、来源/哈希与发布包；`test_graphics.py` |
 | VIDEO | `video.py`、`schemas.py` | 独立 IR、Pillow / FFmpeg 镜头、缓存、ffprobe |
 | BRIEFS | `briefs.py`、`brief_api.py`、`brief_jobs.py`、`pages/briefs.tsx` | 用户规定内容、原文或预算 AI 脚本、不可变修订、版本/依据校验与确认建立预览工程；`test_creation_briefs.py` |
+| NARRATION | `narration.py`、`narration_api.py`、`speech.py`、`pages/narration.tsx` | 本机逐镜配音、时长测量、音轨/字幕、异步预览任务、进度/试听/错误；`test_narration_pipeline.py` |
 | HANDOFF | `domains.py`、`main.py` | 真实 ZIP、过期检查、手动登记和撤销，无平台写网络 |
 | METRICS | `domains.py`、`main.py` | 字段匹配/手工指标/版本、NULL、日期/来源、幂等与分组 |
 | OBS | `observability.py`、`job_events` | OTel 上下文、错误码、脱敏事件、运行版本 |
@@ -38,6 +39,8 @@ flowchart TD
 API 错误含 `code/message/trace_id/request_id`。HTTP 使用 W3C Trace Context，日任务冻结发行信息与选题快照；安全日志不记录 Prompt 原文、密钥和原始私有文件路径。实际 OpenAPI 由 `scripts/export-contracts.py` 从实现生成。运行回执沿用 `engineering/contracts/runtime_receipt.schema.json` 并用真实数据库事件验证。
 
 #27 / 0.13：`BriefsPage → brief_api → CreationBrief(0013)` 保存版本化要求；`plans/manual → manual_plan` 逐行保留原文；`plans/ai → brief_jobs.enqueue → jobs.reserve_budget → model_gateway.complete` 仅一次独立授权调用。`BriefPlan` 保留原始输出、规则问题、用量和人工修订，需求/事实/素材改变则旧脚本过期。用户确认后 `build_video → VideoProjectIR 1.1 → quality/checkpoint → RenderJob(preview)`，后续沿用人工确认/高清规则。正文和画面说明留在私有工程中，诊断仅安全标识；没有自动配音、任意场景生成或发布请求。DB 0013 / directed_video@1，旧日更任务与引擎版本保持兼容。
+
+#29 / 0.14：`BriefScriptEditor / NarrationPanel → narration_api.enqueue → NarrationJob(0014) → worker.process_narration_jobs → speech.synthesize → ffprobe → 对齐 WAV/字幕 → 新 VideoRevision → RenderJob(preview)`。离线安全步骤按租约恢复，版本/素材/品牌依据在合成前后校验；人工操作产生新修订，移除自动创作者依赖。`freeze_end_frames` 是 IR 1.1 的兼容可选字段，pillow_ffmpeg@3 在录屏末尾停帧，旁白不截断。质量确认和最终下载沿用原规则；旧单独配音接口保持待核实素材行为。
 
 M1 调用链：编辑/确认选题 → 日程或显式备稿 → `enqueue` 保存 `input_snapshot` → 版本、事实、暂停、实际计费日预算校验 → LangGraph → 既有内容审核与人工发布包。GET 计划只读取，补齐计划为 POST；新创作者/Worker 依照已开启设置维护规则计划。规则选题自动确认，手动修改后进入 `planned`。此处描述当时 M1 增量；当前视频见下方 B。
 

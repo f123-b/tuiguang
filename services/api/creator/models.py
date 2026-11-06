@@ -208,6 +208,25 @@ class QualityReview(TenantRecord, Base):
     recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
 
 
+class NarrationJob(TenantRecord, Base):
+    __tablename__ = "narration_jobs"
+    video_id: Mapped[str] = mapped_column(ForeignKey("video_projects.id"))
+    base_revision: Mapped[int] = mapped_column(Integer)
+    requested_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    idempotency_key: Mapped[str] = mapped_column(String(160))
+    request_hash: Mapped[str] = mapped_column(String(64))
+    document: Mapped[dict] = mapped_column(JSON)
+    source: Mapped[dict] = mapped_column(JSON)
+    status: Mapped[str] = mapped_column(String(20), default="queued")
+    stage: Mapped[str] = mapped_column(String(40), default="narration.queued")
+    error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    receipt: Mapped[dict] = mapped_column(JSON, default=dict)
+    lease_until: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    trace_id: Mapped[str] = mapped_column(String(32))
+    __table_args__ = (UniqueConstraint("workspace_id", "idempotency_key"),)
+
+
 class CreationBrief(TenantRecord, Base):
     __tablename__ = "creation_briefs"
     brand_id: Mapped[str] = mapped_column(ForeignKey("brands.id"))

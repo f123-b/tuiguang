@@ -1,0 +1,238 @@
+{
+  "date": "2026-11-07",
+  "kind": "synthetic local QA workspace",
+  "source_brief_id": "682eab019e8e409194105d9e265b1b82",
+  "video_id": "28af076dc6894510913c85c51de21b9c",
+  "narration_job_id": "7cf76c09cdb7447a9ffda10eb97d283d",
+  "trace_id": "fd819aff254e8bc8d1ed649dd120f126",
+  "voice_id": "Microsoft Huihui Desktop",
+  "narration_receipt": {
+    "version": "narration_pipeline@1",
+    "completed_shots": 3,
+    "total_shots": 3,
+    "duration_sec": 11.266666666666667,
+    "original_duration_sec": 6.0,
+    "audio_asset_id": "bed0153151d14d65b1db572edae08303",
+    "audio_sha256": "e40149550577874b9739d734a27a2ad05104b77057f9d494435be9b162a6c78a",
+    "segments": [
+      {
+        "shot_id": "s1",
+        "start_frame": 0,
+        "duration_frames": 110,
+        "speech_sec": 3.438322,
+        "text": "可以编辑图文与视频工程"
+      },
+      {
+        "shot_id": "s2",
+        "start_frame": 110,
+        "duration_frames": 133,
+        "speech_sec": 4.202812,
+        "text": "发布包由用户自行下载并手动发布"
+      },
+      {
+        "shot_id": "s3",
+        "start_frame": 243,
+        "duration_frames": 95,
+        "speech_sec": 2.953469,
+        "text": "请结合实际版本体验"
+      }
+    ],
+    "video_revision": 2,
+    "preview_job_id": "66711feb7c174414b806ab0b9801e971",
+    "quality_report_id": "a7d03b83ab92432d956ef19ae3f64ca5"
+  },
+  "renders": [
+    {
+      "id": "09075f278a1044e49260dbb4e1390c36",
+      "purpose": "final",
+      "status": "completed",
+      "receipt": {
+        "sha256": "6bee02e770da03fea51c2d4f95b2e5fa49b27112abaf04e12445a6f563d887cc",
+        "shots": [
+          {
+            "shot_id": "s1",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "e89e511bc26411f924f98d6aca439530d3ec46328a163e20fde5a55544d79806",
+            "render_cache_key": "b03b4fb730a2221e4ecbf596f26df561814bb21da932573f4b6dbbde079f86de",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s2",
+            "shot_revision": 1,
+            "provider": "ffmpeg_media",
+            "cached": false,
+            "sha256": "7869f3842ce60220ceb747f1eb8e8deae7cf77a9ce4a1b908fafaa08358e0bcf",
+            "render_cache_key": "e0dc4410cf3dc32414514e8b4a4d99a40c1164fc601b5df1f733f45c53bf341f",
+            "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+            "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+            "asset_license_note": "自行制作，仅本软件合成验收使用"
+          },
+          {
+            "shot_id": "s3",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "ff79f89c36988b8a8d88dafa97e247ff896627bdef8c75fff8ddfcc1d9dc264e",
+            "render_cache_key": "ba1294ff60c7ef00831aa03d31aceee9628430170abe71263f47dc0fea952d28",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          }
+        ],
+        "duration_sec": 11.266666666666667,
+        "width": 1920,
+        "height": 1080,
+        "purpose": "final",
+        "watermark": false,
+        "ir_sha256": "f1587df9245ac4f0135f164573a85d87d8079256d4336febb47d45dcb64a8f13",
+        "fps": 30,
+        "audio": "mixed_authorized_assets",
+        "audio_sources": [
+          {
+            "track_id": "voice-7cf76c09cdb7447a9ffd",
+            "role": "voiceover",
+            "asset_id": "bed0153151d14d65b1db572edae08303",
+            "sha256": "e40149550577874b9739d734a27a2ad05104b77057f9d494435be9b162a6c78a",
+            "source": "用户确认文本 / Windows SAPI / Microsoft Huihui Desktop / narration_pipeline@1",
+            "license_note": "操作者明确确认本次使用权；本地系统语音输出，不代表本软件认证其商业许可。"
+          }
+        ],
+        "subtitles": 3,
+        "provider_adapter_version": "pillow_ffmpeg@3",
+        "font": {
+          "name": [
+            "Microsoft YaHei",
+            "Regular"
+          ],
+          "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+        },
+        "qa": "technical_probe_passed",
+        "revision": 2
+      }
+    },
+    {
+      "id": "66711feb7c174414b806ab0b9801e971",
+      "purpose": "preview",
+      "status": "completed",
+      "receipt": {
+        "sha256": "a82474e13c963534dd4bd8caeaca362d377b4021a1f3382e4feac018299b69b5",
+        "shots": [
+          {
+            "shot_id": "s1",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "6048df933e34806ae07264ac8e62359cc2360995b73eb1690ce3a20de1bae629",
+            "render_cache_key": "28c10638f568ea13852e439436637ba0181a761b710e4215b115e9f5a8f87cec",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s2",
+            "shot_revision": 1,
+            "provider": "ffmpeg_media",
+            "cached": false,
+            "sha256": "5cf9eaccf6e73480b11295d5b93937c452b3e3029df5fda0e97726018f5783f2",
+            "render_cache_key": "cffeca0c890398d8db23db4f918ca2843677e55bcf076506bdae67701536c0bb",
+            "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+            "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+            "asset_license_note": "自行制作，仅本软件合成验收使用"
+          },
+          {
+            "shot_id": "s3",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "5824df90202f10b99345b774b03fbb8c971db2e13fe7d857d30e677e833a8f7a",
+            "render_cache_key": "d3a5f132e5d9e156c2619e7874bb319858f3629098c36ea7e57aedc7b53935d6",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          }
+        ],
+        "duration_sec": 11.266666666666667,
+        "width": 640,
+        "height": 360,
+        "purpose": "preview",
+        "watermark": true,
+        "ir_sha256": "f1587df9245ac4f0135f164573a85d87d8079256d4336febb47d45dcb64a8f13",
+        "fps": 30,
+        "audio": "mixed_authorized_assets",
+        "audio_sources": [
+          {
+            "track_id": "voice-7cf76c09cdb7447a9ffd",
+            "role": "voiceover",
+            "asset_id": "bed0153151d14d65b1db572edae08303",
+            "sha256": "e40149550577874b9739d734a27a2ad05104b77057f9d494435be9b162a6c78a",
+            "source": "用户确认文本 / Windows SAPI / Microsoft Huihui Desktop / narration_pipeline@1",
+            "license_note": "操作者明确确认本次使用权；本地系统语音输出，不代表本软件认证其商业许可。"
+          }
+        ],
+        "subtitles": 3,
+        "provider_adapter_version": "pillow_ffmpeg@3",
+        "font": {
+          "name": [
+            "Microsoft YaHei",
+            "Regular"
+          ],
+          "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+        },
+        "qa": "technical_probe_passed",
+        "revision": 2
+      }
+    }
+  ],
+  "download": {
+    "bytes": 424229,
+    "sha256_verified": true,
+    "audio_sha256_verified": true,
+    "decoded_pcm_rms": 1488.73,
+    "decoded_pcm_peak": 23267
+  },
+  "browser_playback": {
+    "ended": true,
+    "currentTime": 11.266667,
+    "muted": false
+  },
+  "external_model_calls_this_test": 0,
+  "cloud_tts_calls": 0,
+  "published": false,
+  "local_export": {
+    "files": [
+      {
+        "name": "audio-1.wav",
+        "bytes": 2163278
+      },
+      {
+        "name": "project.json",
+        "bytes": 4319
+      },
+      {
+        "name": "subtitles.srt",
+        "bytes": 217
+      },
+      {
+        "name": "video-28af076d-v2.mp4",
+        "bytes": 424229
+      }
+    ],
+    "video_sha256_verified": true,
+    "browser_save_button_tested": true
+  },
+  "cached_real_deepseek_script": {
+    "plan_id": "583b38cfbc104ddca091ff6434af4d2d",
+    "original_model_run_id": "182d65278c5f485c9be024d5811c7bd0",
+    "narration_job_id": "902cd82f685b4d27b00d05c3a988ff36",
+    "video_id": "a1169c9686f14f468d8b5894b3dc2767",
+    "preview_job_id": "ea7637c6ff0e47fd97532ec75d73c40d",
+    "status": "completed",
+    "duration_sec": 9.2,
+    "audio": "mixed_authorized_assets",
+    "new_model_calls": 0
+  }
+}

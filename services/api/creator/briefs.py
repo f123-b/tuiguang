@@ -234,7 +234,7 @@ def assert_current(db, brief, plan):
         raise DomainError("BRIEF_PLAN_STALE", "要求、事实或素材依据已变化，请基于当前要求重新准备脚本")
 
 
-def build_video(db, brief, plan, user_id, trace):
+def build_video(db, brief, plan, user_id, trace, queue_preview=True):
     from .video import validate_ir
     from .video_edit import checkpoint
     from .quality import build_report
@@ -301,10 +301,11 @@ def build_video(db, brief, plan, user_id, trace):
         purpose="preview",
         trace_id=trace,
     )
-    db.add(job)
+    if queue_preview:
+        db.add(job)
     plan.video_id = video.id
     db.flush()
-    return {"video_id": video.id, "plan_id": plan.id, "render_job_id": job.id, "already_created": False}
+    return {"video_id": video.id, "plan_id": plan.id, "render_job_id": job.id if queue_preview else None, "already_created": False}
 
 
 def private_summary(run):

@@ -141,6 +141,7 @@ class Shot(DTO):
     locked: bool = False
     trim_start_frame: int = Field(default=0, ge=0, le=216000)
     speed_percent: int = Field(default=100, ge=25, le=400)
+    freeze_end_frames: int = Field(default=0, ge=0, le=1800)
 
 
 class AudioTrack(DTO):

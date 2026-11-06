@@ -10,6 +10,8 @@ import {
   type Video,
 } from "../../lib/api";
 import { QualityPanel } from "./quality";
+import { NarrationPanel } from "./narration";
+import { DownloadFile } from "../download-file";
 import { Field, PageHeader, type PageProps } from "../page-shared";
 
 export function VideoEditor({
@@ -27,10 +29,12 @@ export function VideoEditor({
   const [voices, setVoices] = useState<{ id: string; language: string }[]>([]);
   const [error, setError] = useState("");
   const [receipt, setReceipt] = useState<unknown>(null);
+  const [exportPath, setExportPath] = useState("");
   useEffect(() => {
     setDraft(structuredClone(video.ir));
     setDirty(false);
     setConfirmRestore(false);
+    setExportPath("");
   }, [video.id, video.revision]);
   useEffect(() => {
     api<{ revision: number }[]>(`/videos/${video.id}/history`)
@@ -139,14 +143,46 @@ export function VideoEditor({
           导出已保存工程
         </a>
         {ready && !dirty && (
-          <a
-            className="button secondary"
+          <DownloadFile
             href={`/api/v1/videos/${video.id}/download`}
+            filename={`video-${video.id.slice(0, 8)}-v${video.revision}.mp4`}
           >
             下载成片
-          </a>
+          </DownloadFile>
+        )}
+        {ready && !dirty && (
+          <Button
+            variant="secondary"
+            disabled={busy}
+            onClick={() =>
+              action(async () => {
+                const result = await api<{ path: string }>(
+                  `/videos/${video.id}/export-local`,
+                  post({ expected_revision: video.revision, confirmed: true }),
+                );
+                setExportPath(result.path);
+              }, "成片、配音、字幕及工程已保存到本机导出文件夹")
+            }
+          >
+            保存到本机文件夹
+          </Button>
         )}
       </PageHeader>
+      {exportPath && (
+        <Card>
+          <h2>文件已保存到本机</h2>
+          <Field label="成片文件位置">
+            <input
+              readOnly
+              value={exportPath}
+              onFocus={(e) => e.currentTarget.select()}
+            />
+          </Field>
+          <p>
+            复制此路径，在资源管理器地址栏粘贴即可找到成片；同一文件夹还保存了配音、字幕和工程。
+          </p>
+        </Card>
+      )}
       {error && (
         <p className="alert warning" role="alert">
           {error}
@@ -157,6 +193,7 @@ export function VideoEditor({
           修改尚未保存；渲染、导出和版本恢复使用服务器已保存工程。先保存再继续。
         </p>
       )}
+      <NarrationPanel video={video} action={action} busy={busy} dirty={dirty} />
       <QualityPanel
         store={store}
         action={action}
@@ -182,7 +219,7 @@ export function VideoEditor({
                 {i + 1}. {s.caption || "素材镜头"}
               </strong>
               <small>
-                {s.duration_frames / 30}s ·{" "}
+                {(s.duration_frames / 30).toFixed(2)}s ·{" "}
                 {s.locked
                   ? "已锁定"
                   : s.provider === "pillow_mg"
@@ -383,6 +420,23 @@ export function VideoEditor({
                     disabled={shot.locked}
                     onChange={(e) =>
                       changeShot({ speed_percent: Number(e.target.value) })
+                    }
+                  />
+                </Field>
+                <Field label="录屏末帧停留（秒）">
+                  <input
+                    type="number"
+                    min={0}
+                    step={1 / 30}
+                    max={Math.max(0, (shot.duration_frames - 1) / 30)}
+                    value={(shot.freeze_end_frames || 0) / 30}
+                    disabled={shot.locked}
+                    onChange={(e) =>
+                      changeShot({
+                        freeze_end_frames: Math.round(
+                          Number(e.target.value) * 30,
+                        ),
+                      })
                     }
                   />
                 </Field>
@@ -630,57 +684,59 @@ export function VideoEditor({
           >
             添加音轨
           </Button>
-          <h3>离线系统配音</h3>
-          {voices.length ? (
-            <form
-              className="form-stack"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const f = new FormData(e.currentTarget);
-                action(
-                  () =>
-                    api(
-                      "/videos/speech",
-                      post({
-                        brand_id: video.brand_id,
-                        text: f.get("text"),
-                        voice_id: f.get("voice"),
-                        confirmed: true,
-                      }),
-                    ),
-                  "配音已保存到素材库；核实使用权后才可加入成片",
-                );
-              }}
-            >
-              <select aria-label="本机语音" name="voice">
-                {voices.map((v) => (
-                  <option key={v.id} value={v.id}>
-                    {v.id} · {v.language}
-                  </option>
-                ))}
-              </select>
-              <textarea
-                aria-label="配音文本"
-                name="text"
-                maxLength={4000}
-                rows={3}
-                required
-                placeholder="只输入已经核实、允许由本机语音合成的文本"
-              />
-              <label className="checkline">
-                <input type="checkbox" required />
-                我同意使用本机语音合成，并会核实语音输出的使用许可
-              </label>
-              <Button disabled={busy} type="submit">
-                生成离线配音
-              </Button>
-            </form>
-          ) : (
-            <p className="muted">
-              本机没有可用的离线语音；可自行上传授权配音。不会自动调用付费云端
-              TTS。
-            </p>
-          )}
+          <details>
+            <summary>单独生成音频素材（高级）</summary>
+            {voices.length ? (
+              <form
+                className="form-stack"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const f = new FormData(e.currentTarget);
+                  action(
+                    () =>
+                      api(
+                        "/videos/speech",
+                        post({
+                          brand_id: video.brand_id,
+                          text: f.get("text"),
+                          voice_id: f.get("voice"),
+                          confirmed: true,
+                        }),
+                      ),
+                    "配音已保存到素材库；核实使用权后才可加入成片",
+                  );
+                }}
+              >
+                <select aria-label="本机语音" name="voice">
+                  {voices.map((v) => (
+                    <option key={v.id} value={v.id}>
+                      {v.id} · {v.language}
+                    </option>
+                  ))}
+                </select>
+                <textarea
+                  aria-label="配音文本"
+                  name="text"
+                  maxLength={4000}
+                  rows={3}
+                  required
+                  placeholder="只输入已经核实、允许由本机语音合成的文本"
+                />
+                <label className="checkline">
+                  <input type="checkbox" required />
+                  我同意使用本机语音合成，并会核实语音输出的使用许可
+                </label>
+                <Button disabled={busy} type="submit">
+                  生成离线配音
+                </Button>
+              </form>
+            ) : (
+              <p className="muted">
+                本机没有可用的离线语音；可自行上传授权配音。不会自动调用付费云端
+                TTS。
+              </p>
+            )}
+          </details>
         </Card>
       </div>
       <Card>

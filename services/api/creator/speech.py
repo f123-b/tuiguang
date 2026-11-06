@@ -52,7 +52,7 @@ def voices():
         return []
 
 
-def synthesize(workspace_id, brand_id, text, voice):
+def synthesize(workspace_id, brand_id, text, voice, rate=0):
     if voice not in {v["id"] for v in voices()}:
         raise DomainError("TTS_PROVIDER_UNAVAILABLE", "请选择本机真实安装的语音", 422)
     directory = DATA_DIR / workspace_id / "speech-tmp"
@@ -60,8 +60,8 @@ def synthesize(workspace_id, brand_id, text, voice):
     target = directory / (uid() + ".wav")
     try:
         powershell(
-            "$d = [Console]::In.ReadToEnd() | ConvertFrom-Json; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; try { $s.SelectVoice($d.voice); $s.SetOutputToWaveFile($d.path); $s.Speak($d.text) } finally { $s.Dispose() }",
-            {"text": text, "voice": voice, "path": str(target)},
+            "$d = [Console]::In.ReadToEnd() | ConvertFrom-Json; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; try { $s.SelectVoice($d.voice); $s.Rate = [int]$d.rate; $s.SetOutputToWaveFile($d.path); $s.Speak($d.text) } finally { $s.Dispose() }",
+            {"text": text, "voice": voice, "rate": rate, "path": str(target)},
         )
         data = target.read_bytes()
         if not 44 < len(data) <= 50 * 1024 * 1024:

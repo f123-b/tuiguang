@@ -153,6 +153,61 @@ def download_subtitles(video_id: str, db: DB, user: Actor):
     )
 
 
+@router.post("/videos/{video_id}/export-local", status_code=201)
+def export_local(video_id: str, data: Restore, db: DB, user: Actor):
+    import json
+    import shutil
+
+    from .config import DATA_DIR, PRODUCTION
+    from .domains import digest, verified_file
+    from .models import Asset, uid
+
+    if PRODUCTION:
+        raise DomainError("VID_LOCAL_EXPORT_DISABLED", "服务端部署请使用浏览器下载", 422)
+    video = owned(db, Video, video_id, user.workspace_id)
+    lock_video(db, video, data.expected_revision)
+    source = current_output(db, video)
+    root = DATA_DIR / user.workspace_id / "exports"
+    directory = root / (video.id + "-v" + str(video.revision))
+    if not directory.resolve().is_relative_to(DATA_DIR.resolve()):
+        raise DomainError("VID_EXPORT_FAILED", "导出目录不在本机工作区内", 422)
+    try:
+        directory.mkdir(parents=True, exist_ok=True)
+
+        def copy_file(path, name, sha):
+            temporary = directory / (uid() + ".tmp")
+            try:
+                shutil.copyfile(path, temporary)
+                if digest(temporary.read_bytes()) != sha:
+                    raise DomainError("VID_EXPORT_FAILED", "复制后的文件校验未通过")
+                temporary.replace(directory / name)
+            finally:
+                temporary.unlink(missing_ok=True)
+
+        name = f"video-{video.id[:8]}-v{video.revision}.mp4"
+        copy_file(source, name, video.output_hash)
+        for i, track in enumerate(video.ir.get("audio_tracks", []), 1):
+            asset = owned(db, Asset, track["asset_id"], user.workspace_id)
+            copy_file(
+                verified_file(asset.workspace_id, asset.sha256, asset.suffix),
+                f"audio-{i}{asset.suffix}",
+                asset.sha256,
+            )
+        (directory / "subtitles.srt").write_text(subtitles_srt(video.ir), encoding="utf-8")
+        (directory / "project.json").write_text(
+            json.dumps(video.ir, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+    except OSError:
+        raise DomainError("VID_EXPORT_FAILED", "本机导出未完成，请检查磁盘空间和目录权限") from None
+    return {
+        "path": str((directory / name).resolve()),
+        "directory": str(directory.resolve()),
+        "sha256": video.output_hash,
+        "bytes": source.stat().st_size,
+        "revision": video.revision,
+    }
+
+
 @router.post("/content/packages/{content_id}/video")
 def attach_video(content_id: str, data: AttachVideo, db: DB, user: Actor):
     content = owned(db, Content, content_id, user.workspace_id)

@@ -23,6 +23,7 @@ from .errors import DomainError
 from .models import Brand, BriefPlan, CreationBrief, Run, User
 from .observability import record
 from .schemas import DTO, Short
+from .narration import NarrationOptions, NarrationRequest
 
 router = APIRouter(prefix="/api/v1/creation-briefs")
 DB = Annotated[Session, Depends(get_db)]
@@ -48,6 +49,10 @@ class ScriptEdit(Revision):
 class ModelRequest(Confirm):
     creator_id: Short
     max_cost_cents: int = Field(ge=1, le=10000)
+
+
+class Build(Confirm):
+    narration: NarrationOptions | None = None
 
 
 @router.get("")
@@ -209,11 +214,41 @@ def edit_script(brief_id: str, plan_id: str, data: ScriptEdit, db: DB, user: Act
 
 
 @router.post("/{brief_id}/plans/{plan_id}/build", status_code=201)
-def build(brief_id: str, plan_id: str, data: Confirm, db: DB, user: Actor, request: Request):
+def build(brief_id: str, plan_id: str, data: Build, db: DB, user: Actor, request: Request):
     brief = owned(db, CreationBrief, brief_id, user.workspace_id)
     lock_brief(db, brief, data.expected_revision)
     plan = plan_for(db, brief, plan_id, user.workspace_id)
-    result = build_video(db, brief, plan, user.id, request.state.trace_id)
+    result = build_video(
+        db, brief, plan, user.id, request.state.trace_id, queue_preview=data.narration is None
+    )
+    if data.narration:
+        from .models import NarrationJob, Video
+        from .narration import enqueue
+        from .domains import digest
+
+        key = "brief-voice:" + plan.id + ":" + digest(data.narration.model_dump())[:32]
+        existing = db.scalar(
+            select(NarrationJob).where(
+                NarrationJob.workspace_id == user.workspace_id, NarrationJob.idempotency_key == key
+            )
+        )
+        if not existing:
+            video = owned(db, Video, result["video_id"], user.workspace_id)
+            lines = [
+                {"shot_id": "s" + str(i + 1), "text": s["narration"] or s["caption"]}
+                for i, s in enumerate(plan.document["shots"])
+            ]
+            existing = enqueue(
+                db,
+                video,
+                NarrationRequest(
+                    **data.narration.model_dump(), expected_revision=video.revision, lines=lines
+                ),
+                key,
+                user.id,
+                request.state.trace_id,
+            )
+        result["narration_job_id"] = existing.id
     record(
         db,
         user.workspace_id,

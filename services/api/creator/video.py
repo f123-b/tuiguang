@@ -145,7 +145,7 @@ def validate_ir(db, workspace_id, ir):
                 media = probe(file_path(workspace_id, asset.sha256, asset.suffix))
                 required = (
                     shot.get("trim_start_frame", 0)
-                    + shot["duration_frames"] * shot.get("speed_percent", 100) / 100
+                    + (shot["duration_frames"] - shot.get("freeze_end_frames", 0)) * shot.get("speed_percent", 100) / 100
                 ) / ir["fps"]
                 if required > float(media["format"]["duration"]) + 0.1:
                     raise DomainError(
@@ -153,6 +153,9 @@ def validate_ir(db, workspace_id, ir):
                     )
         elif shot.get("asset_id"):
             raise DomainError("VID_IR_INVALID", "MG 镜头不接受未使用的素材引用", 422)
+        hold = shot.get("freeze_end_frames", 0)
+        if hold and (hold >= shot["duration_frames"] or not shot.get("asset_id") or asset.kind != "video"):
+            raise DomainError("VID_IR_INVALID", "末帧停留只用于视频素材且必须保留实际画面", 422)
     total = sum(s["duration_frames"] for s in ir["shots"])
     for key, id_key in (("audio_tracks", "track_id"), ("subtitles", "cue_id")):
         items = ir.get(key, [])
@@ -299,6 +302,8 @@ def render_media(asset, shot, canvas, target):
         else ["-ss", str(shot.get("trim_start_frame", 0) / fps), "-i", str(path)]
     )
     filters = f"setpts=PTS/{shot.get('speed_percent', 100) / 100},scale={w}:{h}:force_original_aspect_ratio=decrease,pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:color=0x101722,fps={fps},setsar=1"
+    if shot.get("freeze_end_frames"):
+        filters += f",trim=end_frame={shot['duration_frames'] - shot['freeze_end_frames']},setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop={shot['freeze_end_frames']}"
     subtitle = target.with_suffix(".ass")
     try:
         if shot.get("caption"):
@@ -365,7 +370,7 @@ def render_project(db, job):
                 "shot": {k: v for k, v in shot.items() if k not in ("shot_revision", "locked")},
                 "canvas": canvas,
                 "asset_sha256": asset.sha256 if asset else None,
-                "provider_adapter_version": "pillow_ffmpeg@2",
+                "provider_adapter_version": "pillow_ffmpeg@3",
                 "font": face,
             }
         )
@@ -513,7 +518,7 @@ def render_project(db, job):
             "audio": "mixed_authorized_assets" if audio_sources else "silent_track_no_voiceover",
             "audio_sources": audio_sources,
             "subtitles": len(ir.get("subtitles", [])),
-            "provider_adapter_version": "pillow_ffmpeg@2",
+            "provider_adapter_version": "pillow_ffmpeg@3",
             "font": face,
             "qa": "technical_probe_passed",
             "revision": job.revision,

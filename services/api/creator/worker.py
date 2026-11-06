@@ -14,6 +14,9 @@ def tick():
         poll_sources(db)
         schedule_due(db)
         process_pending(db)
+        from .narration import process_narration_jobs
+
+        process_narration_jobs(db)
         process_render_jobs(db)
         from .learning import weekly_reviews
 
