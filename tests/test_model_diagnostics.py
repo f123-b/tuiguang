@@ -136,6 +136,7 @@ def test_generation_probe_uses_creator_budget_and_new_token_parameter(client, cr
     assert len(calls) == 1
     with SessionLocal() as db:
         run = db.get(Run, probe["run_id"])
+        assert len(run.slot) <= Run.__table__.c.slot.type.length
         assert (
             run.slot != "daily"
             and db.scalar(select(BudgetEntry).where(BudgetEntry.run_id == run.id)).status == "settled"

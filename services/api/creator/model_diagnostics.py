@@ -162,7 +162,7 @@ def enqueue_probe(
         workspace_id=user.workspace_id,
         creator_id=creator.id,
         operational_date=local_today(creator).isoformat(),
-        slot="probe-" + uid(),
+        slot="probe-" + uid()[:24],
         idempotency_key=idempotency_key,
         release=release,
         input_snapshot=frozen,
