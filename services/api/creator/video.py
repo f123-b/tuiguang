@@ -399,6 +399,8 @@ def render_project(db, job):
             job.trace_id,
             "shot.render",
             "ok",
+            run_id=job.ir.get("source_run_id"),
+            content_id=job.ir.get("source_content_id"),
             shot_id=shot["shot_id"],
             provider=shot["provider"],
             render_job_id=job.id,
@@ -481,6 +483,16 @@ def process_render_jobs(db):
         )
     ).all()
     for job in pending:
+        from .production import source_context, finish, failed
+
+        if job.ir.get("source_creator_id"):
+            from .models import Creator
+
+            owner = db.get(Creator, job.ir["source_creator_id"])
+            if owner:
+                db.refresh(owner)
+                if owner.status != "active":
+                    continue
         claim = db.execute(
             update(RenderJob)
             .where(
@@ -496,6 +508,7 @@ def process_render_jobs(db):
         if claim.rowcount != 1:
             continue
         try:
+            source_context(db, job)
             receipt = render_project(db, job)
             video = db.get(Video, job.video_id)
             job.receipt, job.status = receipt, "completed"
@@ -505,12 +518,15 @@ def process_render_jobs(db):
                     job.revision,
                     "ready",
                 )
+            finish(db, job, receipt)
             record(
                 db,
                 job.workspace_id,
                 job.trace_id,
                 "video.compose",
                 "ok",
+                run_id=job.ir.get("source_run_id"),
+                content_id=job.ir.get("source_content_id"),
                 render_job_id=job.id,
                 video_project_id=video.id,
                 sha256=receipt["sha256"],
@@ -520,6 +536,7 @@ def process_render_jobs(db):
             db.rollback()
             job = db.get(RenderJob, job.id)
             job.status, job.error_code = "failed", e.code
+            failed(db, job, e.code)
             current_video = db.get(Video, job.video_id)
             if current_video.revision == job.revision:
                 current_video.status = "failed"
@@ -529,6 +546,8 @@ def process_render_jobs(db):
                 job.trace_id,
                 "video.compose",
                 "error",
+                run_id=job.ir.get("source_run_id"),
+                content_id=job.ir.get("source_content_id"),
                 error_code=e.code,
                 render_job_id=job.id,
                 video_project_id=job.video_id,

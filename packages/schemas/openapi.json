@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.7.0-dev"
+    "version": "0.8.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -4181,6 +4181,16 @@
             "type": "boolean",
             "title": "Model Consent",
             "default": false
+          },
+          "render_options": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RenderOptions"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -4974,6 +4984,64 @@
           "confirmed"
         ],
         "title": "ReminderInput"
+      },
+      "RenderOptions": {
+        "properties": {
+          "graphics": {
+            "type": "boolean",
+            "title": "Graphics",
+            "default": false
+          },
+          "video": {
+            "type": "boolean",
+            "title": "Video",
+            "default": false
+          },
+          "duration_sec": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 3.0,
+            "title": "Duration Sec",
+            "default": 30
+          },
+          "video_mode": {
+            "type": "string",
+            "enum": [
+              "mg",
+              "mixed",
+              "screen_demo",
+              "montage"
+            ],
+            "title": "Video Mode",
+            "default": "mg"
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "wide",
+              "portrait",
+              "square"
+            ],
+            "title": "Size",
+            "default": "wide"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "RenderOptions"
       },
       "Rollback": {
         "properties": {

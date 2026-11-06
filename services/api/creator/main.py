@@ -253,7 +253,13 @@ async def upload_asset(
     data = await file.read(50 * 1024 * 1024 + 1)
     if not data or len(data) > 50 * 1024 * 1024:
         raise DomainError("ASSET_SIZE_INVALID", "文件须小于 50 MB 且不能为空", 422)
-    kind = "video" if suffix in (".mp4", ".mov") else "audio" if suffix in (".wav", ".mp3", ".m4a", ".ogg") else "image"
+    kind = (
+        "video"
+        if suffix in (".mp4", ".mov")
+        else "audio"
+        if suffix in (".wav", ".mp3", ".m4a", ".ogg")
+        else "image"
+    )
     if kind == "image":
         try:
             with Image.open(io.BytesIO(data)) as image:
@@ -302,6 +308,15 @@ def create_creator(data: s.CreatorInput, db: DB, user: Actor):
     owned(db, Brand, data.brand_id, user.workspace_id)
     if db.scalar(select(Creator).where(Creator.workspace_id == user.workspace_id)):
         raise DomainError("CREATOR_LIMIT_REACHED", "首版支持一个持续创作者，可编辑现有设置")
+    from .production import options_snapshot
+    from types import SimpleNamespace
+
+    if data.render_options:
+        options_snapshot(
+            db,
+            SimpleNamespace(brand_id=data.brand_id, workspace_id=user.workspace_id),
+            data.render_options.model_dump(),
+        )
     creator = Creator(workspace_id=user.workspace_id, **data.model_dump())
     db.add(creator)
     db.flush()
@@ -320,6 +335,10 @@ def edit_creator(creator_id: str, data: s.CreatorInput, db: DB, user: Actor):
     creator = owned(db, Creator, creator_id, user.workspace_id)
     owned(db, Brand, data.brand_id, user.workspace_id)
     lock_creator(db, creator)
+    from .production import options_snapshot
+
+    if data.render_options:
+        options_snapshot(db, creator, data.render_options.model_dump())
     for key, value in data.model_dump().items():
         setattr(creator, key, value)
     ensure_plan(db, creator)
@@ -620,13 +639,21 @@ def import_template(user: Actor):
 @app.post("/api/v1/analytics/import/columns")
 async def metric_columns(user: Actor, file: UploadFile = File()):
     from .metrics_io import read_upload, FIELDS
+
     header, rows = await read_upload(file)
-    return {"columns":header,"fields":FIELDS,"preview":rows[:3]}
+    return {"columns": header, "fields": FIELDS, "preview": rows[:3]}
 
 
 @app.post("/api/v1/analytics/import/preview")
-async def preview_import(db: DB, user: Actor, file: UploadFile = File(), data_source: str = Form(), column_mapping: str = Form(default="{}",max_length=8000)):
+async def preview_import(
+    db: DB,
+    user: Actor,
+    file: UploadFile = File(),
+    data_source: str = Form(),
+    column_mapping: str = Form(default="{}", max_length=8000),
+):
     from .metrics_io import read_upload, map_columns
+
     header, rows = await read_upload(file)
     rows = map_columns(header, rows, column_mapping)
     parsed = parse_metric_rows(db, user.workspace_id, rows, data_source)
@@ -717,7 +744,9 @@ def edit_shot(video_id: str, shot_id: str, data: s.Shot, db: DB, user: Actor):
     video = owned(db, Video, video_id, user.workspace_id)
     lock_video(db, video)
     video_checkpoint(db, video, user.id)
-    ir = json.loads(canonical(video.ir))
+    ir = {
+        key: value for key, value in json.loads(canonical(video.ir)).items() if not key.startswith("source_")
+    }
     shot = next((s for s in ir["shots"] if s["shot_id"] == shot_id), None)
     if not shot or data.shot_id != shot_id:
         raise DomainError("VID_SHOT_NOT_FOUND", "镜头不存在", 404)
@@ -737,18 +766,24 @@ def edit_shot(video_id: str, shot_id: str, data: s.Shot, db: DB, user: Actor):
 
 
 @app.post("/api/v1/videos/{video_id}/render", status_code=201)
-def render_video(video_id: str, db: DB, user: Actor):
+def render_video(video_id: str, db: DB, user: Actor, request: Request):
     from .models import Video
 
     video = owned(db, Video, video_id, user.workspace_id)
     lock_video(db, video)
+    if video.ir.get("source_content_id"):
+        from .production import source_context
+
+        source_context(db, video)
     validate_ir(db, user.workspace_id, video.ir)
     existing = db.scalar(
-        select(RenderJob).where(
+        select(RenderJob)
+        .where(
             RenderJob.video_id == video.id,
             RenderJob.revision == video.revision,
             RenderJob.status.in_(["queued", "running", "completed"]),
-        ).order_by(RenderJob.created_at.desc())
+        )
+        .order_by(RenderJob.created_at.desc())
     )
     if existing:
         if existing.status in ("queued", "running"):
@@ -762,7 +797,13 @@ def render_video(video_id: str, db: DB, user: Actor):
     if video.ir.get("schema_version") == "1.0":
         raise DomainError("VID_IR_UPGRADE_REQUIRED", "旧工程请先保存为 1.1，再使用新版渲染器")
 
-    job = RenderJob(workspace_id=user.workspace_id, video_id=video.id, revision=video.revision, ir=video.ir)
+    job = RenderJob(
+        workspace_id=user.workspace_id,
+        video_id=video.id,
+        revision=video.revision,
+        ir=video.ir,
+        trace_id=request.state.trace_id,
+    )
     db.add(job)
     video.status = "queued"
     db.commit()
@@ -824,7 +865,9 @@ def dashboard(db: DB, user: Actor):
         },
         "spent_cents": budget_used(db, user.workspace_id),
         "analytics": analytics_summary(db, user.workspace_id),
-        "generation_mode": __import__("creator.model_config",fromlist=["public_config"]).public_config(db,user.workspace_id)["mode"],
+        "generation_mode": __import__("creator.model_config", fromlist=["public_config"]).public_config(
+            db, user.workspace_id
+        )["mode"],
     }
 
 
@@ -852,7 +895,8 @@ def release(user: Actor):
 def settings(db: DB, user: Actor):
 
     from .model_config import public_config
-    public = public_config(db,user.workspace_id)
+
+    public = public_config(db, user.workspace_id)
     return {
         "generation_mode": public["mode"],
         "model_id": public["model_id"],

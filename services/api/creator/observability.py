@@ -14,19 +14,33 @@ trace.set_tracer_provider(TracerProvider())
 tracer = trace.get_tracer("creator", "0.1.0")
 
 
-def release_manifest():
+def _boot_manifest():
     manifest = json.loads((ROOT / "release_manifest.json").read_text(encoding="utf-8"))
     try:
         manifest["git_sha"] = subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, stderr=subprocess.DEVNULL, text=True, timeout=3
         ).strip()
+        manifest["working_tree_dirty"] = bool(
+            subprocess.check_output(
+                ["git", "status", "--porcelain"], cwd=ROOT, stderr=subprocess.DEVNULL, text=True, timeout=3
+            ).strip()
+        )
     except (OSError, subprocess.SubprocessError):
-        manifest["git_sha"] = "unknown"
+        manifest["git_sha"], manifest["working_tree_dirty"] = "unknown", None
     manifest["license_inventory_revision"] = (
         hashlib.sha256((ROOT / "LICENSE_INVENTORY.md").read_bytes()).hexdigest()
         if Path(ROOT / "LICENSE_INVENTORY.md").exists()
         else "pending"
     )
+    return manifest
+
+
+_BOOT_MANIFEST = _boot_manifest()
+
+
+def release_manifest():
+    # A running worker keeps its actual boot version even when a checkout changes.
+    manifest = json.loads(json.dumps(_BOOT_MANIFEST))
     manifest["generation_mode"] = os.getenv("GENERATION_MODE", "template")
     manifest["model_id"] = os.getenv("MODEL_ID") or None
     manifest["model_revision"] = os.getenv("MODEL_REVISION") or None

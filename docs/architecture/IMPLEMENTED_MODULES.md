@@ -47,3 +47,5 @@ B / #9：VIDEO 新增 `video_edit.py`、`video_edit_api.py`、`video_audio.py`�
 C / #11：LEARNING 位于 `learning.py`、`learning_api.py`、`metrics_io.py`、`pages/learning.tsx`；0006 为指标 active、私有反馈、不可变报告、策略审批与指针、计划策略快照。Worker 仅为 active 创作者自动整理上一完整周；只读查询不发起模型调用。
 
 D / #13：SETTINGS/NOTIFY 位于 `model_config.py`、`settings_api.py`、`notifications.py`、`pages/system-settings.tsx`、`handoff-outcome.tsx`、`ops-console.tsx`。DB 0007；配置仅加密存储，任务冻结工作区修订并检查授权/预算，站内提醒无社媒外呼。
+
+E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 0008。Run.release 冻结本地制作配置和资产哈希；先保存草稿与实际模型费用，再制作图文或排队视频。暂停、过期依据、失败恢复和媒体完成接入既有 Run/Content 审核状态，禁止自动发布。

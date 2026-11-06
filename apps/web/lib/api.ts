@@ -58,6 +58,14 @@ export type Creator = {
   model_consent: boolean;
   next_run_at: string | null;
   active_strategy_id: string | null;
+  render_options: {
+    graphics: boolean;
+    video: boolean;
+    duration_sec: number;
+    video_mode: "mg" | "mixed" | "screen_demo" | "montage";
+    size: "wide" | "portrait" | "square";
+    asset_id: string | null;
+  } | null;
 };
 export type EditorialEntry = {
   id: string;

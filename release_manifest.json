@@ -1,8 +1,8 @@
 {
-  "release_id": "creator-0.7.0-dev",
-  "application_version": "0.7.0-dev",
+  "release_id": "creator-0.8.0-dev",
+  "application_version": "0.8.0-dev",
   "git_sha": "resolved-at-runtime",
-  "database_migration": "0007",
+  "database_migration": "0008",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.1",
@@ -17,5 +17,6 @@
   "graphic_renderer_version": "graphic_cards@1",
   "content_history_version": "content_history@1",
   "learning_version": "evidence_review@1",
-  "model_config_version": "encrypted_workspace@1"
+  "model_config_version": "encrypted_workspace@1",
+  "production_pipeline_version": "daily_media@1"
 }
