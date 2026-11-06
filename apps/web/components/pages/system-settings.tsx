@@ -5,19 +5,6 @@ import { useEffect, useState } from "react";
 import { api, post } from "../../lib/api";
 import { Field, PageHeader, type PageProps } from "../page-shared";
 
-type Model = {
-  revision: number;
-  mode: string;
-  model_id: string | null;
-  model_revision: string | null;
-  base_url: string;
-  input_price: number | null;
-  output_price: number | null;
-  max_tokens: number;
-  price_source: string;
-  key_configured: boolean;
-  source: string;
-};
 type Preference = {
   notification_mode: string;
   timezone: string;
@@ -36,19 +23,16 @@ type Billing = {
 };
 
 export function SystemSettings({ store, action, busy }: PageProps) {
-  const [model, setModel] = useState<Model | null>(null),
-    [preferences, setPreferences] = useState<Preference | null>(null),
+  const [preferences, setPreferences] = useState<Preference | null>(null),
     [billing, setBilling] = useState<Billing | null>(null),
     [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
   useEffect(() => {
     Promise.all([
-      api<Model>("/settings/models"),
       api<Preference>("/settings/preferences"),
       api<Billing>("/settings/billing"),
     ])
-      .then(([m, p, b]) => {
-        setModel(m);
+      .then(([p, b]) => {
         setPreferences(p);
         setBilling(b);
       })
@@ -59,140 +43,14 @@ export function SystemSettings({ store, action, busy }: PageProps) {
       {error && <p role="alert">{error}</p>}
       <div className="form-columns">
         <Card>
-          <h2>模型配置与密钥</h2>
+          <h2>模型设置与联调</h2>
           <p>
-            密钥加密保存在服务端，页面不会回显已保存密钥。保存不调用模型；生成还需创作者授权和预算。修改配置后，尚未开始的旧模型任务会明确阻断。
+            配置 OpenAI
+            兼容网关、密钥、模型和价格，读取模型列表并查看实际生成测试结果。
           </p>
-          {model ? (
-            <form
-              className="form-stack"
-              key={model.revision}
-              onSubmit={(e) => {
-                e.preventDefault();
-                const f = new FormData(e.currentTarget);
-                const key = String(f.get("api_key") || "");
-                action(async () => {
-                  const result = await api<Model>("/settings/models", {
-                    method: "PUT",
-                    body: JSON.stringify({
-                      expected_revision: model.revision,
-                      mode:
-                        f.get("clear_key") === "on"
-                          ? "template"
-                          : f.get("mode"),
-                      model_id: f.get("model"),
-                      model_revision:
-                        String(f.get("model_revision") || "") || null,
-                      base_url: f.get("base_url"),
-                      input_price: Number(f.get("input_price")),
-                      output_price: Number(f.get("output_price")),
-                      max_tokens: Number(f.get("max_tokens")),
-                      price_source: f.get("price_source"),
-                      ...(key ? { api_key: key } : {}),
-                      clear_key: f.get("clear_key") === "on",
-                    }),
-                  });
-                  setModel(result);
-                }, "模型配置已加密保存；没有发起收费请求");
-              }}
-            >
-              <Field label="生成方式">
-                <select name="mode" defaultValue={model.mode}>
-                  <option value="template">本地规则草稿</option>
-                  <option value="openai">真实模型网关</option>
-                </select>
-              </Field>
-              <Field label="模型名称">
-                <input
-                  name="model"
-                  defaultValue={model.model_id || ""}
-                  maxLength={120}
-                />
-              </Field>
-              <Field label="模型修订（可选）">
-                <input
-                  name="model_revision"
-                  defaultValue={model.model_revision || ""}
-                  maxLength={120}
-                />
-              </Field>
-              <Field label="允许的模型 HTTPS 地址">
-                <input
-                  name="base_url"
-                  type="url"
-                  defaultValue={model.base_url}
-                  required
-                  maxLength={1000}
-                />
-              </Field>
-              <Field
-                label={
-                  model.key_configured ? "更新密钥（留空保留）" : "模型密钥"
-                }
-              >
-                <input
-                  name="api_key"
-                  type="password"
-                  autoComplete="new-password"
-                  maxLength={4000}
-                />
-              </Field>
-              <label className="checkline">
-                <input type="checkbox" name="clear_key" />
-                清除工作区密钥（同时切回本地规则草稿）
-              </label>
-              <div className="form-grid">
-                <Field label="输入价格：分 / 百万 Token">
-                  <input
-                    name="input_price"
-                    type="number"
-                    min={0}
-                    required
-                    defaultValue={model.input_price ?? 0}
-                  />
-                </Field>
-                <Field label="输出价格：分 / 百万 Token">
-                  <input
-                    name="output_price"
-                    type="number"
-                    min={0}
-                    required
-                    defaultValue={model.output_price ?? 0}
-                  />
-                </Field>
-                <Field label="最大输出 Token">
-                  <input
-                    name="max_tokens"
-                    type="number"
-                    min={128}
-                    max={8000}
-                    defaultValue={model.max_tokens}
-                    required
-                  />
-                </Field>
-              </div>
-              <Field label="价格来源与核验说明">
-                <textarea
-                  name="price_source"
-                  required
-                  rows={2}
-                  maxLength={2000}
-                  defaultValue={model.price_source}
-                />
-              </Field>
-              <Badge>
-                {model.key_configured ? "密钥已配置（不回显）" : "没有密钥"}
-              </Badge>
-              <Button
-                type="submit"
-                disabled={busy || !["owner", "admin"].includes(store.user.role)}
-              >
-                保存模型设置
-              </Button>
-            </form>
-          ) : (
-            <p>读取模型设置中…</p>
-          )}
+          <Link className="button primary" href="/settings/models">
+            打开模型设置
+          </Link>
         </Card>
         <div>
           <Card>

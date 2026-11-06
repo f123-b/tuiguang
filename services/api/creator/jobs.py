@@ -182,6 +182,11 @@ def process_pending(db):
             continue
         db.refresh(run)
         try:
+            if run.release.get("job_kind") == "model_probe":
+                from .model_diagnostics import process_probe
+
+                process_probe(db, run, creator)
+                continue
             if run.release.get("job_kind") == "learning_review":
                 from .analysis_jobs import process
 
@@ -243,6 +248,10 @@ def process_pending(db):
                 db.commit()
                 continue
             live_release = workspace_release(db, creator.workspace_id)
+            if paid and not creator.model_consent:
+                ledger.status, ledger.actual_cents = "cancelled", 0
+                db.commit()
+                raise DomainError("MODEL_CONSENT_REQUIRED", "模型授权已撤销，未发起请求")
             if paid and any(
                 live_release.get(k) != run.release.get(k)
                 for k in ("workspace_model_revision", "model_config_hash")
@@ -308,7 +317,10 @@ def process_pending(db):
             if error.code == "AGENT_PROVIDER_RESULT_UNKNOWN":
                 creator = db.get(Creator, run.creator_id)
                 creator.status = "paused_by_error"
-            record(db, run.workspace_id, run.trace_id, "content.script", "error", run.id, error.code)
+            stage = {"model_probe": "model.probe", "learning_review": "learning.model"}.get(
+                run.release.get("job_kind"), "content.script"
+            )
+            record(db, run.workspace_id, run.trace_id, stage, "error", run.id, error.code)
             db.commit()
 
 

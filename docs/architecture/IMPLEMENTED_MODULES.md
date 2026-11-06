@@ -1,4 +1,4 @@
-# 实际模块地图 · 0.9.0-dev
+# 实际模块地图 · 0.10.0-dev
 
 原 `MODULE_MAP.md` 为目标架构；此表索引本轮实际代码，模块负责人均为仓库维护者。
 
@@ -55,3 +55,6 @@ E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 00
 
 
 #19 集成：下载通过 `domains.verified_file` 校验原始素材、人工 ZIP 和含素材的私有导出；缺失/损坏明确阻断。`pages/evidence.tsx` 的未保存平台文案同时阻止历史恢复和平台切换。实际浏览器/三种 30 秒成片证据在 FINAL_ACCEPTANCE.md。
+
+
+#21 / 0.10：`model_diagnostics.py` / `model_gateway.py` / `pages/model-settings.tsx`，0010。独立模型配置与列表检查、固定 JSON 预算联调；Agent/学习复盘共享兼容参数，旧请求参数仍为默认值。联调不创建日更内容，不发送品牌资料。

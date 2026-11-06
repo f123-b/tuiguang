@@ -31,6 +31,7 @@ from .models import (
     LearningReport,
     Metric,
     ModelConfig,
+    ModelCheck,
     Notification,
     Preferences,
     Publication,
@@ -68,6 +69,9 @@ class ModelInput(DTO):
     output_price: int = Field(ge=0, le=100000000)
     max_tokens: int = Field(default=1800, ge=128, le=8000)
     price_source: str = Field(min_length=1, max_length=2000)
+    endpoint_confirmed: bool = False
+    json_mode: bool = True
+    token_parameter: Literal["max_tokens", "max_completion_tokens"] = "max_tokens"
     api_key: SecretStr | None = Field(default=None, max_length=4000)
     clear_key: bool = False
 
@@ -137,11 +141,20 @@ def save_model(data: ModelInput, db: DB, user: Actor, request: Request):
         db.refresh(current)
     if (current.revision if current else 0) != data.expected_revision:
         raise DomainError("MODEL_REVISION_CONFLICT", "模型设置已变化，请刷新")
-    base = validate_base_url(data.base_url)
+    same_endpoint = bool(current and current.base_url == data.base_url.rstrip("/"))
+    approved = data.endpoint_confirmed or bool(same_endpoint and current.endpoint_approved)
+    base = validate_base_url(data.base_url, approved)
+    if current and not same_endpoint and current.encrypted_key and not data.api_key and data.mode == "openai":
+        raise DomainError("MODEL_CONFIG_INVALID", "更换网关须重新输入密钥，不能把原密钥发送给新地址", 422)
     encrypted = current.encrypted_key if current else None
     if data.clear_key:
         encrypted = None
-    if data.api_key:
+    if data.api_key is not None:
+        if (
+            not data.api_key.get_secret_value().strip()
+            or data.api_key.get_secret_value() != data.api_key.get_secret_value().strip()
+        ):
+            raise DomainError("MODEL_CONFIG_INVALID", "密钥不能为空或含首尾空白", 422)
         if data.clear_key:
             raise DomainError("MODEL_CONFIG_INVALID", "不能同时清除和设置密钥", 422)
         encrypted = cipher().encrypt(data.api_key.get_secret_value().encode()).decode()
@@ -155,9 +168,12 @@ def save_model(data: ModelInput, db: DB, user: Actor, request: Request):
     if not current:
         current = ModelConfig(workspace_id=user.workspace_id, revision=0)
         db.add(current)
-    for key, value in data.model_dump(exclude={"expected_revision", "api_key", "clear_key"}).items():
+    for key, value in data.model_dump(
+        exclude={"expected_revision", "api_key", "clear_key", "endpoint_confirmed"}
+    ).items():
         setattr(current, key, value)
     current.base_url, current.encrypted_key = base, encrypted
+    current.endpoint_approved = approved
     current.revision += 1
     record(db, user.workspace_id, request.state.trace_id, "settings.model", "ok", revision=current.revision)
     db.commit()
@@ -314,6 +330,7 @@ def export_workspace(db: DB, user: Actor, include_files: bool = False):
         Notification,
         Reminder,
         HandoffOutcome,
+        ModelCheck,
     )
     document = {
         cls.__tablename__: [

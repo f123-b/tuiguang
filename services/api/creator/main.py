@@ -42,6 +42,7 @@ from .video_edit_api import router as video_edit_router
 from .learning_api import router as learning_router
 from .settings_api import router as settings_router
 from .analysis_api import router as analysis_router
+from .model_diagnostics import router as model_diagnostics_router
 from .video_edit import lock_video, checkpoint as video_checkpoint, current_output
 from .evidence import checkpoint
 from .graphics import lock_content
@@ -80,6 +81,7 @@ app.include_router(video_edit_router)
 app.include_router(learning_router)
 app.include_router(settings_router)
 app.include_router(analysis_router)
+app.include_router(model_diagnostics_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]

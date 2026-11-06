@@ -297,6 +297,9 @@ class ModelConfig(TenantRecord, Base):
     model_revision: Mapped[str | None] = mapped_column(String(120), nullable=True)
     base_url: Mapped[str] = mapped_column(String(1000))
     encrypted_key: Mapped[str | None] = mapped_column(Text, nullable=True)
+    endpoint_approved: Mapped[bool] = mapped_column(Boolean, default=False)
+    json_mode: Mapped[bool] = mapped_column(Boolean, default=True)
+    token_parameter: Mapped[str] = mapped_column(String(40), default="max_tokens")
     input_price: Mapped[int] = mapped_column(Integer)
     output_price: Mapped[int] = mapped_column(Integer)
     max_tokens: Mapped[int] = mapped_column(Integer)
@@ -340,3 +343,12 @@ class HandoffOutcome(TenantRecord, Base):
     source: Mapped[str] = mapped_column(String(30), default="user_reported")
     recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
     __table_args__ = (UniqueConstraint("package_id"),)
+
+
+class ModelCheck(TenantRecord, Base):
+    __tablename__ = "model_checks"
+    config_revision: Mapped[int] = mapped_column(Integer)
+    kind: Mapped[str] = mapped_column(String(30))
+    status: Mapped[str] = mapped_column(String(30), default="queued")
+    run_id: Mapped[str | None] = mapped_column(ForeignKey("creator_runs.id"), nullable=True, unique=True)
+    result: Mapped[dict] = mapped_column(JSON, default=dict)

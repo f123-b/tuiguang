@@ -211,19 +211,9 @@ def process(db, run, creator):
     record(db, run.workspace_id, run.trace_id, "learning.model", "running", run.id)
     db.commit()
     try:
-        with httpx.Client(timeout=60, follow_redirects=False) as client:
-            response = client.post(
-                settings["base_url"] + "/chat/completions",
-                headers={"Authorization": "Bearer " + settings["key"]},
-                json={
-                    "model": settings["model"],
-                    "messages": prompts,
-                    "max_tokens": settings["max_tokens"],
-                    "response_format": {"type": "json_object"},
-                },
-            )
-        response.raise_for_status()
-        result = response.json()
+        from .model_gateway import complete
+
+        result = complete(settings, prompts)
         narrative = Narrative.model_validate(json.loads(result["choices"][0]["message"]["content"]))
         allowed = set(frozen["summary"]["allowed_evidence_refs"])
         titles = {t["content_id"] for t in frozen["title_evidence"]}
