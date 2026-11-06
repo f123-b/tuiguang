@@ -26,6 +26,8 @@
 
 最新 Issue #29：DB 0014 / narration_pipeline@1 / pillow_ffmpeg@3。先失败用例为旁白制作接口 404；实现后实际在浏览器从指定内容提交中文声音、完成带声预览、播放至结尾、记录验收确认并生成高清，非静音 PCM 和 HTTP 文件哈希通过。详见 [完整制作验收](docs/implementation/NARRATED_VIDEO_VALIDATION.md)。本轮没有新增付费模型调用，不代表任意生成式场景或商业语音许可已接入。
 
+[PR #30](https://github.com/f123-b/tuiguang/pull/30) 已推送，基于开放的 #28，未合并或上线。补修连续制作时“其他作品历史变化导致旧成片导出 409”的问题，保留当前作品/事实/素材审核与字节校验。本机可直接保存 MP4、配音、字幕及工程，浏览器取消自动下载的情况未冒充成功；远端状态见该 PR 的实际检查。
+
 最新增量为 Issue #27 / `directed_video@1`，详细结果见 [指定内容创作验收](docs/implementation/USER_DIRECTED_CREATION_VALIDATION.md)。真实 DeepSeek 一次返回 701 输入 / 351 输出 token；脚本满足三镜头、总时长、必现文字和结尾要求，保留三项待核实说明。原文模式另经浏览器修改旁白、保存修订、预览确认并生成 6 秒 1080p 文件。未生成配音或任意新场景，验收工作区已恢复暂停和撤回模型授权。
 
 Issue #27 的 [PR #28](https://github.com/f123-b/tuiguang/pull/28) 已推送，功能提交 `191614e` 的 Actions 42272180289 四项全部成功（SQLite、PostgreSQL、Web、Python 依赖审计）。本地新增验收为 42 页面 / 84 宽度检查和生产构建通过；PR 仍开放，未合并、未上线。

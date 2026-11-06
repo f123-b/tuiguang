@@ -234,5 +234,18 @@
     "duration_sec": 9.2,
     "audio": "mixed_authorized_assets",
     "new_model_calls": 0
+  },
+  "history_regression": {
+    "before": {
+      "status": 409,
+      "error_code": "QUALITY_REVIEW_REQUIRED",
+      "trace_id": "8f2b269f915ba7b7e944b7548e00bb69"
+    },
+    "after": {
+      "download_status": 200,
+      "local_export_status": 201,
+      "file_sha256_verified": true
+    },
+    "no_new_review_or_render": true
   }
 }

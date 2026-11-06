@@ -148,6 +148,13 @@ def test_real_audio_composition_preview_and_idempotency(client, brand, local_voi
     target = Path(exported.json()["path"])
     assert target.is_file() and digest(target.read_bytes()) == exported.json()["sha256"]
     assert (target.parent / "audio-1.wav").is_file() and (target.parent / "subtitles.srt").is_file()
+    # Making another video must not revoke this unchanged, reviewed final file.
+    project(client, brand)
+    assert client.get(root + "/download").status_code == 200
+    assert (
+        client.post(root + "/export-local", json={"expected_revision": 2, "confirmed": True}).status_code
+        == 201
+    )
 
 
 def test_fixed_duration_never_truncates_voice(client, brand, local_voice):
