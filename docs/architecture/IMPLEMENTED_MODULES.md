@@ -49,3 +49,6 @@ C / #11：LEARNING 位于 `learning.py`、`learning_api.py`、`metrics_io.py`、
 D / #13：SETTINGS/NOTIFY 位于 `model_config.py`、`settings_api.py`、`notifications.py`、`pages/system-settings.tsx`、`handoff-outcome.tsx`、`ops-console.tsx`。DB 0007；配置仅加密存储，任务冻结工作区修订并检查授权/预算，站内提醒无社媒外呼。
 
 E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 0008。Run.release 冻结本地制作配置和资产哈希；先保存草稿与实际模型费用，再制作图文或排队视频。暂停、过期依据、失败恢复和媒体完成接入既有 Run/Content 审核状态，禁止自动发布。
+
+
+0.9.0 / #17：`analysis_api.py → analysis_jobs.py → jobs.reserve_budget` 维护独立复盘任务；`learning.py` 保留确定性证据，模型只能追加待审解释。`analysis_api.reconcile` 保存未知费用的人工来源与整数分，不重发请求。0009 扩展指标版本、唯一 AI 报告关联和费用核对。

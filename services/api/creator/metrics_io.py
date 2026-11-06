@@ -7,6 +7,7 @@ from itertools import islice
 from .errors import DomainError
 
 FIELDS = (
+    "content_revision",
     "content_id",
     "platform",
     "views",

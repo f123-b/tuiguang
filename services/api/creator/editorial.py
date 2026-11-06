@@ -124,6 +124,7 @@ def validate_edit(db, creator, entry, revision):
         select(Run.id).where(
             Run.creator_id == creator.id,
             Run.operational_date == entry.date,
+            Run.slot == "daily",
         )
     ):
         raise DomainError("EDITORIAL_ALREADY_EXECUTED", "该日期已创建任务，不能改写执行依据")
@@ -143,7 +144,11 @@ def snapshot(entry):
 
 def serialize_entry(db, creator, entry):
     result = serialize(entry)
-    run = db.scalar(select(Run).where(Run.creator_id == creator.id, Run.operational_date == entry.date))
+    run = db.scalar(
+        select(Run).where(
+            Run.creator_id == creator.id, Run.operational_date == entry.date, Run.slot == "daily"
+        )
+    )
     brand = db.get(Brand, creator.brand_id)
     result.update(
         status=(entry.status if entry.status == "needs_review" or not run else run.status),
@@ -167,6 +172,7 @@ def serialize_creator(db, creator):
                 select(Run.id).where(
                     Run.creator_id == creator.id,
                     Run.operational_date == entry.date,
+                    Run.slot == "daily",
                 )
             ):
                 try:

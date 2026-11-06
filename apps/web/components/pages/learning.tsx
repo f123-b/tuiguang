@@ -16,6 +16,14 @@ type Report = {
   period_start: string;
   period_end: string;
   report: {
+    ai_narrative?: {
+      summary: string;
+      observations: string[];
+      hypotheses: string[];
+      experiments: string[];
+      evidence_refs: string[];
+      near_duplicate_groups: string[][];
+    };
     metric_sample_count: number;
     feedback_count: number;
     confidence: string;
@@ -81,6 +89,14 @@ export function GrowthPage({ store, action, busy }: PageProps) {
     [refresh, setRefresh] = useState(0),
     [error, setError] = useState("");
   const [confirmed, setConfirmed] = useState<Record<string, boolean>>({});
+  const [aiConsent, setAiConsent] = useState(false);
+  const [modelReady, setModelReady] = useState(false);
+  useEffect(() => {
+    api<{ mode: string; key_configured: boolean }>("/settings/models")
+      .then((m) => setModelReady(m.mode === "openai" && m.key_configured))
+      .catch(() => setModelReady(false));
+  }, []);
+  const runState = store.runs.map((r) => `${r.id}:${r.status}`).join("|");
   const end = new Date();
   const start = new Date(end);
   start.setUTCDate(start.getUTCDate() - 6);
@@ -97,7 +113,7 @@ export function GrowthPage({ store, action, busy }: PageProps) {
         setFeedback(f);
       })
       .catch((e) => setError(e.message));
-  }, [creator?.id, creator?.active_strategy_id, refresh]);
+  }, [creator?.id, creator?.active_strategy_id, refresh, runState]);
   const report = reports.find((r) => r.id === selected) || reports[0];
   const run = (fn: () => Promise<unknown>, message: string) =>
     action(async () => {
@@ -134,6 +150,26 @@ export function GrowthPage({ store, action, busy }: PageProps) {
               onSubmit={(e) => {
                 e.preventDefault();
                 const f = new FormData(e.currentTarget);
+                if (
+                  (e.nativeEvent as SubmitEvent).submitter?.getAttribute(
+                    "name",
+                  ) === "ai"
+                ) {
+                  run(
+                    () =>
+                      api(`/creators/${creator.id}/learning-reports/ai`, {
+                        ...post({
+                          period_start: f.get("start"),
+                          period_end: f.get("end"),
+                          confirmed: true,
+                          private_data_consent: aiConsent,
+                        }),
+                        headers: { "Idempotency-Key": crypto.randomUUID() },
+                      }),
+                    "模型复盘已入队，费用计入创作者预算；请查看任务和报告历史",
+                  );
+                  return;
+                }
                 run(async () => {
                   const r = await api<Report>(
                     `/creators/${creator.id}/learning-reports`,
@@ -167,6 +203,32 @@ export function GrowthPage({ store, action, busy }: PageProps) {
               <Button type="submit" disabled={busy}>
                 生成证据周报
               </Button>
+              <label className="checkline">
+                <input
+                  type="checkbox"
+                  checked={aiConsent}
+                  onChange={(e) => setAiConsent(e.target.checked)}
+                />
+                同意将此窗口的标题、统计摘要及反馈原因计数发送给已配置模型，并使用创作者预算。
+              </label>
+              <Button
+                name="ai"
+                type="submit"
+                variant="secondary"
+                disabled={
+                  busy ||
+                  !aiConsent ||
+                  !modelReady ||
+                  creator.status !== "active"
+                }
+              >
+                按预算生成模型复盘
+              </Button>
+              {!modelReady && (
+                <Link className="text-link" href="/settings">
+                  先配置模型、价格与密钥
+                </Link>
+              )}
             </form>
             <p className="muted">
               后台也会为启用的创作者整理上一完整周。缺少指标会保留“证据不足”；没有调用付费模型。
@@ -188,6 +250,39 @@ export function GrowthPage({ store, action, busy }: PageProps) {
           </Card>
           {report ? (
             <>
+              {report.report.ai_narrative && (
+                <Card>
+                  <h2>模型解释 · 待人工核对</h2>
+                  <p>{report.report.ai_narrative.summary}</p>
+                  {(["observations", "hypotheses", "experiments"] as const).map(
+                    (key, i) => (
+                      <section key={key}>
+                        <h3>{["观察解释", "假设", "建议实验"][i]}</h3>
+                        {report.report.ai_narrative![key].map((t, j) => (
+                          <p key={j}>{t}</p>
+                        ))}
+                      </section>
+                    ),
+                  )}
+                  <p className="muted">
+                    引用：{report.report.ai_narrative.evidence_refs.join(" / ")}
+                  </p>
+                  {report.report.ai_narrative.near_duplicate_groups.map(
+                    (group, i) => (
+                      <p key={i}>
+                        相近主题建议（待确认）：
+                        {group
+                          .map(
+                            (id) =>
+                              store.contents.find((c) => c.id === id)?.title ||
+                              id,
+                          )
+                          .join(" / ")}
+                      </p>
+                    ),
+                  )}
+                </Card>
+              )}
               <div className="three-grid">
                 <Card>
                   <h2>观察到的事实</h2>
@@ -495,7 +590,7 @@ export function ManualMetrics({ store, action, busy }: PageProps) {
       data_source: string;
       created_at: string;
       committed: boolean;
-    withdrawn: boolean;
+      withdrawn: boolean;
     }[]
   >([]);
   const [refresh, setRefresh] = useState(0),
@@ -535,6 +630,9 @@ export function ManualMetrics({ store, action, busy }: PageProps) {
                 "/analytics/manual",
                 post({
                   content_id: c.id,
+                  content_revision: String(f.get("content_revision") || "")
+                    ? Number(f.get("content_revision"))
+                    : null,
                   platform: c.platform,
                   data_source: f.get("source"),
                   period_start: f.get("start"),
@@ -557,6 +655,14 @@ export function ManualMetrics({ store, action, busy }: PageProps) {
                 </option>
               ))}
             </select>
+          </Field>
+          <Field label="作品版本（未知请留空）">
+            <input
+              name="content_revision"
+              type="number"
+              min={1}
+              placeholder="例如 1，不能把未知当作当前版本"
+            />
           </Field>
           <Field label="真实来源">
             <input name="source" maxLength={180} required />

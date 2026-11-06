@@ -10,6 +10,9 @@
     "AGENT_PROVIDER_RESULT_UNKNOWN": {
       "module": "main"
     },
+    "ANALYSIS_INPUT_TOO_LARGE": {
+      "module": "analysis_jobs"
+    },
     "ASSET_FORMAT_INVALID": {
       "module": "main"
     },
@@ -45,6 +48,9 @@
     },
     "BUDGET_LIMIT_REACHED": {
       "module": "jobs"
+    },
+    "BUDGET_RECONCILIATION_DENIED": {
+      "module": "analysis_api"
     },
     "CONTENT_ALREADY_REPORTED": {
       "module": "video_edit_api"
@@ -123,6 +129,12 @@
     },
     "INTERNAL_ERROR": {
       "module": "main"
+    },
+    "LEARNING_EVIDENCE_INSUFFICIENT": {
+      "module": "analysis_jobs"
+    },
+    "LEARNING_EVIDENCE_STALE": {
+      "module": "analysis_jobs"
     },
     "LEARNING_PERIOD_INVALID": {
       "module": "learning_api"

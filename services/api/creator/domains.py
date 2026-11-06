@@ -263,8 +263,11 @@ def parse_metric_rows(db, workspace_id, rows, source):
                     values[name] = int(value)
             if all(value is None for value in values.values()):
                 raise ValueError("至少提供一项指标")
+            if row.get("content_revision") not in (None,"") and not 1 <= int(row["content_revision"]) <= content.revision:
+                raise ValueError("指标版本必须为该作品已有版本；不确定请留空")
             result.append(
                 {
+                    **({"content_revision":int(row["content_revision"])} if row.get("content_revision") not in (None,"") else {}),
                     "content_id": content.id,
                     "platform": platform,
                     **values,
