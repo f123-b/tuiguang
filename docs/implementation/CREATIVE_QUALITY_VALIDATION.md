@@ -35,3 +35,14 @@
 
 
 补充边界：受控测试同时覆盖模型返回空 choices 时立即进入未知回执处理，保留预留且只调用一次，不把结构异常留成可重试运行。公开的脱敏请求摘要见 `docs/evidence/deepseek-validation.json`，不包含密钥或思考过程。当前网关没有持久化每次响应的精确模型修订号，配置中的版本备注来自官方文档，不冒充响应证明。
+
+
+## 最终集成补记 · 2026-11-07
+
+功能提交 `c884f2cbcc695b274b78c2d20ebfae297b073186` 的 Actions **42248103408** 四项全部成功：SQLite API、PostgreSQL API（含增量升级）、Web（含构建与依赖审计）、Python 依赖审计。浏览器完整报告保存于 `docs/evidence/quality-browser-smoke.json`；逐页标题已核对为实际业务页面。稍后的截图会话丢失时重新载入私有测试状态，截图复核后才交付。
+
+另补一次真实创作全链路，而非只检查连接：选用已确认的 2026-11-08 功能速览选题提前备稿（不是伪造当日自动执行）。运行 `3574d9dce3854b2aa2dd7ef2f62dca4c` 经真实 DeepSeek 生成文案 `e1b2045572464629957751ef4cc3ef0e`，generation_source=openai；事实引用与输出结构通过，继而由本地规则生成两页图文和 30 秒混合预览 `b0bd156084af42c3a0968ced848c96c6`。预览 SHA256 `c7908c7ca61c61177b38b4473f7bf1bc7e9044e0ce9d405508af4f6f3c0643c7`，HTTP 读取及哈希通过。任务正常停在 awaiting_review / preview.ready，内容 needs_preview_review、未审核且成片附件 hash=null；没有自动生成高清或发布。
+
+该次预留 2 分、按配置单价估算结算 1 分；加前两次共估算 3 分，均非服务商实际账单。全链路文案任务未持久化逐响应 token 用量，不能编造 token 数。输出与账本见 `docs/evidence/deepseek-creation.json`，界面截图 `deepseek-created-article.png`。验收创作者已再次暂停、撤回模型授权、恢复原预算与制作选项。先前混合高清工程在新增比较标题后重新检查/记录验收确认，成片字节保持不变。
+
+当前 0012 数据库另做一致性备份 `creator-0012-20261107-012713.db`，integrity_check=ok；主密钥单独私有备份并校验，不进入 Git 或公开证据。运行程序已用功能提交重启，API 的版本为 0.12.0-dev / 0012，git_sha 与功能提交一致，boot 时 working_tree_dirty=false。文档补记不会变更数据库或运行行为。
