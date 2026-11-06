@@ -109,7 +109,7 @@ def upgrade_with_old_records(env):
         )
         assert connection.scalar(text("select actual_cents from budget_ledgers where id = 'l'")) == 8
         assert connection.scalar(text("select input_snapshot from creator_runs where id = 'r'")) is None
-        assert connection.scalar(text("select version_num from alembic_version")) == "0005"
+        assert connection.scalar(text("select version_num from alembic_version")) == "0006"
         assert connection.scalar(text("select graphics from content_packages where id = 'p'")) is None
         assert connection.scalar(text("select graphics_render from content_packages where id = 'p'")) is None
     engine.dispose()
@@ -121,7 +121,7 @@ def test_frozen_migration_repeat_upgrade_and_backup_restore(tmp_path):
     upgrade_with_old_records(env)
     engine = create_engine(env["DATABASE_URL"])
     with engine.begin() as connection:
-        assert connection.scalar(text("select version_num from alembic_version")) == "0005"
+        assert connection.scalar(text("select version_num from alembic_version")) == "0006"
         assert {
             "creator_profiles",
             "creator_runs",

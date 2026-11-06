@@ -1,4 +1,3 @@
-import csv
 import io
 import json
 from datetime import datetime, timedelta, timezone
@@ -39,6 +38,7 @@ from .editorial_api import router as editorial_router
 from .graphics_api import router as graphics_router
 from .evidence_api import router as evidence_router
 from .video_edit_api import router as video_edit_router
+from .learning_api import router as learning_router
 from .video_edit import lock_video, checkpoint as video_checkpoint, current_output
 from .evidence import checkpoint
 from .graphics import lock_content
@@ -65,7 +65,7 @@ from .video import PROVIDERS, probe, validate_ir
 
 app = FastAPI(
     title="叙流 · AI 持续创作者",
-    version="0.5.0-dev",
+    version="0.6.0-dev",
     openapi_url="/api/v1/openapi.json",
     docs_url="/api/docs",
     redoc_url=None,
@@ -74,6 +74,7 @@ app.include_router(editorial_router)
 app.include_router(graphics_router)
 app.include_router(evidence_router)
 app.include_router(video_edit_router)
+app.include_router(learning_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -136,7 +137,7 @@ async def validation_error(request, error):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.5.0-dev"}
+    return {"status": "ok", "version": "0.6.0-dev"}
 
 
 def set_session(response, token):
@@ -614,34 +615,18 @@ def import_template(user: Actor):
     )
 
 
+@app.post("/api/v1/analytics/import/columns")
+async def metric_columns(user: Actor, file: UploadFile = File()):
+    from .metrics_io import read_upload, FIELDS
+    header, rows = await read_upload(file)
+    return {"columns":header,"fields":FIELDS,"preview":rows[:3]}
+
+
 @app.post("/api/v1/analytics/import/preview")
-async def preview_import(db: DB, user: Actor, file: UploadFile = File(), data_source: str = Form()):
-    data = await file.read(5 * 1024 * 1024 + 1)
-    if len(data) > 5 * 1024 * 1024:
-        raise DomainError("METRICS_FORMAT_INVALID", "报表不能超过 5 MB", 422)
-    try:
-        if (file.filename or "").lower().endswith(".xlsx"):
-            import openpyxl
-
-            wb = openpyxl.load_workbook(io.BytesIO(data), read_only=True, data_only=True)
-            try:
-                iterator = wb.active.iter_rows(values_only=True)
-                header = next(iterator)
-                from itertools import islice
-
-                rows = [
-                    dict(zip(header, row))
-                    for row in islice(iterator, 5001)
-                    if any(x is not None for x in row)
-                ]
-            finally:
-                wb.close()
-        elif (file.filename or "").lower().endswith(".csv"):
-            rows = list(csv.DictReader(io.StringIO(data.decode("utf-8-sig"))))
-        else:
-            raise ValueError("extension")
-    except (ValueError, UnicodeError, OSError, StopIteration):
-        raise DomainError("METRICS_FORMAT_INVALID", "无法读取报表，请使用 UTF-8 CSV 或 XLSX", 422) from None
+async def preview_import(db: DB, user: Actor, file: UploadFile = File(), data_source: str = Form(), column_mapping: str = Form(default="{}",max_length=8000)):
+    from .metrics_io import read_upload, map_columns
+    header, rows = await read_upload(file)
+    rows = map_columns(header, rows, column_mapping)
     parsed = parse_metric_rows(db, user.workspace_id, rows, data_source)
     fingerprint = digest({"rows": parsed, "data_source": data_source})
     batch = db.scalar(

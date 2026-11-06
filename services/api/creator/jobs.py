@@ -188,6 +188,11 @@ def process_pending(db):
             state = {"brand": serialize(brand), "creator": serialize(creator), "day": run.operational_date}
             if plan:
                 state["plan"] = plan
+                preference = (plan.get("strategy_snapshot") or {}).get("settings", {})
+                if preference.get("tone") == "restrained":
+                    state["creator"]["style"] += "；用户已确认：表达克制，避免夸张广告开场"
+                if preference.get("concise"):
+                    state["creator"]["style"] += "；用户已确认：简短表达"
             run.stage = "content.script"
             db.commit()
             state.update(select_facts(state))

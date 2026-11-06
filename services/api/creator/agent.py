@@ -226,6 +226,10 @@ def planned_draft(state):
         ),
     ]
     opening, lead, ending = structures[index]
+    preference = (plan.get("strategy_snapshot") or {}).get("settings", {})
+    if preference.get("concise"):
+        ending = "发布前请核对实际版本及使用场景。"
+        opening = "功能简记"
     return {
         "title": plan["title"],
         "body": f"{state['brand']['name']}｜{angle}\n\n{opening}\n\n{lead}\n{evidence}\n\n{ending}\n\n本地规则草稿；发布前请复核事实、实际版本与 AI 内容标识。",

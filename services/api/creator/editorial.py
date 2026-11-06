@@ -46,6 +46,9 @@ def ensure_plan(db, creator, start=None):
     start = start or local_today(creator)
     brand = db.get(Brand, creator.brand_id)
     facts = [f for f in brand.facts if f["verified"]]
+    from .learning import strategy_snapshot
+
+    strategy = strategy_snapshot(db, creator)
     current = {e.date: e for e in entries(db, creator, start)}
     for offset in range(14):
         day = start + timedelta(days=offset)
@@ -62,7 +65,8 @@ def ensure_plan(db, creator, start=None):
                 if existing.status != target:
                     existing.status, existing.revision = target, existing.revision + 1
             continue
-        angle = ANGLES[day.toordinal() % len(ANGLES)]
+        preferred = (strategy or {}).get("settings", {}).get("preferred_angles") or ANGLES
+        angle = preferred[day.toordinal() % len(preferred)]
         fact = facts[day.toordinal() % len(facts)] if facts else None
         db.add(
             EditorialEntry(
@@ -74,7 +78,16 @@ def ensure_plan(db, creator, start=None):
                 fact_refs=[fact["id"]] if fact else [],
                 brand_revision=brand.revision,
                 status=("approved" if scheduled else "rest") if facts else "needs_review",
-                rationale="依据创作者频率和已核实事实轮换角度；本地规则计划，未进行模型或热度分析。",
+                strategy_snapshot=strategy,
+                rationale=(
+                    "使用用户确认策略 "
+                    + strategy["strategy_id"]
+                    + "，依据报告 "
+                    + strategy["report_id"]
+                    + "；仅待验证偏好，不代表平台规律。"
+                )
+                if strategy
+                else "依据创作者频率和已核实事实轮换角度；本地规则计划，未进行模型或热度分析。",
             )
         )
     db.flush()
@@ -86,6 +99,12 @@ def validate_facts(db, creator, entry):
     # Worker sessions may process several drafts; expire cached brand evidence
     # before each execution so updates in another API session are observed.
     db.refresh(brand)
+    if entry.strategy_snapshot:
+        from .models import Strategy
+
+        strategy = db.get(Strategy, entry.strategy_snapshot["strategy_id"])
+        if not strategy or strategy.status != "accepted":
+            raise DomainError("EDITORIAL_FACTS_STALE", "计划引用的策略已停用，请重新核对计划")
     verified = {f["id"]: f for f in brand.facts if f["verified"]}
     if (
         entry.brand_revision != brand.revision
@@ -112,6 +131,7 @@ def validate_edit(db, creator, entry, revision):
 
 def snapshot(entry):
     return {
+        **({"strategy_snapshot": entry.strategy_snapshot} if entry.strategy_snapshot else {}),
         "entry_id": entry.id,
         "revision": entry.revision,
         "title": entry.title,
