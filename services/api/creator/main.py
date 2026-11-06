@@ -46,6 +46,7 @@ from .model_diagnostics import router as model_diagnostics_router
 from .product_sources_api import router as product_sources_router
 from .quality_api import router as quality_router
 from .brief_api import router as brief_router
+from .narration_api import router as narration_router
 from .video_edit import lock_video, checkpoint as video_checkpoint, current_output
 from .evidence import checkpoint
 from .graphics import lock_content
@@ -88,6 +89,7 @@ app.include_router(model_diagnostics_router)
 app.include_router(product_sources_router)
 app.include_router(quality_router)
 app.include_router(brief_router)
+app.include_router(narration_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]

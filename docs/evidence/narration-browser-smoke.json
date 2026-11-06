@@ -1,0 +1,1006 @@
+{
+  "routes": [
+    {
+      "route": "/auth/login",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让产品的故事，持续发生。",
+        "最终验收创作者（测试），为下一次分享做准备",
+        "今日创作流程",
+        "需要你关注",
+        "最近的内容",
+        "叙流本地开发验收 · 功能速览",
+        "叙流验收：先核实来源，再制作作品"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/welcome",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "从第一篇内容，到持续创作",
+        "告诉创作者，什么是真的",
+        "设定你的创作节奏",
+        "把内容调整到你满意",
+        "让产品故事动起来",
+        "最后的发布，由你完成",
+        "让真实数据回流",
+        "把反馈变成下一轮实验",
+        "设置提醒和私有记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/brand",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "真实的产品，是好内容的起点",
+        "产品动态监测",
+        "本地验收版本说明（合成资料）",
+        "版本变更待核实区",
+        "编辑品牌资料",
+        "让每一个卖点都有出处",
+        "已记录的事实"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/creator",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "为创作设定一个好节奏"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/onboarding/preview",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把未来的创作，安排妥当"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让产品的故事，持续发生。",
+        "最终验收创作者（测试），为下一次分享做准备",
+        "今日创作流程",
+        "需要你关注",
+        "最近的内容",
+        "叙流本地开发验收 · 功能速览",
+        "叙流验收：先核实来源，再制作作品"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/creator",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "最终验收创作者（测试）",
+        "最终验收创作者（测试）",
+        "¥0.00",
+        "¥0.00",
+        "每周 7 天",
+        "下一次制作",
+        "开始一次真实创作"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/creator/edit",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "为创作设定一个好节奏"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/creator/activity",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "每一步创作，都有迹可循"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把未来的创作，安排妥当"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/topics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把未来的创作，安排妥当"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "叙流本地开发验收 · 工作流整理",
+        "选题与依据",
+        "确认制作安排"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/campaigns",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把真实的价值，写成好内容",
+        "叙流本地开发验收 · 功能速览",
+        "叙流验收：先核实来源，再制作作品"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把每一句话，调整到恰到好处",
+        "创作质量与人工判断",
+        "版本比较与恢复",
+        "分平台文案",
+        "内容预审与人工复核"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "把真实的内容，排成好看的图文",
+        "一份产品笔记讲清一个价值",
+        "产品笔记",
+        "事实清单",
+        "真实截图",
+        "从一份内容开始"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/assets",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让每一份素材，都有清楚的来处",
+        "上传品牌素材",
+        "素材库 5",
+        "素材适用产品版本",
+        "final-software-recording.mp4",
+        "final-dashboard.png",
+        "acceptance-tone.wav",
+        "source-qa.png",
+        "逐镜头配音.wav"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/new",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "一个故事，可以有很多种表达",
+        "建立可编辑的视频工程",
+        "我的视频项目"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "完整制作验收：中文旁白与真实录屏",
+        "配音与视频制作",
+        "创作质量与人工判断",
+        "低清预览 → 人工确认 → 高清成片",
+        "分镜与顺序",
+        "统一时间线 · 11.27 秒",
+        "镜头 1",
+        "全片与版本恢复",
+        "授权旁白与配乐",
+        "字幕时间线"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c/storyboard",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "完整制作验收：中文旁白与真实录屏",
+        "配音与视频制作",
+        "创作质量与人工判断",
+        "低清预览 → 人工确认 → 高清成片",
+        "分镜与顺序",
+        "统一时间线 · 11.27 秒",
+        "镜头 1",
+        "全片与版本恢复",
+        "授权旁白与配乐",
+        "字幕时间线"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c/render",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "完整制作验收：中文旁白与真实录屏",
+        "配音与视频制作",
+        "创作质量与人工判断",
+        "低清预览 → 人工确认 → 高清成片",
+        "分镜与顺序",
+        "统一时间线 · 11.27 秒",
+        "镜头 1",
+        "全片与版本恢复",
+        "授权旁白与配乐",
+        "字幕时间线"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/compliance",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "好内容，经得起再看一眼",
+        "叙流本地开发验收 · 功能速览",
+        "叙流验收：先核实来源，再制作作品"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/compliance/e1b2045572464629957751ef4cc3ef0e",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "好内容，经得起再看一眼",
+        "叙流本地开发验收 · 功能速览",
+        "叙流验收：先核实来源，再制作作品"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流验收：先核实来源，再制作作品",
+        "叙流验收：先核实来源，再制作作品",
+        "发布前，最后确认一次"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish/package/0e8c89daecc74875a5ca65515d4f692e",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流验收：先核实来源，再制作作品",
+        "叙流验收：先核实来源，再制作作品",
+        "发布前，最后确认一次"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish/guide/xiaohongshu",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流验收：先核实来源，再制作作品",
+        "叙流验收：先核实来源，再制作作品",
+        "发布前，最后确认一次"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/publish/record/0e8c89daecc74875a5ca65515d4f692e",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "素材准备好了，分享由你决定",
+        "叙流验收：先核实来源，再制作作品",
+        "叙流验收：先核实来源，再制作作品",
+        "发布前，最后确认一次"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/analytics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "用事实看效果，让数据有出处",
+        "导入批次",
+        "没有数据，也是一种明确的状态"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/analytics/import",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让真实的反馈，回到创作里",
+        "上传 → 校验预览 → 确认入库",
+        "导入批次",
+        "没有数据，也是一种明确的状态"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "从可追溯的反馈，形成下一轮假设",
+        "观察到的事实",
+        "尚不能确定",
+        "下一轮待验证实验",
+        "偏好与策略版本",
+        "主动反馈"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/growth/memory",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "从可追溯的反馈，形成下一轮假设",
+        "观察到的事实",
+        "尚不能确定",
+        "下一轮待验证实验",
+        "偏好与策略版本",
+        "主动反馈"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "真实的产品，是好内容的起点",
+        "产品动态监测",
+        "本地验收版本说明（合成资料）",
+        "版本变更待核实区",
+        "编辑品牌资料",
+        "让每一个卖点都有出处",
+        "已记录的事实"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "清楚的设置，安心的创作",
+        "模型设置与联调",
+        "站内提醒偏好",
+        "隐私与工作区导出",
+        "费用账本",
+        "当前账号"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/help",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "从第一篇内容，到持续创作",
+        "告诉创作者，什么是真的",
+        "设定你的创作节奏",
+        "把内容调整到你满意",
+        "让产品故事动起来",
+        "最后的发布，由你完成",
+        "让真实数据回流",
+        "把反馈变成下一轮实验",
+        "设置提醒和私有记录"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/ops/diagnostics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "诊断与维护"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/ops/releases",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "运行版本清单"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "让每一页，都讲清楚一点",
+        "图文页",
+        "当前页与全局样式",
+        "事实与素材依据",
+        "查看每一页，再交给发布中心"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "创作待办，有事才提醒",
+        "内容等待人工审核",
+        "资料等待你手动发布",
+        "内容等待人工审核",
+        "内容等待人工审核",
+        "新的证据复盘已保存",
+        "内容等待人工审核",
+        "新的证据复盘已保存",
+        "内容等待人工审核",
+        "设置手动发布提醒"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/ops/maintenance",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "本机维护状态"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "连接你自己的模型",
+        "网关、模型与密钥",
+        "读取模型列表",
+        "实际生成联调",
+        "检查与联调回执"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "你来定主题，作品按你的要求创作",
+        "这里能做什么视频？",
+        "1. 规定你要讲什么"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "你来定主题，作品按你的要求创作",
+        "这里能做什么视频？",
+        "1. 规定你要讲什么"
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "title": "叙流 · AI 持续创作者",
+      "headings": [
+        "你来定主题，作品按你的要求创作",
+        "这里能做什么视频？",
+        "1. 规定你要讲什么 · V1",
+        "2. 准备脚本",
+        "3. 检查脚本与分镜，再制作预览",
+        "镜头 1",
+        "镜头 2",
+        "镜头 3"
+      ],
+      "overflow": false
+    }
+  ],
+  "viewports": [
+    {
+      "route": "/dashboard",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "width": 375,
+      "document": 360,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "width": 390,
+      "document": 375,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "width": 768,
+      "document": 753,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "width": 1024,
+      "document": 1024,
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "width": 1024,
+      "document": 1024,
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "width": 1024,
+      "document": 1009,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "width": 1440,
+      "document": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "width": 1440,
+      "document": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "width": 1440,
+      "document": 1425,
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/calendar",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/topics/7f80f133451d4605b3651f49667dbd42",
+      "width": 1920,
+      "document": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/studio/covers",
+      "width": 1920,
+      "document": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/studio/article/e1b2045572464629957751ef4cc3ef0e/graphics",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/studio/video/28af076dc6894510913c85c51de21b9c",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/growth",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/settings",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/settings/models",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/brand",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/new",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/studio/briefs/682eab019e8e409194105d9e265b1b82",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/notifications",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    },
+    {
+      "route": "/publish",
+      "width": 1920,
+      "document": 1905,
+      "overflow": false
+    }
+  ]
+}

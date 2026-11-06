@@ -1,10 +1,15 @@
 "use client";
-import { Button, Card, EmptyState, StatusBadge } from "@xuliu/ui";
+import { Button, Card, StatusBadge } from "@xuliu/ui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { api, post, type Run } from "../../lib/api";
 import { Field, PageHeader, type PageProps } from "../page-shared";
+import {
+  VoiceControls,
+  defaultVoiceSettings,
+  type VoiceSettings,
+} from "./narration";
 
 type BriefDocument = {
   brand_id: string;
@@ -118,15 +123,64 @@ export function BriefsPage(props: PageProps) {
     }, message);
   if (!brand)
     return (
-      <EmptyState
-        title="先准备产品资料"
-        description="创作要求保存在你的品牌工作区中。先填写品牌和有来源的事实，再规定视频内容。"
-        action={
-          <Link href="/brand" className="button">
-            填写品牌资料
-          </Link>
-        }
-      />
+      <Card>
+        <h1>先告诉我，这条视频要介绍什么</h1>
+        <p>
+          填写产品或项目名称，即可在这里规定内容、制作分镜和配音视频。手工制作不需要开启自动创作者。
+        </p>
+        <form
+          className="form-stack"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const form = new FormData(e.currentTarget);
+            action(
+              () =>
+                api(
+                  "/brands",
+                  post({
+                    name: form.get("name"),
+                    description: form.get("description"),
+                    audience: form.get("audience"),
+                    website: "",
+                    facts: [],
+                  }),
+                ),
+              "资料已保存，可以开始规定视频内容",
+            );
+          }}
+        >
+          <Field label="产品或项目名称">
+            <input
+              name="name"
+              required
+              maxLength={100}
+              placeholder="例如：我的文件整理工具"
+            />
+          </Field>
+          <Field label="这是什么产品或项目">
+            <textarea
+              name="description"
+              maxLength={2000}
+              rows={3}
+              placeholder="用自己的话简单介绍，用于组织你的创作资料"
+            />
+          </Field>
+          <Field label="给谁看">
+            <input
+              name="audience"
+              maxLength={500}
+              placeholder="例如：第一次使用软件的人"
+            />
+          </Field>
+          <Button type="submit" disabled={busy}>
+            保存资料并开始创作
+          </Button>
+        </form>
+        <p className="muted">
+          以上介绍不会自动成为已核实事实。使用 AI 写产品脚本前，请在
+          <Link href="/brand">品牌与素材</Link>添加有来源的事实。
+        </p>
+      </Card>
     );
   return (
     <>
@@ -153,7 +207,7 @@ export function BriefsPage(props: PageProps) {
           编写脚本、分镜和旁白文字；本地引擎制作动态文字解说、实录讲解及素材混合短片。人物表演、任意新场景等生成式画面需要另接视频生成服务。
         </p>
         <p className="muted">
-          旁白文字和画面说明是脚本内容。声音需在视频工作室添加授权音频，实录镜头只使用你选择的真实素材。
+          确认脚本后可选择本机中文配音，自动合成音轨、字幕和视频；实录镜头使用你选择的真实素材。画面说明是制作建议。
         </p>
       </Card>
       {error && (
@@ -540,6 +594,9 @@ function BriefScriptEditor({
   const [draft, setDraft] = useState<Script>(structuredClone(plan.document));
   const [dirty, setDirty] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [withVoice, setWithVoice] = useState(true);
+  const [voiceSettings, setVoiceSettings] =
+    useState<VoiceSettings>(defaultVoiceSettings);
   const [error, setError] = useState("");
   const update = (doc: Script) => {
     setDraft(doc);
@@ -559,7 +616,7 @@ function BriefScriptEditor({
         {plan.method === "model_suggestion"
           ? "模型脚本建议，待人工核对"
           : "用户提供或修订的脚本"}
-        。画面说明不会凭空变成实录，旁白文字不会自动变成声音。
+        。画面说明供你核对；下方选择声音并确认后，可将旁白合成为真实音轨。
       </p>
       {plan.stale && (
         <p className="alert warning">
@@ -810,6 +867,22 @@ function BriefScriptEditor({
       <label className="checkline">
         <input
           type="checkbox"
+          checked={withVoice}
+          disabled={busy || locked || dirty || !!plan.stale}
+          onChange={(e) => setWithVoice(e.target.checked)}
+        />
+        为这份脚本制作配音、同步字幕和视频
+      </label>
+      {withVoice && (
+        <VoiceControls
+          value={voiceSettings}
+          onChange={setVoiceSettings}
+          disabled={busy || locked || dirty || !!plan.stale}
+        />
+      )}
+      <label className="checkline">
+        <input
+          type="checkbox"
           checked={confirmed}
           disabled={dirty || locked || !!plan.stale}
           onChange={(e) => setConfirmed(e.target.checked)}
@@ -823,19 +896,30 @@ function BriefScriptEditor({
           dirty ||
           !!plan.stale ||
           !confirmed ||
+          (withVoice &&
+            (!voiceSettings.voice_id || !voiceSettings.usage_confirmed)) ||
           plan.review.status === "needs_revision"
         }
         onClick={() =>
-          action(async () => {
-            const result = await api<{ video_id: string }>(
-              `/creation-briefs/${brief.id}/plans/${plan.id}/build`,
-              post({ expected_revision: brief.revision, confirmed: true }),
-            );
-            router.push(`/studio/video/${result.video_id}`);
-          }, "视频工程已建立，低清预览已排队")
+          action(
+            async () => {
+              const result = await api<{ video_id: string }>(
+                `/creation-briefs/${brief.id}/plans/${plan.id}/build`,
+                post({
+                  expected_revision: brief.revision,
+                  confirmed: true,
+                  ...(withVoice ? { narration: voiceSettings } : {}),
+                }),
+              );
+              router.push(`/studio/video/${result.video_id}`);
+            },
+            withVoice
+              ? "配音、字幕与视频预览已排队"
+              : "视频工程已建立，低清预览已排队",
+          )
         }
       >
-        建立工程并制作低清预览
+        {withVoice ? "制作带配音的视频预览" : "建立工程并制作无配音预览"}
       </Button>
       {plan.video_id && (
         <p>

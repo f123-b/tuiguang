@@ -230,14 +230,31 @@ def preview_file(db, video, job=None):
 def require_review(db, video):
     if not video.preview_required:
         return
-    current = build_report(db, "video", video)
-    if current.report["decision"] == "blocked":
+    frozen = snapshot(db, "video", video)
+    if measure(frozen)["decision"] == "blocked":
         raise DomainError("QA_CONTENT_BLOCKED", "质量检查存在硬性阻断项", 422)
     review = db.scalar(
         select(QualityReview)
         .where(QualityReview.video_id == video.id, QualityReview.revision == video.revision)
         .order_by(QualityReview.created_at.desc(), QualityReview.id)
     )
-    if not review or review.decision != "accept" or review.report_id != current.id:
+    if not review or review.decision != "accept":
         raise DomainError("QUALITY_REVIEW_REQUIRED", "请核对当前质量报告和低清预览，再记录人工确认")
+    report = db.get(QualityReport, review.report_id)
+
+    # Similarity comparisons describe the history at review time; creating or
+    # editing another work must not revoke an unchanged reviewed output.
+    def binding(evidence):
+        return {k: v for k, v in evidence.items() if k not in ("titles", "shot_history")}
+
+    if (
+        not report
+        or report.workspace_id != video.workspace_id
+        or report.subject_type != "video"
+        or report.subject_id != video.id
+        or report.subject_revision != video.revision
+        or report.report.get("method") != "rules"
+        or digest(binding(report.report.get("evidence", {}))) != digest(binding(frozen))
+    ):
+        raise DomainError("QUALITY_REVIEW_REQUIRED", "当前作品、事实或素材依据变化，请重新检查预览并确认")
     preview_file(db, video, db.get(RenderJob, review.preview_job_id))

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.13.0-dev"
+    "version": "0.14.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -1219,6 +1219,53 @@
         ],
         "responses": {
           "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/export-local": {
+      "post": {
+        "summary": "Export Local",
+        "operationId": "export_local_api_v1_videos__video_id__export_local_post",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/creator__video_edit_api__Restore"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -3577,13 +3624,152 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/creator__brief_api__Confirm"
+                "$ref": "#/components/schemas/Build"
               }
             }
           }
         },
         "responses": {
           "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/narration-jobs": {
+      "post": {
+        "summary": "Create",
+        "operationId": "create_api_v1_videos__video_id__narration_jobs_post",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NarrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Jobs",
+        "operationId": "jobs_api_v1_videos__video_id__narration_jobs_get",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/narration-jobs/{job_id}/audio": {
+      "get": {
+        "summary": "Audio",
+        "operationId": "audio_api_v1_videos__video_id__narration_jobs__job_id__audio_get",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          },
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -5614,6 +5800,37 @@
         ],
         "title": "BriefInput"
       },
+      "Build": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "narration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NarrationOptions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "Build"
+      },
       "ChangeDecision": {
         "properties": {
           "decision": {
@@ -6524,6 +6741,130 @@
         ],
         "title": "ModelRequest"
       },
+      "NarrationLine": {
+        "properties": {
+          "shot_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Shot Id"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Text",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "shot_id"
+        ],
+        "title": "NarrationLine"
+      },
+      "NarrationOptions": {
+        "properties": {
+          "voice_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Voice Id"
+          },
+          "rate": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": -5.0,
+            "title": "Rate",
+            "default": 0
+          },
+          "fit_mode": {
+            "type": "string",
+            "enum": [
+              "extend",
+              "fixed"
+            ],
+            "title": "Fit Mode",
+            "default": "extend"
+          },
+          "subtitles": {
+            "type": "boolean",
+            "title": "Subtitles",
+            "default": true
+          },
+          "usage_confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Usage Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "voice_id",
+          "usage_confirmed"
+        ],
+        "title": "NarrationOptions"
+      },
+      "NarrationRequest": {
+        "properties": {
+          "voice_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Voice Id"
+          },
+          "rate": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": -5.0,
+            "title": "Rate",
+            "default": 0
+          },
+          "fit_mode": {
+            "type": "string",
+            "enum": [
+              "extend",
+              "fixed"
+            ],
+            "title": "Fit Mode",
+            "default": "extend"
+          },
+          "subtitles": {
+            "type": "boolean",
+            "title": "Subtitles",
+            "default": true
+          },
+          "usage_confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Usage Confirmed"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/NarrationLine"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Lines"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "voice_id",
+          "usage_confirmed",
+          "expected_revision",
+          "lines"
+        ],
+        "title": "NarrationRequest"
+      },
       "OutcomeInput": {
         "properties": {
           "outcome": {
@@ -7239,6 +7580,13 @@
             "minimum": 25.0,
             "title": "Speed Percent",
             "default": 100
+          },
+          "freeze_end_frames": {
+            "type": "integer",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Freeze End Frames",
+            "default": 0
           }
         },
         "additionalProperties": false,

@@ -180,6 +180,7 @@ export type Shot = {
   locked: boolean;
   trim_start_frame?: number;
   speed_percent?: number;
+  freeze_end_frames?: number;
 };
 export type AudioTrack = {
   track_id: string;
@@ -215,6 +216,8 @@ export type Video = {
     shots: Shot[];
     audio_tracks?: AudioTrack[];
     subtitles?: Subtitle[];
+    creation_brief?: { script: { shots: { narration: string; caption: string }[] } };
+    narration?: { segments: { shot_id: string; text: string }[] };
   };
 };
 export type Handoff = {

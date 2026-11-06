@@ -67,6 +67,7 @@ def record(db, workspace_id, trace_id, stage, status, run_id=None, error_code=No
         "change_id",
         "brief_id",
         "plan_id",
+        "narration_job_id",
         "decision",
         "asset_id",
         "verified",

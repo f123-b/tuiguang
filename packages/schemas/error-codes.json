@@ -262,11 +262,26 @@
     "STRATEGY_REVISION_CONFLICT": {
       "module": "learning_api"
     },
+    "TTS_DURATION_TOO_LONG": {
+      "module": "narration"
+    },
+    "TTS_JOB_PENDING": {
+      "module": "narration"
+    },
+    "TTS_OUTPUT_NOT_READY": {
+      "module": "narration_api"
+    },
     "TTS_PROVIDER_UNAVAILABLE": {
       "module": "speech"
     },
     "TTS_RESULT_INVALID": {
       "module": "speech"
+    },
+    "TTS_SCRIPT_INVALID": {
+      "module": "narration"
+    },
+    "TTS_SUBTITLES_EXIST": {
+      "module": "narration"
     },
     "VALIDATION_ERROR": {
       "module": "settings_api"
@@ -286,11 +301,17 @@
     "VID_DURATION_INVALID": {
       "module": "video"
     },
+    "VID_EXPORT_FAILED": {
+      "module": "video_edit_api"
+    },
     "VID_IR_INVALID": {
       "module": "video_edit_api"
     },
     "VID_IR_UPGRADE_REQUIRED": {
       "module": "video"
+    },
+    "VID_LOCAL_EXPORT_DISABLED": {
+      "module": "video_edit_api"
     },
     "VID_MEDIA_INVALID": {
       "module": "video"
