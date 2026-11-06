@@ -96,6 +96,15 @@ def compliance_report(db, content):
     verified = {f["id"] for f in brand.facts if f["verified"]}
     issues = []
     text = content.title + "\n" + content.body
+    if content.graphics:
+        from .graphics import current_receipt, load_document
+
+        try:
+            document = load_document(content.graphics)
+            text += "\n" + "\n".join(p.heading + "\n" + p.text for p in document.pages)
+            current_receipt(db, content)
+        except DomainError as error:
+            issues.append({"level": "blocked", "message": error.message, "code": error.code})
     if re.search(r"世界第一|保证.{0,8}成功|100[%％]|保证不封号|绝对安全|虚构好评", text):
         issues.append({"level": "blocked", "message": "含无法证实的绝对化承诺，请修改"})
     if not content.fact_refs or not set(content.fact_refs) <= verified:
@@ -111,6 +120,9 @@ def compliance_report(db, content):
 
 
 def make_handoff(db, content):
+    from .graphics import current_receipt, lock_content
+
+    lock_content(db, content)
     if content.approved_revision != content.revision or compliance_report(db, content)["status"] == "blocked":
         raise DomainError("QA_CONTENT_BLOCKED", "请先完成内容预审和人工审核")
     existing = db.scalar(
@@ -136,9 +148,31 @@ def make_handoff(db, content):
         "revision": content.revision,
     }
     output = io.BytesIO()
+    graphics = current_receipt(db, content) if content.graphics else None
+    if graphics:
+        provenance["graphics"] = graphics
+        snapshot["graphics"] = {"document": content.graphics, "render": graphics}
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("copy.txt", content.title + "\n\n" + content.body)
-        z.writestr("cover.png", cover_png(content.title, brand.name))
+        if graphics:
+            for index, page in enumerate(graphics["pages"]):
+                for suffix in ("png", "jpg"):
+                    data = file_path(
+                        content.workspace_id, page[suffix + "_sha256"], "." + suffix
+                    ).read_bytes()
+                    z.writestr(f"images/{index + 1:02d}.{suffix}", data)
+                    if index == 0 and suffix == "png":
+                        z.writestr("cover.png", data)
+            z.writestr(
+                "graphics-project.json",
+                json.dumps(
+                    {"document": content.graphics, "content_revision": content.revision},
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+            )
+        else:
+            z.writestr("cover.png", cover_png(content.title, brand.name))
         z.writestr("provenance.json", json.dumps(provenance, ensure_ascii=False, indent=2))
         z.writestr(
             "checklist.md",

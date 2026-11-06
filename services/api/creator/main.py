@@ -36,6 +36,8 @@ from .domains import (
 from .errors import DomainError
 from .editorial import ensure_plan, lock_creator, serialize_creator
 from .editorial_api import router as editorial_router
+from .graphics_api import router as graphics_router
+from .graphics import lock_content
 from .jobs import budget_used, enqueue
 from .models import (
     Asset,
@@ -59,12 +61,13 @@ from .video import PROVIDERS, probe, validate_ir
 
 app = FastAPI(
     title="叙流 · AI 持续创作者",
-    version="0.2.0-dev",
+    version="0.3.0-dev",
     openapi_url="/api/v1/openapi.json",
     docs_url="/api/docs",
     redoc_url=None,
 )
 app.include_router(editorial_router)
+app.include_router(graphics_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -127,7 +130,7 @@ async def validation_error(request, error):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.2.0-dev"}
+    return {"status": "ok", "version": "0.3.0-dev"}
 
 
 def set_session(response, token):
@@ -446,12 +449,14 @@ def get_content(content_id: str, db: DB, user: Actor):
 @app.patch("/api/v1/content/packages/{content_id}")
 def edit_content(content_id: str, data: s.ContentPatch, db: DB, user: Actor):
     content = owned(db, Content, content_id, user.workspace_id)
+    lock_content(db, content, data.expected_revision)
     if content.status == "user_reported_published":
         raise DomainError("CONTENT_ALREADY_REPORTED", "已登记内容保持历史快照，请先撤销登记再修改")
-    for key, value in data.model_dump(exclude_none=True).items():
+    for key, value in data.model_dump(exclude_none=True, exclude={"expected_revision"}).items():
         setattr(content, key, value)
     content.revision += 1
     content.approved_revision = None
+    content.graphics_render = None
     content.status = "awaiting_user_review"
     content.compliance = compliance_report(db, content)
     db.commit()
@@ -461,6 +466,9 @@ def edit_content(content_id: str, data: s.ContentPatch, db: DB, user: Actor):
 @app.post("/api/v1/content/packages/{content_id}/approve")
 def approve_content(content_id: str, data: s.Approve, db: DB, user: Actor):
     content = owned(db, Content, content_id, user.workspace_id)
+    lock_content(db, content, data.expected_revision)
+    if content.status == "user_reported_published":
+        raise DomainError("CONTENT_ALREADY_REPORTED", "已登记内容保留历史审核状态")
     content.compliance = compliance_report(db, content)
     if content.compliance["status"] == "blocked":
         db.commit()
@@ -486,6 +494,7 @@ def handoffs(db: DB, user: Actor):
 @app.post("/api/v1/manual-publication/packages", status_code=201)
 def prepare_handoff(data: s.HandoffInput, db: DB, user: Actor, request: Request):
     content = owned(db, Content, data.content_id, user.workspace_id)
+    lock_content(db, content, data.expected_revision)
     package = make_handoff(db, content)
     record(
         db,
@@ -509,6 +518,12 @@ def current_package(db, package):
     content = db.get(Content, package.content_id)
     if package.content_revision != content.revision or content.approved_revision != content.revision:
         raise DomainError("HANDOFF_PACKAGE_STALE", "资料包对应旧版内容，请重新审核并准备")
+    if (
+        content.graphics
+        and content.status != "user_reported_published"
+        and compliance_report(db, content)["status"] == "blocked"
+    ):
+        raise DomainError("QA_CONTENT_BLOCKED", "图文依据或素材已变化，请重新复核后导出或登记")
     return content
 
 

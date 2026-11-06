@@ -1,0 +1,121 @@
+{
+  "environment": "local_synthetic_qa",
+  "content_id": "a7ae964d85db4d8797966d07fbff8c54",
+  "content_revision": 2,
+  "package_id": "d73dd109ff9549efb5f2c4b2b20a2ae6",
+  "manual_publish_only": true,
+  "render": {
+    "schema_version": "1.0",
+    "renderer_version": "graphic_cards@1",
+    "content_revision": 2,
+    "cache_key": "0c898932231eb90391ac306e897dbe908555fb21fab9e7eadbdc56a86af4e7a3",
+    "font": {
+      "name": [
+        "Microsoft YaHei",
+        "Regular"
+      ],
+      "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+    },
+    "brand_revision": 1,
+    "pages": [
+      {
+        "page_id": "cover",
+        "template": "editorial",
+        "heading": "让产品信息，有据可查",
+        "width": 1080,
+        "height": 1440,
+        "layout": {
+          "heading": {
+            "font_size": 76,
+            "line_count": 1,
+            "box": [
+              76,
+              208,
+              1004,
+              691
+            ]
+          },
+          "text": {
+            "font_size": 40,
+            "line_count": 2,
+            "box": [
+              76,
+              754,
+              1004,
+              1245
+            ]
+          }
+        },
+        "asset": null,
+        "png_sha256": "4c338fda5d03c988a2e45e7f1eafce228c1356a78ef06e5fa44c9101eb0e76f1",
+        "jpg_sha256": "166a52ceb6c7a357fbee4b6066f927141e600197d9c7d3ab11b210b7082cb5f0"
+      },
+      {
+        "page_id": "f6379720-1178-4563-82e9-f24de51c5e1e",
+        "template": "checklist",
+        "heading": "一个已核实的功能",
+        "width": 1080,
+        "height": 1440,
+        "layout": {
+          "heading": {
+            "font_size": 60,
+            "line_count": 1,
+            "box": [
+              76,
+              208,
+              1004,
+              489
+            ]
+          },
+          "text": {
+            "font_size": 38,
+            "line_count": 1,
+            "box": [
+              76,
+              524,
+              1004,
+              1245
+            ]
+          }
+        },
+        "asset": null,
+        "png_sha256": "80ae5806b9933264314129c239ce727c3dc906411c810a30441ec50a64b9ec15",
+        "jpg_sha256": "9983534fd099ef9b8b79e8098d983eb456d68fda1d6c00064d52ba8e6ba53f51"
+      },
+      {
+        "page_id": "76de509d-d39f-4796-add0-bcce6604cf30",
+        "template": "screenshot",
+        "heading": "真实界面，完整呈现",
+        "width": 1080,
+        "height": 1440,
+        "layout": {
+          "heading": {
+            "font_size": 60,
+            "line_count": 1,
+            "box": [
+              76,
+              208,
+              1004,
+              489
+            ]
+          },
+          "image_rect": [
+            90,
+            575,
+            990,
+            1194
+          ]
+        },
+        "asset": {
+          "id": "73857b8fd73f40d1ac82e3aef7729163",
+          "sha256": "80ac4eedf101c44fce2a997853c49a07f74bfedbcc667d5a0c9c310f691e0750",
+          "source": "本项目 0.3.0 开发版图文模板页面真实截图（验收测试工作区）",
+          "license_note": "本项目软件界面截图，仅用于本次开发验收；字体和第三方素材商用另行核实。",
+          "verified": true
+        },
+        "png_sha256": "13e809d79ad27c33cbbbd6aab8234f6e5a2bbc720534e7680a074119a4b21445",
+        "jpg_sha256": "02d44dce7829a929840ae5582a20e4975d33dd84db56f322f2bf11a21c3df715"
+      }
+    ]
+  }
+}

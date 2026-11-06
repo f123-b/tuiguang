@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "GraphicPage": {
+      "additionalProperties": false,
+      "properties": {
+        "page_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,40}$",
+          "title": "Page Id",
+          "type": "string"
+        },
+        "template": {
+          "default": "editorial",
+          "enum": [
+            "editorial",
+            "checklist",
+            "screenshot"
+          ],
+          "title": "Template",
+          "type": "string"
+        },
+        "heading": {
+          "default": "",
+          "maxLength": 180,
+          "title": "Heading",
+          "type": "string"
+        },
+        "text": {
+          "default": "",
+          "maxLength": 600,
+          "title": "Text",
+          "type": "string"
+        },
+        "asset_id": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Id"
+        }
+      },
+      "required": [
+        "page_id"
+      ],
+      "title": "GraphicPage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "renderer_version": {
+      "const": "graphic_cards@1",
+      "default": "graphic_cards@1",
+      "title": "Renderer Version",
+      "type": "string"
+    },
+    "size": {
+      "default": "portrait",
+      "enum": [
+        "portrait",
+        "square",
+        "landscape"
+      ],
+      "title": "Size",
+      "type": "string"
+    },
+    "theme": {
+      "default": "midnight",
+      "enum": [
+        "midnight",
+        "paper",
+        "sage"
+      ],
+      "title": "Theme",
+      "type": "string"
+    },
+    "pages": {
+      "items": {
+        "$ref": "#/$defs/GraphicPage"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "title": "Pages",
+      "type": "array"
+    }
+  },
+  "required": [
+    "pages"
+  ],
+  "title": "GraphicDocument",
+  "type": "object"
+}

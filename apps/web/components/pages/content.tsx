@@ -5,11 +5,12 @@ import {
   ArrowRight,
   Check,
   FileText,
+  Layers,
   Plus,
   ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api, post, type Content } from "../../lib/api";
 
 import {
@@ -22,12 +23,22 @@ export function ContentCard({ content }: { content: Content }) {
   return (
     <Link href={`/studio/article/${content.id}`} className="content-card">
       <div className={`content-cover variant-${content.id.charCodeAt(0) % 3}`}>
-        <span>PRODUCT NOTES</span>
-        <h3>{content.title}</h3>
-        <span className="cover-footer">
-          <FileText size={14} />
-          真实产品 · 内容笔记
-        </span>
+        {content.graphics_render?.content_revision === content.revision ? (
+          <img
+            className="content-rendered-cover"
+            src={`/api/v1/content/packages/${content.id}/graphics/pages/0/preview?revision=${content.revision}`}
+            alt={`${content.title} · 实际图文封面`}
+          />
+        ) : (
+          <>
+            <span>PRODUCT NOTES</span>
+            <h3>{content.title}</h3>
+            <span className="cover-footer">
+              <FileText size={14} />
+              真实产品 · 内容笔记
+            </span>
+          </>
+        )}
       </div>
       <div className="content-meta">
         <div className="row between">
@@ -129,6 +140,11 @@ export function ContentLibrary({ store, action, busy, path }: PageProps) {
 export function ArticlePage({ store, action, busy, path }: PageProps) {
   const content = store.contents.find((c) => c.id === path.split("/")[3]);
   const [confirmed, setConfirmed] = useState(false);
+  const [dirty, setDirty] = useState(false);
+  useEffect(() => {
+    setConfirmed(false);
+    setDirty(false);
+  }, [content?.id, content?.revision]);
   if (!content)
     return (
       <EmptyState
@@ -155,18 +171,39 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
       <div className="editor-columns">
         <Card className="article-preview">
           <span className="eyebrow">COVER PREVIEW</span>
-          <div className="article-cover">
-            <span>产品创作笔记</span>
-            <h2>{content.title}</h2>
-            <div />
-            <p>{store.brands[0]?.name}</p>
-            <small>AI 辅助制作 · 发布前请复核标识</small>
-          </div>
-          <p className="muted">版式预览 · 实际 PNG 随发布包生成</p>
+          {content.graphics_render?.content_revision === content.revision ? (
+            <img
+              className="article-rendered-cover"
+              src={`/api/v1/content/packages/${content.id}/graphics/pages/0/preview?revision=${content.revision}`}
+              alt="已保存的真实图文封面"
+            />
+          ) : (
+            <div className="graphic-preview-empty">
+              <Layers size={40} />
+              <h3>制作你的封面与图文卡</h3>
+              <p>选择版式、配色和真实素材，生成可以审核与下载的图片。</p>
+            </div>
+          )}
+          <Link
+            className="button secondary"
+            href={`/studio/article/${content.id}/graphics`}
+          >
+            编辑封面与图文卡
+            <ArrowRight size={15} />
+          </Link>
+          <p className="muted">
+            {content.graphics
+              ? `${content.graphics.pages.length} 页图文 · 预览与导出使用同一文件`
+              : "尚未建立图文工程，旧流程仍会随发布包生成默认封面。"}
+          </p>
         </Card>
         <Card>
           <form
             className="form-stack"
+            onChange={() => {
+              setDirty(true);
+              setConfirmed(false);
+            }}
             key={content.id + "-" + content.revision}
             onSubmit={(e) => {
               e.preventDefault();
@@ -176,6 +213,7 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
                   api(`/content/packages/${content.id}`, {
                     method: "PATCH",
                     body: JSON.stringify({
+                      expected_revision: content.revision,
                       title: f.get("title"),
                       body: f.get("body"),
                     }),
@@ -222,6 +260,11 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
             </Button>
           </form>
           <div className="divider" />
+          {dirty && (
+            <div className="alert warning">
+              有未保存的文案修改，请先保存，再审核或准备发布包。
+            </div>
+          )}
           <h3>内容预审与人工复核</h3>
           <div className="review-list">
             {content.compliance.issues?.map((issue, i) => (
@@ -245,14 +288,21 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
           <div className="form-actions">
             <Button
               disabled={
-                busy || !confirmed || content.compliance.status === "blocked"
+                busy ||
+                dirty ||
+                !confirmed ||
+                content.compliance.status === "blocked" ||
+                content.status === "user_reported_published"
               }
               onClick={() =>
                 action(
                   () =>
                     api(
                       `/content/packages/${content.id}/approve`,
-                      post({ confirmed: true }),
+                      post({
+                        confirmed: true,
+                        expected_revision: content.revision,
+                      }),
                     ),
                   "已保存人工审核结果",
                 )
@@ -262,13 +312,18 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
             </Button>
             <Button
               variant="secondary"
-              disabled={busy || content.approved_revision !== content.revision}
+              disabled={
+                busy || dirty || content.approved_revision !== content.revision
+              }
               onClick={() =>
                 action(
                   () =>
                     api(
                       "/manual-publication/packages",
-                      post({ content_id: content.id }),
+                      post({
+                        content_id: content.id,
+                        expected_revision: content.revision,
+                      }),
                     ),
                   "发布资料包已实际生成，可到人工发布中心下载",
                 )

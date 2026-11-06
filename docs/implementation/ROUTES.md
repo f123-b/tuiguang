@@ -17,8 +17,8 @@
 | 11 | `/topics` | CalendarPage | 复用真实日历；语义去重未实现 |
 | 12 | `/topics/:id` | TopicPage / topics | 详情、事实来源、编辑/锁定/确认、日期交换/跳过、单篇备稿；执行依据冻结 |
 | 13 | `/campaigns` | ContentLibrary / content | 真实草稿、筛选、进入编辑 |
-| 14 | `/studio/article/:id` | ArticlePage / content | 编辑、预审、审核、发布包；无多图画布 |
-| 15 | `/studio/covers` | 单个封面模板说明 | 真 PNG 由发布包生成；多模板编辑待做 |
+| 14 | `/studio/article/:id`、`/studio/article/:id/graphics` | ArticlePage / GraphicsPage / content、graphics | 文案和 1–6 页图文工程、真实预览、审核、完整发布包；无任意坐标画布 |
+| 15 | `/studio/covers` | GraphicsLibrary | 三版式说明与内容选择，进入真实图文编辑器；支持 PNG/JPG 和工程 JSON |
 | 16 | `/studio/assets` | AssetsPage / assets | 上传、来源、许可、哈希、下载 |
 | 17 | `/studio/video/new` | VideoCreate / videos | MG、素材、混合模式；高级引擎明确不可用 |
 | 18 | `/studio/video/:id` | VideoEditor / scenes | 镜头参数、时间线、实际播放/下载 |

@@ -55,6 +55,7 @@ import { AssetsPage } from "./pages/assets";
 import { Auth } from "./pages/auth";
 import { BrandPage } from "./pages/brand";
 import { ArticlePage, ContentLibrary } from "./pages/content";
+import { GraphicsLibrary, GraphicsPage } from "./pages/graphics";
 import { ActivityPage, CreatorPage } from "./pages/creator";
 import { CalendarPage, TopicPage } from "./pages/editorial";
 import { GrowthPage } from "./pages/growth";
@@ -317,7 +318,7 @@ export default function Workspace({ path }: { path: string }) {
             <span className="avatar">{store?.user.name[0] || "我"}</span>
             <span>
               {store?.user.name || "正在加载"}
-              <small>本地开发版 · 0.2.0</small>
+              <small>本地开发版 · 0.3.0</small>
             </span>
             <LogOut size={15} />
           </button>
@@ -500,6 +501,8 @@ function PageContent(props: PageProps) {
   if (["/calendar", "/topics", "/onboarding/preview"].includes(path))
     return <CalendarPage {...props} />;
   if (path.startsWith("/topics/")) return <TopicPage {...props} />;
+  if (path.startsWith("/studio/article/") && path.endsWith("/graphics"))
+    return <GraphicsPage {...props} />;
   if (path.startsWith("/studio/article/")) return <ArticlePage {...props} />;
   if (path === "/campaigns" || path.startsWith("/compliance"))
     return <ContentLibrary {...props} />;
@@ -510,29 +513,7 @@ function PageContent(props: PageProps) {
   if (path.startsWith("/ops")) return <OpsPage {...props} />;
   if (path === "/settings") return <SettingsPage {...props} />;
   if (path === "/help" || path === "/onboarding/welcome") return <HelpPage />;
-  if (path === "/studio/covers")
-    return (
-      <>
-        <PageHeader
-          title="封面模板"
-          description="当前版本提供一款可实际导出的产品笔记封面。"
-        />
-        <Card>
-          <div className="template-sample">
-            <span>产品创作笔记</span>
-            <h2>
-              让产品的故事
-              <br />
-              被更多人看见
-            </h2>
-            <p>标题与品牌来自你的内容，准备发布包时生成 1080 × 1440 PNG。</p>
-          </div>
-          <Link className="button primary" href="/campaigns">
-            选择内容，生成封面
-          </Link>
-        </Card>
-      </>
-    );
+  if (path === "/studio/covers") return <GraphicsLibrary {...props} />;
   return (
     <EmptyState
       title="页面不存在"
