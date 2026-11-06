@@ -73,6 +73,7 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
                 model_consent: f.get("consent") === "on",
                 render_options: {
                   graphics: f.get("auto_graphics") === "on",
+                  review_preview_before_final: f.get("preview_review") === "on",
                   video: f.get("auto_video") === "on",
                   duration_sec: Number(f.get("video_duration")),
                   video_mode: f.get("video_mode"),
@@ -204,6 +205,16 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
                   defaultChecked={creator?.render_options?.video || false}
                 />
                 同时制作本地宣传视频（默认静音）
+              </label>
+              <label className="checkline">
+                <input
+                  name="preview_review"
+                  type="checkbox"
+                  defaultChecked={
+                    creator?.render_options?.review_preview_before_final ?? true
+                  }
+                />
+                先生成低清预览，经我确认后再生成高清
               </label>
               <div className="form-grid">
                 <Field label="自动视频形式">

@@ -75,6 +75,7 @@ def video_document(db, content, creator, options):
         width=width,
         height=height,
         shots=shots,
+        preview_required=options.get("review_preview_before_final", False),
     ).model_dump()
     return {
         "schema_version": "1.1",
@@ -153,6 +154,7 @@ def prepare(db, run, content):
                 name=content.title,
                 ir=ir,
                 status="queued",
+                preview_required=ir["preview_required"],
             )
             db.add(video)
             db.flush()
@@ -163,6 +165,7 @@ def prepare(db, run, content):
                     revision=video.revision,
                     ir=ir,
                     trace_id=run.trace_id,
+                    purpose="preview" if video.preview_required else "final",
                 )
             )
             content.video_attachment = {"video_id": video.id, "revision": video.revision, "sha256": None}
@@ -248,3 +251,11 @@ def failed(db, job, code):
         if content.revision == job.ir["source_content_revision"]:
             content.status = "awaiting_user_review"
             content.compliance = compliance_report(db, content)
+
+
+def preview_ready(db, job):
+    context = source_context(db, job)
+    if context:
+        content, creator, run = context
+        content.status = "needs_preview_review"
+        run.status, run.stage = "awaiting_review", "preview.ready"

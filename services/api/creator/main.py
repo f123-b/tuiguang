@@ -44,6 +44,7 @@ from .settings_api import router as settings_router
 from .analysis_api import router as analysis_router
 from .model_diagnostics import router as model_diagnostics_router
 from .product_sources_api import router as product_sources_router
+from .quality_api import router as quality_router
 from .video_edit import lock_video, checkpoint as video_checkpoint, current_output
 from .evidence import checkpoint
 from .graphics import lock_content
@@ -84,6 +85,7 @@ app.include_router(settings_router)
 app.include_router(analysis_router)
 app.include_router(model_diagnostics_router)
 app.include_router(product_sources_router)
+app.include_router(quality_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -512,6 +514,9 @@ def approve_content(content_id: str, data: s.Approve, db: DB, user: Actor):
     if content.compliance["status"] == "blocked":
         db.commit()
         raise DomainError("QA_CONTENT_BLOCKED", "预审有阻断项，请修改后重新检查")
+    from .quality import build_report
+
+    build_report(db, "content", content)
     content.approved_revision = content.revision
     content.status = "approved_for_handoff"
     db.commit()
@@ -730,7 +735,13 @@ def create_video(data: s.VideoInput, db: DB, user: Actor):
     owned(db, Brand, data.brand_id, user.workspace_id)
     ir = {"schema_version": "1.1", **data.model_dump()}
     validate_ir(db, user.workspace_id, ir)
-    video = Video(workspace_id=user.workspace_id, brand_id=data.brand_id, name=data.name, ir=ir)
+    video = Video(
+        workspace_id=user.workspace_id,
+        brand_id=data.brand_id,
+        name=data.name,
+        ir=ir,
+        preview_required=data.preview_required,
+    )
     db.add(video)
     db.flush()
     video_checkpoint(db, video, user.id)
@@ -784,11 +795,15 @@ def render_video(video_id: str, db: DB, user: Actor, request: Request):
 
         source_context(db, video)
     validate_ir(db, user.workspace_id, video.ir)
+    from .quality import require_review
+
+    require_review(db, video)
     existing = db.scalar(
         select(RenderJob)
         .where(
             RenderJob.video_id == video.id,
             RenderJob.revision == video.revision,
+            RenderJob.purpose == "final",
             RenderJob.status.in_(["queued", "running", "completed"]),
         )
         .order_by(RenderJob.created_at.desc())
@@ -867,7 +882,10 @@ def dashboard(db: DB, user: Actor):
         "runs": runs(db, user)[:6],
         "counts": {
             "contents": len(content_list),
-            "awaiting_review": sum(c["status"] == "awaiting_user_review" for c in content_list),
+            "awaiting_review": sum(
+                c["status"] in ("awaiting_user_review", "needs_preview_review", "awaiting_quality_review")
+                for c in content_list
+            ),
             "awaiting_manual": sum(c["status"] == "awaiting_manual_publication" for c in content_list),
             "user_reported": sum(c["status"] == "user_reported_published" for c in content_list),
         },

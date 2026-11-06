@@ -29,7 +29,7 @@ for (const [key, env] of [["content", "SMOKE_CONTENT_ID"], ["video", "SMOKE_VIDE
   ids[key] = process.env[env] || "missing";
 }
 const routes = ["/auth/login", "/onboarding/welcome", "/onboarding/brand", "/onboarding/creator", "/onboarding/preview", "/dashboard", "/creator", "/creator/edit", "/creator/activity", "/calendar", "/topics", `/topics/${ids.topic}`, "/campaigns", `/studio/article/${ids.content}`, "/studio/covers", "/studio/assets", "/studio/video/new", `/studio/video/${ids.video}`, `/studio/video/${ids.video}/storyboard`, `/studio/video/${ids.video}/render`, "/compliance", `/compliance/${ids.content}`, "/publish", `/publish/package/${ids.package}`, "/publish/guide/xiaohongshu", `/publish/record/${ids.package}`, "/analytics", "/analytics/import", "/growth", "/growth/memory", "/brand", "/settings", "/help", "/ops/diagnostics", "/ops/releases"];
-routes.push(`/studio/article/${ids.content}/graphics`, "/notifications", "/ops/maintenance");
+routes.push(`/studio/article/${ids.content}/graphics`, "/notifications", "/ops/maintenance", "/settings/models");
 const report = { routes: [], viewports: [] };
 browser(["set", "viewport", "1440", "1000"]);
 for (const route of routes) {
@@ -40,7 +40,7 @@ for (const route of routes) {
 }
 for (const width of [375, 390, 768, 1024, 1440, 1920]) {
   browser(["set", "viewport", String(width), "1000"]);
-  for (const route of ["/dashboard", "/calendar", `/topics/${ids.topic}`, "/studio/covers", `/studio/article/${ids.content}/graphics`, `/studio/video/${ids.video}`, "/growth", "/settings", "/notifications", "/publish"]) {
+  for (const route of ["/dashboard", "/calendar", `/topics/${ids.topic}`, "/studio/covers", `/studio/article/${ids.content}/graphics`, `/studio/video/${ids.video}`, "/growth", "/settings", "/settings/models", "/brand", "/notifications", "/publish"]) {
   openRoute(route);
   const state = evaluate('JSON.stringify({width:innerWidth,document:document.documentElement.scrollWidth,overflow:document.documentElement.scrollWidth>innerWidth})');
   if (state.overflow) throw new Error(`Horizontal overflow at ${width}`);

@@ -40,6 +40,10 @@ def current_output(db, video):
     validate_ir(db, video.workspace_id, video.ir)
     if not video.output_hash or video.rendered_revision != video.revision:
         raise DomainError("VID_OUTPUT_NOT_READY", "当前版本尚未完成真实渲染")
+    if video.preview_required:
+        from .quality import require_review
+
+        require_review(db, video)
     path = DATA_DIR / video.workspace_id / "cache" / (video.output_hash + ".mp4")
     if not path.is_file() or digest(path.read_bytes()) != video.output_hash:
         raise DomainError("VID_OUTPUT_HASH_MISMATCH", "视频文件缺失或已改变，请重新渲染")
@@ -59,6 +63,7 @@ def attachment(db, content):
         .where(
             RenderJob.video_id == video.id,
             RenderJob.revision == video.revision,
+            RenderJob.purpose == "final",
             RenderJob.status == "completed",
         )
         .order_by(RenderJob.created_at.desc())

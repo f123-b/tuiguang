@@ -185,7 +185,7 @@ def render_mg(shot, canvas, target):
     frames = shot["duration_frames"]
     # Render at half resolution, upscale at encoding; typography remains parametric in IR.
     rw, rh = w // 2, h // 2
-    small_font = font(max(12, rw // 48))
+    small_font = font(max(6 if w <= 640 else 12, rw // 48))
     args = [
         "ffmpeg",
         "-hide_banner",
@@ -348,6 +348,12 @@ def render_project(db, job):
     cache = DATA_DIR / job.workspace_id / "cache"
     cache.mkdir(parents=True, exist_ok=True)
     canvas = {k: ir[k] for k in ("width", "height", "fps")}
+    preview = job.purpose == "preview"
+    if preview:
+        canvas.update(
+            width=640 if ir["width"] > ir["height"] else 360,
+            height=640 if ir["height"] > ir["width"] else 360,
+        )
     from .graphics import font_receipt
 
     face = font_receipt()
@@ -443,10 +449,51 @@ def render_project(db, job):
         )
         from .video_audio import finish
 
-        audio_sources = finish(db, job, temp_out)
+        from types import SimpleNamespace
+
+        scaled_job = SimpleNamespace(id=job.id, workspace_id=job.workspace_id, ir={**ir, **canvas})
+        audio_sources = finish(db, scaled_job, temp_out)
+        if preview:
+            watermark = cache / (job.id + "-watermark.png")
+            marked = cache / (job.id + "-preview.mp4")
+            overlay = Image.new("RGBA", (canvas["width"], canvas["height"]), (0, 0, 0, 0))
+            draw = ImageDraw.Draw(overlay)
+            draw.rectangle((0, 0, canvas["width"], 38), fill=(0, 0, 0, 190))
+            draw.text((12, 8), "内部预览 · 待人工确认", font=font(18), fill="white")
+            overlay.save(watermark)
+            try:
+                ffmpeg(
+                    [
+                        "-i",
+                        str(temp_out),
+                        "-i",
+                        str(watermark),
+                        "-filter_complex",
+                        "[0:v][1:v]overlay=0:0[v]",
+                        "-map",
+                        "[v]",
+                        "-map",
+                        "0:a",
+                        "-c:v",
+                        "libx264",
+                        "-preset",
+                        "veryfast",
+                        "-crf",
+                        "25",
+                        "-c:a",
+                        "copy",
+                        "-movflags",
+                        "+faststart",
+                        str(marked),
+                    ]
+                )
+                marked.replace(temp_out)
+            finally:
+                watermark.unlink(missing_ok=True)
+                marked.unlink(missing_ok=True)
         metadata = probe(temp_out)
         video_stream = next(s for s in metadata["streams"] if s["codec_type"] == "video")
-        if (video_stream["width"], video_stream["height"]) != (ir["width"], ir["height"]) or abs(
+        if (video_stream["width"], video_stream["height"]) != (canvas["width"], canvas["height"]) or abs(
             float(metadata["format"]["duration"]) - duration
         ) > 0.15:
             raise DomainError("QA_MEDIA_INVALID", "输出视频尺寸或时长不符合工程")
@@ -457,8 +504,11 @@ def render_project(db, job):
             "sha256": sha,
             "shots": receipts,
             "duration_sec": duration,
-            "width": ir["width"],
-            "height": ir["height"],
+            "width": canvas["width"],
+            "height": canvas["height"],
+            "purpose": job.purpose,
+            "watermark": preview,
+            "ir_sha256": digest(ir),
             "fps": ir["fps"],
             "audio": "mixed_authorized_assets" if audio_sources else "silent_track_no_voiceover",
             "audio_sources": audio_sources,
@@ -509,16 +559,34 @@ def process_render_jobs(db):
             continue
         try:
             source_context(db, job)
+            if job.purpose == "final":
+                from .quality import require_review
+
+                current = db.get(Video, job.video_id)
+                if current.revision != job.revision or digest(current.ir) != digest(job.ir):
+                    raise DomainError("QUALITY_REPORT_STALE", "排队后工程已变化，请重新提交")
+                require_review(db, current)
             receipt = render_project(db, job)
             video = db.get(Video, job.video_id)
+            db.refresh(video)
             job.receipt, job.status = receipt, "completed"
-            if video.revision == job.revision:
+            if job.purpose == "preview":
+                if video.revision == job.revision:
+                    video.status = "ready" if video.rendered_revision == video.revision else "preview_ready"
+                from .production import preview_ready
+
+                preview_ready(db, job)
+            elif video.revision == job.revision:
                 video.output_hash, video.rendered_revision, video.status = (
                     receipt["sha256"],
                     job.revision,
                     "ready",
                 )
-            finish(db, job, receipt)
+            if job.purpose == "final":
+                from .quality import require_review
+
+                require_review(db, video)
+                finish(db, job, receipt)
             record(
                 db,
                 job.workspace_id,

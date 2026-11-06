@@ -175,6 +175,7 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                       width: f.get("ratio") === "16:9" ? 1920 : 1080,
                       height: f.get("ratio") === "9:16" ? 1920 : 1080,
                       fps: 30,
+                      preview_required: true,
                       shots,
                     }),
                   );

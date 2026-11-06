@@ -99,6 +99,7 @@ def public_config(db, workspace_id):
             "json_mode": current.json_mode,
             "token_parameter": current.token_parameter,
             "source": "workspace_encrypted",
+            "gateway_adapter": "compatible_chat@2",
         }
 
     def integer(name):
@@ -122,6 +123,7 @@ def public_config(db, workspace_id):
         "endpoint_approved": False,
         "json_mode": True,
         "token_parameter": "max_tokens",
+        "gateway_adapter": "compatible_chat@2",
     }
 
 

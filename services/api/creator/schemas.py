@@ -50,6 +50,7 @@ class RenderOptions(DTO):
     video_mode: Literal["mg", "mixed", "screen_demo", "montage"] = "mg"
     size: Literal["wide", "portrait", "square"] = "wide"
     asset_id: Short | None = None
+    review_preview_before_final: bool = False
 
 
 class CreatorInput(DTO):
@@ -169,3 +170,4 @@ class VideoInput(DTO):
     shots: list[Shot] = Field(min_length=1, max_length=12)
     audio_tracks: list[AudioTrack] = Field(default_factory=list, max_length=8)
     subtitles: list[Subtitle] = Field(default_factory=list, max_length=100)
+    preview_required: bool = False
