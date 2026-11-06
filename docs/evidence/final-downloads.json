@@ -1,0 +1,69 @@
+[
+  {
+    "file": "final-graphic-1.png",
+    "bytes": 78078,
+    "sha256": "2d0f43b4b0f4f9cb41d28ee1e3c93cf0800e92481c6b1a4680b5c84a8237032b",
+    "image_format": "PNG"
+  },
+  {
+    "file": "final-graphic-1.jpg",
+    "bytes": 149704,
+    "sha256": "307877974988f1b9804a6892c77b48ddd09b0cb7507565119f96dcbe381a13c7",
+    "image_format": "JPEG"
+  },
+  {
+    "file": "final-graphic-2.png",
+    "bytes": 59237,
+    "sha256": "39e06b0621951b731d2c1a178fb0c18aa6ba75daea20d5bf5322f01383a3bb34",
+    "image_format": "PNG"
+  },
+  {
+    "file": "final-graphic-2.jpg",
+    "bytes": 105174,
+    "sha256": "7cd482bf5d3a7693c1808dd509d968345dc4a63f3e1e025cc65c76049418e4ba",
+    "image_format": "JPEG"
+  },
+  {
+    "file": "final-graphic-3.png",
+    "bytes": 186957,
+    "sha256": "eda3c2b668ba4321d53dac95660c30135ce7e88583bfcca06d4d6b33ff6ac56d",
+    "image_format": "PNG"
+  },
+  {
+    "file": "final-graphic-3.jpg",
+    "bytes": 175440,
+    "sha256": "277cd465463aec00421900b1b9882a3e1ab447343b137a772ac8b30caa018d97",
+    "image_format": "JPEG"
+  },
+  {
+    "file": "final-manual-package.zip",
+    "bytes": 1519346,
+    "sha256": "d87ed39bc7e5818d526c62f64a54f19a70ab088f04074c2627bd12ba3e86de73",
+    "members": [
+      "video.mp4",
+      "video-project.json",
+      "subtitles.srt",
+      "copy.txt",
+      "images/01.png",
+      "cover.png",
+      "images/01.jpg",
+      "images/02.png",
+      "images/02.jpg",
+      "images/03.png",
+      "images/03.jpg",
+      "graphics-project.json",
+      "provenance.json",
+      "checklist.md"
+    ]
+  },
+  {
+    "path": "/settings/export",
+    "bytes": 12515,
+    "sha256": "c09aac4f2d015bd4f232e977b17cd73b465dc8e274729cc9fece7e23bff4da68"
+  },
+  {
+    "path": "/settings/export?include_files=true",
+    "bytes": 795893,
+    "sha256": "5a7100af8ab0bae5b2d9a247afc656031200d2ad7a3e13d695e01350d8440fdf"
+  }
+]

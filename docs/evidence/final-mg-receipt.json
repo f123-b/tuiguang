@@ -1,0 +1,86 @@
+{
+  "sha256": "85b3290a5d2cbb137f161fe98c2297d2b9091f754e7a222d08a38e85c9fae1ad",
+  "shots": [
+    {
+      "shot_id": "s1",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "cached": false,
+      "sha256": "54b2a16f9bcb63729c7d4bca5d338bfcafbc2d5f19f86e5a036a80f5cb158bf5",
+      "render_cache_key": "5a5879e66338babaee3fe9e770f32c884613b77a6495e717076409fefe169c0e",
+      "asset_sha256": null,
+      "asset_source": null,
+      "asset_license_note": null
+    },
+    {
+      "shot_id": "s2",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "cached": false,
+      "sha256": "c4bf1a5d14fe575213dee67ae0e506e776ef8c4b7cd26dcf739e6c2a7a823849",
+      "render_cache_key": "09e7062437bb611298cc81d9eb5f98152641e672140b8c633c42442cc8e28a83",
+      "asset_sha256": null,
+      "asset_source": null,
+      "asset_license_note": null
+    },
+    {
+      "shot_id": "s3",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "cached": false,
+      "sha256": "a5c7ae300d9eedd269031f35bb2e1dc949708d622f591f885bff60a356ffedb4",
+      "render_cache_key": "be550c4e742f5620bf20fb0282dbc46e897a98389ff6b911bcf04c38b6668758",
+      "asset_sha256": null,
+      "asset_source": null,
+      "asset_license_note": null
+    },
+    {
+      "shot_id": "s4",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "cached": false,
+      "sha256": "d0f4458639fd0d020f1799348b843de10d8ad942e44c5b2b6d9937683bc87422",
+      "render_cache_key": "b4dad08d2dcb6c6a848fb26f6c3df4cb5c25902b0ac802e2933e7d8d68b44e67",
+      "asset_sha256": null,
+      "asset_source": null,
+      "asset_license_note": null
+    },
+    {
+      "shot_id": "s5",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "cached": false,
+      "sha256": "e4ea5d9e8d6e2e9965cbe628a9ddc5882434e1bf4376c2f352c285ea8578a79c",
+      "render_cache_key": "d9fcf8d82a5d10aeea186bbcc6edf548f8f6d627a8975d592add6f18b78ae2a7",
+      "asset_sha256": null,
+      "asset_source": null,
+      "asset_license_note": null
+    }
+  ],
+  "duration_sec": 30.0,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": "mixed_authorized_assets",
+  "audio_sources": [
+    {
+      "track_id": "tone",
+      "role": "music",
+      "asset_id": "efdffbe097044cdf9edd795c5569add2",
+      "sha256": "f543bbe3c70eb507d4745d48b3ac18f26206d45efa3e753d806bfd59a439ef3e",
+      "source": "程序生成 220Hz 验收音调，不是人声或第三方音乐",
+      "license_note": "自行生成，仅验收"
+    }
+  ],
+  "subtitles": 5,
+  "provider_adapter_version": "pillow_ffmpeg@2",
+  "font": {
+    "name": [
+      "Microsoft YaHei",
+      "Regular"
+    ],
+    "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+  },
+  "qa": "technical_probe_passed",
+  "revision": 1
+}

@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from .auth import current_user
 from .db import get_db
-from .domains import file_path, owned, serialize
+from .domains import verified_file, owned, serialize
 from .errors import DomainError
 from .model_config import cipher, config, public_config, validate_base_url
 from .models import (
@@ -336,8 +336,8 @@ def export_workspace(db: DB, user: Actor, include_files: bool = False):
             total = 0
             seen = set()
             for asset in db.scalars(select(Asset).where(Asset.workspace_id == user.workspace_id)):
-                path = file_path(user.workspace_id, asset.sha256, asset.suffix)
-                if not path.is_file() or path.name in seen:
+                path = verified_file(user.workspace_id, asset.sha256, asset.suffix)
+                if path.name in seen:
                     continue
                 total += path.stat().st_size
                 if total > 200 * 1024 * 1024:

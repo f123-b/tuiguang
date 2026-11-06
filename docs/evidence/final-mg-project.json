@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.1",
+  "brand_id": "a115bf00d65a44e0bee19d0a00bcaadf",
+  "name": "30秒最终验收 · mg",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "shots": [
+    {
+      "shot_id": "s1",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 180,
+      "caption": "叙流 · 本地开发验收",
+      "asset_id": null,
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100
+    },
+    {
+      "shot_id": "s2",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 180,
+      "caption": "先核实产品事实与来源",
+      "asset_id": null,
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100
+    },
+    {
+      "shot_id": "s3",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 180,
+      "caption": "编辑图文和视频工程",
+      "asset_id": null,
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100
+    },
+    {
+      "shot_id": "s4",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 180,
+      "caption": "人工复核后下载发布包",
+      "asset_id": null,
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100
+    },
+    {
+      "shot_id": "s5",
+      "shot_revision": 1,
+      "provider": "pillow_mg",
+      "kind": "motion_graphics",
+      "duration_frames": 180,
+      "caption": "由用户在官方页面手动发布",
+      "asset_id": null,
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100
+    }
+  ],
+  "audio_tracks": [
+    {
+      "track_id": "tone",
+      "asset_id": "efdffbe097044cdf9edd795c5569add2",
+      "role": "music",
+      "start_frame": 0,
+      "duration_frames": 900,
+      "source_start_frame": 0,
+      "volume_percent": 20,
+      "loop": true
+    }
+  ],
+  "subtitles": [
+    {
+      "cue_id": "c0",
+      "start_frame": 0,
+      "end_frame": 180,
+      "text": "合成工作区验收 · 叙流 · 本地开发验收"
+    },
+    {
+      "cue_id": "c1",
+      "start_frame": 180,
+      "end_frame": 360,
+      "text": "合成工作区验收 · 先核实产品事实与来源"
+    },
+    {
+      "cue_id": "c2",
+      "start_frame": 360,
+      "end_frame": 540,
+      "text": "合成工作区验收 · 编辑图文和视频工程"
+    },
+    {
+      "cue_id": "c3",
+      "start_frame": 540,
+      "end_frame": 720,
+      "text": "合成工作区验收 · 人工复核后下载发布包"
+    },
+    {
+      "cue_id": "c4",
+      "start_frame": 720,
+      "end_frame": 900,
+      "text": "合成工作区验收 · 由用户在官方页面手动发布"
+    }
+  ]
+}

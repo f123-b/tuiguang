@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "renderer_version": "graphic_cards@1",
+  "content_revision": 7,
+  "cache_key": "4132abe63af8d1912734f31600cb4847af8faa410684db527a9749a7b9e5d561",
+  "font": {
+    "name": [
+      "Microsoft YaHei",
+      "Regular"
+    ],
+    "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+  },
+  "brand_revision": 1,
+  "pages": [
+    {
+      "page_id": "cover",
+      "template": "editorial",
+      "heading": "叙流验收：先核实来源，再制作作品",
+      "width": 1080,
+      "height": 1440,
+      "layout": {
+        "heading": {
+          "font_size": 76,
+          "line_count": 2,
+          "box": [
+            76,
+            208,
+            1004,
+            691
+          ]
+        },
+        "text": {
+          "font_size": 40,
+          "line_count": 1,
+          "box": [
+            76,
+            754,
+            1004,
+            1245
+          ]
+        }
+      },
+      "asset": null,
+      "png_sha256": "2d0f43b4b0f4f9cb41d28ee1e3c93cf0800e92481c6b1a4680b5c84a8237032b",
+      "jpg_sha256": "307877974988f1b9804a6892c77b48ddd09b0cb7507565119f96dcbe381a13c7"
+    },
+    {
+      "page_id": "facts",
+      "template": "checklist",
+      "heading": "已核实的验收功能",
+      "width": 1080,
+      "height": 1440,
+      "layout": {
+        "heading": {
+          "font_size": 60,
+          "line_count": 1,
+          "box": [
+            76,
+            208,
+            1004,
+            489
+          ]
+        },
+        "text": {
+          "font_size": 38,
+          "line_count": 1,
+          "box": [
+            76,
+            524,
+            1004,
+            1245
+          ]
+        }
+      },
+      "asset": null,
+      "png_sha256": "39e06b0621951b731d2c1a178fb0c18aa6ba75daea20d5bf5322f01383a3bb34",
+      "jpg_sha256": "7cd482bf5d3a7693c1808dd509d968345dc4a63f3e1e025cc65c76049418e4ba"
+    },
+    {
+      "page_id": "screen",
+      "template": "screenshot",
+      "heading": "本软件实际验收界面",
+      "width": 1080,
+      "height": 1440,
+      "layout": {
+        "heading": {
+          "font_size": 60,
+          "line_count": 1,
+          "box": [
+            76,
+            208,
+            1004,
+            489
+          ]
+        },
+        "image_rect": [
+          90,
+          631,
+          990,
+          1137
+        ]
+      },
+      "asset": {
+        "id": "deea33c5fbbc4830aec25d16ad623360",
+        "sha256": "ea4e1b2cd6f8190e5f82c16e0a275a852e58a25d6302f9304d79fa7db80d6fc4",
+        "source": "同次真实工作台截图，合成测试工作区",
+        "license_note": "自行制作，仅本软件合成验收使用",
+        "verified": true
+      },
+      "png_sha256": "eda3c2b668ba4321d53dac95660c30135ce7e88583bfcca06d4d6b33ff6ac56d",
+      "jpg_sha256": "277cd465463aec00421900b1b9882a3e1ab447343b137a772ac8b30caa018d97"
+    }
+  ],
+  "cached": false
+}

@@ -58,6 +58,18 @@ def file_path(workspace_id, sha, suffix):
     return DATA_DIR / workspace_id / "files" / f"{sha}{suffix}"
 
 
+def verified_file(workspace_id, sha, suffix):
+    path = file_path(workspace_id, sha, suffix)
+    try:
+        with path.open("rb") as stream:
+            actual = hashlib.file_digest(stream, "sha256").hexdigest()
+        if actual == sha:
+            return path
+    except OSError:
+        pass
+    raise DomainError("ARTIFACT_INTEGRITY_FAILED", "文件缺失或校验不符，请恢复原始文件后重试", 422)
+
+
 def font(size):
     from pathlib import Path
     import os
@@ -100,10 +112,11 @@ def compliance_report(db, content):
         text += "\n" + variant["title"] + "\n" + variant["body"] + "\n" + " ".join(variant.get("tags", []))
     if content.video_attachment:
         from .video_edit import attachment
+
         try:
             attachment(db, content)
         except DomainError as error:
-            issues.append({"level":"blocked","message":error.message,"code":error.code})
+            issues.append({"level": "blocked", "message": error.message, "code": error.code})
     if content.graphics:
         from .graphics import current_receipt, load_document
 
@@ -161,6 +174,7 @@ def make_handoff(db, content):
         provenance["graphics"] = graphics
         snapshot["graphics"] = {"document": content.graphics, "render": graphics}
     from .video_edit import attachment, subtitles_srt
+
     bound_video = attachment(db, content)
     if bound_video:
         provenance["video"] = {"binding": content.video_attachment, "receipt": bound_video[2]}
@@ -173,7 +187,10 @@ def make_handoff(db, content):
             z.writestr("subtitles.srt", subtitles_srt(video.ir))
         z.writestr("copy.txt", content.title + "\n\n" + content.body)
         for platform, variant in (content.variants or {}).items():
-            z.writestr(f"variants/{platform}.txt", variant["title"] + "\n\n" + variant["body"] + "\n\n" + " ".join(variant.get("tags", [])))
+            z.writestr(
+                f"variants/{platform}.txt",
+                variant["title"] + "\n\n" + variant["body"] + "\n\n" + " ".join(variant.get("tags", [])),
+            )
         if graphics:
             for index, page in enumerate(graphics["pages"]):
                 for suffix in ("png", "jpg"):
@@ -263,11 +280,18 @@ def parse_metric_rows(db, workspace_id, rows, source):
                     values[name] = int(value)
             if all(value is None for value in values.values()):
                 raise ValueError("至少提供一项指标")
-            if row.get("content_revision") not in (None,"") and not 1 <= int(row["content_revision"]) <= content.revision:
+            if (
+                row.get("content_revision") not in (None, "")
+                and not 1 <= int(row["content_revision"]) <= content.revision
+            ):
                 raise ValueError("指标版本必须为该作品已有版本；不确定请留空")
             result.append(
                 {
-                    **({"content_revision":int(row["content_revision"])} if row.get("content_revision") not in (None,"") else {}),
+                    **(
+                        {"content_revision": int(row["content_revision"])}
+                        if row.get("content_revision") not in (None, "")
+                        else {}
+                    ),
                     "content_id": content.id,
                     "platform": platform,
                     **values,
@@ -282,7 +306,9 @@ def parse_metric_rows(db, workspace_id, rows, source):
 
 
 def analytics_summary(db, workspace_id):
-    metrics = db.scalars(select(Metric).where(Metric.workspace_id == workspace_id, Metric.active.is_(True))).all()
+    metrics = db.scalars(
+        select(Metric).where(Metric.workspace_id == workspace_id, Metric.active.is_(True))
+    ).all()
     # Never combine unlike windows/platforms or turn missing observations into zeros.
     groups = {}
     for m in metrics:

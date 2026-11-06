@@ -73,6 +73,8 @@ def test_paid_review_is_idempotent_and_does_not_become_a_daily_task(client, crea
     assert len(calls) == 1
     reports = client.get("/api/v1/creators/" + creator_profile["id"] + "/learning-reports").json()
     ai = next(r for r in reports if r.get("ai_run_id"))
+    client.post("/api/v1/notifications/sync")
+    assert any("模型复盘" in n["body"] for n in client.get("/api/v1/notifications").json())
     assert ai["report"]["metric_sample_count"] == 0
     assert ai["report"]["ai_narrative"]["evidence_refs"] == [c["id"]]
     with SessionLocal() as db:
@@ -206,3 +208,30 @@ def test_review_rejects_foreign_evidence_without_retry(client, creator_profile, 
         r.get("ai_run_id")
         for r in client.get("/api/v1/creators/" + creator_profile["id"] + "/learning-reports").json()
     )
+
+
+def test_consent_revoked_after_reservation_stops_before_network(client, creator_profile, monkeypatch):
+    from creator import jobs
+
+    prepare(client, creator_profile)
+    queued = request_review(client, creator_profile).json()
+    reserve = jobs.reserve_budget
+
+    def revoke(db, creator, run, amount):
+        ledger = reserve(db, creator, run, amount)
+        with SessionLocal() as other:
+            other.get(Creator, creator.id).model_consent = False
+            other.commit()
+        return ledger
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("revoked consent must prevent provider request")
+
+    monkeypatch.setattr(jobs, "reserve_budget", revoke)
+    monkeypatch.setattr(httpx.Client, "post", forbidden)
+    with SessionLocal() as db:
+        process_pending(db)
+        run = db.get(Run, queued["id"])
+        ledger = db.scalar(select(BudgetEntry).where(BudgetEntry.run_id == run.id))
+        assert run.error_code == "MODEL_CONSENT_REQUIRED"
+        assert ledger.status == "cancelled" and ledger.actual_cents == 0

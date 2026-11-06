@@ -35,6 +35,7 @@ export function ContentEvidence({
   locked: boolean;
   onDraftChange: (value: boolean) => void;
 }) {
+  const [draftDirty, setDraftDirty] = useState(false);
   const [history, setHistory] = useState<Revision[]>([]);
   const [error, setError] = useState("");
   const [selected, setSelected] = useState<Revision | null>(null);
@@ -42,6 +43,7 @@ export function ContentEvidence({
   const [platform, setPlatform] = useState("douyin");
   useEffect(() => {
     setSelected(null);
+    setDraftDirty(false);
     setConfirmed(false);
     api<Revision[]>(`/content/packages/${content.id}/history`)
       .then(setHistory)
@@ -114,6 +116,7 @@ export function ContentEvidence({
                   disabled={
                     busy ||
                     locked ||
+                    draftDirty ||
                     !confirmed ||
                     selected.revision === content.revision
                   }
@@ -138,6 +141,11 @@ export function ContentEvidence({
           </section>
           <section>
             <h3>分平台文案</h3>
+            {draftDirty && (
+              <p role="status">
+                此平台有未保存文案，请先保存，再切换平台或恢复历史。
+              </p>
+            )}
             <p className="muted">
               这些是独立编辑的创作版本。所有版本均接受预审，审核后随 ZIP
               导出；请另行核对平台当前要求。
@@ -145,6 +153,7 @@ export function ContentEvidence({
             <select
               aria-label="平台文案"
               value={platform}
+              disabled={draftDirty}
               onChange={(e) => setPlatform(e.target.value)}
             >
               {Object.entries(platformName).map(([k, v]) => (
@@ -155,7 +164,10 @@ export function ContentEvidence({
             </select>
             <form
               className="form-stack"
-              onChange={() => onDraftChange(true)}
+              onChange={() => {
+                setDraftDirty(true);
+                onDraftChange(true);
+              }}
               key={`${content.id}-${content.revision}-${platform}`}
               onSubmit={(e) => {
                 e.preventDefault();
