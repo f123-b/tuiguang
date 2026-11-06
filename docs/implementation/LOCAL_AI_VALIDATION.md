@@ -12,3 +12,6 @@
 
 
 远端 PostgreSQL 首轮失败：Actions 42232372512，生成联调入队 trace `105293be7bf63ed0bf0ca64cc5190d8f` 返回 500，数据库记录 `value too long for type character varying(30)`；probe- 加完整 UUID 超过 Run.slot 的 30 字符契约，SQLite 没有长度强制所以本机通过。修正为受长度约束的随机槽并补跨后端长度断言；同一 Idempotency-Key 仍唯一，不扩大表或改写旧数据。远端修复结果见最新 PR #22 Checks。
+
+
+2026-11-06 后续：用户提供 DeepSeek 凭据并明确要求测试。官方模型列表、固定 JSON、质量建议三项实际请求成功，详见 CREATIVE_QUALITY_VALIDATION.md。此前“未运行”是当时状态；现在保留历史，不能据此判断最新版本。PR #22 修复后 Actions 42237912782 成功，PR #24 Actions 42239083720 成功。

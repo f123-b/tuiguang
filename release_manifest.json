@@ -1,8 +1,8 @@
 {
-  "release_id": "creator-0.11.0-dev",
-  "application_version": "0.11.0-dev",
+  "release_id": "creator-0.12.0-dev",
+  "application_version": "0.12.0-dev",
   "git_sha": "resolved-at-runtime",
-  "database_migration": "0011",
+  "database_migration": "0012",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.1",
@@ -21,5 +21,6 @@
   "production_pipeline_version": "daily_media@1",
   "analysis_version": "grounded_review@1",
   "model_diagnostics_version": "fixed_json@1",
-  "product_monitor_version": "authorized_sources@1"
+  "product_monitor_version": "authorized_sources@1",
+  "quality_workflow_version": "creative_quality@1"
 }

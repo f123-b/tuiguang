@@ -8,10 +8,10 @@
       "module": "agent"
     },
     "AGENT_PROVIDER_RESULT_UNKNOWN": {
-      "module": "model_gateway"
+      "module": "quality_jobs"
     },
     "ANALYSIS_INPUT_TOO_LARGE": {
-      "module": "analysis_jobs"
+      "module": "quality_jobs"
     },
     "ARTIFACT_INTEGRITY_FAILED": {
       "module": "domains"
@@ -134,7 +134,7 @@
       "module": "domains"
     },
     "IDEMPOTENCY_KEY_CONFLICT": {
-      "module": "model_diagnostics"
+      "module": "quality_jobs"
     },
     "INTERNAL_ERROR": {
       "module": "main"
@@ -164,7 +164,7 @@
       "module": "settings_api"
     },
     "MODEL_CONSENT_REQUIRED": {
-      "module": "model_diagnostics"
+      "module": "quality_jobs"
     },
     "MODEL_ENCRYPTION_UNAVAILABLE": {
       "module": "settings_api"
@@ -186,6 +186,18 @@
     },
     "QA_MEDIA_INVALID": {
       "module": "video"
+    },
+    "QUALITY_BUDGET_EXCEEDED": {
+      "module": "quality_jobs"
+    },
+    "QUALITY_PREVIEW_REQUIRED": {
+      "module": "quality"
+    },
+    "QUALITY_REPORT_STALE": {
+      "module": "video"
+    },
+    "QUALITY_REVIEW_REQUIRED": {
+      "module": "quality"
     },
     "REMINDER_DATE_INVALID": {
       "module": "settings_api"

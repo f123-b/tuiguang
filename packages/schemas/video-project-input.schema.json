@@ -254,6 +254,11 @@
       "maxItems": 100,
       "title": "Subtitles",
       "type": "array"
+    },
+    "preview_required": {
+      "default": false,
+      "title": "Preview Required",
+      "type": "boolean"
     }
   },
   "required": [

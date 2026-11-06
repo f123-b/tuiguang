@@ -12,26 +12,30 @@ def ass_subtitles(ir):
         cs = round(frame * 100 / ir["fps"])
         return f"{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}"
 
-    face = font(36)
+    scale = min(1, ir["width"] / 1080, ir["height"] / 1080)
+    initial_size, min_size = max(12, round(36 * scale)), max(8, round(24 * scale))
+    margin, margin_v = round(80 * scale), round(70 * scale)
+    face = font(initial_size)
     family = face.getname()[0].replace(",", " ").replace("\n", " ")
     width, height = ir["width"], ir["height"]
     out = [
         f"[Script Info]\nScriptType: v4.00+\nPlayResX: {width}\nPlayResY: {height}",
         "[V4+ Styles]",
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-        f"Style: Default,{family},36,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,2,1,2,80,80,70,1",
+        f"Style: Default,{family},{initial_size},&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,2,1,2,{margin},{margin},{margin_v},1",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
     draw = ImageDraw.Draw(Image.new("RGB", (1, 1)))
     for cue in ir.get("subtitles", []):
-        size = 36
+        size = initial_size
         while (
-            size > 24
-            and len(wrap_text(draw, cue["text"], font(size), width - 160)) * size * 1.42 > height * 0.25
+            size > min_size
+            and len(wrap_text(draw, cue["text"], font(size), width - 2 * margin)) * size * 1.42
+            > height * 0.25
         ):
             size -= 2
-        lines = wrap_text(draw, cue["text"], font(size), width - 160)
+        lines = wrap_text(draw, cue["text"], font(size), width - 2 * margin)
         # User text cannot inject ASS tags or create additional dialogue records.
         text = r"\N".join(
             line.replace("\\", "＼").replace("{", "｛").replace("}", "｝").replace("\r", "") for line in lines

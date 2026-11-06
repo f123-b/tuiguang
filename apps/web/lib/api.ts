@@ -60,6 +60,7 @@ export type Creator = {
   active_strategy_id: string | null;
   render_options: {
     graphics: boolean;
+    review_preview_before_final?: boolean;
     video: boolean;
     duration_sec: number;
     video_mode: "mg" | "mixed" | "screen_demo" | "montage";
@@ -197,6 +198,7 @@ export type Subtitle = {
   text: string;
 };
 export type Video = {
+  preview_required?: boolean;
   id: string;
   brand_id: string;
   name: string;

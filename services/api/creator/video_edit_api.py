@@ -70,6 +70,7 @@ def create_speech(data: SpeechInput, db: DB, user: Actor):
 def save(db, video, ir, editor):
     # A manual edit starts a private revision; it must be explicitly rebound and reviewed.
     ir = {key: value for key, value in ir.items() if not key.startswith("source_")}
+    ir["preview_required"] = video.preview_required
     if ir["brand_id"] != video.brand_id:
         raise DomainError("VID_IR_INVALID", "视频不能移动到其他品牌", 422)
     validate_ir(db, video.workspace_id, ir)

@@ -57,10 +57,17 @@ def sync(db, workspace_id=None, now=None):
         for c in db.scalars(
             select(Content).where(
                 Content.workspace_id == space,
-                Content.status.in_(["awaiting_user_review", "awaiting_manual_publication"]),
+                Content.status.in_(
+                    [
+                        "awaiting_user_review",
+                        "awaiting_manual_publication",
+                        "needs_preview_review",
+                        "awaiting_quality_review",
+                    ]
+                ),
             )
         ):
-            review = c.status == "awaiting_user_review"
+            review = c.status != "awaiting_manual_publication"
             if not review:
                 package_ids = select(Handoff.id).where(
                     Handoff.content_id == c.id, Handoff.content_revision == c.revision

@@ -170,6 +170,7 @@ class Video(TenantRecord, Base):
     status: Mapped[str] = mapped_column(String(30), default="draft")
     output_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
     rendered_revision: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    preview_required: Mapped[bool] = mapped_column(Boolean, default=False)
 
 
 class RenderJob(TenantRecord, Base):
@@ -182,6 +183,29 @@ class RenderJob(TenantRecord, Base):
     error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
     receipt: Mapped[dict] = mapped_column(JSON, default=dict)
     lease_until: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    purpose: Mapped[str] = mapped_column(String(20), default="final")
+
+
+class QualityReport(TenantRecord, Base):
+    __tablename__ = "quality_reports"
+    subject_type: Mapped[str] = mapped_column(String(20))
+    subject_id: Mapped[str] = mapped_column(String(32))
+    subject_revision: Mapped[int] = mapped_column(Integer)
+    source_digest: Mapped[str] = mapped_column(String(64))
+    report: Mapped[dict] = mapped_column(JSON)
+    ai_run_id: Mapped[str | None] = mapped_column(ForeignKey("creator_runs.id"), nullable=True, unique=True)
+    __table_args__ = (UniqueConstraint("workspace_id", "subject_type", "subject_id", "source_digest"),)
+
+
+class QualityReview(TenantRecord, Base):
+    __tablename__ = "quality_reviews"
+    video_id: Mapped[str] = mapped_column(ForeignKey("video_projects.id"))
+    revision: Mapped[int] = mapped_column(Integer)
+    preview_job_id: Mapped[str] = mapped_column(ForeignKey("render_jobs.id"))
+    report_id: Mapped[str] = mapped_column(ForeignKey("quality_reports.id"))
+    decision: Mapped[str] = mapped_column(String(20))
+    note: Mapped[str] = mapped_column(Text)
+    recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
 
 
 class Handoff(TenantRecord, Base):

@@ -9,6 +9,7 @@ import {
   type Shot,
   type Video,
 } from "../../lib/api";
+import { QualityPanel } from "./quality";
 import { Field, PageHeader, type PageProps } from "../page-shared";
 
 export function VideoEditor({
@@ -113,22 +114,24 @@ export function VideoEditor({
             ? "升级并保存工程"
             : "保存整个工程"}
         </Button>
-        <Button
-          disabled={
-            busy ||
-            dirty ||
-            video.status === "queued" ||
-            video.status === "running"
-          }
-          onClick={() =>
-            action(
-              () => api(`/videos/${video.id}/render`, post()),
-              "真实渲染已排队",
-            )
-          }
-        >
-          渲染 MP4
-        </Button>
+        {!video.preview_required && (
+          <Button
+            disabled={
+              busy ||
+              dirty ||
+              video.status === "queued" ||
+              video.status === "running"
+            }
+            onClick={() =>
+              action(
+                () => api(`/videos/${video.id}/render`, post()),
+                "真实渲染已排队",
+              )
+            }
+          >
+            渲染 MP4
+          </Button>
+        )}
         <a
           className="button secondary"
           href={`/api/v1/videos/${video.id}/project`}
@@ -154,6 +157,17 @@ export function VideoEditor({
           修改尚未保存；渲染、导出和版本恢复使用服务器已保存工程。先保存再继续。
         </p>
       )}
+      <QualityPanel
+        store={store}
+        action={action}
+        busy={busy}
+        kind="video"
+        id={video.id}
+        revision={video.revision}
+        brandId={video.brand_id}
+        video={video}
+        dirty={dirty}
+      />
       <div className="video-editor">
         <Card className="shot-sidebar">
           <h3>分镜与顺序</h3>
@@ -217,7 +231,7 @@ export function VideoEditor({
             ) : (
               <div className="unrendered-stage">
                 <h3>当前版本还没有成片</h3>
-                <p>保存工程后点击“渲染 MP4”；这里不会用动画示意代替成片。</p>
+                <p>保存工程后，先在质量流程中检查并生成低清预览。</p>
               </div>
             )}
           </div>

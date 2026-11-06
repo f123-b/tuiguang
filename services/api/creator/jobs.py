@@ -182,6 +182,11 @@ def process_pending(db):
             continue
         db.refresh(run)
         try:
+            if run.release.get("job_kind") == "quality_review":
+                from .quality_jobs import process
+
+                process(db, run, creator)
+                continue
             if run.release.get("job_kind") == "model_probe":
                 from .model_diagnostics import process_probe
 
@@ -281,6 +286,9 @@ def process_pending(db):
             )
             db.add(content)
             db.flush()
+            from .quality import build_report
+
+            build_report(db, "content", content)
             content.compliance = compliance_report(db, content)
             ledger.status, ledger.actual_cents = "settled", result["actual_cents"]
             media_options = run.release.get("production_options") or {}
@@ -317,9 +325,11 @@ def process_pending(db):
             if error.code == "AGENT_PROVIDER_RESULT_UNKNOWN":
                 creator = db.get(Creator, run.creator_id)
                 creator.status = "paused_by_error"
-            stage = {"model_probe": "model.probe", "learning_review": "learning.model"}.get(
-                run.release.get("job_kind"), "content.script"
-            )
+            stage = {
+                "model_probe": "model.probe",
+                "quality_review": "quality.model",
+                "learning_review": "learning.model",
+            }.get(run.release.get("job_kind"), "content.script")
             record(db, run.workspace_id, run.trace_id, stage, "error", run.id, error.code)
             db.commit()
 

@@ -1,4 +1,4 @@
-# 实际模块地图 · 0.11.0-dev
+# 实际模块地图 · 0.12.0-dev
 
 原 `MODULE_MAP.md` 为目标架构；此表索引本轮实际代码，模块负责人均为仓库维护者。
 
@@ -61,3 +61,6 @@ E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 00
 
 
 #23：`source_http.py` 公网 IP 固定 HTTPS；`product_monitor.py` 快照/差异/租约/Worker 轮询；`product_sources_api.py` 来源/上传/提案/素材版本；`pages/product-sources.tsx` 品牌与素材界面。0011 增加来源、快照、事件、检查与可空素材关联；`evidence.invalidate_asset` 同时复核图文/视频引用的未登记稿。
+
+
+#25：`quality.py` 冻结规则与来源、标题和镜头比较；`quality_api.py` 租户内报告/预览/人工确认；`quality_jobs.py` 单独授权的预算模型建议，复用一次性网关和未知费用处理。`pages/quality.tsx` 接入内容和视频工作室；`video.py` 单独 purpose=preview/final，真实水印与尺寸探针；`production.preview_ready` 在自动任务中等待复核。0012 新增质量表、视频政策与任务用途；`video_edit.current_output` 拒绝不再有效的确认，附件只取 final 回执。Session 不自动过期，网络/渲染后显式刷新品牌、素材与工程，再判断版本；竞态测试覆盖渲染期间修改。`compatible_chat@2` 冻结在公开配置 hash 中，DeepSeek 官方 JSON 使用已核实的非思考参数。真实联调和 30 秒预览/高清证据见 CREATIVE_QUALITY_VALIDATION.md。

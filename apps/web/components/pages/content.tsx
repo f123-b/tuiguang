@@ -1,4 +1,5 @@
 "use client";
+import { QualityPanel } from "./quality";
 import { Badge, Button, Card, EmptyState, StatusBadge } from "@xuliu/ui";
 import {
   ArrowDownToLine,
@@ -97,6 +98,7 @@ export function ContentLibrary({ store, action, busy, path }: PageProps) {
         {[
           ["all", "全部内容"],
           ["awaiting_user_review", "待审核"],
+          ["needs_preview_review", "待预览确认"],
           ["approved_for_handoff", "已审核"],
           ["awaiting_manual_publication", "待手动发布"],
           ["user_reported_published", "用户已登记"],
@@ -171,6 +173,20 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
           返回内容库
         </Link>
       </PageHeader>
+      <QualityPanel
+        store={store}
+        action={action}
+        busy={busy}
+        kind="content"
+        id={content.id}
+        revision={content.revision}
+        creatorId={content.creator_id}
+        brandId={
+          store.creators.find((c) => c.id === content.creator_id)?.brand_id ||
+          ""
+        }
+        dirty={dirty || variantDirty}
+      />
       <ContentEvidence
         content={content}
         onDraftChange={setVariantDirty}
@@ -376,7 +392,8 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
               checked={confirmed}
               onChange={(e) => setConfirmed(e.target.checked)}
             />
-            我已复核产品事实、素材授权与 AI 标识
+            我已复核产品事实、素材授权、AI
+            标识及开场、单一收益点、受众与表达目的
           </label>
           <div className="form-actions">
             <Button
