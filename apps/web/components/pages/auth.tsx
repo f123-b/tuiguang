@@ -60,7 +60,7 @@ export function Auth({ onComplete }: { onComplete: () => Promise<void> }) {
       </div>
       <div className="auth-form-wrap">
         <Card>
-          <Badge tone="blue">叙流 · 0.2.0 开发版</Badge>
+          <Badge tone="blue">叙流 · 0.3.0 开发版</Badge>
           <h2>{register ? "建立你的创作空间" : "欢迎回到创作空间"}</h2>
           <p>
             {register

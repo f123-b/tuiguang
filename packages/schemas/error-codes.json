@@ -43,6 +43,9 @@
     "CONTENT_ALREADY_REPORTED": {
       "module": "main"
     },
+    "CONTENT_REVISION_CONFLICT": {
+      "module": "graphics_api"
+    },
     "CREATOR_LIMIT_REACHED": {
       "module": "main"
     },
@@ -72,6 +75,30 @@
     },
     "EDITORIAL_REVISION_CONFLICT": {
       "module": "jobs"
+    },
+    "GRAPHIC_ASSET_INTEGRITY": {
+      "module": "graphics"
+    },
+    "GRAPHIC_ASSET_INVALID": {
+      "module": "graphics"
+    },
+    "GRAPHIC_ASSET_MISSING": {
+      "module": "graphics"
+    },
+    "GRAPHIC_ASSET_UNVERIFIED": {
+      "module": "graphics"
+    },
+    "GRAPHIC_FACTS_STALE": {
+      "module": "graphics"
+    },
+    "GRAPHIC_RENDER_STALE": {
+      "module": "graphics"
+    },
+    "GRAPHIC_SCHEMA_INVALID": {
+      "module": "graphics"
+    },
+    "GRAPHIC_TEXT_OVERFLOW": {
+      "module": "graphics"
     },
     "HANDOFF_DATE_INVALID": {
       "module": "main"
@@ -107,7 +134,7 @@
       "module": "video"
     },
     "RESOURCE_NOT_FOUND": {
-      "module": "domains"
+      "module": "graphics_api"
     },
     "RUN_NOT_SKIPPABLE": {
       "module": "main"

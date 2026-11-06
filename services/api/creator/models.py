@@ -115,6 +115,8 @@ class Content(TenantRecord, Base):
     compliance: Mapped[dict] = mapped_column(JSON, default=dict)
     revision: Mapped[int] = mapped_column(Integer, default=1)
     approved_revision: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    graphics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    graphics_render: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
 
 class Asset(TenantRecord, Base):

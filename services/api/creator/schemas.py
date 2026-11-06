@@ -73,16 +73,19 @@ class CreatorInput(DTO):
 
 
 class ContentPatch(DTO):
+    expected_revision: int | None = Field(default=None, ge=1)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     body: str | None = Field(default=None, min_length=1, max_length=12000)
 
 
 class Approve(DTO):
     confirmed: Literal[True]
+    expected_revision: int | None = Field(default=None, ge=1)
 
 
 class HandoffInput(DTO):
     content_id: Short
+    expected_revision: int | None = Field(default=None, ge=1)
 
 
 class PublicationInput(DTO):

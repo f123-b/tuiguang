@@ -24,6 +24,7 @@ def test_openapi_and_ir_schema_are_generated_from_implementation():
     spec = app.openapi()
     assert "/api/v1/manual-publication/records" in spec["paths"]
     assert "/api/v1/creators/{creator_id}/run-today" in spec["paths"]
+    assert "/api/v1/content/packages/{content_id}/graphics/render" in spec["paths"]
     assert "Idempotency-Key" in str(spec["paths"]["/api/v1/creators/{creator_id}/run-today"])
     assert "Shot" in VideoInput.model_json_schema()["$defs"]
     manifest = release_manifest()

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.2.0-dev"
+    "version": "0.3.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -327,6 +327,298 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/graphics": {
+      "get": {
+        "summary": "Get Graphics",
+        "operationId": "get_graphics_api_v1_content_packages__content_id__graphics_get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Save Graphics",
+        "operationId": "save_graphics_api_v1_content_packages__content_id__graphics_put",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GraphicSave"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/graphics/render": {
+      "post": {
+        "summary": "Preview Graphics",
+        "operationId": "preview_graphics_api_v1_content_packages__content_id__graphics_render_post",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GraphicRender"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/graphics/pages/{index}/preview": {
+      "get": {
+        "summary": "Get Preview",
+        "operationId": "get_preview_api_v1_content_packages__content_id__graphics_pages__index__preview_get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Index"
+            }
+          },
+          {
+            "name": "revision",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Revision"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/graphics/pages/{index}/download": {
+      "get": {
+        "summary": "Download Graphic",
+        "operationId": "download_graphic_api_v1_content_packages__content_id__graphics_pages__index__download_get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Index"
+            }
+          },
+          {
+            "name": "revision",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Revision"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "png",
+                "jpg"
+              ],
+              "type": "string",
+              "default": "png",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/graphics/project": {
+      "get": {
+        "summary": "Download Project",
+        "operationId": "download_project_api_v1_content_packages__content_id__graphics_project_get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1850,6 +2142,18 @@
             "type": "boolean",
             "const": true,
             "title": "Confirmed"
+          },
+          "expected_revision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Revision"
           }
         },
         "additionalProperties": false,
@@ -1955,6 +2259,18 @@
       },
       "ContentPatch": {
         "properties": {
+          "expected_revision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Revision"
+          },
           "title": {
             "anyOf": [
               {
@@ -2117,6 +2433,141 @@
         ],
         "title": "FactInput"
       },
+      "GraphicDocument": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "renderer_version": {
+            "type": "string",
+            "const": "graphic_cards@1",
+            "title": "Renderer Version",
+            "default": "graphic_cards@1"
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "portrait",
+              "square",
+              "landscape"
+            ],
+            "title": "Size",
+            "default": "portrait"
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "midnight",
+              "paper",
+              "sage"
+            ],
+            "title": "Theme",
+            "default": "midnight"
+          },
+          "pages": {
+            "items": {
+              "$ref": "#/components/schemas/GraphicPage"
+            },
+            "type": "array",
+            "maxItems": 6,
+            "minItems": 1,
+            "title": "Pages"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "pages"
+        ],
+        "title": "GraphicDocument"
+      },
+      "GraphicPage": {
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,40}$",
+            "title": "Page Id"
+          },
+          "template": {
+            "type": "string",
+            "enum": [
+              "editorial",
+              "checklist",
+              "screenshot"
+            ],
+            "title": "Template",
+            "default": "editorial"
+          },
+          "heading": {
+            "type": "string",
+            "maxLength": 180,
+            "title": "Heading",
+            "default": ""
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Text",
+            "default": ""
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page_id"
+        ],
+        "title": "GraphicPage"
+      },
+      "GraphicRender": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision"
+        ],
+        "title": "GraphicRender"
+      },
+      "GraphicSave": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "document": {
+            "$ref": "#/components/schemas/GraphicDocument"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "document"
+        ],
+        "title": "GraphicSave"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -2137,6 +2588,18 @@
             "maxLength": 120,
             "minLength": 1,
             "title": "Content Id"
+          },
+          "expected_revision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Revision"
           }
         },
         "additionalProperties": false,

@@ -1,0 +1,32 @@
+{
+  "document": {
+    "schema_version": "1.0",
+    "renderer_version": "graphic_cards@1",
+    "size": "portrait",
+    "theme": "paper",
+    "pages": [
+      {
+        "page_id": "cover",
+        "template": "editorial",
+        "heading": "让产品信息，有据可查",
+        "text": "图文编辑功能验收样例。每一份素材都有来源，发布之前由你亲自复核。",
+        "asset_id": null
+      },
+      {
+        "page_id": "f6379720-1178-4563-82e9-f24de51c5e1e",
+        "template": "checklist",
+        "heading": "一个已核实的功能",
+        "text": "",
+        "asset_id": null
+      },
+      {
+        "page_id": "76de509d-d39f-4796-add0-bcce6604cf30",
+        "template": "screenshot",
+        "heading": "真实界面，完整呈现",
+        "text": "",
+        "asset_id": "73857b8fd73f40d1ac82e3aef7729163"
+      }
+    ]
+  },
+  "content_revision": 2
+}

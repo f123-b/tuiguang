@@ -79,6 +79,8 @@ export type EditorialEntry = {
 };
 export type Content = {
   id: string;
+  creator_id: string;
+  run_id: string;
   title: string;
   body: string;
   status: string;
@@ -89,6 +91,36 @@ export type Content = {
   created_at: string;
   compliance: { status: string; issues: { level: string; message: string }[] };
   fact_refs: string[];
+  graphics: GraphicDocument | null;
+  graphics_render: GraphicReceipt | null;
+};
+export type GraphicPage = {
+  page_id: string;
+  template: "editorial" | "checklist" | "screenshot";
+  heading: string;
+  text: string;
+  asset_id: string | null;
+};
+export type GraphicDocument = {
+  schema_version: "1.0";
+  renderer_version: "graphic_cards@1";
+  size: "portrait" | "square" | "landscape";
+  theme: "midnight" | "paper" | "sage";
+  pages: GraphicPage[];
+};
+export type GraphicReceipt = {
+  content_revision: number;
+  cache_key: string;
+  renderer_version: string;
+  font: { name: string[]; sha256: string };
+  pages: {
+    page_id: string;
+    heading: string;
+    width: number;
+    height: number;
+    png_sha256: string;
+    jpg_sha256: string;
+  }[];
 };
 export type Run = {
   id: string;
@@ -107,6 +139,7 @@ export type Run = {
 };
 export type Asset = {
   id: string;
+  brand_id: string;
   name: string;
   kind: string;
   verified: boolean;
