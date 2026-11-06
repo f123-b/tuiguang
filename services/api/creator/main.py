@@ -25,6 +25,7 @@ from .domains import (
     compliance_report,
     digest,
     file_path,
+    verified_file,
     make_handoff,
     owned,
     parse_metric_rows,
@@ -294,7 +295,7 @@ async def upload_asset(
 @app.get("/api/v1/assets/{asset_id}/download")
 def download_asset(asset_id: str, db: DB, user: Actor):
     asset = owned(db, Asset, asset_id, user.workspace_id)
-    return FileResponse(file_path(user.workspace_id, asset.sha256, asset.suffix), filename=asset.name)
+    return FileResponse(verified_file(user.workspace_id, asset.sha256, asset.suffix), filename=asset.name)
 
 
 @app.get("/api/v1/creators")
@@ -566,7 +567,7 @@ def download_handoff(package_id: str, db: DB, user: Actor):
     package = owned(db, Handoff, package_id, user.workspace_id)
     current_package(db, package)
     return FileResponse(
-        file_path(user.workspace_id, package.sha256, ".zip"),
+        verified_file(user.workspace_id, package.sha256, ".zip"),
         filename=f"manual-package-{package.id[:8]}.zip",
         media_type="application/zip",
     )

@@ -3044,6 +3044,11 @@ main {
     overflow: auto;
     padding: 12px;
   }
+  .shot-sidebar > h3 {
+    flex: 0 0 auto;
+    align-self: center;
+    white-space: nowrap;
+  }
   .shot-sidebar > .section-heading {
     display: none;
   }

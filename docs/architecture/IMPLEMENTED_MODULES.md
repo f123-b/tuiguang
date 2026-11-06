@@ -1,4 +1,4 @@
-# 实际模块地图 · M0-001 / M1-002
+# 实际模块地图 · 0.9.0-dev
 
 原 `MODULE_MAP.md` 为目标架构；此表索引本轮实际代码，模块负责人均为仓库维护者。
 
@@ -15,7 +15,7 @@
 | GRAPHICS | `graphics.py`、`graphics_api.py`、`pages/graphics.tsx` | 独立图文 IR 1.0，三版式/三尺寸、PNG/JPG、真实预览、来源/哈希与发布包；`test_graphics.py` |
 | VIDEO | `video.py`、`schemas.py` | 独立 IR、Pillow / FFmpeg 镜头、缓存、ffprobe |
 | HANDOFF | `domains.py`、`main.py` | 真实 ZIP、过期检查、手动登记和撤销，无平台写网络 |
-| METRICS | `domains.py`、`main.py` | 固定模板导入、NULL、日期/来源、幂等与分组 |
+| METRICS | `domains.py`、`main.py` | 字段匹配/手工指标/版本、NULL、日期/来源、幂等与分组 |
 | OBS | `observability.py`、`job_events` | OTel 上下文、错误码、脱敏事件、运行版本 |
 | OPS | `infra/migrations`、`.github`、`release_manifest.json` | 迁移、检查与开发发行元数据，尚无生产发布 |
 
@@ -36,7 +36,7 @@ flowchart TD
 
 API 错误含 `code/message/trace_id/request_id`。HTTP 使用 W3C Trace Context，日任务冻结发行信息与选题快照；安全日志不记录 Prompt 原文、密钥和原始私有文件路径。实际 OpenAPI 由 `scripts/export-contracts.py` 从实现生成。运行回执沿用 `engineering/contracts/runtime_receipt.schema.json` 并用真实数据库事件验证。
 
-M1 调用链：编辑/确认选题 → 日程或显式备稿 → `enqueue` 保存 `input_snapshot` → 版本、事实、暂停、实际计费日预算校验 → LangGraph → 既有内容审核与人工发布包。GET 计划只读取，补齐计划为 POST；新创作者/Worker 依照已开启设置维护规则计划。规则选题自动确认，手动修改后进入 `planned`。视频模块未改动。
+M1 调用链：编辑/确认选题 → 日程或显式备稿 → `enqueue` 保存 `input_snapshot` → 版本、事实、暂停、实际计费日预算校验 → LangGraph → 既有内容审核与人工发布包。GET 计划只读取，补齐计划为 POST；新创作者/Worker 依照已开启设置维护规则计划。规则选题自动确认，手动修改后进入 `planned`。此处描述当时 M1 增量；当前视频见下方 B。
 
 M2 图文调用链：图文编辑器 → 带内容版本的工程保存 → Content 图文 JSON（0003）→ 授权/事实/字数检查 → Pillow PNG/JPG 与字体/文件回执 → 逐页查看、人工审核 → 同一文件进入全部图文 ZIP。正文与图文共享内容 revision；预览 GET 不自动生成，不改变审核状态。无需模型网络请求，视频和 Agent 版本保持原值。
 
@@ -52,3 +52,6 @@ E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 00
 
 
 0.9.0 / #17：`analysis_api.py → analysis_jobs.py → jobs.reserve_budget` 维护独立复盘任务；`learning.py` 保留确定性证据，模型只能追加待审解释。`analysis_api.reconcile` 保存未知费用的人工来源与整数分，不重发请求。0009 扩展指标版本、唯一 AI 报告关联和费用核对。
+
+
+#19 集成：下载通过 `domains.verified_file` 校验原始素材、人工 ZIP 和含素材的私有导出；缺失/损坏明确阻断。`pages/evidence.tsx` 的未保存平台文案同时阻止历史恢复和平台切换。实际浏览器/三种 30 秒成片证据在 FINAL_ACCEPTANCE.md。

@@ -73,6 +73,8 @@ def test_paid_review_is_idempotent_and_does_not_become_a_daily_task(client, crea
     assert len(calls) == 1
     reports = client.get("/api/v1/creators/" + creator_profile["id"] + "/learning-reports").json()
     ai = next(r for r in reports if r.get("ai_run_id"))
+    client.post("/api/v1/notifications/sync")
+    assert any("模型复盘" in n["body"] for n in client.get("/api/v1/notifications").json())
     assert ai["report"]["metric_sample_count"] == 0
     assert ai["report"]["ai_narrative"]["evidence_refs"] == [c["id"]]
     with SessionLocal() as db:

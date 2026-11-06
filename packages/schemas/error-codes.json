@@ -13,6 +13,9 @@
     "ANALYSIS_INPUT_TOO_LARGE": {
       "module": "analysis_jobs"
     },
+    "ARTIFACT_INTEGRITY_FAILED": {
+      "module": "domains"
+    },
     "ASSET_FORMAT_INVALID": {
       "module": "main"
     },

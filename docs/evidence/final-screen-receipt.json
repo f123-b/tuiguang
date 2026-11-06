@@ -1,0 +1,86 @@
+{
+  "sha256": "cc2fd7d630bfff15652e1186bf70eda520f9daef2eddc2ec8d06bb20229f3655",
+  "shots": [
+    {
+      "shot_id": "s1",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "cached": false,
+      "sha256": "99cba7ce763957acead8fe72880f2683353435e2822a3ddae153fc5a35fe1a00",
+      "render_cache_key": "72a834df8ba6f245ad912e2a3e5c3ea85a3c8c03f307bfbc0a1f1a6da6a095a8",
+      "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+      "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+      "asset_license_note": "自行制作，仅本软件合成验收使用"
+    },
+    {
+      "shot_id": "s2",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "cached": false,
+      "sha256": "3657f331ed95b08dcf7623c3ffa0782ced3de21fa779319e0024d360a47a8e5d",
+      "render_cache_key": "036fb68219f9a61ebc0026773e794ab7f289b036812e702f6261a83c4b89bafc",
+      "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+      "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+      "asset_license_note": "自行制作，仅本软件合成验收使用"
+    },
+    {
+      "shot_id": "s3",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "cached": false,
+      "sha256": "d25082e64d1d397685dc910343c14a57c0b4c25b7eb48e6625bcab4e714ee90a",
+      "render_cache_key": "173c84336f24a5bd921e905e5acda262a1d6f02ee883ba94497809c86952eadc",
+      "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+      "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+      "asset_license_note": "自行制作，仅本软件合成验收使用"
+    },
+    {
+      "shot_id": "s4",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "cached": false,
+      "sha256": "dc1ef242d94f1f3b433d5bec7b2f2be9ee72a1ca3907ee850695400ccd3c2d00",
+      "render_cache_key": "76367a6fe2815d2bf2afc00a6dd3ab87b2aea44ed245bbd52f5506d5f7813483",
+      "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+      "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+      "asset_license_note": "自行制作，仅本软件合成验收使用"
+    },
+    {
+      "shot_id": "s5",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "cached": false,
+      "sha256": "4bfe3c693f5996dab43d70264b97847e706de324b37deee99010378b067b9ad7",
+      "render_cache_key": "ae4cbbe4ab2744e8cdc1dba8cd61821ea9fdddc0ef395e344805f6e591d9d37f",
+      "asset_sha256": "6831eb2edaa1a724d85b798e26a53205698d03ece024a84767d396a8d6ef55ce",
+      "asset_source": "2026-11-06 agent-browser 真实本地工作台操作录屏，30 秒，无界面重绘",
+      "asset_license_note": "自行制作，仅本软件合成验收使用"
+    }
+  ],
+  "duration_sec": 30.0,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": "mixed_authorized_assets",
+  "audio_sources": [
+    {
+      "track_id": "tone",
+      "role": "music",
+      "asset_id": "efdffbe097044cdf9edd795c5569add2",
+      "sha256": "f543bbe3c70eb507d4745d48b3ac18f26206d45efa3e753d806bfd59a439ef3e",
+      "source": "程序生成 220Hz 验收音调，不是人声或第三方音乐",
+      "license_note": "自行生成，仅验收"
+    }
+  ],
+  "subtitles": 5,
+  "provider_adapter_version": "pillow_ffmpeg@2",
+  "font": {
+    "name": [
+      "Microsoft YaHei",
+      "Regular"
+    ],
+    "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+  },
+  "qa": "technical_probe_passed",
+  "revision": 1
+}

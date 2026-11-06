@@ -123,7 +123,8 @@ def sync(db, workspace_id=None, now=None):
                     f"report:{report.id}",
                     "learning_report",
                     "新的证据复盘已保存",
-                    f"{report.period_start} — {report.period_end}，规则证据报告。",
+                    f"{report.period_start} — {report.period_end}，"
+                    + ("模型复盘，解释待人工核对。" if report.ai_run_id else "规则证据报告。"),
                     "/growth",
                 )
             )

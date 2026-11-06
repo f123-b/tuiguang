@@ -2,11 +2,11 @@
 
 让产品的故事，持续发生。根据用户提供的 V2.3 设计文档开发。
 
-**当前：0.8.0-dev / M2 图文卡增量。** 可以在本地运行真实的品牌事实、持续任务、选题编辑/确认/改期、批量备稿、图文编辑、视频制作、审核、ZIP 下载、用户发布登记和报表导入。完整商业版本的进度见 [PROJECT_STATUS.md](PROJECT_STATUS.md)，不将原型或未接入的服务算作完成。
+**当前：0.9.0-dev / V1 本地开发闭环。** 可以在本地运行真实的品牌事实、持续任务、选题编辑/确认/改期、批量备稿、图文编辑、视频制作、审核、ZIP 下载、用户发布登记和报表导入。完整商业版本的进度见 [PROJECT_STATUS.md](PROJECT_STATUS.md)，不将原型或未接入的服务算作完成。
 
 AI 负责准备内容；你在第三方平台官方页面亲自上传并发布。软件不需要社媒凭据，登记始终显示“用户自行登记，未经平台验证”。
 
-![真实开发版总览，工作区内记录均为验收测试数据](docs/evidence/dashboard-desktop.png)
+![真实开发版总览，工作区内记录均为验收测试数据](docs/evidence/final-dashboard.png)
 
 ## 本地启动
 
@@ -38,21 +38,26 @@ npm run dev
 
 - 邮箱注册、密码哈希、JWT HttpOnly 会话和退出撤销；所有业务资源按工作区隔离。
 - 一个品牌、一个创作者：事实来源与用户核实、时区、每周频率、预算、暂停/恢复、日任务幂等、真实持久化的 14 天计划。
-- 选题可编辑、锁定、跳过、交换日期；改题后重新确认。每次最多确认提前准备 7 篇，执行依据冻结，模型预算计入实际执行日；默认七种规则稿结构，不宣称 AI 热度分析或语义去重。
+- 选题可编辑、锁定、跳过、交换日期；改题后重新确认。每次最多确认提前准备 7 篇，执行依据冻结，模型预算计入实际执行日；默认七种规则稿结构；模型相近主题建议需单独授权和人工复核，不宣称平台热度。
 - 可编辑 1–6 页图文：三版式、三尺寸与三主题，真实截图保留完整比例；真实 PNG/JPG 预览、人工复核、单页下载及全部图文 ZIP，附工程 JSON、事实/素材来源和哈希。
 - LangGraph 事实约束流程；默认明确标注 **本地规则草稿**。编辑后必须重新审核，品牌事实变更会使待发布包失效。
-- 本地 MG 动画（Pillow）与真实素材/录屏混剪（FFmpeg）；独立 VideoProjectIR、镜头级修改、内容缓存、1920×1080 或 1080×1920 MP4、工程 JSON 导出。当前音轨为静音，TTS / BGM 待接入。
+- 本地 MG 动画（Pillow）与真实素材/录屏混剪（FFmpeg）；独立 VideoProjectIR、镜头级修改、内容缓存、1920×1080 或 1080×1920 MP4、工程 JSON 导出。支持字幕/SRT、授权旁白/BGM 混音、三种比例、分镜排序锁定与历史恢复；可选 Windows 离线配音需核实许可。
 - 真正生成 PNG 封面、文案、出处与检查表的 ZIP 文件；无任何第三方平台发帖请求。
 - 用户自报登记及撤销；CSV / XLSX 校验预览、确认、幂等导入、来源与窗口分组、缺失值保留 NULL。
+- 事实变化提案审批、内容版本比较/恢复与平台文案；站内提醒、交接结果、私有记录导出。
+- 手工反馈/指标与字段映射、规则报告、策略审批/拒绝/回滚，后续计划冻结用户批准的偏好。
+- 可显式开启日更图文/视频制作，媒体失败只恢复媒体步骤，不重复模型生成。
 - 请求 / 任务 / 镜头诊断、OpenTelemetry spans、版本快照、管理员事件查询、深浅主题与移动布局。
 
-20 秒真实双引擎 PoC（MG + 本软件实际截图 + MG）：[MP4](docs/evidence/mixed-20s.mp4)、[工程](docs/evidence/video-project.json)、[ffprobe 与缓存回执](docs/evidence/video-receipts.json)。这是验收产物，未包含旁白或配乐，不代表商业素材已获许可。
+30 秒最终验收片：[MG](docs/evidence/final-mg-30s.mp4)、[真实软件录屏](docs/evidence/final-screen-30s.mp4)、[混合](docs/evidence/final-mixed-30s.mp4)，均为 1920×1080 / H.264 + 验收音调 / AAC，有字幕与来源回执，不是营销效果证据。
+
+早期 20 秒双引擎 PoC（MG + 本软件实际截图 + MG）：[MP4](docs/evidence/mixed-20s.mp4)、[工程](docs/evidence/video-project.json)、[ffprobe 与缓存回执](docs/evidence/video-receipts.json)。这是验收产物，未包含旁白或配乐，不代表商业素材已获许可。
 
 ## 可选真实模型
 
-默认不会调用收费模型。复制 `.env.example` 为 `.env`，设置 `GENERATION_MODE=openai`、`MODEL_API_KEY`、`MODEL_ID`、单价（整数分 / 百万 token）和输出上限。`MODEL_BASE_URL` 应是你信任的 OpenAI-compatible 服务。密钥只从服务端环境读取，不存进数据库或浏览器。
+默认不会调用收费模型。设置页可保存允许的 HTTPS 网关、模型名称、单价（整数分 / 百万 token）、价格来源和输出上限。密钥由独立 Fernet 主密钥加密存储，页面不回显，也不进入 Prompt/快照/导出；保存设置不会发起模型请求。生产必须独立配置并保管 `MODEL_ENCRYPTION_KEY`。已有服务端环境配置仍可兼容，端点须列入 `MODEL_ALLOWED_HOSTS`。
 
-随后在创作者设置中明确授权发送已核实品牌事实，并配置足够预算。系统先预留费用、再请求模型；超时或回执/费用不确定时暂停，**不会自动再次付费生成**。请求价格来源是操作者配置，使用前须按供应商实际账单核对。当前没有模型凭据，真实供应商联调未运行。
+随后在创作者设置中明确授权发送已核实品牌事实，并配置足够预算。系统先预留费用、再请求模型；超时或回执/费用不确定时暂停，**不会自动再次付费生成**。请求价格来源是操作者配置，使用前须按供应商实际账单核对。真实供应商联调未运行。成长页另有单次授权的模型复盘，默认仍为规则报告；未知费用先自行核对提供者账单，再录入有来源的用户自报结果，不重试旧请求。
 
 ## 数据库与任务部署
 
@@ -80,9 +85,9 @@ npm.cmd run build
 npm.cmd run check:boundary
 ```
 
-本机已运行的命令、结果、浏览器证据与未运行项：[验收报告](docs/implementation/VALIDATION.md)。CI 同时测试 SQLite 与 PostgreSQL；应以实际 Actions 结果为准。
+本轮已运行的命令、结果、浏览器证据与未运行项：[最终集成验收](docs/implementation/FINAL_ACCEPTANCE.md)。CI 同时测试 SQLite 与 PostgreSQL；应以实际 Actions 结果为准。
 
-- [实际模块地图](docs/architecture/IMPLEMENTED_MODULES.md) / [32 个屏幕对应表](docs/implementation/ROUTES.md)
+- [实际模块地图](docs/architecture/IMPLEMENTED_MODULES.md) / [页面对应表](docs/implementation/ROUTES.md)
 - [OpenAPI](packages/schemas/openapi.json)，API 启动后 http://localhost:8000/api/docs
 - [实际操作手册](docs/implementation/LOCAL_USER_GUIDE.md) / [备份与恢复](docs/implementation/RECOVERY.md)
 - [M0 基线任务](docs/implementation/M0_TASK.md) / [本轮 M1 任务](docs/implementation/M1_TASK.md) / [本轮验收](docs/implementation/M1_VALIDATION.md) / [许可证与供应链台账](LICENSE_INVENTORY.md)
