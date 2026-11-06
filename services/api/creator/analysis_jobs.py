@@ -196,6 +196,10 @@ def process(db, run, creator):
     )
     ledger = reserve_budget(db, creator, run, reservation)
     db.refresh(creator)
+    if not creator.model_consent:
+        ledger.status, ledger.actual_cents = "cancelled", 0
+        db.commit()
+        raise DomainError("MODEL_CONSENT_REQUIRED", "模型授权已撤销，已释放预留且未发起分析请求")
     live = workspace_release(db, creator.workspace_id)
     if creator.status != "active" or any(
         live.get(k) != run.release.get(k) for k in ("workspace_model_revision", "model_config_hash")

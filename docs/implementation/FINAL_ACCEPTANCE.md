@@ -8,7 +8,7 @@
 
 | 检查 | 命令 / 操作 | 真实结果 |
 |---|---|---|
-| API / Worker / 媒体 / 安全 / 迁移 | `PYTHONPATH=services/api .venv/Scripts/python -m pytest -q` | 退出 0，84 passed / 1 skipped，35.82s；本机没有 PostgreSQL，未把跳过计为通过 |
+| API / Worker / 媒体 / 安全 / 迁移 | `PYTHONPATH=services/api .venv/Scripts/python -m pytest -q` | 退出 0，85 passed / 1 skipped，32.19s；本机没有 PostgreSQL，未把跳过计为通过 |
 | 最后一处通知文案修正 | `pytest tests/test_ai_review.py::test_paid_review_is_idempotent_and_does_not_become_a_daily_task -q` | 先 1 failed，修正后 1 passed；新模型报告通知明确为模型复盘 |
 | 静态与构建 | `python -m ruff check services tests infra scripts`；`npm run typecheck`；`npm run build`；`npm run check:boundary` | 退出 0；最终代码的远端结果见下文 |
 | 契约 | `python scripts/export-contracts.py`；`python engineering/scripts/validate_contracts.py`；`python -m unittest discover -s engineering/tests -q` | 均退出 0，治理测试 3 项通过；OpenAPI 和错误目录来自实际代码 |
@@ -31,6 +31,7 @@
 
 - 平台文案未保存时，历史恢复仍可点击。实际 UI 复现 `is enabled=true`；现在文案草稿同时阻止恢复和平台切换，复测两个控件均为 `false`，保存入口仍可用。
 - 损坏 ZIP/素材原来返回 200，缺失 ZIP 返回 500。三个失败用例复现；增加读取时 SHA256 校验后全部通过，返回明确的 `ARTIFACT_INTEGRITY_FAILED`。包含原始素材的私有导出不再静默遗漏缺失文件。
+- 模型复盘在预算预留后、发送请求前撤销授权，原来仍可能发起请求。独立会话撤销授权的失败用例复现；现在再次刷新授权，取消预留并以 `MODEL_CONSENT_REQUIRED` 停止，完整回归增至 85 项。
 - 模型报告通知原来一律写“规则证据报告”。受控模型用例先失败，修正后通过；模型解释仍需人工核对。
 - 手机分镜栏标题被横向布局挤成竖排；限定标题不压缩、不换行，保持卡片在栏内横向滚动。
 
@@ -40,7 +41,7 @@ HTTP 下载及代理下载的真实字节、图片格式、ZIP CRC 和媒体哈�
 
 ## 远端检查与交付
 
-本轮每个目的单独开放 PR、按依赖堆叠，均未合并 main。#8/#10/#12/#14 的阶段 CI 已通过；#16 [Actions 42182954923](https://github.com/f123-b/tuiguang/actions/runs/42182954923) 四项通过，#18 [Actions 42192618269](https://github.com/f123-b/tuiguang/actions/runs/42192618269) 四项通过。SQLite / PostgreSQL、Web 类型/构建/边界/npm audit、Python advisories 分别执行。最终功能提交 `aff4201d2115f29dc355bbe484578aa40f85c858` 的 [Actions 42195495485](https://github.com/f123-b/tuiguang/actions/runs/42195495485) 四项全部通过；[PR #20](https://github.com/f123-b/tuiguang/pull/20) 已开放并附在本任务，依赖 #18。后续仅补录本文和手机截图，不改运行代码。
+本轮每个目的单独开放 PR、按依赖堆叠，均未合并 main。#8/#10/#12/#14 的阶段 CI 已通过；#16 [Actions 42182954923](https://github.com/f123-b/tuiguang/actions/runs/42182954923) 四项通过，#18 [Actions 42192618269](https://github.com/f123-b/tuiguang/actions/runs/42192618269) 四项通过。SQLite / PostgreSQL、Web 类型/构建/边界/npm audit、Python advisories 分别执行。最终功能提交 `aff4201d2115f29dc355bbe484578aa40f85c858` 的 [Actions 42195495485](https://github.com/f123-b/tuiguang/actions/runs/42195495485) 四项全部通过；[PR #20](https://github.com/f123-b/tuiguang/pull/20) 已开放并附在本任务，依赖 #18。其后文档提交 `2506bc7` 四项也全绿。最终另补一项预算预留后撤销模型授权的并发保护；当前提交的远端状态以 PR #20 的 Checks 为准，不以旧绿色替代。
 
 ## 权限、成本、许可和回退
 
