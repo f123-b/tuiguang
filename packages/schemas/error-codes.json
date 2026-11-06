@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "codes": {
     "AGENT_MODEL_UNCONFIGURED": {
-      "module": "agent"
+      "module": "settings_api"
     },
     "AGENT_PLAN_FACT_UNVERIFIED": {
       "module": "agent"
@@ -26,7 +26,7 @@
       "module": "main"
     },
     "AUTH_FORBIDDEN": {
-      "module": "main"
+      "module": "settings_api"
     },
     "AUTH_INVALID": {
       "module": "main"
@@ -82,6 +82,9 @@
     "EDITORIAL_REVISION_CONFLICT": {
       "module": "jobs"
     },
+    "EXPORT_SIZE_LIMIT": {
+      "module": "settings_api"
+    },
     "GRAPHIC_ASSET_INTEGRITY": {
       "module": "graphics"
     },
@@ -136,8 +139,20 @@
     "METRICS_SOURCE_UNVERIFIED": {
       "module": "domains"
     },
+    "MODEL_CONFIG_INVALID": {
+      "module": "settings_api"
+    },
     "MODEL_CONSENT_REQUIRED": {
       "module": "jobs"
+    },
+    "MODEL_ENCRYPTION_UNAVAILABLE": {
+      "module": "settings_api"
+    },
+    "MODEL_ENDPOINT_DENIED": {
+      "module": "model_config"
+    },
+    "MODEL_REVISION_CONFLICT": {
+      "module": "settings_api"
     },
     "NOT_FOUND": {
       "module": "editorial_api"
@@ -147,6 +162,9 @@
     },
     "QA_MEDIA_INVALID": {
       "module": "video"
+    },
+    "REMINDER_DATE_INVALID": {
+      "module": "settings_api"
     },
     "RESOURCE_NOT_FOUND": {
       "module": "video_edit_api"
@@ -170,7 +188,7 @@
       "module": "speech"
     },
     "VALIDATION_ERROR": {
-      "module": "main"
+      "module": "settings_api"
     },
     "VID_ATTACHMENT_STALE": {
       "module": "video_edit"

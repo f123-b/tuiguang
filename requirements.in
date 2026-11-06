@@ -19,3 +19,5 @@ jsonschema>=4.23
 tzdata>=2025
 python-dotenv>=1.0,<2
 pip-audit>=2.10,<3
+
+cryptography>=46,<52

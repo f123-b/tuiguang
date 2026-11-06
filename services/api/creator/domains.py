@@ -29,7 +29,7 @@ def owned(db, cls, object_id, workspace_id):
 
 def serialize(obj):
     result = {column.name: getattr(obj, column.name) for column in obj.__table__.columns}
-    for key in ("workspace_id", "password_hash", "lease_until"):
+    for key in ("workspace_id", "password_hash", "lease_until", "encrypted_key"):
         result.pop(key, None)
     return result
 

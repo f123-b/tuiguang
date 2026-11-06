@@ -21,6 +21,7 @@ import {
   platformName,
   type PageProps,
 } from "../page-shared";
+import { HandoffOutcome } from "./handoff-outcome";
 export function PublishPage({ store, action, busy, path }: PageProps) {
   const [selected, setSelected] = useState(path.split("/")[3] || "");
   const [checks, setChecks] = useState<boolean[]>([
@@ -47,6 +48,14 @@ export function PublishPage({ store, action, busy, path }: PageProps) {
         title="素材准备好了，分享由你决定"
         description="下载内容与素材，在平台官方页面亲自上传发布，完成后回来登记。"
       />
+      {handoff && (
+        <HandoffOutcome
+          packageId={handoff.id}
+          readonly={!!publication}
+          action={action}
+          busy={busy}
+        />
+      )}
       <div className="info-strip">
         <ShieldCheck size={19} />
         <span>

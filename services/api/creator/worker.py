@@ -14,6 +14,9 @@ def tick():
         process_render_jobs(db)
         from .learning import weekly_reviews
         weekly_reviews(db)
+        from .notifications import sync
+        sync(db)
+        db.commit()
 
 
 if __name__ == "__main__":

@@ -36,3 +36,7 @@ PoC 的素材为本软件真实界面截图；画面中的品牌、内容、登�
 ## 安全扫描状态
 
 `npm audit --omit=dev` 已实际返回 0 条漏洞。Python `pip-audit` 本机因 pypi.org 连接超时未完成；[远端最终 CI](https://github.com/f123-b/tuiguang/actions/runs/42028107582) 已成功完成该检查，112 个包未报告已知漏洞。扫描不是永久安全保证。许可元数据缺失或多许可依赖仍需在发行前逐项人工核对；自动元数据清单不是“全部兼容”的结论。
+
+## 0.7.0 开发增量：模型密钥加密
+
+2026-11-06 实际安装 cryptography 50.0.2（METADATA：Apache-2.0 OR BSD-3-Clause），cffi 2.1.1、pycparser 3.12；用于高层 Fernet 接口，不自制密码算法。已记录 wheel NOTICE/LICENSE 哈希与锁版本，分发时仍需保留上游和其打包组件通知。参见 [官方 Fernet 文档](https://cryptography.io/en/latest/fernet/)。该功能不会保存社媒凭据，也不会默认向外部模型发请求。真实付费 API、语音、音乐和字体许可不因加入本库而获得确认。

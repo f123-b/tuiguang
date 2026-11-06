@@ -1,4 +1,3 @@
-import os
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -10,7 +9,8 @@ from .domains import compliance_report, serialize
 from .editorial import ensure_plan, local_today, lock_creator, snapshot, validate_facts
 from .errors import DomainError
 from .models import Brand, BudgetEntry, Content, Creator, EditorialEntry, Run
-from .observability import record, release_manifest, tracer, trace_context
+from .observability import record, tracer, trace_context
+from .model_config import workspace_release, execution_config
 
 
 def enqueue(db, creator, day, key, trace_id=None, entry=None, commit=True):
@@ -36,7 +36,7 @@ def enqueue(db, creator, day, key, trace_id=None, entry=None, commit=True):
         creator_id=creator.id,
         operational_date=day,
         idempotency_key=key,
-        release=release_manifest(),
+        release=workspace_release(db, creator.workspace_id),
         editorial_entry_id=entry.id if entry else None,
         input_snapshot=snapshot(entry) if entry else None,
     )
@@ -147,10 +147,16 @@ def process_pending(db):
         db.refresh(creator)
         if creator.status != "active":
             continue
-        current_release = release_manifest()
+        current_release = workspace_release(db, creator.workspace_id)
         if run.release["agent_graph_version"] not in {"creator_graph@1", "creator_graph@2"} or any(
             run.release.get(k) != current_release.get(k)
-            for k in ("generation_mode", "model_id", "model_revision")
+            for k in (
+                "generation_mode",
+                "model_id",
+                "model_revision",
+                "workspace_model_revision",
+                "model_config_hash",
+            )
         ):
             run.status, run.error_code = "blocked", "RUN_VERSION_UNSUPPORTED"
             db.commit()
@@ -185,7 +191,12 @@ def process_pending(db):
                 plan = run.input_snapshot
             else:
                 db.refresh(brand)
-            state = {"brand": serialize(brand), "creator": serialize(creator), "day": run.operational_date}
+            state = {
+                "brand": serialize(brand),
+                "creator": serialize(creator),
+                "day": run.operational_date,
+                "generation_mode": current_release["generation_mode"],
+            }
             if plan:
                 state["plan"] = plan
                 preference = (plan.get("strategy_snapshot") or {}).get("settings", {})
@@ -196,15 +207,29 @@ def process_pending(db):
             run.stage = "content.script"
             db.commit()
             state.update(select_facts(state))
-            paid = os.getenv("GENERATION_MODE", "template") == "openai"
+            paid = current_release["generation_mode"] == "openai"
             if paid and not creator.model_consent:
                 raise DomainError("MODEL_CONSENT_REQUIRED", "请先授权将核实事实发送到模型服务")
+            state["model_config"] = (
+                execution_config(db, creator.workspace_id, run.release.get("workspace_model_revision"))
+                if paid
+                else None
+            )
             ledger = reserve_budget(db, creator, run, estimated_reservation(state) if paid else 0)
             # Pause is checked once more at the side-effect boundary.
             db.refresh(creator)
             if creator.status != "active":
                 ledger.status, ledger.actual_cents = "cancelled", 0
                 run.status = "queued"
+                db.commit()
+                continue
+            live_release = workspace_release(db, creator.workspace_id)
+            if paid and any(
+                live_release.get(k) != run.release.get(k)
+                for k in ("workspace_model_revision", "model_config_hash")
+            ):
+                ledger.status, ledger.actual_cents = "cancelled", 0
+                run.status, run.error_code = "blocked", "RUN_VERSION_UNSUPPORTED"
                 db.commit()
                 continue
             record(db, creator.workspace_id, run.trace_id, "content.script", "running", run.id)

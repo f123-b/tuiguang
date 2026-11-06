@@ -284,3 +284,55 @@ class Strategy(TenantRecord, Base):
     settings: Mapped[dict] = mapped_column(JSON)
     decided_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
     decided_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+
+
+class ModelConfig(TenantRecord, Base):
+    __tablename__ = "model_configs"
+    mode: Mapped[str] = mapped_column(String(20), default="template")
+    model_id: Mapped[str] = mapped_column(String(120), default="")
+    model_revision: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    base_url: Mapped[str] = mapped_column(String(1000))
+    encrypted_key: Mapped[str | None] = mapped_column(Text, nullable=True)
+    input_price: Mapped[int] = mapped_column(Integer)
+    output_price: Mapped[int] = mapped_column(Integer)
+    max_tokens: Mapped[int] = mapped_column(Integer)
+    price_source: Mapped[str] = mapped_column(Text)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    __table_args__ = (UniqueConstraint("workspace_id"),)
+
+
+class Preferences(TenantRecord, Base):
+    __tablename__ = "user_preferences"
+    notification_mode: Mapped[str] = mapped_column(String(20), default="instant")
+    timezone: Mapped[str] = mapped_column(String(80), default="Asia/Shanghai")
+    digest_hour: Mapped[int] = mapped_column(Integer, default=9)
+    __table_args__ = (UniqueConstraint("workspace_id"),)
+
+
+class Notification(TenantRecord, Base):
+    __tablename__ = "notifications"
+    dedupe_key: Mapped[str] = mapped_column(String(160))
+    kind: Mapped[str] = mapped_column(String(40))
+    title: Mapped[str] = mapped_column(String(180))
+    body: Mapped[str] = mapped_column(Text)
+    action_path: Mapped[str] = mapped_column(String(300))
+    read_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    __table_args__ = (UniqueConstraint("workspace_id", "dedupe_key"),)
+
+
+class Reminder(TenantRecord, Base):
+    __tablename__ = "publish_reminders"
+    package_id: Mapped[str] = mapped_column(ForeignKey("manual_publish_packages.id"))
+    due_at: Mapped[str] = mapped_column(String(40))
+    state: Mapped[str] = mapped_column(String(20), default="scheduled")
+    __table_args__ = (UniqueConstraint("package_id", "due_at"),)
+
+
+class HandoffOutcome(TenantRecord, Base):
+    __tablename__ = "handoff_outcomes"
+    package_id: Mapped[str] = mapped_column(ForeignKey("manual_publish_packages.id"))
+    outcome: Mapped[str] = mapped_column(String(30))
+    notes: Mapped[str] = mapped_column(Text)
+    source: Mapped[str] = mapped_column(String(30), default="user_reported")
+    recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    __table_args__ = (UniqueConstraint("package_id"),)
