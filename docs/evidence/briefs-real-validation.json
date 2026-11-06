@@ -1,0 +1,380 @@
+{
+  "date": "2026-11-07",
+  "workspace_kind": "synthetic QA workspace",
+  "model": "deepseek-flash",
+  "live_call_count": 1,
+  "no_automatic_voiceover": true,
+  "no_platform_publishing": true,
+  "renders": [
+    {
+      "video_id": "85054dbe17524cab99b28290549f1387",
+      "job_id": "c338e3e9b409417a8cd374d0b164bbda",
+      "purpose": "final",
+      "http_bytes": 227220,
+      "http_sha256_verified": true,
+      "receipt": {
+        "sha256": "48ffa5c81b494002caa531495db959b92e0238b9a78b6d29e0dc58cbfe696084",
+        "shots": [
+          {
+            "shot_id": "s1",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "304b5c02484f9cad0b79be18c5463640e76040486056f6e2cdcc3841c297a1a8",
+            "render_cache_key": "ec59a250e65d5e149c1b4ac981b5b367fe68725908ce82e73d528ff4f3e3ac5a",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s2",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "361d577c418e47942acbc721bf633223bfe0822be869def6cd1cd07e9657b51e",
+            "render_cache_key": "321d56e4c7c6cd87f740975fff98283d1c3fed14ac214b69bbd3c89bf7bf1229",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s3",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "d725aebdc0c94bd06630f304ba037776c7813c4bdf0d0eb58fc8ca3b9d16097d",
+            "render_cache_key": "4eba8dbbcc052446578984b20386255e865d74aeb55c3f840d1c4cbcc0a4b235",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          }
+        ],
+        "duration_sec": 6.0,
+        "width": 1920,
+        "height": 1080,
+        "purpose": "final",
+        "watermark": false,
+        "ir_sha256": "feb0ddfb5be6bf29ee23becad81d7871d956ba07b3e6dbb2f7626f23522176e2",
+        "fps": 30,
+        "audio": "silent_track_no_voiceover",
+        "audio_sources": [],
+        "subtitles": 0,
+        "provider_adapter_version": "pillow_ffmpeg@2",
+        "font": {
+          "name": [
+            "Microsoft YaHei",
+            "Regular"
+          ],
+          "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+        },
+        "qa": "technical_probe_passed",
+        "revision": 1
+      }
+    },
+    {
+      "video_id": "85054dbe17524cab99b28290549f1387",
+      "job_id": "d8ff165f6f2344cc9ab9b44920a7b4f7",
+      "purpose": "preview",
+      "http_bytes": 64637,
+      "http_sha256_verified": true,
+      "receipt": {
+        "sha256": "be3df38c1800608d7981d3b632b3b0abcd60b496fc2bdd4e488585fff8f0ee1c",
+        "shots": [
+          {
+            "shot_id": "s1",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": true,
+            "sha256": "ae6c53a8dc9fc2e88e195d586051a0f5321e5c3d81a49c1cc91bb4f997c61804",
+            "render_cache_key": "7876344959dcbfa231f740eee479dedb3bb623de64eff4aab1d63e2033d758f5",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s2",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": true,
+            "sha256": "0a11b7da158e022c5b7933c0f6603739f7247cf3108fe1b91036b253b1321591",
+            "render_cache_key": "91af3b6045bd60d592c97eaad228db7b084c8ccb004f55f7329d5217c18c04b0",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s3",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": true,
+            "sha256": "b4039e4198f17731bfc1ba43486e618776353ced56270cca83a4bb3b45b4a5d6",
+            "render_cache_key": "bcdc5dde8454daf50f1eac49d28711049b2069f5ff57bcc1e20d3ab16592a1ba",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          }
+        ],
+        "duration_sec": 6.0,
+        "width": 640,
+        "height": 360,
+        "purpose": "preview",
+        "watermark": true,
+        "ir_sha256": "feb0ddfb5be6bf29ee23becad81d7871d956ba07b3e6dbb2f7626f23522176e2",
+        "fps": 30,
+        "audio": "silent_track_no_voiceover",
+        "audio_sources": [],
+        "subtitles": 0,
+        "provider_adapter_version": "pillow_ffmpeg@2",
+        "font": {
+          "name": [
+            "Microsoft YaHei",
+            "Regular"
+          ],
+          "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+        },
+        "qa": "technical_probe_passed",
+        "revision": 1
+      }
+    },
+    {
+      "video_id": "a1169c9686f14f468d8b5894b3dc2767",
+      "job_id": "a0a7326b233043ae9ba85ea255bf0cea",
+      "purpose": "preview",
+      "http_bytes": 64637,
+      "http_sha256_verified": true,
+      "receipt": {
+        "sha256": "be3df38c1800608d7981d3b632b3b0abcd60b496fc2bdd4e488585fff8f0ee1c",
+        "shots": [
+          {
+            "shot_id": "s1",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "ae6c53a8dc9fc2e88e195d586051a0f5321e5c3d81a49c1cc91bb4f997c61804",
+            "render_cache_key": "7876344959dcbfa231f740eee479dedb3bb623de64eff4aab1d63e2033d758f5",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s2",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "0a11b7da158e022c5b7933c0f6603739f7247cf3108fe1b91036b253b1321591",
+            "render_cache_key": "91af3b6045bd60d592c97eaad228db7b084c8ccb004f55f7329d5217c18c04b0",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          },
+          {
+            "shot_id": "s3",
+            "shot_revision": 1,
+            "provider": "pillow_mg",
+            "cached": false,
+            "sha256": "b4039e4198f17731bfc1ba43486e618776353ced56270cca83a4bb3b45b4a5d6",
+            "render_cache_key": "bcdc5dde8454daf50f1eac49d28711049b2069f5ff57bcc1e20d3ab16592a1ba",
+            "asset_sha256": null,
+            "asset_source": null,
+            "asset_license_note": null
+          }
+        ],
+        "duration_sec": 6.0,
+        "width": 640,
+        "height": 360,
+        "purpose": "preview",
+        "watermark": true,
+        "ir_sha256": "54eebb063442541a50b988897d18efa146d14e04a02c830d118c0d029c73b882",
+        "fps": 30,
+        "audio": "silent_track_no_voiceover",
+        "audio_sources": [],
+        "subtitles": 0,
+        "provider_adapter_version": "pillow_ffmpeg@2",
+        "font": {
+          "name": [
+            "Microsoft YaHei",
+            "Regular"
+          ],
+          "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+        },
+        "qa": "technical_probe_passed",
+        "revision": 1
+      }
+    }
+  ],
+  "verbatim": {
+    "brief_id": "08a6caef7dee48fa840286790b85bfae",
+    "revision": 1,
+    "plans": [
+      {
+        "id": "276394c8477c4cadbe3ea0175893c877",
+        "method": "user_edit",
+        "review": {
+          "status": "needs_confirmation",
+          "issues": [],
+          "human_review": [
+            "请核对主题、内容准确性、受众与表达目的",
+            "旁白仅为文字脚本，画面说明仅为建议，均不代表已生成音频或新画面"
+          ],
+          "uncertainties": [],
+          "not_verified_facts": true
+        },
+        "script": {
+          "title": "用户规定：两项功能介绍（原文验收）",
+          "fact_refs": [
+            "44d55a087e0a4d919ca68ae5b6c69349",
+            "ba7f43a5c8ef4e9c8172fde5f9edeb4b"
+          ],
+          "shots": [
+            {
+              "duration_frames": 60,
+              "caption": "可以编辑图文与视频工程",
+              "narration": "这是我的旁白文字脚本，声音将在视频工作室另行添加。",
+              "visual_note": "按用户原文制作",
+              "asset_id": null
+            },
+            {
+              "duration_frames": 60,
+              "caption": "发布包由用户自行下载并手动发布",
+              "narration": "发布包由用户自行下载并手动发布",
+              "visual_note": "按用户原文制作",
+              "asset_id": null
+            },
+            {
+              "duration_frames": 60,
+              "caption": "请结合实际版本体验",
+              "narration": "请结合实际版本体验",
+              "visual_note": "按用户原文制作",
+              "asset_id": null
+            }
+          ],
+          "uncertainties": []
+        }
+      },
+      {
+        "id": "22cfa4924ac54787a0ccd8466cc404b0",
+        "method": "user_text",
+        "review": {
+          "status": "needs_confirmation",
+          "issues": [],
+          "human_review": [
+            "请核对主题、内容准确性、受众与表达目的",
+            "旁白仅为文字脚本，画面说明仅为建议，均不代表已生成音频或新画面"
+          ],
+          "uncertainties": [],
+          "not_verified_facts": true
+        },
+        "script": {
+          "title": "用户规定：两项功能介绍（原文验收）",
+          "fact_refs": [
+            "44d55a087e0a4d919ca68ae5b6c69349",
+            "ba7f43a5c8ef4e9c8172fde5f9edeb4b"
+          ],
+          "shots": [
+            {
+              "duration_frames": 60,
+              "caption": "可以编辑图文与视频工程",
+              "narration": "可以编辑图文与视频工程",
+              "visual_note": "按用户原文制作",
+              "asset_id": null
+            },
+            {
+              "duration_frames": 60,
+              "caption": "发布包由用户自行下载并手动发布",
+              "narration": "发布包由用户自行下载并手动发布",
+              "visual_note": "按用户原文制作",
+              "asset_id": null
+            },
+            {
+              "duration_frames": 60,
+              "caption": "请结合实际版本体验",
+              "narration": "请结合实际版本体验",
+              "visual_note": "按用户原文制作",
+              "asset_id": null
+            }
+          ],
+          "uncertainties": []
+        }
+      }
+    ]
+  },
+  "ai_script": {
+    "brief_id": "8e2882216040485584964c87035d8225",
+    "revision": 1,
+    "plans": [
+      {
+        "id": "583b38cfbc104ddca091ff6434af4d2d",
+        "method": "model_suggestion",
+        "review": {
+          "status": "needs_confirmation",
+          "issues": [],
+          "human_review": [
+            "请核对主题、内容准确性、受众与表达目的",
+            "旁白仅为文字脚本，画面说明仅为建议，均不代表已生成音频或新画面"
+          ],
+          "uncertainties": [
+            "未提供实际软件界面截图或录屏素材，画面仅能以 MG 图形示意，不能呈现真实操作过程。",
+            "“结合实际版本”所指的具体版本号与获取方式未在已核实事实中说明，旁白与画面不作补充。",
+            "手动发布涉及的具体平台与流程细节未核实，脚本仅复述已核实事实，不展开步骤。"
+          ],
+          "not_verified_facts": true,
+          "model_usage": {
+            "prompt_tokens": 701,
+            "completion_tokens": 351
+          }
+        },
+        "script": {
+          "title": "编辑与手动发布：初次使用者说明",
+          "fact_refs": [
+            "44d55a087e0a4d919ca68ae5b6c69349",
+            "ba7f43a5c8ef4e9c8172fde5f9edeb4b"
+          ],
+          "shots": [
+            {
+              "duration_frames": 60,
+              "caption": "可以编辑图文与视频工程",
+              "narration": "可以编辑图文与视频工程。",
+              "visual_note": "MG 图形：图文卡片与视频时间线并排出现，以简洁线条示意编辑操作；无人物、无实录画面。",
+              "asset_id": null
+            },
+            {
+              "duration_frames": 60,
+              "caption": "发布包由用户自行下载并手动发布",
+              "narration": "发布包由用户自行下载并手动发布。",
+              "visual_note": "MG 图形：下载图标指向本地发布包，随后手动发布按钮由指针点按；不展示平台界面实录，不添加性能或效果描述。",
+              "asset_id": null
+            },
+            {
+              "duration_frames": 60,
+              "caption": "请结合实际版本体验",
+              "narration": "请结合实际版本体验。",
+              "visual_note": "MG 图形：上两镜要点并排收束，画面落于行动引导文字；保持克制，不添加评价性元素。",
+              "asset_id": null
+            }
+          ],
+          "uncertainties": [
+            "未提供实际软件界面截图或录屏素材，画面仅能以 MG 图形示意，不能呈现真实操作过程。",
+            "“结合实际版本”所指的具体版本号与获取方式未在已核实事实中说明，旁白与画面不作补充。",
+            "手动发布涉及的具体平台与流程细节未核实，脚本仅复述已核实事实，不展开步骤。"
+          ]
+        }
+      }
+    ]
+  },
+  "budget": {
+    "reserved_cents": 2,
+    "actual_cents": 1,
+    "status": "settled",
+    "basis": "estimated from configured conservative token prices; not a provider invoice"
+  },
+  "database": {
+    "migration": "0013",
+    "integrity": "ok"
+  },
+  "creator_after_test": {
+    "status": "paused_by_user",
+    "model_consent": false,
+    "daily_budget_cents": 0,
+    "monthly_budget_cents": 0
+  }
+}

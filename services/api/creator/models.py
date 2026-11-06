@@ -208,6 +208,30 @@ class QualityReview(TenantRecord, Base):
     recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
 
 
+class CreationBrief(TenantRecord, Base):
+    __tablename__ = "creation_briefs"
+    brand_id: Mapped[str] = mapped_column(ForeignKey("brands.id"))
+    topic: Mapped[str] = mapped_column(String(180))
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    document: Mapped[dict] = mapped_column(JSON)
+
+
+class BriefPlan(TenantRecord, Base):
+    __tablename__ = "brief_plans"
+    brief_id: Mapped[str] = mapped_column(ForeignKey("creation_briefs.id"))
+    brief_revision: Mapped[int] = mapped_column(Integer)
+    source_digest: Mapped[str] = mapped_column(String(64))
+    plan_hash: Mapped[str] = mapped_column(String(64))
+    method: Mapped[str] = mapped_column(String(30))
+    document: Mapped[dict] = mapped_column(JSON)
+    review: Mapped[dict] = mapped_column(JSON)
+    evidence: Mapped[dict] = mapped_column(JSON)
+    parent_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    run_id: Mapped[str | None] = mapped_column(ForeignKey("creator_runs.id"), unique=True, nullable=True)
+    video_id: Mapped[str | None] = mapped_column(ForeignKey("video_projects.id"), nullable=True)
+    __table_args__ = (UniqueConstraint("brief_id", "plan_hash"),)
+
+
 class Handoff(TenantRecord, Base):
     __tablename__ = "manual_publish_packages"
     content_id: Mapped[str] = mapped_column(ForeignKey("content_packages.id"))

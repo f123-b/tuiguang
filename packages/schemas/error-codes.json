@@ -55,6 +55,27 @@
     "BRAND_REVISION_CONFLICT": {
       "module": "evidence_api"
     },
+    "BRIEF_ASSETS_REQUIRED": {
+      "module": "briefs"
+    },
+    "BRIEF_BUDGET_EXCEEDED": {
+      "module": "brief_jobs"
+    },
+    "BRIEF_FACTS_REQUIRED": {
+      "module": "brief_jobs"
+    },
+    "BRIEF_FACTS_STALE": {
+      "module": "briefs"
+    },
+    "BRIEF_PLAN_STALE": {
+      "module": "brief_jobs"
+    },
+    "BRIEF_REVISION_CONFLICT": {
+      "module": "briefs"
+    },
+    "BRIEF_SCRIPT_INVALID": {
+      "module": "briefs"
+    },
     "BUDGET_LIMIT_REACHED": {
       "module": "jobs"
     },

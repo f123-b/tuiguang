@@ -28,6 +28,15 @@
 
 Schema 文件参见 `engineering/contracts/`。每次发布冻结该版本，避免旧任务恢复时突然按新 schema 解包。
 
+## 0.13 实际指定内容接口
+
+- `GET/POST /api/v1/creation-briefs` 与 `GET/PUT /{brief_id}`：工作区内需求列表、创建、详情和带 expected_revision 保存；品牌不允许更换。BriefInput 包含主题/内容/受众/语气/逐镜头原文/必现和禁用文字/行动引导/3–60 秒时长/比例/制作形式/已核实事实和授权素材。
+- `POST /{brief_id}/plans/manual`：expected_revision、confirmed=true；原文的每个非空行对应一镜，1–12 镜，画面文字逐行保留，均分总帧数，不请求模型。
+- `POST /{brief_id}/plans/ai`：另需管理员、同品牌运行中创作者与模型授权、creator_id、max_cost_cents 和 Idempotency-Key。冻结需求和已核实事实，以 `job_kind=brief_video`、`directed_video@1` 执行，复用共享预算。未知回执保留预留且不自动重试。
+- `POST /{brief_id}/plans/{plan_id}/revisions`：expected_revision、document，保存不可变子修订；ScriptInput 包含 title、fact_refs、1–12 个 shots 与 uncertainties。每镜 caption、narration、visual_note、asset_id、duration_frames；旁白/说明只是文字，不自动生成声音或画面。有效 JSON 未满足文字/时长等条件时保留 needs_revision，供免费修订。
+- `POST .../build`：expected_revision、confirmed=true；校验当前需求及事实/素材哈希和脚本条件，再幂等建立一个独立视频工程与预览任务。人工确认、高清与发布附件继续使用 0.12 规则。用户需求不是已核实事实。
+- DB 0013 增加 creation_briefs / brief_plans；私有导出包含两表，脚本任务诊断删除 input_snapshot。无新增依赖，Video IR/Provider 版本未变。
+
 
 ## 0.12 实际质量接口
 
