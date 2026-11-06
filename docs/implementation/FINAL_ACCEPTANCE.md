@@ -21,7 +21,7 @@
 
 运行和浏览器状态文件在忽略的 `.data/`，内含会话，不提交。测试创作者已暂停、模型未授权，未生成真实费用或平台发布。截图和片中工作区明确标记合成测试；既有用户记录未被替换。
 
-实际 UI 操作包括：正文改题并以“希望更短”原因保存为新版本；视频工程 V2 恢复 V1 产生 V3，再点击渲染；图文更改配色/说明、保存与真实预览；提交主动反馈并生成当前窗口证据报告；未配置模型时收费按钮禁用；通知全部标为已读。没有从按钮存在推断这些操作成功。
+实际 UI 操作包括：正文改题并以“希望更短”原因保存为新版本；视频工程 V2 恢复 V1 产生 V3，再点击渲染；图文更改配色/说明、保存与真实预览；提交主动反馈并生成当前窗口证据报告；未配置模型时收费按钮禁用；通知全部标为已读。没有从按钮存在推断这些操作成功。重启后 API `/releases/current` 确认为 `aff4201` / `0.9.0-dev` / `0009` / `working_tree_dirty=false`；浏览器播放到 29.396 秒，`readyState=4`、`paused=false`、无媒体错误，时长 30 秒。手机分镜标题修正后截图已更新。
 
 成片：[MG](../evidence/final-mg-30s.mp4)、[真实软件录屏](../evidence/final-screen-30s.mp4)、[混合](../evidence/final-mixed-30s.mp4)。对应 `final-*-project.json` 与 `final-*-receipt.json` 保存实际 IR 和来源。混合黄金片是 V1；随后只改第三镜头为 V2 验证缓存，UI 恢复为 V3，完整发布包绑定 V3。没有用旧回执冒充新版本。
 
@@ -40,7 +40,7 @@ HTTP 下载及代理下载的真实字节、图片格式、ZIP CRC 和媒体哈�
 
 ## 远端检查与交付
 
-本轮每个目的单独开放 PR、按依赖堆叠，均未合并 main。#8/#10/#12/#14 的阶段 CI 已通过；#16 [Actions 42182954923](https://github.com/f123-b/tuiguang/actions/runs/42182954923) 四项通过，#18 [Actions 42192618269](https://github.com/f123-b/tuiguang/actions/runs/42192618269) 四项通过。SQLite / PostgreSQL、Web 类型/构建/边界/npm audit、Python advisories 分别执行。最终集成提交的 CI 结果在本节完成后补录，不以旧阶段绿色代替。
+本轮每个目的单独开放 PR、按依赖堆叠，均未合并 main。#8/#10/#12/#14 的阶段 CI 已通过；#16 [Actions 42182954923](https://github.com/f123-b/tuiguang/actions/runs/42182954923) 四项通过，#18 [Actions 42192618269](https://github.com/f123-b/tuiguang/actions/runs/42192618269) 四项通过。SQLite / PostgreSQL、Web 类型/构建/边界/npm audit、Python advisories 分别执行。最终功能提交 `aff4201d2115f29dc355bbe484578aa40f85c858` 的 [Actions 42195495485](https://github.com/f123-b/tuiguang/actions/runs/42195495485) 四项全部通过；[PR #20](https://github.com/f123-b/tuiguang/pull/20) 已开放并附在本任务，依赖 #18。后续仅补录本文和手机截图，不改运行代码。
 
 ## 权限、成本、许可和回退
 
