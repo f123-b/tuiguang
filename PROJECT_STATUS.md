@@ -6,7 +6,7 @@
 |---|---|---|
 | Next.js / FastAPI 本地应用 | ✅ 已实际运行 | `npm run dev`、TypeScript、生产 build、浏览器真实操作 |
 | 鉴权 / 工作区归属 | ✅ 已实际运行 | 哈希密码、HttpOnly JWT、退出撤销、跨租户测试；无邮箱验证/找回 |
-| 数据库迁移 | ✅ SQLite 已升级 0003 | 0003 仅增加可空图文字段；本地旧内容/账本保留、重复升级、SQLite 备份恢复通过；本轮 PostgreSQL 结果见图文验收报告，PITR 未演练 |
+| 数据库迁移 | ✅ SQLite / PostgreSQL 0003 通过 | 0003 仅增加可空图文字段；旧内容/账本保留、重复升级、SQLite 备份恢复及远端 PostgreSQL 0001→0003 通过；PITR 未演练 |
 | 品牌事实 / 素材 | ✅ 基础已实际运行 | 来源、用户核实、上传校验、SHA256、归属；无动态产品变更监测 |
 | 持久日任务 | ✅ 基础已实际运行 | 独立 DB Worker，7 天受控时钟、并发幂等、暂停、租约恢复；无真实 14 天用户试点 |
 | 内容生成 | ⚠️ 部分实现 | LangGraph 规则草稿真实运行；可选模型网关有预算/授权/未知回执测试，真实模型凭据联调未运行 |
@@ -20,7 +20,7 @@
 | CSV / XLSX 指标导入 | ✅ 基础已实际运行 | 预览、确认、去重、负数/日期校验、来源与窗口、NULL；当前使用固定模板，未实现字段映射 |
 | 成长 / 记忆 / 周报 | ⚠️ 记录汇总 | 展示真实工作区事实；无 AI 周报、策略提案审批、偏好学习 |
 | 可观测与版本 | ⚠️ 基础已实际运行 | OTel spans、脱敏持久事件、运行快照、错误/诊断接口；无生产采集后端、SLO 或告警部署 |
-| CI / 依赖门禁 | ✅ 已实际运行 | [M1 Actions 42053502778](https://github.com/f123-b/tuiguang/actions/runs/42053502778)：PostgreSQL 37 passed，SQLite 36 passed / 1 skipped；Web 与 Python 漏洞扫描全部通过；未配置仓库分支保护 |
+| CI / 依赖门禁 | ✅ 已实际运行 | [M2 Actions 42142631856](https://github.com/f123-b/tuiguang/actions/runs/42142631856)，功能提交 `30bd05e`：PostgreSQL 47 passed，SQLite 46 passed / 1 skipped；Web 构建、边界与契约检查、Python / npm 漏洞扫描全部通过；未配置仓库分支保护 |
 | 商业化 / S3 / Tauri / GPU | ❌ 未实现 | 本轮不部署付费或生产服务 |
 | M7 真实用户试点 | ❌ 未运行 | 测试工作区、样例指标和自报记录不是实际运营试点 |
 

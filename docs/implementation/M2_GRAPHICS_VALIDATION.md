@@ -1,6 +1,6 @@
 # M2-003 / 0.3.0-dev 图文增量验收
 
-日期 2026-11-06；任务 [GitHub #5](https://github.com/f123-b/tuiguang/issues/5)。基线 20f8694 / PR #4，当前分支 `feat/5-graphic-cards`。本轮不合并既有 PR，不部署生产。
+日期 2026-11-06；任务 [GitHub #5](https://github.com/f123-b/tuiguang/issues/5)，交付 [PR #6](https://github.com/f123-b/tuiguang/pull/6)。基线 20f8694 / PR #4，当前分支 `feat/5-graphic-cards`，功能提交 `30bd05e99cfff2d99f5e384d64a22d5f61d5119d`。本轮不合并既有 PR，不部署生产。
 
 | 项目 | 实际命令/操作 | 结果 |
 |---|---|---|
@@ -23,7 +23,8 @@
 | 路由/响应式 | `SMOKE_*_ID=实际测试资源 node scripts/browser-smoke.mjs` | 36 路由与 30 个视口检查通过；总览/日历/选题详情/图文模板/图文编辑器，各 375/390/768/1024/1440/1920px 无横向页面溢出 |
 | 实际下载 | 登录本机 QA 工作区，HTTP 下载已审核 PNG/JPG/工程/ZIP；同时检查 Web 3000 代理下载 | 六个图像文件均可打开、三页尺寸 1080×1440、ZIP 含六个图像和相同封面字节；代理返回正确 Content-Disposition / Content-Length 和完整 PNG；退出 0 |
 | 自动浏览器文件落盘 | `agent-browser download`，不同目标目录及显式 download-path | 未通过：Download was canceled；受管 Chrome 下载记录为“失败 - 下载错误”，工具快速诊断未完成。HTTP 下载完整，自动浏览器文件保存仍需另一浏览器环境复核 |
-| 远端 PostgreSQL / 供应链 | GitHub Actions | 待本轮 CI，不使用旧 PR 的通过结果代替 |
+| 远端 PostgreSQL / SQLite | [GitHub Actions 42142631856](https://github.com/f123-b/tuiguang/actions/runs/42142631856)，功能提交 `30bd05e` | 全部四个作业 success；PostgreSQL 47 passed（22.01s），SQLite 46 passed / 1 skipped（14.36s），均退出 0；PostgreSQL 17 的业务及 0001→0003 隔离 schema 升级/保留检查通过 |
+| 远端 Web / 供应链 | 同次 Actions：`npm run typecheck`、`npm run check:boundary`、`npm run build`、`npm audit --omit=dev --audit-level=high`、`python -m pip_audit --local --format json --output pip-audit.json` | Web 作业 success，npm found 0 vulnerabilities；Python 作业 success，No known vulnerabilities found；Ruff、契约与 engineering tests 也通过 |
 
 影响：GRAPHICS / CONTENT / HANDOFF / Web 图文页面、DB 0003、图文 IR 1.0 和 graphic_cards@1。Agent graph@2、fact_bound@2、local_editorial@2、Video IR 1.0/pillow_ffmpeg@1 均不变。应用版本 0.3.0-dev、stable=false。
 
