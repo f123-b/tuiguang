@@ -61,6 +61,7 @@ class Creator(TenantRecord, Base):
     daily_budget_cents: Mapped[int] = mapped_column(Integer, default=500)
     monthly_budget_cents: Mapped[int] = mapped_column(Integer, default=10000)
     model_consent: Mapped[bool] = mapped_column(Boolean, default=False)
+    active_strategy_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
     __table_args__ = (CheckConstraint("daily_budget_cents >= 0 AND monthly_budget_cents >= 0"),)
 
 
@@ -77,6 +78,7 @@ class EditorialEntry(TenantRecord, Base):
     source: Mapped[str] = mapped_column(String(30), default="rule_based_plan")
     rationale: Mapped[str] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(30), default="approved")
+    strategy_snapshot: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     __table_args__ = (UniqueConstraint("creator_id", "date"),)
 
 
@@ -218,6 +220,7 @@ class Metric(TenantRecord, Base):
     observed_at: Mapped[str] = mapped_column(String(40))
     data_source: Mapped[str] = mapped_column(String(180))
     fingerprint: Mapped[str] = mapped_column(String(64))
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
     __table_args__ = (UniqueConstraint("workspace_id", "fingerprint"),)
 
 
@@ -249,3 +252,35 @@ class VideoRevision(TenantRecord, Base):
     document: Mapped[dict] = mapped_column(JSON)
     editor_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     __table_args__ = (UniqueConstraint("video_id", "revision"),)
+
+
+class Feedback(TenantRecord, Base):
+    __tablename__ = "feedback_notes"
+    content_id: Mapped[str] = mapped_column(ForeignKey("content_packages.id"))
+    content_revision: Mapped[int] = mapped_column(Integer)
+    reason_tag: Mapped[str] = mapped_column(String(40))
+    note: Mapped[str] = mapped_column(Text)
+    recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
+
+
+class LearningReport(TenantRecord, Base):
+    __tablename__ = "learning_reports"
+    creator_id: Mapped[str] = mapped_column(ForeignKey("creator_profiles.id"))
+    period_start: Mapped[str] = mapped_column(String(10))
+    period_end: Mapped[str] = mapped_column(String(10))
+    source_digest: Mapped[str] = mapped_column(String(64))
+    version: Mapped[int] = mapped_column(Integer)
+    report: Mapped[dict] = mapped_column(JSON)
+    __table_args__ = (UniqueConstraint("creator_id", "period_start", "period_end", "source_digest"),)
+
+
+class Strategy(TenantRecord, Base):
+    __tablename__ = "strategy_versions"
+    creator_id: Mapped[str] = mapped_column(ForeignKey("creator_profiles.id"))
+    report_id: Mapped[str] = mapped_column(ForeignKey("learning_reports.id"), unique=True)
+    parent_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    status: Mapped[str] = mapped_column(String(30), default="proposed")
+    settings: Mapped[dict] = mapped_column(JSON)
+    decided_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    decided_at: Mapped[str | None] = mapped_column(String(40), nullable=True)

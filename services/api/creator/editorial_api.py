@@ -111,6 +111,8 @@ def edit_topic(entry_id: str, data: TopicPatch, db: DB, user: Actor, request: Re
     for key, value in changes.items():
         setattr(entry, key, value)
     entry.brand_revision = db.get(Brand, creator.brand_id).revision
+    from .learning import strategy_snapshot
+    entry.strategy_snapshot = strategy_snapshot(db, creator)
     validate_facts(db, creator, entry)
     entry.status, entry.source, entry.revision = "planned", "user", entry.revision + 1
     return save(db, creator, entry, request, "editorial.edit")

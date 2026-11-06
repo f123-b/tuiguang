@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { api, post } from "../../lib/api";
 
+import { ManualMetrics } from "./learning";
 import {
   dateText,
   Field,
@@ -25,6 +26,8 @@ export function AnalyticsPage({ store, action, busy, path }: PageProps) {
     data_source: string;
   } | null>(null);
   const importing = path.endsWith("/import");
+  const [columns, setColumns] = useState<string[]>([]);
+  const [mapping, setMapping] = useState<Record<string, string>>({});
   return (
     <>
       <PageHeader
@@ -56,6 +59,8 @@ export function AnalyticsPage({ store, action, busy, path }: PageProps) {
             onSubmit={(e) => {
               e.preventDefault();
               const data = new FormData(e.currentTarget);
+              if (columns.length)
+                data.set("column_mapping", JSON.stringify(mapping));
               action(async () => {
                 const result = await api<NonNullable<typeof preview>>(
                   "/analytics/import/preview",
@@ -69,7 +74,17 @@ export function AnalyticsPage({ store, action, busy, path }: PageProps) {
               label="数据文件"
               hint="CSV / XLSX，最大 5 MB、5000 行。先下载模板；作品 ID 可从下方复制。"
             >
-              <input name="file" type="file" accept=".csv,.xlsx" required />
+              <input
+                name="file"
+                type="file"
+                accept=".csv,.xlsx"
+                required
+                onChange={() => {
+                  setColumns([]);
+                  setMapping({});
+                  setPreview(null);
+                }}
+              />
             </Field>
             <Field label="数据来源说明">
               <input
@@ -79,6 +94,62 @@ export function AnalyticsPage({ store, action, busy, path }: PageProps) {
                 placeholder="例如：本人从官方后台导出的 11 月第 1 周报表"
               />
             </Field>
+            <Button
+              variant="secondary"
+              type="button"
+              disabled={busy}
+              onClick={(e) => {
+                const form = e.currentTarget.form;
+                if (!form) return;
+                const data = new FormData(form);
+                action(async () => {
+                  const result = await api<{ columns: string[] }>(
+                    "/analytics/import/columns",
+                    { method: "POST", body: data },
+                  );
+                  setColumns(result.columns);
+                  setMapping(
+                    Object.fromEntries(
+                      [
+                        "content_id",
+                        "platform",
+                        "views",
+                        "likes",
+                        "saves",
+                        "clicks",
+                        "conversions",
+                        "period_start",
+                        "period_end",
+                        "observed_at",
+                      ].map((k) => [k, result.columns.includes(k) ? k : ""]),
+                    ),
+                  );
+                }, "已读取列名，请匹配字段");
+              }}
+            >
+              读取列名 / 自定义字段匹配
+            </Button>
+            {columns.length > 0 && (
+              <div className="form-grid">
+                {Object.keys(mapping).map((key) => (
+                  <Field key={key} label={key}>
+                    <select
+                      value={mapping[key]}
+                      onChange={(e) =>
+                        setMapping({ ...mapping, [key]: e.target.value })
+                      }
+                    >
+                      <option value="">未匹配（可选指标保持未知）</option>
+                      {columns.map((c) => (
+                        <option value={c} key={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                ))}
+              </div>
+            )}
             <Button type="submit" disabled={busy}>
               <Search size={15} />
               校验并预览
@@ -117,6 +188,7 @@ export function AnalyticsPage({ store, action, busy, path }: PageProps) {
           </details>
         </Card>
       )}
+      <ManualMetrics store={store} action={action} busy={busy} path={path} />
       <div className="info-strip">
         <Gauge size={18} />
         <span>{store.analytics.conclusion}</span>

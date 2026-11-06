@@ -50,7 +50,7 @@
       "module": "video_edit_api"
     },
     "CONTENT_REVISION_CONFLICT": {
-      "module": "graphics_api"
+      "module": "learning_api"
     },
     "CREATOR_LIMIT_REACHED": {
       "module": "main"
@@ -121,8 +121,17 @@
     "INTERNAL_ERROR": {
       "module": "main"
     },
+    "LEARNING_PERIOD_INVALID": {
+      "module": "learning_api"
+    },
     "METRICS_FORMAT_INVALID": {
-      "module": "main"
+      "module": "metrics_io"
+    },
+    "METRICS_MAPPING_INVALID": {
+      "module": "metrics_io"
+    },
+    "METRICS_ROW_WITHDRAWN": {
+      "module": "learning_api"
     },
     "METRICS_SOURCE_UNVERIFIED": {
       "module": "domains"
@@ -147,6 +156,12 @@
     },
     "RUN_VERSION_UNSUPPORTED": {
       "module": "jobs"
+    },
+    "STRATEGY_EVIDENCE_STALE": {
+      "module": "learning_api"
+    },
+    "STRATEGY_REVISION_CONFLICT": {
+      "module": "learning_api"
     },
     "TTS_PROVIDER_UNAVAILABLE": {
       "module": "speech"

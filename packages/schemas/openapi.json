@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.5.0-dev"
+    "version": "0.6.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -1286,6 +1286,479 @@
         }
       }
     },
+    "/api/v1/analytics/manual": {
+      "post": {
+        "summary": "Manual",
+        "operationId": "manual_api_v1_analytics_manual_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManualMetric"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/batches/{batch_id}/withdraw": {
+      "post": {
+        "summary": "Withdraw",
+        "operationId": "withdraw_api_v1_analytics_batches__batch_id__withdraw_post",
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Confirm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/batches": {
+      "get": {
+        "summary": "Batches",
+        "operationId": "batches_api_v1_analytics_batches_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/feedback": {
+      "get": {
+        "summary": "List Feedback",
+        "operationId": "list_feedback_api_v1_analytics_feedback_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Feedback",
+        "operationId": "feedback_api_v1_analytics_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/feedback/{feedback_id}/withdraw": {
+      "post": {
+        "summary": "Withdraw Feedback",
+        "operationId": "withdraw_feedback_api_v1_analytics_feedback__feedback_id__withdraw_post",
+        "parameters": [
+          {
+            "name": "feedback_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Feedback Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Confirm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creators/{creator_id}/learning-reports": {
+      "post": {
+        "summary": "Generate",
+        "operationId": "generate_api_v1_creators__creator_id__learning_reports_post",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Period"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Reports",
+        "operationId": "reports_api_v1_creators__creator_id__learning_reports_get",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creators/{creator_id}/learning-reports/{report_id}": {
+      "get": {
+        "summary": "Report",
+        "operationId": "report_api_v1_creators__creator_id__learning_reports__report_id__get",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          },
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creators/{creator_id}/strategy-proposals": {
+      "get": {
+        "summary": "Strategies",
+        "operationId": "strategies_api_v1_creators__creator_id__strategy_proposals_get",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creators/{creator_id}/strategy-proposals/{strategy_id}/decide": {
+      "post": {
+        "summary": "Decide",
+        "operationId": "decide_api_v1_creators__creator_id__strategy_proposals__strategy_id__decide_post",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          },
+          {
+            "name": "strategy_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Strategy Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Decision"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creators/{creator_id}/strategy-proposals/{strategy_id}/rollback": {
+      "post": {
+        "summary": "Rollback",
+        "operationId": "rollback_api_v1_creators__creator_id__strategy_proposals__strategy_id__rollback_post",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          },
+          {
+            "name": "strategy_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Strategy Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rollback"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health",
@@ -2335,6 +2808,42 @@
         }
       }
     },
+    "/api/v1/analytics/import/columns": {
+      "post": {
+        "summary": "Metric Columns",
+        "operationId": "metric_columns_api_v1_analytics_import_columns_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_metric_columns_api_v1_analytics_import_columns_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/analytics/import/preview": {
       "post": {
         "summary": "Preview Import",
@@ -2890,6 +3399,20 @@
         ],
         "title": "AudioTrack"
       },
+      "Body_metric_columns_api_v1_analytics_import_columns_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_metric_columns_api_v1_analytics_import_columns_post"
+      },
       "Body_preview_import_api_v1_analytics_import_preview_post": {
         "properties": {
           "file": {
@@ -2900,6 +3423,12 @@
           "data_source": {
             "type": "string",
             "title": "Data Source"
+          },
+          "column_mapping": {
+            "type": "string",
+            "maxLength": 8000,
+            "title": "Column Mapping",
+            "default": "{}"
           }
         },
         "type": "object",
@@ -3048,6 +3577,21 @@
           "product_version"
         ],
         "title": "ChangeInput"
+      },
+      "Confirm": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed"
+        ],
+        "title": "Confirm"
       },
       "ContentPatch": {
         "properties": {
@@ -3266,6 +3810,43 @@
         ],
         "title": "Credentials"
       },
+      "Decision": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject"
+            ],
+            "title": "Decision"
+          },
+          "expected_active_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Active Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed",
+          "decision",
+          "expected_active_id"
+        ],
+        "title": "Decision"
+      },
       "FactInput": {
         "properties": {
           "claim": {
@@ -3293,6 +3874,49 @@
           "source"
         ],
         "title": "FactInput"
+      },
+      "FeedbackInput": {
+        "properties": {
+          "content_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Content Id"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "reason_tag": {
+            "type": "string",
+            "enum": [
+              "too_advertising",
+              "inaccurate",
+              "too_fast",
+              "more_real",
+              "inconsistent",
+              "shorter",
+              "useful",
+              "other"
+            ],
+            "title": "Reason Tag"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "content_id",
+          "expected_revision",
+          "reason_tag"
+        ],
+        "title": "FeedbackInput"
       },
       "GraphicDocument": {
         "properties": {
@@ -3506,6 +4130,143 @@
         ],
         "title": "LockShot"
       },
+      "ManualMetric": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date",
+            "title": "Period Start"
+          },
+          "period_end": {
+            "type": "string",
+            "format": "date",
+            "title": "Period End"
+          },
+          "content_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Content Id"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "xiaohongshu",
+              "douyin",
+              "bilibili"
+            ],
+            "title": "Platform"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Observed At"
+          },
+          "data_source": {
+            "type": "string",
+            "maxLength": 180,
+            "minLength": 1,
+            "title": "Data Source"
+          },
+          "views": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999999999999.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Views"
+          },
+          "likes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999999999999.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Likes"
+          },
+          "saves": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999999999999.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Saves"
+          },
+          "clicks": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999999999999.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clicks"
+          },
+          "conversions": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999999999999.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "period_start",
+          "period_end",
+          "content_id",
+          "platform",
+          "observed_at",
+          "data_source"
+        ],
+        "title": "ManualMetric"
+      },
+      "Period": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date",
+            "title": "Period Start"
+          },
+          "period_end": {
+            "type": "string",
+            "format": "date",
+            "title": "Period End"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "period_start",
+          "period_end"
+        ],
+        "title": "Period"
+      },
       "Prepare": {
         "properties": {
           "entry_ids": {
@@ -3622,6 +4383,28 @@
           "name"
         ],
         "title": "Register"
+      },
+      "Rollback": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "expected_active_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Expected Active Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed",
+          "expected_active_id"
+        ],
+        "title": "Rollback"
       },
       "SaveProject": {
         "properties": {

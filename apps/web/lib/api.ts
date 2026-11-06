@@ -57,6 +57,7 @@ export type Creator = {
   monthly_budget_cents: number;
   model_consent: boolean;
   next_run_at: string | null;
+  active_strategy_id: string | null;
 };
 export type EditorialEntry = {
   id: string;

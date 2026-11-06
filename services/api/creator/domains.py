@@ -279,7 +279,7 @@ def parse_metric_rows(db, workspace_id, rows, source):
 
 
 def analytics_summary(db, workspace_id):
-    metrics = db.scalars(select(Metric).where(Metric.workspace_id == workspace_id)).all()
+    metrics = db.scalars(select(Metric).where(Metric.workspace_id == workspace_id, Metric.active.is_(True))).all()
     # Never combine unlike windows/platforms or turn missing observations into zeros.
     groups = {}
     for m in metrics:

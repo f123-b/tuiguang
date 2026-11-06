@@ -12,6 +12,8 @@ def tick():
         schedule_due(db)
         process_pending(db)
         process_render_jobs(db)
+        from .learning import weekly_reviews
+        weekly_reviews(db)
 
 
 if __name__ == "__main__":
