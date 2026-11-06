@@ -62,6 +62,7 @@ class Creator(TenantRecord, Base):
     monthly_budget_cents: Mapped[int] = mapped_column(Integer, default=10000)
     model_consent: Mapped[bool] = mapped_column(Boolean, default=False)
     active_strategy_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    render_options: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     __table_args__ = (CheckConstraint("daily_budget_cents >= 0 AND monthly_budget_cents >= 0"),)
 
 

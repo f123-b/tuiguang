@@ -71,6 +71,14 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
                   Number(f.get("monthly")) * 100,
                 ),
                 model_consent: f.get("consent") === "on",
+                render_options: {
+                  graphics: f.get("auto_graphics") === "on",
+                  video: f.get("auto_video") === "on",
+                  duration_sec: Number(f.get("video_duration")),
+                  video_mode: f.get("video_mode"),
+                  size: f.get("render_size"),
+                  asset_id: String(f.get("source_asset") || "") || null,
+                },
               };
               action(
                 () =>
@@ -176,6 +184,79 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
                 />
               </Field>
             </div>
+            <details className="subtle-note">
+              <summary>日任务同时制作图文与视频（可选）</summary>
+              <p>
+                原有设置默认关闭。开启后按已确认日程制作真实本地媒体，仍需你审核和手动发布；字幕和音频可在工作室补充。暂停会阻止新自动媒体任务，已开始的制作可能完成。
+              </p>
+              <label className="checkline">
+                <input
+                  name="auto_graphics"
+                  type="checkbox"
+                  defaultChecked={creator?.render_options?.graphics || false}
+                />
+                同时制作封面和事实图文卡
+              </label>
+              <label className="checkline">
+                <input
+                  name="auto_video"
+                  type="checkbox"
+                  defaultChecked={creator?.render_options?.video || false}
+                />
+                同时制作本地宣传视频（默认静音）
+              </label>
+              <div className="form-grid">
+                <Field label="自动视频形式">
+                  <select
+                    name="video_mode"
+                    defaultValue={creator?.render_options?.video_mode || "mg"}
+                  >
+                    <option value="mg">MG 动态图文</option>
+                    <option value="mixed">MG 与授权素材混合</option>
+                    <option value="screen_demo">真实截图 / 录屏讲解</option>
+                    <option value="montage">授权视频素材混剪</option>
+                  </select>
+                </Field>
+                <Field label="媒体尺寸">
+                  <select
+                    name="render_size"
+                    defaultValue={creator?.render_options?.size || "wide"}
+                  >
+                    <option value="wide">16:9 · 横版</option>
+                    <option value="portrait">9:16 · 竖版</option>
+                    <option value="square">1:1 · 方形</option>
+                  </select>
+                </Field>
+                <Field label="自动视频时长">
+                  <select
+                    name="video_duration"
+                    defaultValue={creator?.render_options?.duration_sec || 30}
+                  >
+                    <option value={15}>15 秒</option>
+                    <option value={20}>20 秒</option>
+                    <option value={30}>30 秒</option>
+                  </select>
+                </Field>
+                <Field label="真实素材（MG 可不选）">
+                  <select
+                    name="source_asset"
+                    defaultValue={creator?.render_options?.asset_id || ""}
+                  >
+                    <option value="">不选择素材</option>
+                    {store.assets
+                      .filter((a) => a.verified && a.kind !== "audio")
+                      .map((a) => (
+                        <option key={a.id} value={a.id}>
+                          {a.name}
+                        </option>
+                      ))}
+                  </select>
+                </Field>
+              </div>
+              <p className="muted">
+                素材必须由你核实授权。缺少素材、源版本变化或制作失败会明确暂停该任务，不用其他引擎暗中替代，也不重做已计费草稿。
+              </p>
+            </details>
             <label className="checkline">
               <input
                 name="consent"
@@ -343,7 +424,11 @@ export function ActivityPage({ store, action, busy }: PageProps) {
                     <td>
                       {r.stage === "awaiting_user_review"
                         ? "等待人工审阅"
-                        : r.stage}
+                        : r.stage === "asset_rendering"
+                          ? "制作图文与视频"
+                          : r.stage === "media_failed"
+                            ? "媒体制作需处理"
+                            : r.stage}
                     </td>
                     <td>
                       <code>{r.trace_id.slice(0, 16)}</code>

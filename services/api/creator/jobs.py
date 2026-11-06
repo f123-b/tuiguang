@@ -31,12 +31,16 @@ def enqueue(db, creator, day, key, trace_id=None, entry=None, commit=True):
         if entry.status != "approved":
             raise DomainError("EDITORIAL_APPROVAL_REQUIRED", "该选题尚未确认或已跳过")
         validate_facts(db, creator, entry)
+    from .production import options_snapshot
+
+    release = workspace_release(db, creator.workspace_id)
+    release["production_options"] = options_snapshot(db, creator)
     run = Run(
         workspace_id=creator.workspace_id,
         creator_id=creator.id,
         operational_date=day,
         idempotency_key=key,
-        release=workspace_release(db, creator.workspace_id),
+        release=release,
         editorial_entry_id=entry.id if entry else None,
         input_snapshot=snapshot(entry) if entry else None,
     )
@@ -176,7 +180,9 @@ def process_pending(db):
         try:
             existing = db.scalar(select(Content).where(Content.run_id == run.id))
             if existing:
-                run.status = "completed"
+                from .production import prepare
+
+                prepare(db, run, existing)
                 if run.editorial_entry_id:
                     db.get(EditorialEntry, run.editorial_entry_id).status = "completed"
                 db.commit()
@@ -206,6 +212,10 @@ def process_pending(db):
                     state["creator"]["style"] += "；用户已确认：简短表达"
             run.stage = "content.script"
             db.commit()
+            from .production import options_snapshot
+
+            if run.release.get("production_options"):
+                options_snapshot(db, creator, run.release["production_options"])
             state.update(select_facts(state))
             paid = current_release["generation_mode"] == "openai"
             if paid and not creator.model_consent:
@@ -255,7 +265,13 @@ def process_pending(db):
             db.flush()
             content.compliance = compliance_report(db, content)
             ledger.status, ledger.actual_cents = "settled", result["actual_cents"]
-            run.status, run.stage, run.error_code = "completed", "awaiting_user_review", None
+            media_options = run.release.get("production_options") or {}
+            media_requested = media_options.get("graphics") or media_options.get("video")
+            run.status, run.stage, run.error_code = (
+                ("running", "asset_rendering", None)
+                if media_requested
+                else ("completed", "awaiting_user_review", None)
+            )
             if run.editorial_entry_id:
                 db.get(EditorialEntry, run.editorial_entry_id).status = "completed"
             record(
@@ -270,6 +286,9 @@ def process_pending(db):
                 source=content.generation_source,
             )
             db.commit()
+            from .production import prepare
+
+            prepare(db, run, content)
         except DomainError as error:
             db.rollback()
             run = db.get(Run, run.id)

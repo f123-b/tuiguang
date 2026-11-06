@@ -67,6 +67,8 @@ export const statusLabels: Record<string, string> = {
   paused_by_error: "异常暂停",
   queued: "等待执行",
   running: "正在制作",
+  rendering: "媒体制作中",
+  asset_rendering: "媒体制作中",
   completed: "已完成",
   failed: "执行失败",
   skipped: "已跳过",

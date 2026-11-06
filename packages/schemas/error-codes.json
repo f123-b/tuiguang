@@ -196,6 +196,9 @@
     "VID_AUDIO_INVALID": {
       "module": "video"
     },
+    "VID_AUTOMATION_SOURCE_STALE": {
+      "module": "production"
+    },
     "VID_COMPOSE_FAILED": {
       "module": "video"
     },

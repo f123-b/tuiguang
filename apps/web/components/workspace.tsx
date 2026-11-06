@@ -185,7 +185,7 @@ export default function Workspace({ path }: { path: string }) {
     if (
       !store ||
       ![...store.runs, ...store.videos].some((r) =>
-        ["queued", "running"].includes(r.status),
+        ["queued", "running", "rendering"].includes(r.status),
       )
     )
       return;

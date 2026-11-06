@@ -43,6 +43,15 @@ class BrandInput(DTO):
         return value
 
 
+class RenderOptions(DTO):
+    graphics: bool = False
+    video: bool = False
+    duration_sec: int = Field(default=30, ge=3, le=60)
+    video_mode: Literal["mg", "mixed", "screen_demo", "montage"] = "mg"
+    size: Literal["wide", "portrait", "square"] = "wide"
+    asset_id: Short | None = None
+
+
 class CreatorInput(DTO):
     brand_id: Short
     name: Short
@@ -54,6 +63,7 @@ class CreatorInput(DTO):
     daily_budget_cents: int = Field(default=500, ge=0, le=1000000)
     monthly_budget_cents: int = Field(default=10000, ge=0, le=10000000)
     model_consent: bool = False
+    render_options: RenderOptions | None = None
 
     @field_validator("timezone")
     @classmethod
