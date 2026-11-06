@@ -37,6 +37,8 @@ from .errors import DomainError
 from .editorial import ensure_plan, lock_creator, serialize_creator
 from .editorial_api import router as editorial_router
 from .graphics_api import router as graphics_router
+from .evidence_api import router as evidence_router
+from .evidence import checkpoint
 from .graphics import lock_content
 from .jobs import budget_used, enqueue
 from .models import (
@@ -61,13 +63,14 @@ from .video import PROVIDERS, probe, validate_ir
 
 app = FastAPI(
     title="叙流 · AI 持续创作者",
-    version="0.3.0-dev",
+    version="0.4.0-dev",
     openapi_url="/api/v1/openapi.json",
     docs_url="/api/docs",
     redoc_url=None,
 )
 app.include_router(editorial_router)
 app.include_router(graphics_router)
+app.include_router(evidence_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -130,7 +133,7 @@ async def validation_error(request, error):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.3.0-dev"}
+    return {"status": "ok", "version": "0.4.0-dev"}
 
 
 def set_session(response, token):
@@ -452,13 +455,15 @@ def edit_content(content_id: str, data: s.ContentPatch, db: DB, user: Actor):
     lock_content(db, content, data.expected_revision)
     if content.status == "user_reported_published":
         raise DomainError("CONTENT_ALREADY_REPORTED", "已登记内容保持历史快照，请先撤销登记再修改")
-    for key, value in data.model_dump(exclude_none=True, exclude={"expected_revision"}).items():
+    checkpoint(db, content, user.id)
+    for key, value in data.model_dump(exclude_none=True, exclude={"expected_revision", "reason_tag"}).items():
         setattr(content, key, value)
     content.revision += 1
     content.approved_revision = None
     content.graphics_render = None
     content.status = "awaiting_user_review"
     content.compliance = compliance_report(db, content)
+    checkpoint(db, content, user.id, data.reason_tag)
     db.commit()
     return serialize(content)
 
@@ -843,5 +848,5 @@ def settings(user: Actor):
         "model_key_configured": bool(os.getenv("MODEL_API_KEY")),
         "timezone": "Asia/Shanghai",
         "storage": "workspace_local_disk",
-        "application_version": "0.1.0-dev",
+        "application_version": release_manifest()["application_version"],
     }

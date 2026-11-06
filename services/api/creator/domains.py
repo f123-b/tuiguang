@@ -96,6 +96,8 @@ def compliance_report(db, content):
     verified = {f["id"] for f in brand.facts if f["verified"]}
     issues = []
     text = content.title + "\n" + content.body
+    for variant in (content.variants or {}).values():
+        text += "\n" + variant["title"] + "\n" + variant["body"] + "\n" + " ".join(variant.get("tags", []))
     if content.graphics:
         from .graphics import current_receipt, load_document
 
@@ -154,6 +156,8 @@ def make_handoff(db, content):
         snapshot["graphics"] = {"document": content.graphics, "render": graphics}
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("copy.txt", content.title + "\n\n" + content.body)
+        for platform, variant in (content.variants or {}).items():
+            z.writestr(f"variants/{platform}.txt", variant["title"] + "\n\n" + variant["body"] + "\n\n" + " ".join(variant.get("tags", [])))
         if graphics:
             for index, page in enumerate(graphics["pages"]):
                 for suffix in ("png", "jpg"):

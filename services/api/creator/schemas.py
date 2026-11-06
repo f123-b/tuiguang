@@ -72,10 +72,18 @@ class CreatorInput(DTO):
         return days
 
 
+class CopyVariant(DTO):
+    title: str = Field(min_length=1, max_length=180)
+    body: str = Field(min_length=1, max_length=12000)
+    tags: list[Annotated[str, Field(min_length=1, max_length=40)]] = Field(default_factory=list, max_length=10)
+
+
 class ContentPatch(DTO):
     expected_revision: int | None = Field(default=None, ge=1)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     body: str | None = Field(default=None, min_length=1, max_length=12000)
+    variants: dict[Platform, CopyVariant] | None = None
+    reason_tag: Literal["edit", "too_advertising", "inaccurate", "too_fast", "more_real", "inconsistent", "shorter", "other"] = "edit"
 
 
 class Approve(DTO):

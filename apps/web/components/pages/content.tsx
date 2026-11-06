@@ -19,6 +19,7 @@ import {
   platformName,
   type PageProps,
 } from "../page-shared";
+import { ContentEvidence } from "./evidence";
 export function ContentCard({ content }: { content: Content }) {
   return (
     <Link href={`/studio/article/${content.id}`} className="content-card">
@@ -141,9 +142,11 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
   const content = store.contents.find((c) => c.id === path.split("/")[3]);
   const [confirmed, setConfirmed] = useState(false);
   const [dirty, setDirty] = useState(false);
+  const [variantDirty, setVariantDirty] = useState(false);
   useEffect(() => {
     setConfirmed(false);
     setDirty(false);
+    setVariantDirty(false);
   }, [content?.id, content?.revision]);
   if (!content)
     return (
@@ -168,6 +171,13 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
           返回内容库
         </Link>
       </PageHeader>
+      <ContentEvidence
+        content={content}
+        onDraftChange={setVariantDirty}
+        action={action}
+        busy={busy}
+        locked={dirty || content.status === "user_reported_published"}
+      />
       <div className="editor-columns">
         <Card className="article-preview">
           <span className="eyebrow">COVER PREVIEW</span>
@@ -216,6 +226,7 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
                       expected_revision: content.revision,
                       title: f.get("title"),
                       body: f.get("body"),
+                      reason_tag: f.get("reason_tag"),
                     }),
                   }),
                 "内容已保存，请重新审核",
@@ -250,6 +261,16 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
                 disabled={content.status === "user_reported_published"}
               />
             </Field>
+            <Field label="修改原因（可选）">
+              <select name="reason_tag" defaultValue="edit">
+                <option value="edit">一般修改</option>
+                <option value="too_advertising">太像广告</option>
+                <option value="inaccurate">不准确</option>
+                <option value="more_real">需要更真实</option>
+                <option value="shorter">希望更短</option>
+                <option value="other">其他</option>
+              </select>
+            </Field>
             <Button
               variant="secondary"
               type="submit"
@@ -260,7 +281,7 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
             </Button>
           </form>
           <div className="divider" />
-          {dirty && (
+          {(dirty || variantDirty) && (
             <div className="alert warning">
               有未保存的文案修改，请先保存，再审核或准备发布包。
             </div>
@@ -290,6 +311,7 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
               disabled={
                 busy ||
                 dirty ||
+                variantDirty ||
                 !confirmed ||
                 content.compliance.status === "blocked" ||
                 content.status === "user_reported_published"
@@ -313,7 +335,10 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
             <Button
               variant="secondary"
               disabled={
-                busy || dirty || content.approved_revision !== content.revision
+                busy ||
+                dirty ||
+                variantDirty ||
+                content.approved_revision !== content.revision
               }
               onClick={() =>
                 action(

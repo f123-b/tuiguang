@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.3.0-dev"
+    "version": "0.4.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -619,6 +619,284 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/brands/{brand_id}/changes": {
+      "get": {
+        "summary": "Changes",
+        "operationId": "changes_api_v1_brands__brand_id__changes_get",
+        "parameters": [
+          {
+            "name": "brand_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brand Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Propose",
+        "operationId": "propose_api_v1_brands__brand_id__changes_post",
+        "parameters": [
+          {
+            "name": "brand_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brand Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/brands/{brand_id}/changes/{change_id}/decide": {
+      "post": {
+        "summary": "Decide",
+        "operationId": "decide_api_v1_brands__brand_id__changes__change_id__decide_post",
+        "parameters": [
+          {
+            "name": "brand_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brand Id"
+            }
+          },
+          {
+            "name": "change_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Change Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDecision"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/history": {
+      "get": {
+        "summary": "History",
+        "operationId": "history_api_v1_content_packages__content_id__history_get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/restore/{revision}": {
+      "post": {
+        "summary": "Restore",
+        "operationId": "restore_api_v1_content_packages__content_id__restore__revision__post",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          },
+          {
+            "name": "revision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Revision"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Restore"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/{asset_id}": {
+      "patch": {
+        "summary": "Review Asset",
+        "operationId": "review_asset_api_v1_assets__asset_id__patch",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssetReview"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -2163,6 +2441,27 @@
         ],
         "title": "Approve"
       },
+      "AssetReview": {
+        "properties": {
+          "verified": {
+            "type": "boolean",
+            "title": "Verified"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "verified",
+          "reason"
+        ],
+        "title": "AssetReview"
+      },
       "Body_preview_import_api_v1_analytics_import_preview_post": {
         "properties": {
           "file": {
@@ -2257,6 +2556,71 @@
         ],
         "title": "BrandInput"
       },
+      "ChangeDecision": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "rejected"
+            ],
+            "title": "Decision"
+          },
+          "released": {
+            "type": "boolean",
+            "title": "Released",
+            "default": false
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "expected_brand_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Brand Revision"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decision",
+          "confirmed",
+          "expected_brand_revision"
+        ],
+        "title": "ChangeDecision"
+      },
+      "ChangeInput": {
+        "properties": {
+          "claim": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Claim"
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Source"
+          },
+          "product_version": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Product Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim",
+          "source",
+          "product_version"
+        ],
+        "title": "ChangeInput"
+      },
       "ContentPatch": {
         "properties": {
           "expected_revision": {
@@ -2296,11 +2660,80 @@
               }
             ],
             "title": "Body"
+          },
+          "variants": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/CopyVariant"
+                },
+                "propertyNames": {
+                  "enum": [
+                    "xiaohongshu",
+                    "douyin",
+                    "bilibili"
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variants"
+          },
+          "reason_tag": {
+            "type": "string",
+            "enum": [
+              "edit",
+              "too_advertising",
+              "inaccurate",
+              "too_fast",
+              "more_real",
+              "inconsistent",
+              "shorter",
+              "other"
+            ],
+            "title": "Reason Tag",
+            "default": "edit"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "title": "ContentPatch"
+      },
+      "CopyVariant": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 180,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 12000,
+            "minLength": 1,
+            "title": "Body"
+          },
+          "tags": {
+            "items": {
+              "type": "string",
+              "maxLength": 40,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Tags"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "body"
+        ],
+        "title": "CopyVariant"
       },
       "CreatorInput": {
         "properties": {
@@ -2741,6 +3174,27 @@
           "name"
         ],
         "title": "Register"
+      },
+      "Restore": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed",
+          "expected_revision"
+        ],
+        "title": "Restore"
       },
       "Shot": {
         "properties": {

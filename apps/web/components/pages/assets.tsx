@@ -98,6 +98,29 @@ export function AssetsPage({ store, action, busy }: PageProps) {
                       {a.verified ? "用户确认授权" : "授权待核实"}
                     </Badge>
                   </div>
+                  <Button
+                    variant="quiet"
+                    disabled={busy}
+                    onClick={() =>
+                      action(
+                        () =>
+                          api(`/assets/${a.id}`, {
+                            method: "PATCH",
+                            body: JSON.stringify({
+                              verified: !a.verified,
+                              reason: a.verified
+                                ? "用户撤销授权或标记版本过期"
+                                : "用户重新核实来源和使用授权",
+                            }),
+                          }),
+                        a.verified
+                          ? "素材已停用，相关待发布稿需重新审核"
+                          : "已重新记录用户核实结果",
+                      )
+                    }
+                  >
+                    {a.verified ? "停用 / 标记过期" : "我已重新核实授权"}
+                  </Button>
                   <a
                     className="icon-button"
                     aria-label={`下载 ${a.name}`}

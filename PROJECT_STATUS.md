@@ -1,4 +1,4 @@
-# 项目真实状态 · 0.3.0-dev
+# 项目真实状态 · 0.4.0-dev
 
 用户设计基线：V2.3；实际软件版本与设计版本分开。任务：M0-001 / GitHub #1，M1-002 / GitHub #3，M2-003 / GitHub #5。以下均以实际代码和验收证据为准。
 
@@ -27,3 +27,5 @@
 本地运行证据和未完成范围详见 [M0 验收](docs/implementation/VALIDATION.md)、[本轮 M1 验收](docs/implementation/M1_VALIDATION.md)。原始设计包保持原状，不修改其中历史原型的完成声明。当前软件为开发基线，不能标记 stable 或生产已上线。
 
 最新图文增量的本地与 CI 证据见 [M2 图文验收](docs/implementation/M2_GRAPHICS_VALIDATION.md)，不以旧 M1 检查代替本轮结果。
+
+0.4.0 增量：事实变化提案的人工批准、素材失效、正文/图文版本比较恢复、编辑原因和分平台文案已接入。0004 本地迁移/浏览器验收与本轮远端检查仍待后续集成验收，不以旧 M2 CI 代替。持续开发范围见 `docs/implementation/COMPLETION_PLAN.md`。
