@@ -9,12 +9,17 @@ def tick():
     from .video import process_render_jobs
 
     with SessionLocal() as db:
+        from .product_monitor import poll_sources
+
+        poll_sources(db)
         schedule_due(db)
         process_pending(db)
         process_render_jobs(db)
         from .learning import weekly_reviews
+
         weekly_reviews(db)
         from .notifications import sync
+
         sync(db)
         db.commit()
 

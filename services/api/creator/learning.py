@@ -43,7 +43,15 @@ def build_report(db, creator, start, end):
             ContentRevision.created_at >= start,
             ContentRevision.created_at < end + "T99",
             ContentRevision.reason_tag.not_in(
-                ["edit", "restore", "graphics_edit", "brand_change", "asset_revoked", "video_attachment"]
+                [
+                    "edit",
+                    "restore",
+                    "graphics_edit",
+                    "brand_change",
+                    "asset_revoked",
+                    "video_attachment",
+                    "asset_version_changed",
+                ]
             ),
         )
     ).all()
@@ -68,7 +76,9 @@ def build_report(db, creator, start, end):
     # Cumulative snapshots are not summed: retain latest observation per content/window/source.
     latest = {}
     for m in sorted(metrics, key=lambda m: (m.observed_at, m.created_at, m.id)):
-        latest[(m.content_id, m.content_revision, m.platform, m.period_start, m.period_end, m.data_source)] = m
+        latest[
+            (m.content_id, m.content_revision, m.platform, m.period_start, m.period_end, m.data_source)
+        ] = m
     groups = {}
     for key, m in latest.items():
         group = groups.setdefault(key[2:], [])

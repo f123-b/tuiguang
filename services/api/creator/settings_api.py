@@ -32,6 +32,10 @@ from .models import (
     Metric,
     ModelConfig,
     ModelCheck,
+    ProductSource,
+    ProductSnapshot,
+    ProductEvent,
+    ProductCheck,
     Notification,
     Preferences,
     Publication,
@@ -331,6 +335,10 @@ def export_workspace(db: DB, user: Actor, include_files: bool = False):
         Reminder,
         HandoffOutcome,
         ModelCheck,
+        ProductSource,
+        ProductSnapshot,
+        ProductEvent,
+        ProductCheck,
     )
     document = {
         cls.__tablename__: [

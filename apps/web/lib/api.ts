@@ -156,6 +156,9 @@ export type Run = {
   } | null;
 };
 export type Asset = {
+  product_source_id?: string | null;
+  product_version?: string | null;
+  applicability_status?: string;
   id: string;
   brand_id: string;
   name: string;

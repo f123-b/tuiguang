@@ -156,6 +156,9 @@ class Asset(TenantRecord, Base):
     verified: Mapped[bool] = mapped_column(Boolean, default=False)
     kind: Mapped[str] = mapped_column(String(30), default="image")
     review_note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    product_source_id: Mapped[str | None] = mapped_column(ForeignKey("product_sources.id"), nullable=True)
+    product_version: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    applicability_status: Mapped[str] = mapped_column(String(30), default="current")
 
 
 class Video(TenantRecord, Base):
@@ -351,4 +354,49 @@ class ModelCheck(TenantRecord, Base):
     kind: Mapped[str] = mapped_column(String(30))
     status: Mapped[str] = mapped_column(String(30), default="queued")
     run_id: Mapped[str | None] = mapped_column(ForeignKey("creator_runs.id"), nullable=True, unique=True)
+    result: Mapped[dict] = mapped_column(JSON, default=dict)
+
+
+class ProductSource(TenantRecord, Base):
+    __tablename__ = "product_sources"
+    brand_id: Mapped[str] = mapped_column(ForeignKey("brands.id"))
+    recorded_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    name: Mapped[str] = mapped_column(String(120))
+    kind: Mapped[str] = mapped_column(String(30))
+    url: Mapped[str | None] = mapped_column(String(1000), nullable=True)
+    authorized: Mapped[bool] = mapped_column(Boolean)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    interval_minutes: Mapped[int] = mapped_column(Integer, default=120)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    current_snapshot_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    next_check_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    last_checked_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    last_error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    lease_until: Mapped[str | None] = mapped_column(String(40), nullable=True)
+
+
+class ProductSnapshot(TenantRecord, Base):
+    __tablename__ = "product_source_snapshots"
+    source_id: Mapped[str] = mapped_column(ForeignKey("product_sources.id"))
+    version: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    sha256: Mapped[str] = mapped_column(String(64))
+    text: Mapped[str] = mapped_column(Text)
+
+
+class ProductEvent(TenantRecord, Base):
+    __tablename__ = "product_change_events"
+    source_id: Mapped[str] = mapped_column(ForeignKey("product_sources.id"))
+    previous_snapshot_id: Mapped[str] = mapped_column(ForeignKey("product_source_snapshots.id"))
+    snapshot_id: Mapped[str] = mapped_column(ForeignKey("product_source_snapshots.id"))
+    status: Mapped[str] = mapped_column(String(30), default="proposed")
+    diff: Mapped[str] = mapped_column(Text)
+    proposal_id: Mapped[str | None] = mapped_column(ForeignKey("brand_changes.id"), nullable=True)
+
+
+class ProductCheck(TenantRecord, Base):
+    __tablename__ = "product_source_checks"
+    source_id: Mapped[str] = mapped_column(ForeignKey("product_sources.id"))
+    status: Mapped[str] = mapped_column(String(30))
+    error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    trace_id: Mapped[str] = mapped_column(String(32))
     result: Mapped[dict] = mapped_column(JSON, default=dict)
