@@ -15,6 +15,8 @@ class DraftState(TypedDict, total=False):
     facts: list[dict]
     draft: dict
     plan: dict
+    model_config: dict
+    generation_mode: str
 
 
 ANGLES = [
@@ -44,7 +46,9 @@ def select_facts(state):
     return {"facts": facts}
 
 
-def model_settings():
+def model_settings(state=None):
+    if state and state.get("model_config"):
+        return state["model_config"]
     required = (
         "MODEL_API_KEY",
         "MODEL_ID",
@@ -109,7 +113,7 @@ def model_messages(state):
 
 
 def estimated_reservation(state):
-    settings = model_settings()
+    settings = model_settings(state)
     # UTF-8 bytes conservatively bound token count; provider input is limited to these messages.
     size = sum(len(m["content"].encode()) + 64 for m in model_messages(state))
     return max(
@@ -121,7 +125,7 @@ def estimated_reservation(state):
 
 
 def write_draft(state):
-    if os.getenv("GENERATION_MODE", "template") != "openai":
+    if state.get("generation_mode", os.getenv("GENERATION_MODE", "template")) != "openai":
         from datetime import date
 
         if state.get("plan"):
@@ -138,7 +142,7 @@ def write_draft(state):
                 "actual_cents": 0,
             }
         }
-    settings = model_settings()
+    settings = model_settings(state)
     try:
         # No retries: a timeout after submission may still be billable.
         with httpx.Client(timeout=60, follow_redirects=False) as client:
@@ -165,6 +169,8 @@ def write_draft(state):
         if not isinstance(refs, list) or not refs or not set(refs) <= {f["id"] for f in state["facts"]}:
             raise ValueError("fact_refs")
         usage = result["usage"]
+        if any(type(usage.get(k)) is not int or usage[k] < 0 for k in ("prompt_tokens", "completion_tokens")):
+            raise ValueError("invalid provider usage")
         actual = math.ceil(
             (
                 usage["prompt_tokens"] * settings["input_price"]

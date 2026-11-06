@@ -60,7 +60,17 @@ PROVIDERS = [
 def ffmpeg(arguments, timeout=180, cwd=None):
     try:
         subprocess.run(
-            ["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y", *arguments],
+            [
+                "ffmpeg",
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-nostdin",
+                "-protocol_whitelist",
+                "file,pipe",
+                "-y",
+                *arguments,
+            ],
             check=True,
             capture_output=True,
             timeout=timeout,
@@ -73,7 +83,18 @@ def ffmpeg(arguments, timeout=180, cwd=None):
 def probe(path):
     try:
         result = subprocess.run(
-            ["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)],
+            [
+                "ffprobe",
+                "-v",
+                "error",
+                "-protocol_whitelist",
+                "file,pipe",
+                "-show_streams",
+                "-show_format",
+                "-of",
+                "json",
+                str(path),
+            ],
             check=True,
             capture_output=True,
             text=True,

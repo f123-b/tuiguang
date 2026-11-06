@@ -39,6 +39,7 @@ from .graphics_api import router as graphics_router
 from .evidence_api import router as evidence_router
 from .video_edit_api import router as video_edit_router
 from .learning_api import router as learning_router
+from .settings_api import router as settings_router
 from .video_edit import lock_video, checkpoint as video_checkpoint, current_output
 from .evidence import checkpoint
 from .graphics import lock_content
@@ -65,7 +66,7 @@ from .video import PROVIDERS, probe, validate_ir
 
 app = FastAPI(
     title="叙流 · AI 持续创作者",
-    version="0.6.0-dev",
+    version=release_manifest()["application_version"],
     openapi_url="/api/v1/openapi.json",
     docs_url="/api/docs",
     redoc_url=None,
@@ -75,6 +76,7 @@ app.include_router(graphics_router)
 app.include_router(evidence_router)
 app.include_router(video_edit_router)
 app.include_router(learning_router)
+app.include_router(settings_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -137,7 +139,7 @@ async def validation_error(request, error):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.6.0-dev"}
+    return {"status": "ok", "version": release_manifest()["application_version"]}
 
 
 def set_session(response, token):
@@ -822,7 +824,7 @@ def dashboard(db: DB, user: Actor):
         },
         "spent_cents": budget_used(db, user.workspace_id),
         "analytics": analytics_summary(db, user.workspace_id),
-        "generation_mode": __import__("os").getenv("GENERATION_MODE", "template"),
+        "generation_mode": __import__("creator.model_config",fromlist=["public_config"]).public_config(db,user.workspace_id)["mode"],
     }
 
 
@@ -847,13 +849,14 @@ def release(user: Actor):
 
 
 @app.get("/api/v1/settings")
-def settings(user: Actor):
-    import os
+def settings(db: DB, user: Actor):
 
+    from .model_config import public_config
+    public = public_config(db,user.workspace_id)
     return {
-        "generation_mode": os.getenv("GENERATION_MODE", "template"),
-        "model_id": os.getenv("MODEL_ID") or None,
-        "model_key_configured": bool(os.getenv("MODEL_API_KEY")),
+        "generation_mode": public["mode"],
+        "model_id": public["model_id"],
+        "model_key_configured": public["key_configured"],
         "timezone": "Asia/Shanghai",
         "storage": "workspace_local_disk",
         "application_version": release_manifest()["application_version"],

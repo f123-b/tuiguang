@@ -45,3 +45,5 @@ A / #7：EVIDENCE 模块位于 `evidence.py`、`evidence_api.py`、`pages/eviden
 B / #9：VIDEO 新增 `video_edit.py`、`video_edit_api.py`、`video_audio.py`、`speech.py`、`pages/video-editor.tsx`，IR 1.1 / pillow_ffmpeg@2 / DB 0005。已完成旧片可读取，旧版未完成渲染明确阻断、用户保存升级后重建。视频绑定经内容预审后进入人工 ZIP。
 
 C / #11：LEARNING 位于 `learning.py`、`learning_api.py`、`metrics_io.py`、`pages/learning.tsx`；0006 为指标 active、私有反馈、不可变报告、策略审批与指针、计划策略快照。Worker 仅为 active 创作者自动整理上一完整周；只读查询不发起模型调用。
+
+D / #13：SETTINGS/NOTIFY 位于 `model_config.py`、`settings_api.py`、`notifications.py`、`pages/system-settings.tsx`、`handoff-outcome.tsx`、`ops-console.tsx`。DB 0007；配置仅加密存储，任务冻结工作区修订并检查授权/预算，站内提醒无社媒外呼。

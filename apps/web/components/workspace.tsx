@@ -1,4 +1,5 @@
 "use client";
+import { APP_VERSION } from "../lib/version";
 
 import { Badge, Button, Card, EmptyState } from "@xuliu/ui";
 import {
@@ -64,6 +65,7 @@ import { Overview } from "./pages/overview";
 import { PublishPage } from "./pages/publish";
 import { OpsPage, SettingsPage } from "./pages/settings";
 import { VideoPage } from "./pages/video";
+import { NotificationsPage } from "./pages/system-settings";
 
 const groups = [
   {
@@ -318,7 +320,7 @@ export default function Workspace({ path }: { path: string }) {
             <span className="avatar">{store?.user.name[0] || "我"}</span>
             <span>
               {store?.user.name || "正在加载"}
-              <small>本地开发版 · 0.3.0</small>
+              <small>本地开发版 · {APP_VERSION}</small>
             </span>
             <LogOut size={15} />
           </button>
@@ -376,7 +378,7 @@ export default function Workspace({ path }: { path: string }) {
             <Link
               className="icon-button"
               aria-label="查看任务通知"
-              href="/creator/activity"
+              href="/notifications"
             >
               <Bell size={18} />
               {store?.runs.some((r) => r.status === "failed") && <i />}
@@ -477,6 +479,7 @@ function titleFor(path: string) {
         "/growth": "成长与记忆",
         "/brand": "品牌与素材",
         "/settings": "设置",
+        "/notifications": "通知中心",
         "/help": "帮助中心",
         "/compliance": "合规待办",
         "/studio/assets": "素材库",
@@ -509,6 +512,7 @@ function PageContent(props: PageProps) {
   if (path.startsWith("/studio/video")) return <VideoPage {...props} />;
   if (path.startsWith("/publish")) return <PublishPage {...props} />;
   if (path.startsWith("/analytics")) return <AnalyticsPage {...props} />;
+  if (path === "/notifications") return <NotificationsPage {...props} />;
   if (path.startsWith("/growth")) return <GrowthPage {...props} />;
   if (path.startsWith("/ops")) return <OpsPage {...props} />;
   if (path === "/settings") return <SettingsPage {...props} />;
