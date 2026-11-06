@@ -65,6 +65,7 @@ import { Overview } from "./pages/overview";
 import { PublishPage } from "./pages/publish";
 import { OpsPage, SettingsPage } from "./pages/settings";
 import { VideoPage } from "./pages/video";
+import { ModelSettingsPage } from "./pages/model-settings";
 import { NotificationsPage } from "./pages/system-settings";
 
 const groups = [
@@ -479,6 +480,7 @@ function titleFor(path: string) {
         "/growth": "成长与记忆",
         "/brand": "品牌与素材",
         "/settings": "设置",
+        "/settings/models": "模型设置",
         "/notifications": "通知中心",
         "/help": "帮助中心",
         "/compliance": "合规待办",
@@ -515,6 +517,7 @@ function PageContent(props: PageProps) {
   if (path === "/notifications") return <NotificationsPage {...props} />;
   if (path.startsWith("/growth")) return <GrowthPage {...props} />;
   if (path.startsWith("/ops")) return <OpsPage {...props} />;
+  if (path === "/settings/models") return <ModelSettingsPage {...props} />;
   if (path === "/settings") return <SettingsPage {...props} />;
   if (path === "/help" || path === "/onboarding/welcome") return <HelpPage />;
   if (path === "/studio/covers") return <GraphicsLibrary {...props} />;

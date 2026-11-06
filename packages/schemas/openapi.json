@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.9.0-dev"
+    "version": "0.10.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -2269,6 +2269,107 @@
         }
       }
     },
+    "/api/v1/settings/models/check": {
+      "post": {
+        "summary": "Check List",
+        "operationId": "check_list_api_v1_settings_models_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/settings/models/checks": {
+      "get": {
+        "summary": "Checks",
+        "operationId": "checks_api_v1_settings_models_checks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/settings/models/probe": {
+      "post": {
+        "summary": "Enqueue Probe",
+        "operationId": "enqueue_probe_api_v1_settings_models_probe_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProbeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health",
@@ -4121,6 +4222,27 @@
         ],
         "title": "ChangeInput"
       },
+      "CheckInput": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "CheckInput"
+      },
       "Confirm": {
         "properties": {
           "confirmed": {
@@ -4875,6 +4997,25 @@
             "minLength": 1,
             "title": "Price Source"
           },
+          "endpoint_confirmed": {
+            "type": "boolean",
+            "title": "Endpoint Confirmed",
+            "default": false
+          },
+          "json_mode": {
+            "type": "boolean",
+            "title": "Json Mode",
+            "default": true
+          },
+          "token_parameter": {
+            "type": "string",
+            "enum": [
+              "max_tokens",
+              "max_completion_tokens"
+            ],
+            "title": "Token Parameter",
+            "default": "max_tokens"
+          },
           "api_key": {
             "anyOf": [
               {
@@ -5030,6 +5171,41 @@
           "confirmed"
         ],
         "title": "Prepare"
+      },
+      "ProbeInput": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "creator_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Creator Id"
+          },
+          "max_cost_cents": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Max Cost Cents"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed",
+          "creator_id",
+          "max_cost_cents"
+        ],
+        "title": "ProbeInput"
       },
       "PublicationInput": {
         "properties": {

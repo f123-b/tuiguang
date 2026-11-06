@@ -8,7 +8,7 @@
       "module": "agent"
     },
     "AGENT_PROVIDER_RESULT_UNKNOWN": {
-      "module": "main"
+      "module": "model_gateway"
     },
     "ANALYSIS_INPUT_TOO_LARGE": {
       "module": "analysis_jobs"
@@ -128,7 +128,7 @@
       "module": "domains"
     },
     "IDEMPOTENCY_KEY_CONFLICT": {
-      "module": "jobs"
+      "module": "model_diagnostics"
     },
     "INTERNAL_ERROR": {
       "module": "main"
@@ -158,13 +158,16 @@
       "module": "settings_api"
     },
     "MODEL_CONSENT_REQUIRED": {
-      "module": "jobs"
+      "module": "model_diagnostics"
     },
     "MODEL_ENCRYPTION_UNAVAILABLE": {
       "module": "settings_api"
     },
     "MODEL_ENDPOINT_DENIED": {
       "module": "model_config"
+    },
+    "MODEL_PROBE_BUDGET_EXCEEDED": {
+      "module": "model_diagnostics"
     },
     "MODEL_REVISION_CONFLICT": {
       "module": "settings_api"

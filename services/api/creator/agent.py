@@ -145,19 +145,9 @@ def write_draft(state):
     settings = model_settings(state)
     try:
         # No retries: a timeout after submission may still be billable.
-        with httpx.Client(timeout=60, follow_redirects=False) as client:
-            response = client.post(
-                settings["base_url"] + "/chat/completions",
-                headers={"Authorization": "Bearer " + settings["key"]},
-                json={
-                    "model": settings["model"],
-                    "messages": model_messages(state),
-                    "max_tokens": settings["max_tokens"],
-                    "response_format": {"type": "json_object"},
-                },
-            )
-        response.raise_for_status()
-        result = response.json()
+        from .model_gateway import complete
+
+        result = complete(settings, model_messages(state))
         import json
 
         draft = json.loads(result["choices"][0]["message"]["content"])

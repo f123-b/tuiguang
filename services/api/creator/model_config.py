@@ -1,6 +1,7 @@
 """Workspace secrets never enter response DTOs, diagnostics or project snapshots."""
 
 import os
+import ipaddress
 from urllib.parse import urlsplit
 
 from cryptography.fernet import Fernet, InvalidToken
@@ -35,7 +36,7 @@ def cipher():
         ) from None
 
 
-def validate_base_url(value):
+def validate_base_url(value, approved=False):
     try:
         parts = urlsplit(value)
         hosts = {
@@ -45,7 +46,8 @@ def validate_base_url(value):
         }
         if (
             parts.scheme != "https"
-            or parts.hostname not in hosts
+            or not parts.hostname
+            or (parts.hostname not in hosts and (not approved or PRODUCTION))
             or parts.username
             or parts.password
             or parts.port not in (None, 443)
@@ -53,6 +55,15 @@ def validate_base_url(value):
             or parts.fragment
         ):
             raise ValueError("url denied")
+        host = parts.hostname.lower()
+        if host == "localhost" or "." not in host or host.endswith((".local", ".internal", ".localhost")):
+            raise ValueError("local endpoint denied")
+        try:
+            address = ipaddress.ip_address(host)
+        except ValueError:
+            address = None
+        if address and not address.is_global:
+            raise ValueError("private endpoint denied")
     except ValueError:
         raise DomainError(
             "MODEL_ENDPOINT_DENIED",
@@ -84,6 +95,9 @@ def public_config(db, workspace_id):
             "max_tokens": current.max_tokens,
             "price_source": current.price_source,
             "key_configured": bool(current.encrypted_key),
+            "endpoint_approved": current.endpoint_approved,
+            "json_mode": current.json_mode,
+            "token_parameter": current.token_parameter,
             "source": "workspace_encrypted",
         }
 
@@ -105,10 +119,13 @@ def public_config(db, workspace_id):
         "price_source": "服务端环境设置，价格来源仍需操作者核实",
         "key_configured": bool(os.getenv("MODEL_API_KEY")),
         "source": "server_environment",
+        "endpoint_approved": False,
+        "json_mode": True,
+        "token_parameter": "max_tokens",
     }
 
 
-def execution_config(db, workspace_id, expected_revision=None):
+def execution_config(db, workspace_id, expected_revision=None, allow_disabled=False):
     db.execute(
         update(ModelConfig)
         .where(ModelConfig.workspace_id == workspace_id)
@@ -119,13 +136,13 @@ def execution_config(db, workspace_id, expected_revision=None):
         return None
     if expected_revision != current.revision:
         raise DomainError("RUN_VERSION_UNSUPPORTED", "工作区模型配置已变化，未发起请求")
-    if current.mode == "template":
+    if current.mode == "template" and not allow_disabled:
         return {"mode": "template"}
     try:
         key = cipher().decrypt((current.encrypted_key or "").encode()).decode()
     except (InvalidToken, UnicodeError):
         raise DomainError("MODEL_ENCRYPTION_UNAVAILABLE", "模型密钥无法解密，未发起模型请求", 503) from None
-    validate_base_url(current.base_url)
+    validate_base_url(current.base_url, current.endpoint_approved)
     return {
         "mode": "openai",
         "key": key,
@@ -134,6 +151,8 @@ def execution_config(db, workspace_id, expected_revision=None):
         "input_price": current.input_price,
         "output_price": current.output_price,
         "max_tokens": current.max_tokens,
+        "json_mode": current.json_mode,
+        "token_parameter": current.token_parameter,
     }
 
 
