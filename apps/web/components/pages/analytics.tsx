@@ -112,6 +112,7 @@ export function AnalyticsPage({ store, action, busy, path }: PageProps) {
                     Object.fromEntries(
                       [
                         "content_id",
+                        "content_revision",
                         "platform",
                         "views",
                         "likes",

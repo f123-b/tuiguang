@@ -27,6 +27,7 @@ class Period(DTO):
 
 
 class ManualMetric(Period):
+    content_revision: int | None = Field(default=None, ge=1)
     content_id: str = Field(min_length=1, max_length=120)
     platform: Platform
     observed_at: datetime
@@ -92,6 +93,7 @@ def manual(data: ManualMetric, db: DB, user: Actor, request: Request):
         observed_at=row["observed_at"],
         data_source=data.data_source,
         fingerprint=fingerprint,
+        content_revision=row.get("content_revision"),
     )
     db.add(m)
     record(
@@ -262,8 +264,15 @@ def decide(creator_id: str, strategy_id: str, data: Decision, db: DB, user: Acto
     # Review input revocations before enabling a stale proposal.
     old = db.get(LearningReport, strategy.report_id)
     current = build_report(db, creator, old.period_start, old.period_end)
-    if data.decision == "accept" and current.source_digest != old.source_digest:
+    if data.decision == "accept" and current.source_digest != old.report.get(
+        "evidence_digest", old.source_digest
+    ):
         raise DomainError("STRATEGY_EVIDENCE_STALE", "复盘依据已变化，请查看新版报告")
+    if data.decision == "accept":
+        for title in old.report.get("title_evidence", []):
+            source = owned(db, Content, title["content_id"], user.workspace_id)
+            if source.revision != title["revision"]:
+                raise DomainError("STRATEGY_EVIDENCE_STALE", "模型解释引用的内容已变化，请先重新复盘")
     strategy.status = "accepted" if data.decision == "accept" else "rejected"
     strategy.decided_at, strategy.decided_by = now_iso(), user.id
     if data.decision == "accept":

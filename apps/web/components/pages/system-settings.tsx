@@ -26,7 +26,13 @@ type Preference = {
 type Billing = {
   actual_cents: number;
   unsettled_reserved_cents: number;
-  ledgers: unknown[];
+  ledgers: {
+    id: string;
+    run_id: string;
+    status: string;
+    actual_cents: number | null;
+    reserved_cents: number;
+  }[];
 };
 
 export function SystemSettings({ store, action, busy }: PageProps) {
@@ -34,6 +40,7 @@ export function SystemSettings({ store, action, busy }: PageProps) {
     [preferences, setPreferences] = useState<Preference | null>(null),
     [billing, setBilling] = useState<Billing | null>(null),
     [error, setError] = useState("");
+  const [refresh, setRefresh] = useState(0);
   useEffect(() => {
     Promise.all([
       api<Model>("/settings/models"),
@@ -46,7 +53,7 @@ export function SystemSettings({ store, action, busy }: PageProps) {
         setBilling(b);
       })
       .catch((e) => setError(e.message));
-  }, []);
+  }, [refresh]);
   return (
     <>
       {error && <p role="alert">{error}</p>}
@@ -283,6 +290,69 @@ export function SystemSettings({ store, action, busy }: PageProps) {
                   根据提供者使用回执与用户配置价格计算，不是提供者正式账单。本地
                   CPU 能耗未估价。
                 </p>
+                {billing.ledgers
+                  .filter(
+                    (l) =>
+                      l.status === "reserved" &&
+                      l.actual_cents === null &&
+                      store.runs.some(
+                        (r) => r.id === l.run_id && r.status === "failed",
+                      ),
+                  )
+                  .map((l) => (
+                    <form
+                      key={l.id}
+                      className="form-stack subtle-note"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const f = new FormData(e.currentTarget);
+                        action(async () => {
+                          await api(
+                            `/settings/billing/${l.id}/reconcile`,
+                            post({
+                              confirmed: true,
+                              actual_cents: Number(f.get("cents")),
+                              result: f.get("result"),
+                              provider_receipt_source: f.get("source"),
+                            }),
+                          );
+                          setRefresh((v) => v + 1);
+                        }, "费用已按用户提供依据核对；旧请求不会重试，请手动恢复创作者");
+                      }}
+                    >
+                      <h3>核对未知回执</h3>
+                      <p className="muted">
+                        任务 {l.run_id} · 预留 {l.reserved_cents}{" "}
+                        分。请先自行核对提供者账单；这里保存用户自报依据，不能代替提供者确认。
+                      </p>
+                      <Field label="核对结果">
+                        <select name="result">
+                          <option value="not_charged">未收费</option>
+                          <option value="charged">已收费</option>
+                        </select>
+                      </Field>
+                      <Field label="实际金额（整数分）">
+                        <input
+                          name="cents"
+                          type="number"
+                          min={0}
+                          max={10000000}
+                          defaultValue={0}
+                          required
+                        />
+                      </Field>
+                      <Field label="账单或核对依据">
+                        <textarea name="source" maxLength={2000} required />
+                      </Field>
+                      <label className="checkline">
+                        <input type="checkbox" required />
+                        我已核对这一次请求的账单，并确认录入结果。
+                      </label>
+                      <Button type="submit" disabled={busy}>
+                        保存人工核对
+                      </Button>
+                    </form>
+                  ))}
                 <details>
                   <summary>查看逐任务整数分账本</summary>
                   <pre className="diagnostic-json">

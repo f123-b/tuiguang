@@ -68,10 +68,10 @@ def build_report(db, creator, start, end):
     # Cumulative snapshots are not summed: retain latest observation per content/window/source.
     latest = {}
     for m in sorted(metrics, key=lambda m: (m.observed_at, m.created_at, m.id)):
-        latest[(m.content_id, m.platform, m.period_start, m.period_end, m.data_source)] = m
+        latest[(m.content_id, m.content_revision, m.platform, m.period_start, m.period_end, m.data_source)] = m
     groups = {}
     for key, m in latest.items():
-        group = groups.setdefault(key[1:], [])
+        group = groups.setdefault(key[2:], [])
         group.append(m)
     summaries = []
     for key, rows in sorted(groups.items()):

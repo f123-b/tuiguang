@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.8.0-dev"
+    "version": "0.9.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -2164,6 +2164,111 @@
         }
       }
     },
+    "/api/v1/creators/{creator_id}/learning-reports/ai": {
+      "post": {
+        "summary": "Create Review",
+        "operationId": "create_review_api_v1_creators__creator_id__learning_reports_ai_post",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Creator Id"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Analyze"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/settings/billing/{ledger_id}/reconcile": {
+      "post": {
+        "summary": "Reconcile",
+        "operationId": "reconcile_api_v1_settings_billing__ledger_id__reconcile_post",
+        "parameters": [
+          {
+            "name": "ledger_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ledger Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reconcile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health",
@@ -3658,6 +3763,39 @@
   },
   "components": {
     "schemas": {
+      "Analyze": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date",
+            "title": "Period Start"
+          },
+          "period_end": {
+            "type": "string",
+            "format": "date",
+            "title": "Period End"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "private_data_consent": {
+            "type": "boolean",
+            "const": true,
+            "title": "Private Data Consent"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "period_start",
+          "period_end",
+          "confirmed",
+          "private_data_consent"
+        ],
+        "title": "Analyze"
+      },
       "Approve": {
         "properties": {
           "confirmed": {
@@ -4557,6 +4695,18 @@
             "format": "date",
             "title": "Period End"
           },
+          "content_revision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Revision"
+          },
           "content_id": {
             "type": "string",
             "maxLength": 120,
@@ -4925,6 +5075,44 @@
           "checklist"
         ],
         "title": "PublicationInput"
+      },
+      "Reconcile": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "actual_cents": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": 0.0,
+            "title": "Actual Cents"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "charged",
+              "not_charged"
+            ],
+            "title": "Result"
+          },
+          "provider_receipt_source": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Provider Receipt Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed",
+          "actual_cents",
+          "result",
+          "provider_receipt_source"
+        ],
+        "title": "Reconcile"
       },
       "Register": {
         "properties": {

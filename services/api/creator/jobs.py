@@ -17,7 +17,9 @@ def enqueue(db, creator, day, key, trace_id=None, entry=None, commit=True):
     lock_creator(db, creator)
     if creator.status != "active":
         raise DomainError("CREATOR_SCHEDULE_PAUSED", "创作者已暂停，未执行新任务")
-    existing = db.scalar(select(Run).where(Run.creator_id == creator.id, Run.operational_date == day))
+    existing = db.scalar(
+        select(Run).where(Run.creator_id == creator.id, Run.operational_date == day, Run.slot == "daily")
+    )
     if existing:
         return existing, False
     entry = entry or db.scalar(
@@ -65,7 +67,9 @@ def enqueue(db, creator, day, key, trace_id=None, entry=None, commit=True):
         return run, True
     except IntegrityError:
         db.rollback()
-        existing = db.scalar(select(Run).where(Run.creator_id == creator.id, Run.operational_date == day))
+        existing = db.scalar(
+            select(Run).where(Run.creator_id == creator.id, Run.operational_date == day, Run.slot == "daily")
+        )
         if existing:
             return existing, False
         raise DomainError("IDEMPOTENCY_KEY_CONFLICT", "该幂等键已用于其他任务") from None
@@ -178,6 +182,11 @@ def process_pending(db):
             continue
         db.refresh(run)
         try:
+            if run.release.get("job_kind") == "learning_review":
+                from .analysis_jobs import process
+
+                process(db, run, creator)
+                continue
             existing = db.scalar(select(Content).where(Content.run_id == run.id))
             if existing:
                 from .production import prepare

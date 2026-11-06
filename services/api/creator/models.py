@@ -222,6 +222,7 @@ class Metric(TenantRecord, Base):
     data_source: Mapped[str] = mapped_column(String(180))
     fingerprint: Mapped[str] = mapped_column(String(64))
     active: Mapped[bool] = mapped_column(Boolean, default=True)
+    content_revision: Mapped[int | None] = mapped_column(Integer, nullable=True)
     __table_args__ = (UniqueConstraint("workspace_id", "fingerprint"),)
 
 
@@ -244,6 +245,7 @@ class BudgetEntry(TenantRecord, Base):
     reserved_cents: Mapped[int] = mapped_column(Integer)
     actual_cents: Mapped[int | None] = mapped_column(Integer, nullable=True)
     status: Mapped[str] = mapped_column(String(30), default="reserved")
+    reconciliation: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
 
 class VideoRevision(TenantRecord, Base):
@@ -273,6 +275,7 @@ class LearningReport(TenantRecord, Base):
     source_digest: Mapped[str] = mapped_column(String(64))
     version: Mapped[int] = mapped_column(Integer)
     report: Mapped[dict] = mapped_column(JSON)
+    ai_run_id: Mapped[str | None] = mapped_column(ForeignKey("creator_runs.id"), nullable=True, unique=True)
     __table_args__ = (UniqueConstraint("creator_id", "period_start", "period_end", "source_digest"),)
 
 
