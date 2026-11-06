@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 
 from . import schemas as s
 from .auth import current_user, issue_token, password_hash, verify_password
-from .config import COOKIE_SECURE, DATA_DIR, WEB_ORIGIN
+from .config import COOKIE_SECURE, WEB_ORIGIN
 from .db import get_db
 from .domains import (
     analytics_summary,
@@ -38,6 +38,8 @@ from .editorial import ensure_plan, lock_creator, serialize_creator
 from .editorial_api import router as editorial_router
 from .graphics_api import router as graphics_router
 from .evidence_api import router as evidence_router
+from .video_edit_api import router as video_edit_router
+from .video_edit import lock_video, checkpoint as video_checkpoint, current_output
 from .evidence import checkpoint
 from .graphics import lock_content
 from .jobs import budget_used, enqueue
@@ -63,7 +65,7 @@ from .video import PROVIDERS, probe, validate_ir
 
 app = FastAPI(
     title="叙流 · AI 持续创作者",
-    version="0.4.0-dev",
+    version="0.5.0-dev",
     openapi_url="/api/v1/openapi.json",
     docs_url="/api/docs",
     redoc_url=None,
@@ -71,6 +73,7 @@ app = FastAPI(
 app.include_router(editorial_router)
 app.include_router(graphics_router)
 app.include_router(evidence_router)
+app.include_router(video_edit_router)
 FastAPIInstrumentor.instrument_app(app, excluded_urls="health")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
@@ -133,7 +136,7 @@ async def validation_error(request, error):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.4.0-dev"}
+    return {"status": "ok", "version": "0.5.0-dev"}
 
 
 def set_session(response, token):
@@ -242,12 +245,12 @@ async def upload_asset(
 ):
     owned(db, Brand, brand_id, user.workspace_id)
     suffix = Path(file.filename or "").suffix.lower()
-    if suffix not in (".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov"):
-        raise DomainError("ASSET_FORMAT_INVALID", "支持 PNG/JPG/WebP/MP4/MOV", 422)
+    if suffix not in (".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov", ".wav", ".mp3", ".m4a", ".ogg"):
+        raise DomainError("ASSET_FORMAT_INVALID", "支持 PNG/JPG/WebP/MP4/MOV/WAV/MP3/M4A/OGG", 422)
     data = await file.read(50 * 1024 * 1024 + 1)
     if not data or len(data) > 50 * 1024 * 1024:
         raise DomainError("ASSET_SIZE_INVALID", "文件须小于 50 MB 且不能为空", 422)
-    kind = "video" if suffix in (".mp4", ".mov") else "image"
+    kind = "video" if suffix in (".mp4", ".mov") else "audio" if suffix in (".wav", ".mp3", ".m4a", ".ogg") else "image"
     if kind == "image":
         try:
             with Image.open(io.BytesIO(data)) as image:
@@ -257,8 +260,10 @@ async def upload_asset(
         except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError):
             raise DomainError("ASSET_FORMAT_INVALID", "图片损坏或尺寸过大", 422) from None
     sha = store_file(user.workspace_id, data, suffix)
-    if kind == "video":
-        probe(file_path(user.workspace_id, sha, suffix))
+    if kind in ("video", "audio"):
+        metadata = probe(file_path(user.workspace_id, sha, suffix))
+        if not any(stream["codec_type"] == kind for stream in metadata["streams"]):
+            raise DomainError("ASSET_FORMAT_INVALID", "文件缺少所需的音频或视频流", 422)
     asset = Asset(
         workspace_id=user.workspace_id,
         brand_id=brand_id,
@@ -524,7 +529,7 @@ def current_package(db, package):
     if package.content_revision != content.revision or content.approved_revision != content.revision:
         raise DomainError("HANDOFF_PACKAGE_STALE", "资料包对应旧版内容，请重新审核并准备")
     if (
-        content.graphics
+        (content.graphics or content.video_attachment)
         and content.status != "user_reported_published"
         and compliance_report(db, content)["status"] == "blocked"
     ):
@@ -701,10 +706,12 @@ def create_video(data: s.VideoInput, db: DB, user: Actor):
     from .models import Video
 
     owned(db, Brand, data.brand_id, user.workspace_id)
-    ir = {"schema_version": "1.0", **data.model_dump()}
+    ir = {"schema_version": "1.1", **data.model_dump()}
     validate_ir(db, user.workspace_id, ir)
     video = Video(workspace_id=user.workspace_id, brand_id=data.brand_id, name=data.name, ir=ir)
     db.add(video)
+    db.flush()
+    video_checkpoint(db, video, user.id)
     db.commit()
     return serialize(video)
 
@@ -721,17 +728,23 @@ def edit_shot(video_id: str, shot_id: str, data: s.Shot, db: DB, user: Actor):
     from .models import Video
 
     video = owned(db, Video, video_id, user.workspace_id)
+    lock_video(db, video)
+    video_checkpoint(db, video, user.id)
     ir = json.loads(canonical(video.ir))
     shot = next((s for s in ir["shots"] if s["shot_id"] == shot_id), None)
     if not shot or data.shot_id != shot_id:
         raise DomainError("VID_SHOT_NOT_FOUND", "镜头不存在", 404)
     if shot["locked"]:
         raise DomainError("VID_SHOT_LOCKED", "镜头已锁定")
+    ir["schema_version"] = "1.1"
+    ir.setdefault("audio_tracks", [])
+    ir.setdefault("subtitles", [])
     new = data.model_dump()
     new["shot_revision"] = shot["shot_revision"] + 1
     ir["shots"][ir["shots"].index(shot)] = new
     validate_ir(db, user.workspace_id, ir)
     video.ir, video.revision, video.status = ir, video.revision + 1, "draft"
+    video_checkpoint(db, video, user.id)
     db.commit()
     return serialize(video)
 
@@ -741,15 +754,27 @@ def render_video(video_id: str, db: DB, user: Actor):
     from .models import Video
 
     video = owned(db, Video, video_id, user.workspace_id)
+    lock_video(db, video)
+    validate_ir(db, user.workspace_id, video.ir)
     existing = db.scalar(
         select(RenderJob).where(
             RenderJob.video_id == video.id,
             RenderJob.revision == video.revision,
             RenderJob.status.in_(["queued", "running", "completed"]),
-        )
+        ).order_by(RenderJob.created_at.desc())
     )
     if existing:
-        return serialize(existing)
+        if existing.status in ("queued", "running"):
+            return serialize(existing)
+        try:
+            current_output(db, video)
+            return serialize(existing)
+        except DomainError as error:
+            if error.code not in ("VID_OUTPUT_NOT_READY", "VID_OUTPUT_HASH_MISMATCH"):
+                raise
+    if video.ir.get("schema_version") == "1.0":
+        raise DomainError("VID_IR_UPGRADE_REQUIRED", "旧工程请先保存为 1.1，再使用新版渲染器")
+
     job = RenderJob(workspace_id=user.workspace_id, video_id=video.id, revision=video.revision, ir=video.ir)
     db.add(job)
     video.status = "queued"
@@ -775,10 +800,8 @@ def download_video(video_id: str, db: DB, user: Actor):
     from .models import Video
 
     video = owned(db, Video, video_id, user.workspace_id)
-    if not video.output_hash or video.rendered_revision != video.revision:
-        raise DomainError("VID_OUTPUT_NOT_READY", "当前版本尚未完成真实渲染")
     return FileResponse(
-        DATA_DIR / user.workspace_id / "cache" / (video.output_hash + ".mp4"),
+        current_output(db, video),
         media_type="video/mp4",
         filename=f"video-{video.id[:8]}.mp4",
     )

@@ -75,7 +75,9 @@ class CreatorInput(DTO):
 class CopyVariant(DTO):
     title: str = Field(min_length=1, max_length=180)
     body: str = Field(min_length=1, max_length=12000)
-    tags: list[Annotated[str, Field(min_length=1, max_length=40)]] = Field(default_factory=list, max_length=10)
+    tags: list[Annotated[str, Field(min_length=1, max_length=40)]] = Field(
+        default_factory=list, max_length=10
+    )
 
 
 class ContentPatch(DTO):
@@ -83,7 +85,9 @@ class ContentPatch(DTO):
     title: str | None = Field(default=None, min_length=1, max_length=180)
     body: str | None = Field(default=None, min_length=1, max_length=12000)
     variants: dict[Platform, CopyVariant] | None = None
-    reason_tag: Literal["edit", "too_advertising", "inaccurate", "too_fast", "more_real", "inconsistent", "shorter", "other"] = "edit"
+    reason_tag: Literal[
+        "edit", "too_advertising", "inaccurate", "too_fast", "more_real", "inconsistent", "shorter", "other"
+    ] = "edit"
 
 
 class Approve(DTO):
@@ -124,6 +128,26 @@ class Shot(DTO):
     caption: str = Field(default="", max_length=180)
     asset_id: str | None = None
     locked: bool = False
+    trim_start_frame: int = Field(default=0, ge=0, le=216000)
+    speed_percent: int = Field(default=100, ge=25, le=400)
+
+
+class AudioTrack(DTO):
+    track_id: Short
+    asset_id: Short
+    role: Literal["voiceover", "music"]
+    start_frame: int = Field(default=0, ge=0, le=3600)
+    duration_frames: int = Field(ge=1, le=3600)
+    source_start_frame: int = Field(default=0, ge=0, le=216000)
+    volume_percent: int = Field(default=100, ge=0, le=200)
+    loop: bool = False
+
+
+class Subtitle(DTO):
+    cue_id: Short
+    start_frame: int = Field(ge=0, le=3600)
+    end_frame: int = Field(ge=1, le=3600)
+    text: str = Field(min_length=1, max_length=120)
 
 
 class VideoInput(DTO):
@@ -133,3 +157,5 @@ class VideoInput(DTO):
     height: Literal[1080, 1920] = 1080
     fps: Literal[30] = 30
     shots: list[Shot] = Field(min_length=1, max_length=12)
+    audio_tracks: list[AudioTrack] = Field(default_factory=list, max_length=8)
+    subtitles: list[Subtitle] = Field(default_factory=list, max_length=100)

@@ -47,7 +47,7 @@
       "module": "jobs"
     },
     "CONTENT_ALREADY_REPORTED": {
-      "module": "main"
+      "module": "video_edit_api"
     },
     "CONTENT_REVISION_CONFLICT": {
       "module": "graphics_api"
@@ -134,13 +134,13 @@
       "module": "editorial_api"
     },
     "QA_CONTENT_BLOCKED": {
-      "module": "main"
+      "module": "video"
     },
     "QA_MEDIA_INVALID": {
       "module": "video"
     },
     "RESOURCE_NOT_FOUND": {
-      "module": "graphics_api"
+      "module": "video_edit_api"
     },
     "RUN_NOT_SKIPPABLE": {
       "module": "main"
@@ -148,8 +148,20 @@
     "RUN_VERSION_UNSUPPORTED": {
       "module": "jobs"
     },
+    "TTS_PROVIDER_UNAVAILABLE": {
+      "module": "speech"
+    },
+    "TTS_RESULT_INVALID": {
+      "module": "speech"
+    },
     "VALIDATION_ERROR": {
       "module": "main"
+    },
+    "VID_ATTACHMENT_STALE": {
+      "module": "video_edit"
+    },
+    "VID_AUDIO_INVALID": {
+      "module": "video"
     },
     "VID_COMPOSE_FAILED": {
       "module": "video"
@@ -158,22 +170,37 @@
       "module": "video"
     },
     "VID_IR_INVALID": {
+      "module": "video_edit_api"
+    },
+    "VID_IR_UPGRADE_REQUIRED": {
       "module": "video"
     },
     "VID_MEDIA_INVALID": {
       "module": "video"
     },
+    "VID_MEDIA_TOO_SHORT": {
+      "module": "video"
+    },
+    "VID_OUTPUT_HASH_MISMATCH": {
+      "module": "video_edit"
+    },
     "VID_OUTPUT_NOT_READY": {
-      "module": "main"
+      "module": "video_edit"
     },
     "VID_PROVIDER_UNSUPPORTED": {
       "module": "video"
     },
+    "VID_REVISION_CONFLICT": {
+      "module": "video_edit"
+    },
     "VID_SHOT_LOCKED": {
-      "module": "main"
+      "module": "video_edit_api"
     },
     "VID_SHOT_NOT_FOUND": {
       "module": "main"
+    },
+    "VID_SUBTITLE_INVALID": {
+      "module": "video"
     }
   }
 }

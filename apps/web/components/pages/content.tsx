@@ -178,6 +178,78 @@ export function ArticlePage({ store, action, busy, path }: PageProps) {
         busy={busy}
         locked={dirty || content.status === "user_reported_published"}
       />
+      <Card>
+        <details>
+          <summary>视频成片与发布包</summary>
+          <p className="muted">
+            绑定当前已渲染的视频版本；修改视频后须重新绑定并审核。未保存的文案不会被打包。
+          </p>
+          {content.video_attachment && (
+            <p>
+              已绑定视频 V{content.video_attachment.revision} ·{" "}
+              <Link href={`/studio/video/${content.video_attachment.video_id}`}>
+                查看视频工程
+              </Link>
+            </p>
+          )}
+          <form
+            className="form-stack"
+            key={`video-${content.revision}`}
+            onSubmit={(e) => {
+              e.preventDefault();
+              const f = new FormData(e.currentTarget);
+              action(
+                () =>
+                  api(
+                    `/content/packages/${content.id}/video`,
+                    post({
+                      expected_revision: content.revision,
+                      confirmed: true,
+                      video_id: f.get("video") || null,
+                    }),
+                  ),
+                "视频绑定已保存，请重新审核内容",
+              );
+            }}
+          >
+            <select
+              aria-label="绑定成片"
+              name="video"
+              defaultValue={content.video_attachment?.video_id || ""}
+              disabled={
+                dirty ||
+                variantDirty ||
+                content.status === "user_reported_published"
+              }
+            >
+              <option value="">不绑定视频</option>
+              {store.videos
+                .filter((v) => v.rendered_revision === v.revision)
+                .map((v) => (
+                  <option key={v.id} value={v.id}>
+                    {v.name} · V{v.revision}
+                  </option>
+                ))}
+            </select>
+            <label className="checkline">
+              <input type="checkbox" required />
+              我已观看成片并核对产品画面、旁白、字幕和音频使用权
+            </label>
+            <Button
+              type="submit"
+              variant="secondary"
+              disabled={
+                busy ||
+                dirty ||
+                variantDirty ||
+                content.status === "user_reported_published"
+              }
+            >
+              保存视频绑定
+            </Button>
+          </form>
+        </details>
+      </Card>
       <div className="editor-columns">
         <Card className="article-preview">
           <span className="eyebrow">COVER PREVIEW</span>

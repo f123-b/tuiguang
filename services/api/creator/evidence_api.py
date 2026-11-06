@@ -177,7 +177,9 @@ def review_asset(asset_id: str, data: AssetReview, db: DB, user: Actor, request:
                 invalidate_content(db, content, user.id, "asset_revoked")
                 content.compliance = compliance_report(db, content)
         for video in db.scalars(select(Video).where(Video.workspace_id == user.workspace_id)):
-            if any(s.get("asset_id") == asset.id for s in video.ir["shots"]):
+            if any(
+                s.get("asset_id") == asset.id for s in video.ir["shots"] + video.ir.get("audio_tracks", [])
+            ):
                 video.status, video.rendered_revision = "draft", None
     record(
         db,

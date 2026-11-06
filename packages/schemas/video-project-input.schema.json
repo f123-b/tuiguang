@@ -1,5 +1,70 @@
 {
   "$defs": {
+    "AudioTrack": {
+      "additionalProperties": false,
+      "properties": {
+        "track_id": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Track Id",
+          "type": "string"
+        },
+        "asset_id": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "voiceover",
+            "music"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "start_frame": {
+          "default": 0,
+          "maximum": 3600,
+          "minimum": 0,
+          "title": "Start Frame",
+          "type": "integer"
+        },
+        "duration_frames": {
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Duration Frames",
+          "type": "integer"
+        },
+        "source_start_frame": {
+          "default": 0,
+          "maximum": 216000,
+          "minimum": 0,
+          "title": "Source Start Frame",
+          "type": "integer"
+        },
+        "volume_percent": {
+          "default": 100,
+          "maximum": 200,
+          "minimum": 0,
+          "title": "Volume Percent",
+          "type": "integer"
+        },
+        "loop": {
+          "default": false,
+          "title": "Loop",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "track_id",
+        "asset_id",
+        "role",
+        "duration_frames"
+      ],
+      "title": "AudioTrack",
+      "type": "object"
+    },
     "Shot": {
       "additionalProperties": false,
       "properties": {
@@ -64,6 +129,20 @@
           "default": false,
           "title": "Locked",
           "type": "boolean"
+        },
+        "trim_start_frame": {
+          "default": 0,
+          "maximum": 216000,
+          "minimum": 0,
+          "title": "Trim Start Frame",
+          "type": "integer"
+        },
+        "speed_percent": {
+          "default": 100,
+          "maximum": 400,
+          "minimum": 25,
+          "title": "Speed Percent",
+          "type": "integer"
         }
       },
       "required": [
@@ -73,6 +152,43 @@
         "duration_frames"
       ],
       "title": "Shot",
+      "type": "object"
+    },
+    "Subtitle": {
+      "additionalProperties": false,
+      "properties": {
+        "cue_id": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Cue Id",
+          "type": "string"
+        },
+        "start_frame": {
+          "maximum": 3600,
+          "minimum": 0,
+          "title": "Start Frame",
+          "type": "integer"
+        },
+        "end_frame": {
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "End Frame",
+          "type": "integer"
+        },
+        "text": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cue_id",
+        "start_frame",
+        "end_frame",
+        "text"
+      ],
+      "title": "Subtitle",
       "type": "object"
     }
   },
@@ -121,6 +237,22 @@
       "maxItems": 12,
       "minItems": 1,
       "title": "Shots",
+      "type": "array"
+    },
+    "audio_tracks": {
+      "items": {
+        "$ref": "#/$defs/AudioTrack"
+      },
+      "maxItems": 8,
+      "title": "Audio Tracks",
+      "type": "array"
+    },
+    "subtitles": {
+      "items": {
+        "$ref": "#/$defs/Subtitle"
+      },
+      "maxItems": 100,
+      "title": "Subtitles",
       "type": "array"
     }
   },

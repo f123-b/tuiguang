@@ -118,6 +118,7 @@ class Content(TenantRecord, Base):
     graphics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     graphics_render: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     variants: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    video_attachment: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
 
 class ContentRevision(TenantRecord, Base):
@@ -239,3 +240,12 @@ class BudgetEntry(TenantRecord, Base):
     reserved_cents: Mapped[int] = mapped_column(Integer)
     actual_cents: Mapped[int | None] = mapped_column(Integer, nullable=True)
     status: Mapped[str] = mapped_column(String(30), default="reserved")
+
+
+class VideoRevision(TenantRecord, Base):
+    __tablename__ = "video_revisions"
+    video_id: Mapped[str] = mapped_column(ForeignKey("video_projects.id"))
+    revision: Mapped[int] = mapped_column(Integer)
+    document: Mapped[dict] = mapped_column(JSON)
+    editor_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    __table_args__ = (UniqueConstraint("video_id", "revision"),)

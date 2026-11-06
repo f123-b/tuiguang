@@ -98,6 +98,12 @@ def compliance_report(db, content):
     text = content.title + "\n" + content.body
     for variant in (content.variants or {}).values():
         text += "\n" + variant["title"] + "\n" + variant["body"] + "\n" + " ".join(variant.get("tags", []))
+    if content.video_attachment:
+        from .video_edit import attachment
+        try:
+            attachment(db, content)
+        except DomainError as error:
+            issues.append({"level":"blocked","message":error.message,"code":error.code})
     if content.graphics:
         from .graphics import current_receipt, load_document
 
@@ -154,7 +160,17 @@ def make_handoff(db, content):
     if graphics:
         provenance["graphics"] = graphics
         snapshot["graphics"] = {"document": content.graphics, "render": graphics}
+    from .video_edit import attachment, subtitles_srt
+    bound_video = attachment(db, content)
+    if bound_video:
+        provenance["video"] = {"binding": content.video_attachment, "receipt": bound_video[2]}
+        snapshot["video"] = content.video_attachment
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as z:
+        if bound_video:
+            video, path, receipt = bound_video
+            z.write(path, "video.mp4")
+            z.writestr("video-project.json", json.dumps(video.ir, ensure_ascii=False, indent=2))
+            z.writestr("subtitles.srt", subtitles_srt(video.ir))
         z.writestr("copy.txt", content.title + "\n\n" + content.body)
         for platform, variant in (content.variants or {}).items():
             z.writestr(f"variants/{platform}.txt", variant["title"] + "\n\n" + variant["body"] + "\n\n" + " ".join(variant.get("tags", [])))
