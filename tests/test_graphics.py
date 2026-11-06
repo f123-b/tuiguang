@@ -346,5 +346,12 @@ def test_overflow_does_not_commit_partial_preview_and_reported_history_is_locked
         == 409
     )
     assert (
+        client.post(
+            f"/api/v1/content/packages/{content['id']}/graphics/render",
+            json={"expected_revision": content["revision"]},
+        ).status_code
+        == 409
+    )
+    assert (
         client.get(f"/api/v1/content/packages/{content['id']}").json()["status"] == "user_reported_published"
     )

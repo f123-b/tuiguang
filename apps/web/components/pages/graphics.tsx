@@ -591,7 +591,7 @@ function GraphicsEditor({
             </Button>
             <Button
               variant="secondary"
-              disabled={busy || dirty || conflict || !content.graphics}
+              disabled={busy || readonly || dirty || conflict || !content.graphics}
               onClick={() =>
                 action(async () => {
                   await api(

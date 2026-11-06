@@ -63,6 +63,8 @@ def save_graphics(content_id: str, data: GraphicSave, db: DB, user: Actor, reque
 def preview_graphics(content_id: str, data: GraphicRender, db: DB, user: Actor, request: Request):
     content = owned(db, Content, content_id, user.workspace_id)
     lock_content(db, content, data.expected_revision)
+    if content.status == "user_reported_published":
+        raise DomainError("CONTENT_ALREADY_REPORTED", "已登记作品保留原始图文与审核记录，不能重新生成")
     receipt = render_graphics(db, content)
     content.compliance = compliance_report(db, content)
     record(
