@@ -46,6 +46,9 @@ export function VideoCreate({ store, action, busy }: PageProps) {
         title="一个故事，可以有很多种表达"
         description="从动态图形到真实素材，按镜头选择制作方式。当前可运行 MG 与素材混剪两个本地引擎。"
       >
+        <Link className="button" href="/studio/briefs/new">
+          按我的主题和内容创作
+        </Link>
         <Link className="button secondary" href="/studio/assets">
           <FolderOpen size={15} />
           准备素材

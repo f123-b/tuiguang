@@ -81,6 +81,7 @@
   margin-top: 24px;
 }
 .graphics-pages {
+  min-width: 0;
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -306,6 +307,7 @@
     min-width: 0;
   }
   .graphic-canvas {
+    min-height: 0;
     max-height: none;
   }
   .graphics-entry {

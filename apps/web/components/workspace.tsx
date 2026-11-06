@@ -65,6 +65,7 @@ import { Overview } from "./pages/overview";
 import { PublishPage } from "./pages/publish";
 import { OpsPage, SettingsPage } from "./pages/settings";
 import { VideoPage } from "./pages/video";
+import { BriefsPage } from "./pages/briefs";
 import { ModelSettingsPage } from "./pages/model-settings";
 import { NotificationsPage } from "./pages/system-settings";
 
@@ -81,6 +82,7 @@ const groups = [
     label: "内容生产",
     items: [
       { href: "/campaigns", label: "内容工作室", icon: Layers },
+      { href: "/studio/briefs", label: "指定内容创作", icon: Sparkles },
       { href: "/studio/video/new", label: "AI 宣传视频", icon: Clapperboard },
       { href: "/publish", label: "人工发布中心", icon: ArrowDownToLine },
     ],
@@ -261,6 +263,8 @@ export default function Workspace({ path }: { path: string }) {
               {group.items.map((item) => {
                 const selected =
                   item.href === path ||
+                  (item.href === "/studio/briefs" &&
+                    path.startsWith("/studio/briefs")) ||
                   (item.href === "/studio/video/new" &&
                     path.startsWith("/studio/video")) ||
                   (item.href === "/campaigns" &&
@@ -463,6 +467,7 @@ export default function Workspace({ path }: { path: string }) {
 }
 
 function titleFor(path: string) {
+  if (path.startsWith("/studio/briefs")) return "指定内容创作";
   if (path.startsWith("/studio/video")) return "AI 宣传视频";
   if (path.startsWith("/studio/article")) return "图文编辑器";
   if (path.startsWith("/publish")) return "人工发布中心";
@@ -511,6 +516,7 @@ function PageContent(props: PageProps) {
   if (path.startsWith("/studio/article/")) return <ArticlePage {...props} />;
   if (path === "/campaigns" || path.startsWith("/compliance"))
     return <ContentLibrary {...props} />;
+  if (path.startsWith("/studio/briefs")) return <BriefsPage {...props} />;
   if (path.startsWith("/studio/video")) return <VideoPage {...props} />;
   if (path.startsWith("/publish")) return <PublishPage {...props} />;
   if (path.startsWith("/analytics")) return <AnalyticsPage {...props} />;

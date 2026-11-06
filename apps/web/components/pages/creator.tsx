@@ -49,6 +49,9 @@ export function CreatorPage({ store, action, busy, path }: PageProps) {
             编辑设置
           </Link>
         )}
+        <Link href="/studio/briefs/new" className="button secondary">
+          指定主题与内容创作
+        </Link>
       </PageHeader>
       {editing ? (
         <Card>

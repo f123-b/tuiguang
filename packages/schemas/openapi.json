@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.12.0-dev"
+    "version": "0.13.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -1342,7 +1342,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Confirm"
+                "$ref": "#/components/schemas/creator__learning_api__Confirm"
               }
             }
           }
@@ -1455,7 +1455,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Confirm"
+                "$ref": "#/components/schemas/creator__learning_api__Confirm"
               }
             }
           }
@@ -2519,7 +2519,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Confirm"
+                "$ref": "#/components/schemas/creator__product_sources_api__Confirm"
               }
             }
           }
@@ -2862,7 +2862,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Confirm"
+                "$ref": "#/components/schemas/creator__quality_api__Confirm"
               }
             }
           }
@@ -2944,7 +2944,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Confirm"
+                "$ref": "#/components/schemas/creator__quality_api__Confirm"
               }
             }
           }
@@ -3229,6 +3229,355 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AIReview"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creation-briefs": {
+      "get": {
+        "summary": "Briefs",
+        "operationId": "briefs_api_v1_creation_briefs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create",
+        "operationId": "create_api_v1_creation_briefs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BriefInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creation-briefs/{brief_id}": {
+      "get": {
+        "summary": "Detail",
+        "operationId": "detail_api_v1_creation_briefs__brief_id__get",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brief Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Save",
+        "operationId": "save_api_v1_creation_briefs__brief_id__put",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brief Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Save"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creation-briefs/{brief_id}/plans/manual": {
+      "post": {
+        "summary": "Prepare Manual",
+        "operationId": "prepare_manual_api_v1_creation_briefs__brief_id__plans_manual_post",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brief Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/creator__brief_api__Confirm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creation-briefs/{brief_id}/plans/ai": {
+      "post": {
+        "summary": "Prepare Ai",
+        "operationId": "prepare_ai_api_v1_creation_briefs__brief_id__plans_ai_post",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brief Id"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creation-briefs/{brief_id}/plans/{plan_id}/revisions": {
+      "post": {
+        "summary": "Edit Script",
+        "operationId": "edit_script_api_v1_creation_briefs__brief_id__plans__plan_id__revisions_post",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brief Id"
+            }
+          },
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScriptEdit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/creation-briefs/{brief_id}/plans/{plan_id}/build": {
+      "post": {
+        "summary": "Build",
+        "operationId": "build_api_v1_creation_briefs__brief_id__plans__plan_id__build_post",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Brief Id"
+            }
+          },
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/creator__brief_api__Confirm"
               }
             }
           }
@@ -5144,6 +5493,127 @@
         ],
         "title": "BrandInput"
       },
+      "BriefInput": {
+        "properties": {
+          "brand_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Brand Id"
+          },
+          "topic": {
+            "type": "string",
+            "maxLength": 180,
+            "minLength": 1,
+            "title": "Topic"
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 6000,
+            "minLength": 1,
+            "title": "Content"
+          },
+          "audience": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Audience",
+            "default": ""
+          },
+          "tone": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Tone",
+            "default": "清楚、克制、不夸张"
+          },
+          "verbatim_script": {
+            "type": "string",
+            "maxLength": 2400,
+            "title": "Verbatim Script",
+            "default": ""
+          },
+          "required_phrases": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Required Phrases"
+          },
+          "forbidden_phrases": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Forbidden Phrases"
+          },
+          "call_to_action": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Call To Action",
+            "default": ""
+          },
+          "duration_sec": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 3.0,
+            "title": "Duration Sec",
+            "default": 30
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "wide",
+              "portrait",
+              "square"
+            ],
+            "title": "Size",
+            "default": "wide"
+          },
+          "visual_mode": {
+            "type": "string",
+            "enum": [
+              "mg",
+              "mixed",
+              "screen_demo"
+            ],
+            "title": "Visual Mode",
+            "default": "mg"
+          },
+          "fact_refs": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 30,
+            "title": "Fact Refs"
+          },
+          "asset_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Asset Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "brand_id",
+          "topic",
+          "content"
+        ],
+        "title": "BriefInput"
+      },
       "ChangeDecision": {
         "properties": {
           "decision": {
@@ -5229,21 +5699,6 @@
           "confirmed"
         ],
         "title": "CheckInput"
-      },
-      "Confirm": {
-        "properties": {
-          "confirmed": {
-            "type": "boolean",
-            "const": true,
-            "title": "Confirmed"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "confirmed"
-        ],
-        "title": "Confirm"
       },
       "ContentPatch": {
         "properties": {
@@ -6034,6 +6489,41 @@
         ],
         "title": "ModelInput"
       },
+      "ModelRequest": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "creator_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Creator Id"
+          },
+          "max_cost_cents": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Max Cost Cents"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed",
+          "creator_id",
+          "max_cost_cents"
+        ],
+        "title": "ModelRequest"
+      },
       "OutcomeInput": {
         "properties": {
           "outcome": {
@@ -6522,6 +7012,25 @@
         ],
         "title": "Rollback"
       },
+      "Save": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "document": {
+            "$ref": "#/components/schemas/BriefInput"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "document"
+        ],
+        "title": "Save"
+      },
       "SaveProject": {
         "properties": {
           "expected_revision": {
@@ -6540,6 +7049,119 @@
           "document"
         ],
         "title": "SaveProject"
+      },
+      "ScriptEdit": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ScriptInput"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "document"
+        ],
+        "title": "ScriptEdit"
+      },
+      "ScriptInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 180,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "fact_refs": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 30,
+            "title": "Fact Refs"
+          },
+          "shots": {
+            "items": {
+              "$ref": "#/components/schemas/ScriptShot"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Shots"
+          },
+          "uncertainties": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Uncertainties"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "shots"
+        ],
+        "title": "ScriptInput"
+      },
+      "ScriptShot": {
+        "properties": {
+          "duration_frames": {
+            "type": "integer",
+            "maximum": 1800.0,
+            "minimum": 15.0,
+            "title": "Duration Frames"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 180,
+            "minLength": 1,
+            "title": "Caption"
+          },
+          "narration": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Narration",
+            "default": ""
+          },
+          "visual_note": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Visual Note",
+            "default": ""
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "duration_frames",
+          "caption"
+        ],
+        "title": "ScriptShot"
       },
       "Shot": {
         "properties": {
@@ -7039,6 +7661,27 @@
         ],
         "title": "VideoInput"
       },
+      "creator__brief_api__Confirm": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "Confirm"
+      },
       "creator__evidence_api__Restore": {
         "properties": {
           "confirmed": {
@@ -7059,6 +7702,51 @@
           "expected_revision"
         ],
         "title": "Restore"
+      },
+      "creator__learning_api__Confirm": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed"
+        ],
+        "title": "Confirm"
+      },
+      "creator__product_sources_api__Confirm": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed"
+        ],
+        "title": "Confirm"
+      },
+      "creator__quality_api__Confirm": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed"
+        ],
+        "title": "Confirm"
       },
       "creator__video_edit_api__Restore": {
         "properties": {
