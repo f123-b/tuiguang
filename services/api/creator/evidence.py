@@ -6,7 +6,7 @@ from sqlalchemy import select
 
 from .models import ContentRevision
 
-SNAPSHOT_FIELDS = ("title", "body", "fact_refs", "graphics", "variants")
+SNAPSHOT_FIELDS = ("title", "body", "fact_refs", "graphics", "variants", "video_attachment")
 
 
 def snapshot(content):

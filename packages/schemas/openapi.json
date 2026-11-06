@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.4.0-dev"
+    "version": "0.5.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -845,7 +845,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Restore"
+                "$ref": "#/components/schemas/creator__evidence_api__Restore"
               }
             }
           }
@@ -893,6 +893,373 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AssetReview"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/voices": {
+      "get": {
+        "summary": "System Voices",
+        "operationId": "system_voices_api_v1_videos_voices_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/speech": {
+      "post": {
+        "summary": "Create Speech",
+        "operationId": "create_speech_api_v1_videos_speech_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpeechInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/project": {
+      "put": {
+        "summary": "Save Project",
+        "operationId": "save_project_api_v1_videos__video_id__project_put",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveProject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Export Video Project",
+        "operationId": "export_video_project_api_v1_videos__video_id__project_get",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/history": {
+      "get": {
+        "summary": "History",
+        "operationId": "history_api_v1_videos__video_id__history_get",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/restore/{revision}": {
+      "post": {
+        "summary": "Restore",
+        "operationId": "restore_api_v1_videos__video_id__restore__revision__post",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          },
+          {
+            "name": "revision",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Revision"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/creator__video_edit_api__Restore"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/shots/{shot_id}/lock": {
+      "post": {
+        "summary": "Lock Shot",
+        "operationId": "lock_shot_api_v1_videos__video_id__shots__shot_id__lock_post",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          },
+          {
+            "name": "shot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Shot Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LockShot"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{video_id}/subtitles": {
+      "get": {
+        "summary": "Download Subtitles",
+        "operationId": "download_subtitles_api_v1_videos__video_id__subtitles_get",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Video Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/packages/{content_id}/video": {
+      "post": {
+        "summary": "Attach Video",
+        "operationId": "attach_video_api_v1_content_packages__content_id__video_post",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachVideo"
               }
             }
           }
@@ -2310,43 +2677,6 @@
         }
       }
     },
-    "/api/v1/videos/{video_id}/project": {
-      "get": {
-        "summary": "Export Video Project",
-        "operationId": "export_video_project_api_v1_videos__video_id__project_get",
-        "parameters": [
-          {
-            "name": "video_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Video Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/dashboard": {
       "get": {
         "summary": "Dashboard",
@@ -2461,6 +2791,104 @@
           "reason"
         ],
         "title": "AssetReview"
+      },
+      "AttachVideo": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "video_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "AttachVideo"
+      },
+      "AudioTrack": {
+        "properties": {
+          "track_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Track Id"
+          },
+          "asset_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Asset Id"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "voiceover",
+              "music"
+            ],
+            "title": "Role"
+          },
+          "start_frame": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 0.0,
+            "title": "Start Frame",
+            "default": 0
+          },
+          "duration_frames": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 1.0,
+            "title": "Duration Frames"
+          },
+          "source_start_frame": {
+            "type": "integer",
+            "maximum": 216000.0,
+            "minimum": 0.0,
+            "title": "Source Start Frame",
+            "default": 0
+          },
+          "volume_percent": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 0.0,
+            "title": "Volume Percent",
+            "default": 100
+          },
+          "loop": {
+            "type": "boolean",
+            "title": "Loop",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "track_id",
+          "asset_id",
+          "role",
+          "duration_frames"
+        ],
+        "title": "AudioTrack"
       },
       "Body_preview_import_api_v1_analytics_import_preview_post": {
         "properties": {
@@ -3058,6 +3486,26 @@
         ],
         "title": "ImportCommit"
       },
+      "LockShot": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "locked"
+        ],
+        "title": "LockShot"
+      },
       "Prepare": {
         "properties": {
           "entry_ids": {
@@ -3175,26 +3623,24 @@
         ],
         "title": "Register"
       },
-      "Restore": {
+      "SaveProject": {
         "properties": {
-          "confirmed": {
-            "type": "boolean",
-            "const": true,
-            "title": "Confirmed"
-          },
           "expected_revision": {
             "type": "integer",
             "minimum": 1.0,
             "title": "Expected Revision"
+          },
+          "document": {
+            "$ref": "#/components/schemas/VideoInput"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "confirmed",
-          "expected_revision"
+          "expected_revision",
+          "document"
         ],
-        "title": "Restore"
+        "title": "SaveProject"
       },
       "Shot": {
         "properties": {
@@ -3258,6 +3704,20 @@
             "type": "boolean",
             "title": "Locked",
             "default": false
+          },
+          "trim_start_frame": {
+            "type": "integer",
+            "maximum": 216000.0,
+            "minimum": 0.0,
+            "title": "Trim Start Frame",
+            "default": 0
+          },
+          "speed_percent": {
+            "type": "integer",
+            "maximum": 400.0,
+            "minimum": 25.0,
+            "title": "Speed Percent",
+            "default": 100
           }
         },
         "additionalProperties": false,
@@ -3269,6 +3729,79 @@
           "duration_frames"
         ],
         "title": "Shot"
+      },
+      "SpeechInput": {
+        "properties": {
+          "brand_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Brand Id"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "voice_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Voice Id"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "brand_id",
+          "text",
+          "voice_id",
+          "confirmed"
+        ],
+        "title": "SpeechInput"
+      },
+      "Subtitle": {
+        "properties": {
+          "cue_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Cue Id"
+          },
+          "start_frame": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 0.0,
+            "title": "Start Frame"
+          },
+          "end_frame": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 1.0,
+            "title": "End Frame"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cue_id",
+          "start_frame",
+          "end_frame",
+          "text"
+        ],
+        "title": "Subtitle"
       },
       "TopicApproval": {
         "properties": {
@@ -3493,6 +4026,22 @@
             "maxItems": 12,
             "minItems": 1,
             "title": "Shots"
+          },
+          "audio_tracks": {
+            "items": {
+              "$ref": "#/components/schemas/AudioTrack"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Audio Tracks"
+          },
+          "subtitles": {
+            "items": {
+              "$ref": "#/components/schemas/Subtitle"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Subtitles"
           }
         },
         "additionalProperties": false,
@@ -3503,6 +4052,48 @@
           "shots"
         ],
         "title": "VideoInput"
+      },
+      "creator__evidence_api__Restore": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed",
+          "expected_revision"
+        ],
+        "title": "Restore"
+      },
+      "creator__video_edit_api__Restore": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "Restore"
       }
     }
   }

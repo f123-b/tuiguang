@@ -11,7 +11,7 @@ export function AssetsPage({ store, action, busy }: PageProps) {
     <>
       <PageHeader
         title="让每一份素材，都有清楚的来处"
-        description="支持 PNG、JPG、WebP、MP4、MOV，单个文件最大 50 MB。上传后保存在当前工作区。"
+        description="支持 PNG、JPG、WebP、MP4、MOV、WAV、MP3、M4A、OGG，单个文件最大 50 MB。上传后保存在当前工作区。"
       />
       <div className="form-columns">
         <Card>
@@ -36,7 +36,7 @@ export function AssetsPage({ store, action, busy }: PageProps) {
                 <input
                   name="file"
                   type="file"
-                  accept=".png,.jpg,.jpeg,.webp,.mp4,.mov"
+                  accept=".png,.jpg,.jpeg,.webp,.mp4,.mov,.wav,.mp3,.m4a,.ogg"
                   required
                 />
               </Field>

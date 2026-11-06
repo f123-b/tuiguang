@@ -88,6 +88,11 @@ export type Content = {
   generation_source: string;
   revision: number;
   approved_revision: number | null;
+  video_attachment: {
+    video_id: string;
+    revision: number;
+    sha256: string;
+  } | null;
   created_at: string;
   compliance: { status: string; issues: { level: string; message: string }[] };
   fact_refs: string[];
@@ -160,14 +165,43 @@ export type Shot = {
   caption: string;
   asset_id: string | null;
   locked: boolean;
+  trim_start_frame?: number;
+  speed_percent?: number;
+};
+export type AudioTrack = {
+  track_id: string;
+  asset_id: string;
+  role: "voiceover" | "music";
+  start_frame: number;
+  duration_frames: number;
+  source_start_frame: number;
+  volume_percent: number;
+  loop: boolean;
+};
+export type Subtitle = {
+  cue_id: string;
+  start_frame: number;
+  end_frame: number;
+  text: string;
 };
 export type Video = {
   id: string;
+  brand_id: string;
   name: string;
   status: string;
   revision: number;
   rendered_revision: number | null;
-  ir: { width: number; height: number; fps: number; shots: Shot[] };
+  ir: {
+    schema_version?: string;
+    brand_id: string;
+    name: string;
+    width: number;
+    height: number;
+    fps: number;
+    shots: Shot[];
+    audio_tracks?: AudioTrack[];
+    subtitles?: Subtitle[];
+  };
 };
 export type Handoff = {
   id: string;
