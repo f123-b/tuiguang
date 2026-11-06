@@ -34,8 +34,14 @@
     "AUTH_REQUIRED": {
       "module": "auth"
     },
+    "BRAND_CHANGE_NOT_RELEASED": {
+      "module": "evidence_api"
+    },
     "BRAND_LIMIT_REACHED": {
       "module": "main"
+    },
+    "BRAND_REVISION_CONFLICT": {
+      "module": "evidence_api"
     },
     "BUDGET_LIMIT_REACHED": {
       "module": "jobs"

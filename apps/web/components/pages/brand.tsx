@@ -5,6 +5,7 @@ import Link from "next/link";
 import { api } from "../../lib/api";
 
 import { Field, PageHeader, type PageProps } from "../page-shared";
+import { BrandChanges } from "./evidence";
 export function BrandPage({ store, action, busy }: PageProps) {
   const brand = store.brands[0];
   return (
@@ -19,6 +20,7 @@ export function BrandPage({ store, action, busy }: PageProps) {
           管理素材
         </Link>
       </PageHeader>
+      {brand && <BrandChanges brand={brand} action={action} busy={busy} />}
       <div className="form-columns">
         <Card>
           <div className="section-heading">

@@ -117,6 +117,28 @@ class Content(TenantRecord, Base):
     approved_revision: Mapped[int | None] = mapped_column(Integer, nullable=True)
     graphics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     graphics_render: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    variants: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+
+
+class ContentRevision(TenantRecord, Base):
+    __tablename__ = "content_revisions"
+    content_id: Mapped[str] = mapped_column(ForeignKey("content_packages.id"))
+    revision: Mapped[int] = mapped_column(Integer)
+    snapshot: Mapped[dict] = mapped_column(JSON)
+    editor_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    reason_tag: Mapped[str] = mapped_column(String(40), default="edit")
+    __table_args__ = (UniqueConstraint("content_id", "revision"),)
+
+
+class BrandChange(TenantRecord, Base):
+    __tablename__ = "brand_changes"
+    brand_id: Mapped[str] = mapped_column(ForeignKey("brands.id"))
+    claim: Mapped[str] = mapped_column(Text)
+    source: Mapped[str] = mapped_column(Text)
+    product_version: Mapped[str] = mapped_column(String(100))
+    status: Mapped[str] = mapped_column(String(30), default="proposed")
+    reviewed_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    reviewed_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
 
 
 class Asset(TenantRecord, Base):
@@ -129,6 +151,7 @@ class Asset(TenantRecord, Base):
     license_note: Mapped[str] = mapped_column(Text)
     verified: Mapped[bool] = mapped_column(Boolean, default=False)
     kind: Mapped[str] = mapped_column(String(30), default="image")
+    review_note: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 class Video(TenantRecord, Base):

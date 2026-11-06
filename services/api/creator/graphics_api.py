@@ -9,6 +9,7 @@ from .auth import current_user
 from .db import get_db
 from .domains import compliance_report, file_path, owned, serialize
 from .errors import DomainError
+from .evidence import checkpoint
 from .graphics import (
     GraphicRender,
     GraphicSave,
@@ -42,10 +43,12 @@ def save_graphics(content_id: str, data: GraphicSave, db: DB, user: Actor, reque
     if content.status == "user_reported_published":
         raise DomainError("CONTENT_ALREADY_REPORTED", "已登记内容保留历史快照，须先撤销登记再编辑")
     validate_graphics(db, content, data.document)
+    checkpoint(db, content, user.id)
     content.graphics, content.graphics_render = data.document.model_dump(), None
     content.revision += 1
     content.approved_revision, content.status = None, "awaiting_user_review"
     content.compliance = compliance_report(db, content)
+    checkpoint(db, content, user.id, "graphics_edit")
     record(
         db,
         user.workspace_id,

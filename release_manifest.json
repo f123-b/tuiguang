@@ -1,8 +1,8 @@
 {
-  "release_id": "creator-0.3.0-dev",
-  "application_version": "0.3.0-dev",
+  "release_id": "creator-0.4.0-dev",
+  "application_version": "0.4.0-dev",
   "git_sha": "resolved-at-runtime",
-  "database_migration": "0003",
+  "database_migration": "0004",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.0",
@@ -14,5 +14,6 @@
   "environment": "development",
   "stable": false,
   "graphic_schema_version": "1.0",
-  "graphic_renderer_version": "graphic_cards@1"
+  "graphic_renderer_version": "graphic_cards@1",
+  "content_history_version": "content_history@1"
 }

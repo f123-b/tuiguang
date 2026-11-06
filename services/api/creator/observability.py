@@ -50,6 +50,10 @@ def trace_context(trace_id):
 
 def record(db, workspace_id, trace_id, stage, status, run_id=None, error_code=None, **safe_context):
     allowed = {
+        "change_id",
+        "decision",
+        "asset_id",
+        "verified",
         "content_id",
         "video_project_id",
         "shot_id",

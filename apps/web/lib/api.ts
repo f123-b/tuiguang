@@ -91,6 +91,10 @@ export type Content = {
   created_at: string;
   compliance: { status: string; issues: { level: string; message: string }[] };
   fact_refs: string[];
+  variants: Record<
+    string,
+    { title: string; body: string; tags: string[] }
+  > | null;
   graphics: GraphicDocument | null;
   graphics_render: GraphicReceipt | null;
 };

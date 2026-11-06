@@ -63,7 +63,7 @@ export function SettingsPage({ store, action, busy }: PageProps) {
           </div>
           <div className="setting-row">
             <span>版本</span>
-            <Badge>0.3.0-dev</Badge>
+            <Badge>0.4.0-dev</Badge>
           </div>
           <p>
             数据保存在当前软件环境中。云端存储、订阅支付和完整备份界面尚未接入。
