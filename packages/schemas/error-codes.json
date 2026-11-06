@@ -31,6 +31,12 @@
     "ASSET_SIZE_INVALID": {
       "module": "main"
     },
+    "ASSET_VERSION_MISMATCH": {
+      "module": "product_sources_api"
+    },
+    "ASSET_VERSION_REVIEW_REQUIRED": {
+      "module": "product_sources_api"
+    },
     "AUTH_FORBIDDEN": {
       "module": "settings_api"
     },
@@ -192,6 +198,30 @@
     },
     "RUN_VERSION_UNSUPPORTED": {
       "module": "jobs"
+    },
+    "SOURCE_ADDRESS_DENIED": {
+      "module": "source_http"
+    },
+    "SOURCE_CHECK_IN_PROGRESS": {
+      "module": "product_monitor"
+    },
+    "SOURCE_DISABLED": {
+      "module": "product_monitor"
+    },
+    "SOURCE_FETCH_FAILED": {
+      "module": "source_http"
+    },
+    "SOURCE_FORMAT_UNSUPPORTED": {
+      "module": "source_http"
+    },
+    "SOURCE_REVISION_CONFLICT": {
+      "module": "product_sources_api"
+    },
+    "SOURCE_TOO_LARGE": {
+      "module": "source_http"
+    },
+    "SOURCE_UPLOAD_REQUIRED": {
+      "module": "product_sources_api"
     },
     "STRATEGY_EVIDENCE_STALE": {
       "module": "learning_api"

@@ -11,7 +11,7 @@ from .domains import compliance_report, owned, serialize
 from .errors import DomainError
 from .evidence import checkpoint, invalidate_content, snapshot
 from .graphics import lock_content
-from .models import Asset, Brand, BrandChange, Content, ContentRevision, Creator, User, Video, now_iso, uid
+from .models import Asset, Brand, BrandChange, Content, ContentRevision, Creator, User, now_iso, uid
 from .observability import record
 from .schemas import DTO
 
@@ -164,23 +164,12 @@ def restore(content_id: str, revision: int, data: Restore, db: DB, user: Actor):
 def review_asset(asset_id: str, data: AssetReview, db: DB, user: Actor, request: Request):
     asset = owned(db, Asset, asset_id, user.workspace_id)
     asset.verified, asset.review_note = data.verified, data.reason
+    if data.verified and asset.applicability_status == "needs_review":
+        raise DomainError("ASSET_VERSION_REVIEW_REQUIRED", "请先核实素材适用的当前产品版本", 422)
     if not data.verified:
-        for content in db.scalars(
-            select(Content).where(
-                Content.workspace_id == user.workspace_id, Content.status != "user_reported_published"
-            )
-        ):
-            if content.graphics and any(
-                p.get("asset_id") == asset.id for p in content.graphics.get("pages", [])
-            ):
-                lock_content(db, content)
-                invalidate_content(db, content, user.id, "asset_revoked")
-                content.compliance = compliance_report(db, content)
-        for video in db.scalars(select(Video).where(Video.workspace_id == user.workspace_id)):
-            if any(
-                s.get("asset_id") == asset.id for s in video.ir["shots"] + video.ir.get("audio_tracks", [])
-            ):
-                video.status, video.rendered_revision = "draft", None
+        from .evidence import invalidate_asset
+
+        invalidate_asset(db, asset, user.id)
     record(
         db,
         user.workspace_id,

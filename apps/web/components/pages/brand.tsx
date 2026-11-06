@@ -5,6 +5,7 @@ import Link from "next/link";
 import { api } from "../../lib/api";
 
 import { Field, PageHeader, type PageProps } from "../page-shared";
+import { ProductSources } from "./product-sources";
 import { BrandChanges } from "./evidence";
 export function BrandPage({ store, action, busy }: PageProps) {
   const brand = store.brands[0];
@@ -20,6 +21,9 @@ export function BrandPage({ store, action, busy }: PageProps) {
           管理素材
         </Link>
       </PageHeader>
+      {brand && (
+        <ProductSources brandId={brand.id} action={action} busy={busy} />
+      )}
       {brand && <BrandChanges brand={brand} action={action} busy={busy} />}
       <div className="form-columns">
         <Card>

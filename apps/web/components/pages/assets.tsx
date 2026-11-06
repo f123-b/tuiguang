@@ -2,6 +2,7 @@
 import { Badge, Button, Card, EmptyState } from "@xuliu/ui";
 import { ArrowDownToLine, Clapperboard, FileText, Upload } from "lucide-react";
 import Link from "next/link";
+import { AssetVersions } from "./product-sources";
 import { api } from "../../lib/api";
 
 import { Field, PageHeader, type PageProps } from "../page-shared";
@@ -139,6 +140,12 @@ export function AssetsPage({ store, action, busy }: PageProps) {
           )}
         </Card>
       </div>
+      <AssetVersions
+        brandId={brand?.id}
+        assets={store.assets}
+        action={action}
+        busy={busy}
+      />
     </>
   );
 }
