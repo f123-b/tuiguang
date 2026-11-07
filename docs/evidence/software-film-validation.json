@@ -1,0 +1,210 @@
+{
+  "issue": 31,
+  "workspace": "synthetic QA only",
+  "video_id": "7bbefbf8ed304120a766cd1f48a1da10",
+  "revision": 5,
+  "preview_playback": {
+    "duration": 35.5,
+    "ended": true,
+    "muted": false
+  },
+  "render_job_id": "a02ee64ac9654f63ad44d329426897b8",
+  "trace_id": "ed7f1abd61abdb0b20bf6c60e320e30e",
+  "render_receipt": {
+    "sha256": "cd19b73d4b2f057b4b483215c8d24246491c55ae7388a6bfe8f7744b73cfea87",
+    "shots": [
+      {
+        "shot_id": "s1",
+        "shot_revision": 3,
+        "provider": "ffmpeg_media",
+        "cached": false,
+        "sha256": "5862787ff86dac095ccae02f13dc678039add26acaa46e537cd67dc1b9657acf",
+        "render_cache_key": "71433f745af7dcac132cab389e2b391b9810924841fe1cc1f2f337c06bd8d886",
+        "asset_sha256": "4171ca406bfdc3798e3bd320a7b97bcabb48d6bc43d56aaa3fae7f5f9d57d0ab",
+        "asset_source": "本仓库真实 Web 界面 / 2026-11-07 / 合成验收工作区；页面数字不代表真实经营数据",
+        "asset_license_note": "本仓库界面截图，本地制作验收；商业使用权由操作者另行核对",
+        "scene_layout": "hero",
+        "native_typography": true
+      },
+      {
+        "shot_id": "s2",
+        "shot_revision": 2,
+        "provider": "pillow_mg",
+        "cached": false,
+        "sha256": "b1d511950ac9c15ca87b39bb1a9cf5d121abe2c3bfee3a3f3c6e7fd8238c46d5",
+        "render_cache_key": "81969571d2758814ebae64e4bf8a3edee658850fc53a50ae9e4b2989af6b3698",
+        "asset_sha256": null,
+        "asset_source": null,
+        "asset_license_note": null,
+        "scene_layout": "features",
+        "native_typography": true
+      },
+      {
+        "shot_id": "s3",
+        "shot_revision": 4,
+        "provider": "ffmpeg_media",
+        "cached": false,
+        "sha256": "8d2dfaa15bd830277fa8abee41dd4b495ea9ac247d3402879304af4e3e877c47",
+        "render_cache_key": "7a52edd22d4073f9dc71224dd15db5e5ec636619ba5e96a00ce279e0df31fcbf",
+        "asset_sha256": "06a4b0b4a6f2f62c593f5c94d0ac9061548c3c708b9c03bf369fac4da80c9fb2",
+        "asset_source": "本仓库真实图文编辑器 / 2026-11-07 / 合成验收工作区",
+        "asset_license_note": "本仓库界面截图，本地制作验收；商业使用权由操作者另行核对",
+        "scene_layout": "screen",
+        "native_typography": true
+      },
+      {
+        "shot_id": "s4",
+        "shot_revision": 4,
+        "provider": "ffmpeg_media",
+        "cached": false,
+        "sha256": "4c8c8669a9048d0d3eee1dae4de2b766e2fc58d10e1026332b050d59a6fa2eb9",
+        "render_cache_key": "73bb75125309de193c8a8f16eaf2ba51e4ed7ed4b21ee9f2128641b889140958",
+        "asset_sha256": "06a4b0b4a6f2f62c593f5c94d0ac9061548c3c708b9c03bf369fac4da80c9fb2",
+        "asset_source": "本仓库真实图文编辑器 / 2026-11-07 / 合成验收工作区",
+        "asset_license_note": "本仓库界面截图，本地制作验收；商业使用权由操作者另行核对",
+        "scene_layout": "focus",
+        "native_typography": true
+      },
+      {
+        "shot_id": "s5",
+        "shot_revision": 2,
+        "provider": "pillow_mg",
+        "cached": false,
+        "sha256": "ca3c2443192842a7614570a3cbf587915a8214854314a02318fb2745083ad6bf",
+        "render_cache_key": "c3e446c08f93a67e511c16ec6d65aef83779e59456e82f125eed612237a9ad92",
+        "asset_sha256": null,
+        "asset_source": null,
+        "asset_license_note": null,
+        "scene_layout": "closing",
+        "native_typography": true
+      }
+    ],
+    "duration_sec": 35.5,
+    "width": 1920,
+    "height": 1080,
+    "purpose": "final",
+    "watermark": false,
+    "ir_sha256": "a50ad30a00107db49781fc414237332314dbe38c2c3988b72b4750a5332973b0",
+    "fps": 30,
+    "audio": "mixed_authorized_assets",
+    "audio_sources": [
+      {
+        "track_id": "voice-6b674e22a490484786d3",
+        "role": "voiceover",
+        "asset_id": "f5ae89f0e20247029b75f241e03e2162",
+        "sha256": "f382a2b7d008a2987fb2212ae51e04a3154aa323b84a9b5ae95220b365188c01",
+        "source": "用户确认文本 / Windows SAPI / Microsoft Huihui Desktop / narration_pipeline@1",
+        "license_note": "操作者明确确认本次使用权；本地系统语音输出，不代表本软件认证其商业许可。"
+      }
+    ],
+    "subtitles": 5,
+    "provider_adapter_version": "pillow_ffmpeg@4",
+    "presentation_version": "video_presentation@1",
+    "audio_finishing": {
+      "normalization_target_lufs": -16,
+      "true_peak_target_db": -1.5,
+      "music_ducking": false,
+      "fades": true
+    },
+    "font": {
+      "name": [
+        "Microsoft YaHei",
+        "Regular"
+      ],
+      "sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f"
+    },
+    "qa": "technical_probe_passed",
+    "revision": 5
+  },
+  "narration_job_id": "6b674e22a490484786d36d03f9c70429",
+  "narration_receipt": {
+    "version": "narration_pipeline@1",
+    "completed_shots": 5,
+    "total_shots": 5,
+    "duration_sec": 35.5,
+    "original_duration_sec": 30.0,
+    "audio_asset_id": "f5ae89f0e20247029b75f241e03e2162",
+    "audio_sha256": "f382a2b7d008a2987fb2212ae51e04a3154aa323b84a9b5ae95220b365188c01",
+    "segments": [
+      {
+        "shot_id": "s1",
+        "start_frame": 0,
+        "duration_frames": 207,
+        "speech_sec": 6.67288,
+        "text": "从内容，到成片。用真实界面，讲清产品故事"
+      },
+      {
+        "shot_id": "s2",
+        "start_frame": 207,
+        "duration_frames": 258,
+        "speech_sec": 8.391791,
+        "text": "编辑图文与视频工程。逐镜头调整画面。自行下载并手动发布"
+      },
+      {
+        "shot_id": "s3",
+        "start_frame": 465,
+        "duration_frames": 225,
+        "speech_sec": 3.313605,
+        "text": "先看全局，再看重点"
+      },
+      {
+        "shot_id": "s4",
+        "start_frame": 690,
+        "duration_frames": 225,
+        "speech_sec": 3.19873,
+        "text": "关键操作，放大呈现"
+      },
+      {
+        "shot_id": "s5",
+        "start_frame": 915,
+        "duration_frames": 150,
+        "speech_sec": 2.813651,
+        "text": "开始你的下一条作品"
+      }
+    ],
+    "video_revision": 3,
+    "preview_job_id": "6c02c5d12a5047ff9f50385892c1f50d",
+    "quality_report_id": "3bc63bf3f5144edfae5ebe325a286b7d"
+  },
+  "media": {
+    "bytes": 1838231,
+    "sha256": "cd19b73d4b2f057b4b483215c8d24246491c55ae7388a6bfe8f7744b73cfea87",
+    "duration_sec": "35.500000",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "sample_rate": null,
+        "channels": null
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "width": null,
+        "height": null,
+        "sample_rate": "48000",
+        "channels": 2
+      }
+    ]
+  },
+  "audio_measurement": {
+    "rms_pcm16": 2486.15,
+    "peak_pcm16": 27628,
+    "duration_sec": 35.5,
+    "measured_lufs": "-16.31",
+    "measured_true_peak_db": "-1.48"
+  },
+  "export_files": [
+    "audio-1.wav",
+    "project.json",
+    "subtitles.srt",
+    "video-7bbefbf8-v5.mp4"
+  ],
+  "limits": [
+    "Actual repository UI and synthetic workspace; displayed numbers are not business results",
+    "Local Huihui speech, no background music; sound quality still needs human judgment",
+    "QA review only; no real publication or commercial-rights certification"
+  ]
+}

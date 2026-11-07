@@ -1,12 +1,12 @@
 {
-  "release_id": "creator-0.14.0-dev",
-  "application_version": "0.14.0-dev",
+  "release_id": "creator-0.15.0-dev",
+  "application_version": "0.15.0-dev",
   "git_sha": "resolved-at-runtime",
   "database_migration": "0014",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.1",
-  "provider_adapter_version": "pillow_ffmpeg@3",
+  "provider_adapter_version": "pillow_ffmpeg@4",
   "model_id": null,
   "model_revision": null,
   "template_version": "local_editorial@3",
@@ -24,5 +24,6 @@
   "product_monitor_version": "authorized_sources@1",
   "quality_workflow_version": "creative_quality@1",
   "brief_workflow_version": "directed_video@1",
-  "narration_pipeline_version": "narration_pipeline@1"
+  "narration_pipeline_version": "narration_pipeline@1",
+  "video_presentation_version": "video_presentation@1"
 }

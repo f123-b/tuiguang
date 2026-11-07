@@ -169,6 +169,24 @@ export type Asset = {
   license_note: string;
   sha256: string;
 };
+export type Presentation = {
+  style: "classic" | "studio";
+  theme: "ink" | "paper";
+  accent: string;
+  brand_label: string;
+  transition: "clean" | "dip";
+  audio_finish: boolean;
+};
+export type SceneDesign = {
+  motion?: "still" | "push" | "pan";
+  layout:
+    "auto" | "hero" | "features" | "steps" | "screen" | "focus" | "closing";
+  kicker?: string;
+  headline?: string;
+  supporting?: string;
+  points?: string[];
+  crop?: { x: number; y: number; width: number; height: number };
+};
 export type Shot = {
   shot_id: string;
   shot_revision: number;
@@ -181,6 +199,8 @@ export type Shot = {
   trim_start_frame?: number;
   speed_percent?: number;
   freeze_end_frames?: number;
+  design?: SceneDesign;
+  narration_text?: string;
 };
 export type AudioTrack = {
   track_id: string;
@@ -213,10 +233,13 @@ export type Video = {
     width: number;
     height: number;
     fps: number;
+    presentation?: Presentation;
     shots: Shot[];
     audio_tracks?: AudioTrack[];
     subtitles?: Subtitle[];
-    creation_brief?: { script: { shots: { narration: string; caption: string }[] } };
+    creation_brief?: {
+      script: { shots: { narration: string; caption: string }[] };
+    };
     narration?: { segments: { shot_id: string; text: string }[] };
   };
 };

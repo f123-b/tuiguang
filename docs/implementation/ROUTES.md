@@ -42,3 +42,6 @@
 0.13 新增 `/studio/briefs`、`/studio/briefs/new`、`/studio/briefs/:id`，共用 BriefsPage；侧栏“指定内容创作”、创作者页和新建视频页均可进入。保存用户指定主题/内容，原文或 AI 分镜，编辑脚本、保留历史、确认后跳转真实视频工程。该页读取 `/creation-briefs`，AI 为单独授权的预算任务，页面加载不请求模型。具体时长/文字/事实/素材限制见实际 OpenAPI 和本地手册。
 
 0.14 在 `/studio/briefs/:id` 的确认区接入配音声音、语速、时长匹配和同步字幕，直接制作有声视频；`/studio/video/:id` 顶部增加 NarrationPanel，既有工程可编辑每镜旁白、查看制作进度、试听 WAV，再播放预览和导出高清。旧素材型 SAPI 表单收起为高级选项。
+
+
+0.15：`/studio/video/new` 默认软件发布片结构；`/studio/video/:id` 增加全片视觉、分镜版式和裁切/镜头运动；`/studio/briefs/:id` 首次建工程支持视觉配置。原路由和审核流程保留。

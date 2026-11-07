@@ -177,6 +177,7 @@ export function NarrationPanel({
         video.ir.narration?.segments.find((n) => n.shot_id === s.shot_id)
           ?.text ||
         video.ir.creation_brief?.script.shots[i]?.narration ||
+        s.narration_text ||
         s.caption,
     }));
   const [lines, setLines] = useState(initialLines);

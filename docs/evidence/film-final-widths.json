@@ -1,0 +1,86 @@
+[
+  {
+    "route": "/studio/video/new",
+    "width": 375,
+    "document": 360,
+    "controls": 1,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/7bbefbf8ed304120a766cd1f48a1da10",
+    "width": 375,
+    "document": 360,
+    "controls": 2,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/new",
+    "width": 390,
+    "document": 375,
+    "controls": 1,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/7bbefbf8ed304120a766cd1f48a1da10",
+    "width": 390,
+    "document": 375,
+    "controls": 2,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/new",
+    "width": 768,
+    "document": 753,
+    "controls": 1,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/7bbefbf8ed304120a766cd1f48a1da10",
+    "width": 768,
+    "document": 753,
+    "controls": 2,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/new",
+    "width": 1024,
+    "document": 1009,
+    "controls": 1,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/7bbefbf8ed304120a766cd1f48a1da10",
+    "width": 1024,
+    "document": 1009,
+    "controls": 2,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/new",
+    "width": 1440,
+    "document": 1425,
+    "controls": 1,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/7bbefbf8ed304120a766cd1f48a1da10",
+    "width": 1440,
+    "document": 1425,
+    "controls": 2,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/new",
+    "width": 1920,
+    "document": 1905,
+    "controls": 1,
+    "overflow": false
+  },
+  {
+    "route": "/studio/video/7bbefbf8ed304120a766cd1f48a1da10",
+    "width": 1920,
+    "document": 1905,
+    "controls": 2,
+    "overflow": false
+  }
+]

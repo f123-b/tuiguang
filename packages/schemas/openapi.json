@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.14.0-dev"
+    "version": "0.15.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -5821,6 +5821,16 @@
                 "type": "null"
               }
             ]
+          },
+          "presentation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Presentation"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -6251,6 +6261,41 @@
           "reason_tag"
         ],
         "title": "FeedbackInput"
+      },
+      "FrameCrop": {
+        "properties": {
+          "x": {
+            "type": "integer",
+            "maximum": 75.0,
+            "minimum": 0.0,
+            "title": "X",
+            "default": 0
+          },
+          "y": {
+            "type": "integer",
+            "maximum": 75.0,
+            "minimum": 0.0,
+            "title": "Y",
+            "default": 0
+          },
+          "width": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 25.0,
+            "title": "Width",
+            "default": 100
+          },
+          "height": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 25.0,
+            "title": "Height",
+            "default": 100
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "FrameCrop"
       },
       "GraphicDocument": {
         "properties": {
@@ -6990,6 +7035,57 @@
         ],
         "title": "Prepare"
       },
+      "Presentation": {
+        "properties": {
+          "style": {
+            "type": "string",
+            "enum": [
+              "classic",
+              "studio"
+            ],
+            "title": "Style",
+            "default": "classic"
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "ink",
+              "paper"
+            ],
+            "title": "Theme",
+            "default": "ink"
+          },
+          "accent": {
+            "type": "string",
+            "pattern": "^#[a-fA-F0-9]{6}$",
+            "title": "Accent",
+            "default": "#B7F56B"
+          },
+          "brand_label": {
+            "type": "string",
+            "maxLength": 40,
+            "title": "Brand Label",
+            "default": ""
+          },
+          "transition": {
+            "type": "string",
+            "enum": [
+              "clean",
+              "dip"
+            ],
+            "title": "Transition",
+            "default": "clean"
+          },
+          "audio_finish": {
+            "type": "boolean",
+            "title": "Audio Finish",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Presentation"
+      },
       "Preview": {
         "properties": {
           "confirmed": {
@@ -7391,6 +7487,68 @@
         ],
         "title": "SaveProject"
       },
+      "SceneDesign": {
+        "properties": {
+          "motion": {
+            "type": "string",
+            "enum": [
+              "still",
+              "push",
+              "pan"
+            ],
+            "title": "Motion",
+            "default": "push"
+          },
+          "layout": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "hero",
+              "features",
+              "steps",
+              "screen",
+              "focus",
+              "closing"
+            ],
+            "title": "Layout",
+            "default": "auto"
+          },
+          "kicker": {
+            "type": "string",
+            "maxLength": 40,
+            "title": "Kicker",
+            "default": ""
+          },
+          "headline": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Headline",
+            "default": ""
+          },
+          "supporting": {
+            "type": "string",
+            "maxLength": 240,
+            "title": "Supporting",
+            "default": ""
+          },
+          "points": {
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Points"
+          },
+          "crop": {
+            "$ref": "#/components/schemas/FrameCrop"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SceneDesign"
+      },
       "ScriptEdit": {
         "properties": {
           "expected_revision": {
@@ -7587,6 +7745,15 @@
             "minimum": 0.0,
             "title": "Freeze End Frames",
             "default": 0
+          },
+          "design": {
+            "$ref": "#/components/schemas/SceneDesign"
+          },
+          "narration_text": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Narration Text",
+            "default": ""
           }
         },
         "additionalProperties": false,
@@ -7998,6 +8165,9 @@
             "type": "boolean",
             "title": "Preview Required",
             "default": false
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Presentation"
           }
         },
         "additionalProperties": false,

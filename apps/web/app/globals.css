@@ -3213,3 +3213,15 @@ main {
 .sidebar-bottom {
   padding-top: 4px;
 }
+
+.film-controls {
+  min-inline-size: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.film-controls legend {
+  padding: 0 0 12px;
+  color: var(--muted);
+  font-weight: 600;
+}

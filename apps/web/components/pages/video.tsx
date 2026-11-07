@@ -19,6 +19,7 @@ import { api, post, type Shot, type Video } from "../../lib/api";
 
 import { Field, PageHeader, type PageProps } from "../page-shared";
 import { VideoEditor } from "./video-editor";
+import { PresentationControls, defaultPresentation } from "./film-design";
 export function VideoPage(props: PageProps) {
   const { store, path } = props;
   const id = path.split("/")[3];
@@ -34,8 +35,9 @@ export function VideoCreate({ store, action, busy }: PageProps) {
   const router = useRouter();
   const [mode, setMode] = useState("auto");
   const brand = store.brands[0];
+  const [presentation, setPresentation] = useState(defaultPresentation);
   const availableAssets = store.assets.filter(
-    (a) => a.verified && a.kind !== "audio",
+    (a) => a.verified && a.kind !== "audio" && a.brand_id === brand?.id,
   );
   const effectiveMode =
     mode === "auto" ? (availableAssets.length ? "mixed" : "pillow_mg") : mode;
@@ -43,8 +45,8 @@ export function VideoCreate({ store, action, busy }: PageProps) {
     <>
       <PageHeader
         eyebrow="VIDEO STUDIO"
-        title="一个故事，可以有很多种表达"
-        description="从动态图形到真实素材，按镜头选择制作方式。当前可运行 MG 与素材混剪两个本地引擎。"
+        title="把产品，拍成一个清楚的故事"
+        description="开场价值点、功能要点、真实界面与重点特写，再用品牌画面收尾。每一镜都能继续编辑。"
       >
         <Link className="button" href="/studio/briefs/new">
           按我的主题和内容创作
@@ -117,8 +119,14 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                 const seconds = Number(f.get("duration"));
                 const assetId = String(f.get("asset") || "");
                 const caption = String(f.get("caption"));
+                const support = String(f.get("supporting") || "");
+                const points = String(f.get("points") || "")
+                  .split("\n")
+                  .map((s) => s.trim())
+                  .filter(Boolean);
+                const closing = String(f.get("closing") || "");
                 const frames = seconds * 30;
-                const shots =
+                let shots: Partial<Shot>[] =
                   effectiveMode === "mixed"
                     ? [
                         {
@@ -169,6 +177,83 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                           locked: false,
                         },
                       ];
+                if (presentation.style === "studio") {
+                  const scenes: {
+                    layout: NonNullable<Shot["design"]>["layout"];
+                    text: string;
+                    detail?: string;
+                    media?: boolean;
+                    focus?: boolean;
+                  }[] = [
+                    {
+                      layout: "hero",
+                      text: caption,
+                      detail: support,
+                      media: !!assetId,
+                    },
+                    ...(points.length
+                      ? [
+                          {
+                            layout: "features" as const,
+                            text: "功能一览",
+                            detail: points.join("，"),
+                          },
+                        ]
+                      : []),
+                    ...(assetId
+                      ? [
+                          {
+                            layout: "screen" as const,
+                            text: String(f.get("screen_title") || "界面演示"),
+                            media: true,
+                          },
+                          {
+                            layout: "focus" as const,
+                            text: String(
+                              f.get("focus_title") || "看清操作重点",
+                            ),
+                            media: true,
+                            focus: true,
+                          },
+                        ]
+                      : []),
+                    { layout: "closing", text: closing },
+                  ];
+                  const weights = scenes.map((s) => (s.media ? 1.5 : 1));
+                  const weight = weights.reduce((a, b) => a + b, 0);
+                  let remaining = frames;
+                  shots = scenes.map((s, i) => {
+                    const duration =
+                      i === scenes.length - 1
+                        ? remaining
+                        : Math.round((frames * weights[i]) / weight);
+                    remaining -= duration;
+                    return {
+                      shot_id: `s${i + 1}`,
+                      shot_revision: 1,
+                      provider: s.media ? "ffmpeg_media" : "pillow_mg",
+                      kind: s.media ? "screen_demo" : "motion_graphics",
+                      duration_frames: duration,
+                      caption: s.text,
+                      asset_id: s.media ? assetId : null,
+                      locked: false,
+                      narration_text:
+                        s.layout === "features"
+                          ? points.join("。")
+                          : [s.text, s.detail].filter(Boolean).join("。"),
+                      design: {
+                        layout: s.layout,
+                        headline: s.text,
+                        supporting:
+                          s.layout === "features" ? "" : s.detail || "",
+                        points: s.layout === "features" ? points : [],
+                        crop: s.focus
+                          ? { x: 20, y: 15, width: 60, height: 70 }
+                          : { x: 0, y: 0, width: 100, height: 100 },
+                      },
+                    };
+                  });
+                }
                 action(async () => {
                   const video = await api<Video>(
                     "/videos/projects",
@@ -179,6 +264,10 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                       height: f.get("ratio") === "9:16" ? 1920 : 1080,
                       fps: 30,
                       preview_required: true,
+                      presentation: {
+                        ...presentation,
+                        brand_label: presentation.brand_label || brand.name,
+                      },
                       shots,
                     }),
                   );
@@ -199,10 +288,38 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                   name="caption"
                   rows={2}
                   required
-                  maxLength={180}
+                  maxLength={presentation.style === "studio" ? 80 : 180}
                   placeholder="写下你想讲述的真实产品信息"
                 />
               </Field>
+              {presentation.style === "studio" && (
+                <>
+                  <Field label="开场补充说明">
+                    <textarea
+                      name="supporting"
+                      rows={2}
+                      maxLength={160}
+                      placeholder="给主标题增加必要背景，避免整段旁白堆在画面上"
+                    />
+                  </Field>
+                  <Field label="真实功能要点（每行一项，最多三项、每项最多 90 字）">
+                    <textarea
+                      name="points"
+                      rows={3}
+                      maxLength={272}
+                      placeholder="只写产品已经具备、可以核对的功能"
+                    />
+                  </Field>
+                  <Field label="结尾行动文案">
+                    <input
+                      name="closing"
+                      required
+                      maxLength={80}
+                      placeholder="例如：打开产品，亲自体验"
+                    />
+                  </Field>
+                </>
+              )}
               <div className="form-grid">
                 <Field label="画面比例">
                   <select name="ratio">
@@ -231,6 +348,34 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                   </select>
                 </Field>
               )}
+              {presentation.style === "studio" &&
+                effectiveMode !== "pillow_mg" && (
+                  <>
+                    <Field label="界面演示标题">
+                      <input
+                        name="screen_title"
+                        required
+                        maxLength={80}
+                        placeholder="这一镜演示什么操作"
+                      />
+                    </Field>
+                    <Field label="重点特写标题">
+                      <input
+                        name="focus_title"
+                        required
+                        maxLength={80}
+                        placeholder="这一镜希望观众看清什么"
+                      />
+                    </Field>
+                    <p className="muted">
+                      特写默认取素材中部区域，创建后可调整百分比裁切。请使用清晰截图或足够长的录屏，预览后核对取景与时长。
+                    </p>
+                  </>
+                )}
+              <PresentationControls
+                value={presentation}
+                onChange={setPresentation}
+              />
               <p className="muted">
                 本地 CPU
                 渲染，不调用付费服务。可在工程中添加授权旁白、配乐和字幕；离线系统语音仅在本机可用时显示。未选择音频时导出静音轨。
@@ -245,8 +390,8 @@ export function VideoCreate({ store, action, busy }: PageProps) {
               title="先添加你的品牌"
               description="视频工程需要关联真实产品。"
               action={
-                <Link href="/brand" className="button primary">
-                  添加品牌
+                <Link href="/studio/briefs/new" className="button primary">
+                  添加产品项目
                 </Link>
               }
             />

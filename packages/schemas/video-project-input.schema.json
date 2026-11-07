@@ -65,6 +65,154 @@
       "title": "AudioTrack",
       "type": "object"
     },
+    "FrameCrop": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "default": 0,
+          "maximum": 75,
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "default": 0,
+          "maximum": 75,
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        },
+        "width": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 25,
+          "title": "Width",
+          "type": "integer"
+        },
+        "height": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 25,
+          "title": "Height",
+          "type": "integer"
+        }
+      },
+      "title": "FrameCrop",
+      "type": "object"
+    },
+    "Presentation": {
+      "additionalProperties": false,
+      "properties": {
+        "style": {
+          "default": "classic",
+          "enum": [
+            "classic",
+            "studio"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "theme": {
+          "default": "ink",
+          "enum": [
+            "ink",
+            "paper"
+          ],
+          "title": "Theme",
+          "type": "string"
+        },
+        "accent": {
+          "default": "#B7F56B",
+          "pattern": "^#[a-fA-F0-9]{6}$",
+          "title": "Accent",
+          "type": "string"
+        },
+        "brand_label": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Brand Label",
+          "type": "string"
+        },
+        "transition": {
+          "default": "clean",
+          "enum": [
+            "clean",
+            "dip"
+          ],
+          "title": "Transition",
+          "type": "string"
+        },
+        "audio_finish": {
+          "default": true,
+          "title": "Audio Finish",
+          "type": "boolean"
+        }
+      },
+      "title": "Presentation",
+      "type": "object"
+    },
+    "SceneDesign": {
+      "additionalProperties": false,
+      "properties": {
+        "motion": {
+          "default": "push",
+          "enum": [
+            "still",
+            "push",
+            "pan"
+          ],
+          "title": "Motion",
+          "type": "string"
+        },
+        "layout": {
+          "default": "auto",
+          "enum": [
+            "auto",
+            "hero",
+            "features",
+            "steps",
+            "screen",
+            "focus",
+            "closing"
+          ],
+          "title": "Layout",
+          "type": "string"
+        },
+        "kicker": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Kicker",
+          "type": "string"
+        },
+        "headline": {
+          "default": "",
+          "maxLength": 80,
+          "title": "Headline",
+          "type": "string"
+        },
+        "supporting": {
+          "default": "",
+          "maxLength": 240,
+          "title": "Supporting",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "maxLength": 90,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 3,
+          "title": "Points",
+          "type": "array"
+        },
+        "crop": {
+          "$ref": "#/$defs/FrameCrop"
+        }
+      },
+      "title": "SceneDesign",
+      "type": "object"
+    },
     "Shot": {
       "additionalProperties": false,
       "properties": {
@@ -150,6 +298,15 @@
           "minimum": 0,
           "title": "Freeze End Frames",
           "type": "integer"
+        },
+        "design": {
+          "$ref": "#/$defs/SceneDesign"
+        },
+        "narration_text": {
+          "default": "",
+          "maxLength": 600,
+          "title": "Narration Text",
+          "type": "string"
         }
       },
       "required": [
@@ -266,6 +423,9 @@
       "default": false,
       "title": "Preview Required",
       "type": "boolean"
+    },
+    "presentation": {
+      "$ref": "#/$defs/Presentation"
     }
   },
   "required": [

@@ -3,7 +3,7 @@ from typing import Annotated, Literal
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 Platform = Literal["xiaohongshu", "douyin", "bilibili"]
 Short = Annotated[str, Field(min_length=1, max_length=120)]
@@ -130,6 +130,40 @@ class ImportCommit(DTO):
     preview_id: Short
 
 
+class FrameCrop(DTO):
+    x: int = Field(default=0, ge=0, le=75)
+    y: int = Field(default=0, ge=0, le=75)
+    width: int = Field(default=100, ge=25, le=100)
+    height: int = Field(default=100, ge=25, le=100)
+
+    @model_validator(mode="after")
+    def within_frame(self):
+        if self.x + self.width > 100 or self.y + self.height > 100:
+            raise ValueError("取景框不能超出真实素材边界")
+        return self
+
+
+class SceneDesign(DTO):
+    motion: Literal["still", "push", "pan"] = "push"
+    layout: Literal["auto", "hero", "features", "steps", "screen", "focus", "closing"] = "auto"
+    kicker: str = Field(default="", max_length=40)
+    headline: str = Field(default="", max_length=80)
+    supporting: str = Field(default="", max_length=240)
+    points: list[Annotated[str, Field(min_length=1, max_length=90)]] = Field(
+        default_factory=list, max_length=3
+    )
+    crop: FrameCrop = Field(default_factory=FrameCrop)
+
+
+class Presentation(DTO):
+    style: Literal["classic", "studio"] = "classic"
+    theme: Literal["ink", "paper"] = "ink"
+    accent: str = Field(default="#B7F56B", pattern=r"^#[a-fA-F0-9]{6}$")
+    brand_label: str = Field(default="", max_length=40)
+    transition: Literal["clean", "dip"] = "clean"
+    audio_finish: bool = True
+
+
 class Shot(DTO):
     shot_id: Short
     shot_revision: int = Field(default=1, ge=1)
@@ -142,6 +176,8 @@ class Shot(DTO):
     trim_start_frame: int = Field(default=0, ge=0, le=216000)
     speed_percent: int = Field(default=100, ge=25, le=400)
     freeze_end_frames: int = Field(default=0, ge=0, le=1800)
+    design: SceneDesign = Field(default_factory=SceneDesign)
+    narration_text: str = Field(default="", max_length=600)
 
 
 class AudioTrack(DTO):
@@ -172,3 +208,4 @@ class VideoInput(DTO):
     audio_tracks: list[AudioTrack] = Field(default_factory=list, max_length=8)
     subtitles: list[Subtitle] = Field(default_factory=list, max_length=100)
     preview_required: bool = False
+    presentation: Presentation = Field(default_factory=Presentation)

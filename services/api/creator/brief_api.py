@@ -22,7 +22,7 @@ from .domains import owned, serialize
 from .errors import DomainError
 from .models import Brand, BriefPlan, CreationBrief, Run, User
 from .observability import record
-from .schemas import DTO, Short
+from .schemas import DTO, Short, Presentation
 from .narration import NarrationOptions, NarrationRequest
 
 router = APIRouter(prefix="/api/v1/creation-briefs")
@@ -53,6 +53,7 @@ class ModelRequest(Confirm):
 
 class Build(Confirm):
     narration: NarrationOptions | None = None
+    presentation: Presentation | None = None
 
 
 @router.get("")
@@ -219,7 +220,13 @@ def build(brief_id: str, plan_id: str, data: Build, db: DB, user: Actor, request
     lock_brief(db, brief, data.expected_revision)
     plan = plan_for(db, brief, plan_id, user.workspace_id)
     result = build_video(
-        db, brief, plan, user.id, request.state.trace_id, queue_preview=data.narration is None
+        db,
+        brief,
+        plan,
+        user.id,
+        request.state.trace_id,
+        queue_preview=data.narration is None,
+        presentation=data.presentation.model_dump() if data.presentation else None,
     )
     if data.narration:
         from .models import NarrationJob, Video
