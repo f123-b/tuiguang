@@ -288,7 +288,7 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                   name="caption"
                   rows={2}
                   required
-                  maxLength={80}
+                  maxLength={presentation.style === "studio" ? 80 : 180}
                   placeholder="写下你想讲述的真实产品信息"
                 />
               </Field>

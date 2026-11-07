@@ -57,9 +57,8 @@ def finish(db, job, target):
     ir = job.ir
     tracks = ir.get("audio_tracks", [])
     cues = ir.get("subtitles", [])
-    studio_audio = ir.get("presentation", {}).get("style") == "studio" and ir.get("presentation", {}).get(
-        "audio_finish", True
-    )
+    studio = ir.get("presentation", {}).get("style") == "studio"
+    studio_audio = studio and ir.get("presentation", {}).get("audio_finish", True)
     if not tracks and not cues:
         return []
     args, filters, sources = ["-i", str(target)], [], []
@@ -146,7 +145,7 @@ def finish(db, job, target):
                     "-preset",
                     "veryfast",
                     "-crf",
-                    "18" if studio_audio else "21",
+                    "18" if studio else "21",
                     "-pix_fmt",
                     "yuv420p",
                 ]
