@@ -11,6 +11,7 @@ from .config import DATA_DIR
 from .domains import digest, file_path, font, owned
 from .errors import DomainError
 from .models import Asset, RenderJob, Video, uid
+from .film import render_scene, scene_layout
 from .observability import record
 
 PROVIDERS = [
@@ -22,7 +23,7 @@ PROVIDERS = [
         "editability": "parametric",
         "requires_gpu": False,
         "license": "MIT-CMU",
-        "version": "1",
+        "version": "4",
     },
     {
         "id": "ffmpeg_media",
@@ -32,7 +33,7 @@ PROVIDERS = [
         "editability": "clip_level",
         "requires_gpu": False,
         "license": "depends-on-local-build",
-        "version": "1",
+        "version": "4",
     },
     {
         "id": "comfy_wan",
@@ -115,7 +116,20 @@ def validate_ir(db, workspace_id, ir):
     import re
 
     text = "\n".join(
-        [s.get("caption", "") for s in ir["shots"]] + [c["text"] for c in ir.get("subtitles", [])]
+        [
+            value
+            for s in ir["shots"]
+            for value in [
+                s.get("caption", ""),
+                s.get("narration_text", ""),
+                s.get("design", {}).get("headline", ""),
+                s.get("design", {}).get("kicker", ""),
+                s.get("design", {}).get("supporting", ""),
+                *s.get("design", {}).get("points", []),
+            ]
+        ]
+        + [c["text"] for c in ir.get("subtitles", [])]
+        + [ir.get("presentation", {}).get("brand_label", "")]
     )
     if re.search(r"世界第一|保证.{0,8}成功|100[%％]|保证不封号|绝对安全|虚构好评", text):
         raise DomainError("QA_CONTENT_BLOCKED", "镜头或字幕含未经证实的绝对化声明", 422)
@@ -132,6 +146,17 @@ def validate_ir(db, workspace_id, ir):
         return asset
 
     for shot in ir["shots"]:
+        if ir.get("presentation", {}).get("style") == "studio":
+            layout = shot.get("design", {}).get("layout", "auto")
+            allowed = (
+                ("auto", "hero", "screen", "focus")
+                if shot.get("asset_id")
+                else ("auto", "hero", "features", "steps", "closing")
+            )
+            if layout not in allowed:
+                raise DomainError(
+                    "VID_IR_INVALID", "界面版式需要真实素材；文字镜头请选择开场、要点、步骤或收尾", 422
+                )
         provider = next((p for p in PROVIDERS if p["id"] == shot["provider"]), None)
         if not provider or not provider["available"]:
             raise DomainError("VID_PROVIDER_UNSUPPORTED", "所选引擎尚未接入，本轮不替换视觉方案", 422)
@@ -145,7 +170,9 @@ def validate_ir(db, workspace_id, ir):
                 media = probe(file_path(workspace_id, asset.sha256, asset.suffix))
                 required = (
                     shot.get("trim_start_frame", 0)
-                    + (shot["duration_frames"] - shot.get("freeze_end_frames", 0)) * shot.get("speed_percent", 100) / 100
+                    + (shot["duration_frames"] - shot.get("freeze_end_frames", 0))
+                    * shot.get("speed_percent", 100)
+                    / 100
                 ) / ir["fps"]
                 if required > float(media["format"]["duration"]) + 0.1:
                     raise DomainError(
@@ -353,6 +380,8 @@ def render_project(db, job):
     cache = DATA_DIR / job.workspace_id / "cache"
     cache.mkdir(parents=True, exist_ok=True)
     canvas = {k: ir[k] for k in ("width", "height", "fps")}
+    canvas["presentation"] = ir.get("presentation", {"style": "classic"})
+    studio = canvas["presentation"].get("style") == "studio"
     preview = job.purpose == "preview"
     if preview:
         canvas.update(
@@ -363,14 +392,16 @@ def render_project(db, job):
 
     face = font_receipt()
     clips, receipts = [], []
-    for shot in ir["shots"]:
+    for index, shot in enumerate(ir["shots"]):
+        if studio:
+            canvas.update(chapter=index + 1, chapters=len(ir["shots"]))
         asset = owned(db, Asset, shot["asset_id"], job.workspace_id) if shot.get("asset_id") else None
         key = digest(
             {
                 "shot": {k: v for k, v in shot.items() if k not in ("shot_revision", "locked")},
                 "canvas": canvas,
                 "asset_sha256": asset.sha256 if asset else None,
-                "provider_adapter_version": "pillow_ffmpeg@3",
+                "provider_adapter_version": "pillow_ffmpeg@4",
                 "font": face,
             }
         )
@@ -383,7 +414,9 @@ def render_project(db, job):
         )
         if not cached:
             tmp = cache / f"{key}-{uid()}.mp4"
-            if shot["provider"] == "pillow_mg":
+            if studio:
+                render_scene(shot, canvas, tmp, asset)
+            elif shot["provider"] == "pillow_mg":
                 render_mg(shot, canvas, tmp)
             else:
                 render_media(asset, shot, canvas, tmp)
@@ -402,6 +435,14 @@ def render_project(db, job):
                 "asset_sha256": asset.sha256 if asset else None,
                 "asset_source": asset.source if asset else None,
                 "asset_license_note": asset.license_note if asset else None,
+                **(
+                    {
+                        "scene_layout": scene_layout(shot),
+                        "native_typography": True,
+                    }
+                    if studio
+                    else {}
+                ),
             }
         )
         record(
@@ -518,7 +559,16 @@ def render_project(db, job):
             "audio": "mixed_authorized_assets" if audio_sources else "silent_track_no_voiceover",
             "audio_sources": audio_sources,
             "subtitles": len(ir.get("subtitles", [])),
-            "provider_adapter_version": "pillow_ffmpeg@3",
+            "provider_adapter_version": "pillow_ffmpeg@4",
+            "presentation_version": "video_presentation@1" if studio else "classic@1",
+            "audio_finishing": {
+                "normalization_target_lufs": -16,
+                "true_peak_target_db": -1.5,
+                "music_ducking": {a["role"] for a in audio_sources} == {"music", "voiceover"},
+                "fades": True,
+            }
+            if studio and audio_sources and canvas["presentation"].get("audio_finish", True)
+            else None,
             "font": face,
             "qa": "technical_probe_passed",
             "revision": job.revision,

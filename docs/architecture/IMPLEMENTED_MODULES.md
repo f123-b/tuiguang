@@ -70,3 +70,6 @@ E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 00
 
 
 #25：`quality.py` 冻结规则与来源、标题和镜头比较；`quality_api.py` 租户内报告/预览/人工确认；`quality_jobs.py` 单独授权的预算模型建议，复用一次性网关和未知费用处理。`pages/quality.tsx` 接入内容和视频工作室；`video.py` 单独 purpose=preview/final，真实水印与尺寸探针；`production.preview_ready` 在自动任务中等待复核。0012 新增质量表、视频政策与任务用途；`video_edit.current_output` 拒绝不再有效的确认，附件只取 final 回执。Session 不自动过期，网络/渲染后显式刷新品牌、素材与工程，再判断版本；竞态测试覆盖渲染期间修改。`compatible_chat@2` 冻结在公开配置 hash 中，DeepSeek 官方 JSON 使用已核实的非思考参数。真实联调和 30 秒预览/高清证据见 CREATIVE_QUALITY_VALIDATION.md。
+
+
+#31 / 0.15：`film.py` 负责发布片原生排版、真实界面裁切和镜头运动，`video_audio.py` 可选声音整理；`pages/film-design.tsx` 共享全片/分镜设置，创作页和指定内容首次建立工程时接入。DB 0014 / IR 1.1 不变，pillow_ffmpeg@4 / video_presentation@1。具体边界与证据见 [发布片验收](../implementation/SOFTWARE_FILM_VALIDATION.md)。

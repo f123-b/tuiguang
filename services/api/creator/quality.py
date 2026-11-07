@@ -36,6 +36,23 @@ def snapshot(db, kind, item):
     titles = [{"id": c.id, "revision": c.revision, "title": c.title} for c in peers]
     ir = item.ir if kind == "video" else {}
     body = "\n".join(s.get("caption", "") for s in ir["shots"]) if kind == "video" else item.body
+    if kind == "video" and ir.get("presentation", {}).get("style") == "studio":
+        body += (
+            "\n"
+            + ir.get("presentation", {}).get("brand_label", "")
+            + "\n"
+            + "\n".join(
+                value
+                for s in ir["shots"]
+                for value in [
+                    s.get("narration_text", ""),
+                    s.get("design", {}).get("headline", ""),
+                    s.get("design", {}).get("supporting", ""),
+                    s.get("design", {}).get("kicker", ""),
+                    *s.get("design", {}).get("points", []),
+                ]
+            )
+        )
     if kind == "content":
         body += "\n" + "\n".join(v["title"] + "\n" + v["body"] for v in (item.variants or {}).values())
         body += "\n" + "\n".join(
@@ -151,6 +168,28 @@ def measure(frozen):
             a["id"] for a in frozen["assets"] if not a["verified"] or a["applicability_status"] != "current"
         ]
         add("assets", "素材授权与版本", "blocked" if bad else "pass", {"invalid_assets": bad})
+        if frozen["ir"].get("presentation", {}).get("style") == "studio":
+            from .film import scene_layout
+
+            scenes = frozen["ir"]["shots"]
+            layouts = [scene_layout(s) for s in scenes]
+            long_holds = [s["shot_id"] for s in scenes if s["duration_frames"] > 240]
+            crowded = [
+                s["shot_id"]
+                for s in scenes
+                if len(s.get("design", {}).get("headline") or s.get("caption", "")) > 24
+            ]
+            add(
+                "film_direction",
+                "发布片节奏与信息密度",
+                "needs_review" if long_holds or crowded or len(set(layouts)) < 3 else "pass",
+                {
+                    "layouts": layouts,
+                    "holds_over_8_sec": long_holds,
+                    "headlines_over_24_characters": crowded,
+                    "limit": "本模板建议，非行业标准或质量评分；需播放判断信息密度、节奏和音色",
+                },
+            )
     for key, label in (("focus", "单一收益点"), ("audience", "受众价值"), ("purpose", "表达目的与行动引导")):
         add(
             key,

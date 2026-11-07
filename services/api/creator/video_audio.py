@@ -12,9 +12,14 @@ def ass_subtitles(ir):
         cs = round(frame * 100 / ir["fps"])
         return f"{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}"
 
+    studio = ir.get("presentation", {}).get("style") == "studio"
     scale = min(1, ir["width"] / 1080, ir["height"] / 1080)
     initial_size, min_size = max(12, round(36 * scale)), max(8, round(24 * scale))
     margin, margin_v = round(80 * scale), round(70 * scale)
+    if studio:
+        scale = min(ir["width"], ir["height"]) / 1080
+        initial_size, min_size = max(12, round(44 * scale)), max(10, round(34 * scale))
+        margin, margin_v = round(ir["width"] * 0.10), round(ir["height"] * 0.06)
     face = font(initial_size)
     family = face.getname()[0].replace(",", " ").replace("\n", " ")
     width, height = ir["width"], ir["height"]
@@ -52,6 +57,9 @@ def finish(db, job, target):
     ir = job.ir
     tracks = ir.get("audio_tracks", [])
     cues = ir.get("subtitles", [])
+    studio_audio = ir.get("presentation", {}).get("style") == "studio" and ir.get("presentation", {}).get(
+        "audio_finish", True
+    )
     if not tracks and not cues:
         return []
     args, filters, sources = ["-i", str(target)], [], []
@@ -77,7 +85,46 @@ def finish(db, job, target):
                 "license_note": asset.license_note,
             }
         )
-    if tracks:
+    if tracks and studio_audio:
+        voice = [f"[a{i}]" for i, t in enumerate(tracks, 1) if t["role"] == "voiceover"]
+        music = [f"[a{i}]" for i, t in enumerate(tracks, 1) if t["role"] == "music"]
+        mixed = ["[0:a]"]
+        if voice:
+            filters.append(
+                "".join(voice)
+                + f"amix=inputs={len(voice)}:normalize=0:duration=longest,apad"
+                + (",asplit=2[voice][side]" if music else "[voice]")
+            )
+            mixed.append("[voice]")
+        if music:
+            filters.append(
+                "".join(music) + f"amix=inputs={len(music)}:normalize=0:duration=longest,apad[bgm]"
+            )
+            if voice:
+                filters.append(
+                    "[bgm][side]sidechaincompress=threshold=0.025:ratio=6:attack=15:release=350[ducked]"
+                )
+                mixed.append("[ducked]")
+            else:
+                mixed.append("[bgm]")
+        length = sum(s["duration_frames"] for s in ir["shots"]) / ir["fps"]
+        filters.append(
+            "".join(mixed)
+            + f"amix=inputs={len(mixed)}:normalize=0:duration=first,afade=t=in:d=0.06,afade=t=out:st={max(0, length - 0.35)}:d=0.35,loudnorm=I=-16:TP=-1.5:LRA=7,aresample=48000[audio]"
+        )
+        args.extend(
+            [
+                "-filter_complex_threads",
+                "1",
+                "-filter_complex",
+                ";".join(filters),
+                "-map",
+                "0:v",
+                "-map",
+                "[audio]",
+            ]
+        )
+    elif tracks:
         inputs = "[0:a]" + "".join(f"[a{i}]" for i in range(1, len(tracks) + 1))
         filters.append(
             f"{inputs}amix=inputs={len(tracks) + 1}:duration=first:dropout_transition=0:normalize=0,alimiter=limit=0.95[audio]"
@@ -99,7 +146,7 @@ def finish(db, job, target):
                     "-preset",
                     "veryfast",
                     "-crf",
-                    "21",
+                    "18" if studio_audio else "21",
                     "-pix_fmt",
                     "yuv420p",
                 ]

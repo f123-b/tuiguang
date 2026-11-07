@@ -98,3 +98,8 @@ npm.cmd run check:boundary
 - [原始业务基线](docs/01_产品完整开发方案_人工发布版.md)；`开发文档/` 中的用户原始设计包保留不动。
 
 本轮图文卡：[开发任务](docs/implementation/M2_GRAPHICS_TASK.md)、[验收记录](docs/implementation/M2_GRAPHICS_VALIDATION.md)。入口为内容详情的“编辑封面与图文卡”或“封面模板”页面。
+
+
+0.15.0-dev 新增软件产品发布片：原生分辨率分层排版、真实界面并排与特写、功能/步骤/收尾、品牌主题和镜头运动，及可选响度整理/旁白压低配乐。仍需用户准备真实授权素材并播放复核。无云视频、无新增模型费用；详见 [本轮验收](docs/implementation/SOFTWARE_FILM_VALIDATION.md)。
+
+新样片：[软件产品发布片 · 35.5 秒 / 中文配音](docs/evidence/software-product-film-35s.mp4)，为本仓库真实界面与合成验收工作区，未使用背景音乐或虚构经营指标。

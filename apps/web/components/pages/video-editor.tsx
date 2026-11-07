@@ -11,6 +11,11 @@ import {
 } from "../../lib/api";
 import { QualityPanel } from "./quality";
 import { NarrationPanel } from "./narration";
+import {
+  PresentationControls,
+  SceneDesignControls,
+  defaultPresentation,
+} from "./film-design";
 import { DownloadFile } from "../download-file";
 import { Field, PageHeader, type PageProps } from "../page-shared";
 
@@ -104,6 +109,7 @@ export function VideoEditor({
                       width: draft.width,
                       height: draft.height,
                       fps: 30,
+                      presentation: draft.presentation,
                       shots: draft.shots,
                       audio_tracks: draft.audio_tracks || [],
                       subtitles: draft.subtitles || [],
@@ -193,6 +199,16 @@ export function VideoEditor({
           修改尚未保存；渲染、导出和版本恢复使用服务器已保存工程。先保存再继续。
         </p>
       )}
+      <Card>
+        <h2>发布片导演设置</h2>
+        <PresentationControls
+          value={
+            draft.presentation || { ...defaultPresentation, style: "classic" }
+          }
+          onChange={(presentation) => update({ ...draft, presentation })}
+          disabled={busy}
+        />
+      </Card>
       <NarrationPanel video={video} action={action} busy={busy} dirty={dirty} />
       <QualityPanel
         store={store}
@@ -345,6 +361,7 @@ export function VideoEditor({
                 onChange={(e) =>
                   changeShot({
                     provider: e.target.value,
+                    design: { ...shot.design, layout: "auto" },
                     kind:
                       e.target.value === "pillow_mg"
                         ? "motion_graphics"
@@ -369,6 +386,14 @@ export function VideoEditor({
                 onChange={(e) => changeShot({ caption: e.target.value })}
               />
             </Field>
+            {draft.presentation?.style === "studio" && (
+              <SceneDesignControls
+                value={shot.design}
+                onChange={(design) => changeShot({ design })}
+                media={!!shot.asset_id}
+                disabled={shot.locked || busy}
+              />
+            )}
             <Field label="镜头时长（秒，最多 60）">
               <input
                 type="number"

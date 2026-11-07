@@ -234,7 +234,7 @@ def assert_current(db, brief, plan):
         raise DomainError("BRIEF_PLAN_STALE", "要求、事实或素材依据已变化，请基于当前要求重新准备脚本")
 
 
-def build_video(db, brief, plan, user_id, trace, queue_preview=True):
+def build_video(db, brief, plan, user_id, trace, queue_preview=True, presentation=None):
     from .video import validate_ir
     from .video_edit import checkpoint
     from .quality import build_report
@@ -255,6 +255,7 @@ def build_video(db, brief, plan, user_id, trace, queue_preview=True):
             width=width,
             height=height,
             preview_required=True,
+            presentation=presentation or {},
             shots=[
                 {
                     "shot_id": "s" + str(i + 1),
@@ -265,6 +266,14 @@ def build_video(db, brief, plan, user_id, trace, queue_preview=True):
                     "duration_frames": s["duration_frames"],
                     "caption": s["caption"],
                     "asset_id": s["asset_id"],
+                    "narration_text": s["narration"],
+                    "design": {
+                        "layout": "screen"
+                        if s["asset_id"]
+                        else ("closing" if i == len(plan.document["shots"]) - 1 else "hero"),
+                    }
+                    if presentation and presentation.get("style") == "studio"
+                    else {},
                 }
                 for i, s in enumerate(plan.document["shots"])
             ],
@@ -305,7 +314,12 @@ def build_video(db, brief, plan, user_id, trace, queue_preview=True):
         db.add(job)
     plan.video_id = video.id
     db.flush()
-    return {"video_id": video.id, "plan_id": plan.id, "render_job_id": job.id if queue_preview else None, "already_created": False}
+    return {
+        "video_id": video.id,
+        "plan_id": plan.id,
+        "render_job_id": job.id if queue_preview else None,
+        "already_created": False,
+    }
 
 
 def private_summary(run):

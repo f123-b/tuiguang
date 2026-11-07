@@ -56,3 +56,8 @@ Schema 文件参见 `engineering/contracts/`。每次发布冻结该版本，避
 - `POST /videos/{id}/quality-review`：expected_revision / confirmed / preview_job_id / report_id / decision / note，绑定当前规则报告、预览及操作者；accept 不能跳过硬阻断。`GET /quality-reviews` 读最近记录。
 - `POST /videos/{id}/render` 对 preview_required 工程校验确认；Worker 在提交前后和文件读取时复查。RenderJob.purpose 明确区分 preview/final；发布附件仅接受 final。默认 false 兼容旧调用，网页新工程始终启用，保存/恢复不能关闭既有政策。
 - DB 0012、creative_quality@1、compatible_chat@2；OpenAPI、输入 Schema、错误码目录由实际代码生成。质量报告含私有原文，仅同工作区可见并进入私有导出，不进入公共诊断。
+
+
+## 0.15 / 发布片可选设计
+
+VideoInput 新增可选 `presentation`（旧请求默认 classic）；Shot 增加 `design`、`narration_text`。设计字段包含版式、主标题、短句、说明、最多三项要点、百分比裁切和镜头运动。裁切必须位于源画面内，界面布局需真实授权素材。创建、全工程保存、历史、哈希及缓存均包含设计；改变设计需要新预览和审核。Brief Build 可选 presentation，仅首次建工程生效，重复请求不覆盖已有视频。音频回执区分响度目标和实际是否启用配乐压低；静音不声称已处理。错误码增加 VID_DESIGN_TEXT_OVERFLOW。无新迁移、无新外部接口。以 packages/schemas 实际导出为准。

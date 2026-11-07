@@ -1,4 +1,5 @@
 "use client";
+import { PresentationControls, defaultPresentation } from "./film-design";
 import { Button, Card, StatusBadge } from "@xuliu/ui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -595,6 +596,7 @@ function BriefScriptEditor({
   const [dirty, setDirty] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [withVoice, setWithVoice] = useState(true);
+  const [presentation, setPresentation] = useState(defaultPresentation);
   const [voiceSettings, setVoiceSettings] =
     useState<VoiceSettings>(defaultVoiceSettings);
   const [error, setError] = useState("");
@@ -873,6 +875,13 @@ function BriefScriptEditor({
         />
         为这份脚本制作配音、同步字幕和视频
       </label>
+      {!plan.video_id && (
+        <PresentationControls
+          value={presentation}
+          onChange={setPresentation}
+          disabled={busy || locked || dirty || !!plan.stale}
+        />
+      )}
       {withVoice && (
         <VoiceControls
           value={voiceSettings}
@@ -909,6 +918,7 @@ function BriefScriptEditor({
                   expected_revision: brief.revision,
                   confirmed: true,
                   ...(withVoice ? { narration: voiceSettings } : {}),
+                  ...(!plan.video_id ? { presentation } : {}),
                 }),
               );
               router.push(`/studio/video/${result.video_id}`);
