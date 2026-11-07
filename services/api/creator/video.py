@@ -23,7 +23,7 @@ PROVIDERS = [
         "editability": "parametric",
         "requires_gpu": False,
         "license": "MIT-CMU",
-        "version": "4",
+        "version": "5",
     },
     {
         "id": "ffmpeg_media",
@@ -33,7 +33,7 @@ PROVIDERS = [
         "editability": "clip_level",
         "requires_gpu": False,
         "license": "depends-on-local-build",
-        "version": "4",
+        "version": "5",
     },
     {
         "id": "comfy_wan",
@@ -401,7 +401,7 @@ def render_project(db, job):
                 "shot": {k: v for k, v in shot.items() if k not in ("shot_revision", "locked")},
                 "canvas": canvas,
                 "asset_sha256": asset.sha256 if asset else None,
-                "provider_adapter_version": "pillow_ffmpeg@4",
+                "provider_adapter_version": "pillow_ffmpeg@5",
                 "font": face,
             }
         )
@@ -559,7 +559,7 @@ def render_project(db, job):
             "audio": "mixed_authorized_assets" if audio_sources else "silent_track_no_voiceover",
             "audio_sources": audio_sources,
             "subtitles": len(ir.get("subtitles", [])),
-            "provider_adapter_version": "pillow_ffmpeg@4",
+            "provider_adapter_version": "pillow_ffmpeg@5",
             "presentation_version": "video_presentation@1" if studio else "classic@1",
             "audio_finishing": {
                 "normalization_target_lufs": -16,

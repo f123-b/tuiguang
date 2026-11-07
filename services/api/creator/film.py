@@ -260,10 +260,21 @@ def render_scene(shot, canvas, target, asset=None):
         motion = shot.get("design", {}).get("motion", "push")
         if motion != "still":
             chain = chain.removesuffix("[media]")
-            progress = f"min(1,on/{max(1, frames - 1)})"
-            zoom = f"1+0.06*{progress}" if motion == "push" else "1.06"
-            left = f"(iw-iw/zoom)*{progress}" if motion == "pan" else "(iw-iw/zoom)/2"
-            chain += f",zoompan=z='{zoom}':x='{left}':y='(ih-ih/zoom)/2':d=1:s={vw}x{vh}:fps={fps}[media]"
+            # perspective's output counter starts at 1 (zoompan started at 0).
+            progress = f"min(1,(on-1)/{max(1, frames - 1)})"
+            zoom = f"(1+0.06*{progress})" if motion == "push" else "1.06"
+            # zoompan rounds its source window and position to whole pixels.
+            # A slow preview pan then holds the same pixels for many frames.
+            # Perspective samples fractional source corners on every frame,
+            # without allocating an oversized intermediate screenshot.
+            left = f"(W-W/{zoom})*{progress}" if motion == "pan" else f"(W-W/{zoom})/2"
+            top = f"(H-H/{zoom})/2"
+            right, bottom = f"({left})+W/{zoom}", f"({top})+H/{zoom}"
+            chain += (
+                f",perspective=x0='{left}':y0='{top}':x1='{right}':y1='{top}'"
+                f":x2='{left}':y2='{bottom}':x3='{right}':y3='{bottom}'"
+                ":sense=source:eval=frame:interpolation=cubic[media]"
+            )
         filters.append(f"[1:v]{chain}")
         filters.append(f"[0:v][media]overlay=x={x}:y={y}:eof_action=repeat[screen]")
         base = "screen"

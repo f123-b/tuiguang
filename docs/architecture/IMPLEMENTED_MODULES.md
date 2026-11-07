@@ -73,3 +73,5 @@ E / #15：PRODUCTION 模块 `production.py`，新增 Creator.render_options / 00
 
 
 #31 / 0.15：`film.py` 负责发布片原生排版、真实界面裁切和镜头运动，`video_audio.py` 可选声音整理；`pages/film-design.tsx` 共享全片/分镜设置，创作页和指定内容首次建立工程时接入。DB 0014 / IR 1.1 不变，pillow_ffmpeg@4 / video_presentation@1。具体边界与证据见 [发布片验收](../implementation/SOFTWARE_FILM_VALIDATION.md)。
+
+#33 / 0.15.1：`film.render_scene` 对 studio 的 pan/push 使用逐帧浮点角点插值，修正慢速镜头的整像素步进；`video.py` 注册、镜头缓存和输出回执统一更新为 pillow_ffmpeg@5。没有新增 API、DB、Prompt 或 UI 控件；still、classic、素材、音轨与审核政策保留。`test_film_motion.py` 测量预览/1080p 的实际帧运动和真实视频裁切。独立剪辑的有招样片不是新增的自动录屏功能，见 [本轮验收](../implementation/SMOOTH_CAMERA_VALIDATION.md)。

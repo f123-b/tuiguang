@@ -1,0 +1,42 @@
+{
+  "task": "#33",
+  "baseline_commit": "0851d3a32b85e87237f3d02caacb68596dd56d09",
+  "provider_before": "pillow_ffmpeg@4",
+  "provider_after": "pillow_ffmpeg@5",
+  "test_canvas": [
+    640,
+    360,
+    30
+  ],
+  "measure": "decoded grayscale lossless frame MD5; skip entrance frames 0..29; compare 30..179",
+  "cases": [
+    {
+      "revision": "before",
+      "motion": "pan",
+      "moving_transitions": 13,
+      "total_transitions": 149,
+      "longest_identical_run_frames": 12
+    },
+    {
+      "revision": "before",
+      "motion": "push",
+      "moving_transitions": 34,
+      "total_transitions": 149,
+      "longest_identical_run_frames": 6
+    },
+    {
+      "revision": "after",
+      "motion": "pan",
+      "moving_transitions": 149,
+      "total_transitions": 149,
+      "longest_identical_run_frames": 1
+    },
+    {
+      "revision": "after",
+      "motion": "push",
+      "moving_transitions": 149,
+      "total_transitions": 149,
+      "longest_identical_run_frames": 1
+    }
+  ]
+}
