@@ -46,6 +46,7 @@ class SpeechInput(DTO):
     brand_id: str = Field(min_length=1, max_length=120)
     text: str = Field(min_length=1, max_length=4000)
     voice_id: str = Field(min_length=1, max_length=120)
+    delivery_style: Literal["plain", "conversational", "warm", "explainer"] = "plain"
     confirmed: Literal[True]
 
 
@@ -53,7 +54,7 @@ class SpeechInput(DTO):
 def system_voices(user: Actor):
     from .speech import voices
 
-    return {"provider": "windows_sapi_offline", "voices": voices(), "license_verified": False}
+    return {"provider": "local_offline", "voices": voices(), "license_verified": False}
 
 
 @router.post("/videos/speech", status_code=201)
@@ -61,7 +62,8 @@ def create_speech(data: SpeechInput, db: DB, user: Actor):
     from .speech import synthesize
 
     owned(db, Brand, data.brand_id, user.workspace_id)
-    asset = synthesize(user.workspace_id, data.brand_id, data.text, data.voice_id)
+    options = {"delivery_style": data.delivery_style} if data.delivery_style != "plain" else {}
+    asset = synthesize(user.workspace_id, data.brand_id, data.text, data.voice_id, **options)
     db.add(asset)
     db.commit()
     return serialize(asset)

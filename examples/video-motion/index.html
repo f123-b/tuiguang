@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <meta charset="UTF-8" /><meta
+    name="render-token"
+    content="__RENDER_TOKEN__"
+  /><title>有招 · 连续镜头试片</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      background: #e8e9e7;
+      color: #14251f;
+      font: 14px system-ui;
+    }
+    #controls {
+      padding: 10px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    button {
+      padding: 8px 18px;
+      border: 0;
+      border-radius: 6px;
+      background: #244ed0;
+      color: white;
+      cursor: pointer;
+    }
+    canvas {
+      display: block;
+      width: 100vw;
+      height: auto;
+    }
+    input {
+      width: 38vw;
+    }
+  </style>
+  <div id="controls">
+    <button id="play">播放</button><button id="export">逐帧导出</button
+    ><input
+      id="scrub"
+      type="range"
+      min="0"
+      max="30"
+      step="0.01"
+      value="0"
+    /><span id="status">加载中</span>
+  </div>
+  <canvas id="output" width="1920" height="1080"></canvas>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/build/three.module.js",
+        "three/addons/": "/vendor/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="/scene.js"></script>
+</html>

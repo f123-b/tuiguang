@@ -8,6 +8,7 @@ import { DownloadFile } from "../download-file";
 export type VoiceSettings = {
   voice_id: string;
   rate: number;
+  delivery_style?: string;
   fit_mode: "extend" | "fixed";
   subtitles: boolean;
   usage_confirmed: boolean;
@@ -30,26 +31,38 @@ export function VoiceControls({
   disabled?: boolean;
 }) {
   const [voices, setVoices] = useState<
-    { id: string; language: string; label?: string }[]
+    {
+      id: string;
+      language: string;
+      label?: string;
+      delivery_styles?: { id: string; label: string }[];
+    }[]
   >([]);
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     let cancelled = false;
-    api<{ voices: { id: string; language: string; label?: string }[] }>(
-      "/videos/voices",
-    )
+    api<{
+      voices: {
+        id: string;
+        language: string;
+        label?: string;
+        delivery_styles?: { id: string; label: string }[];
+      }[];
+    }>("/videos/voices")
       .then((data) => {
         if (cancelled) return;
         setVoices(data.voices);
-        if (!value.voice_id && data.voices.length)
+        if (!value.voice_id && data.voices.length) {
+          const preferred =
+            data.voices.find((v) => v.language.startsWith("zh")) ||
+            data.voices[0];
           onChange({
             ...value,
-            voice_id: (
-              data.voices.find((v) => v.language.startsWith("zh")) ||
-              data.voices[0]
-            ).id,
+            voice_id: preferred.id,
+            delivery_style: preferred.delivery_styles ? "warm" : "plain",
           });
+        }
       })
       .catch((e) => {
         if (!cancelled) setError(e.message);
@@ -63,6 +76,9 @@ export function VoiceControls({
     // Installed voices are read once; user choices remain local until submission.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const deliveryStyles = voices.find(
+    (v) => v.id === value.voice_id,
+  )?.delivery_styles;
   return (
     <fieldset disabled={disabled} className="form-stack">
       <legend>本地配音与视频合成</legend>
@@ -81,7 +97,16 @@ export function VoiceControls({
         <Field label="配音声音">
           <select
             value={value.voice_id}
-            onChange={(e) => onChange({ ...value, voice_id: e.target.value })}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                voice_id: e.target.value,
+                delivery_style: e.target.value.startsWith("qwen:")
+                  ? "warm"
+                  : "plain",
+                rate: e.target.value.startsWith("qwen:") ? 0 : value.rate,
+              })
+            }
           >
             <option value="">请选择本机声音</option>
             {voices.map((v) => (
@@ -92,8 +117,28 @@ export function VoiceControls({
             ))}
           </select>
         </Field>
+        {deliveryStyles && (
+          <Field label="配音语气">
+            <select
+              value={value.delivery_style || "plain"}
+              onChange={(e) =>
+                onChange({ ...value, delivery_style: e.target.value })
+              }
+            >
+              {deliveryStyles.map((style) => (
+                <option value={style.id} key={style.id}>
+                  {style.label}
+                </option>
+              ))}
+            </select>
+            <small>
+              指导语气与停顿；合成结果仍需试听。本地 GPU 生成会比系统朗读慢。
+            </small>
+          </Field>
+        )}
         <Field label="配音语速">
           <select
+            disabled={!!deliveryStyles}
             value={value.rate}
             onChange={(e) =>
               onChange({ ...value, rate: Number(e.target.value) })

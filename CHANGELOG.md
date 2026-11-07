@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.0-dev · 本地语气配音与动效试片
+
+- 可选Qwen CustomVoice，四种内置声音与原声/聊天/温和/解释预设；冻结指令、seed与模型文件，记录GPU资源和实际回执。旧声音与缺省幂等保持兼容。
+- 声音列表标记local_offline；语气模型正常语速、每段600字，实测总时长超120秒后提前停止。
+- 独立连续空间动效实验与30秒有声试片，未加入正式Video Provider，不代表自动导演能力。DB0014/IR1.1/provider@5不变；见 [验收和回滚](docs/implementation/EXPRESSIVE_MOTION_VALIDATION.md)。
+
 ## 0.16.0-dev · 叙事意图与可选本地神经配音
 
 - 指定内容新增轻剧情、反差幽默、真实故事和功能概览意图；冻结 story_direction@1，要求具体例子、因果和示例标记。旧快照哈希及旧排队提示词保留。
