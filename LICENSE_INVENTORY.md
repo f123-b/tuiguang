@@ -1,4 +1,8 @@
-# 依赖与素材许可台账 · inventory@1
+# 依赖与素材许可台账 · inventory@2
+
+2026-11-08 / #35 新增可选运行时和独立样片素材：Kokoro 模型包 LICENSE 为 Apache-2.0；sherpa-onnx / core 2.0.1 METADATA 为 Apache，隔离环境 NumPy 2.5.4。未将二进制或权重打包进仓库，espeak 数据及其他随附组件的分发义务尚未完整核对，不能据顶层许可认证商业兼容。官方依据、实际权重 SHA 和限制见 [声音手册](docs/implementation/LOCAL_NEURAL_VOICE.md)。
+
+样片另用 [Artem Podrez / notebook](https://www.pexels.com/video/a-person-writing-on-a-notebook-8519332/) 与 [Taryn Elliott / typing](https://www.pexels.com/video/close-up-of-a-person-typing-on-laptop-6183190/)，按 [Pexels License](https://www.pexels.com/license/) 编辑，用作情景示意，不暗示客户/作者背书。画面只用手部，不辨认身份。音乐和音效为本地程序合成；本机字体、FFmpeg 及声音实际用途仍需独立核对。素材 SHA/来源随本机交付保存。此次没有取得全部组件的商业许可认证，隔离语音环境漏洞审计未运行。
 
 核对日期：2026-11-05。记录实际安装的版本和上游许可信息，不等同于完整法律意见或商业发行批准。自研代码的产品授权条款由仓库所有者另行决定；本次不擅自选择开源许可证。
 

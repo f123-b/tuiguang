@@ -1,6 +1,6 @@
 {
-  "release_id": "creator-0.15.1-dev",
-  "application_version": "0.15.1-dev",
+  "release_id": "creator-0.16.0-dev",
+  "application_version": "0.16.0-dev",
   "git_sha": "resolved-at-runtime",
   "database_migration": "0014",
   "agent_graph_version": "creator_graph@2",
@@ -10,7 +10,7 @@
   "model_id": null,
   "model_revision": null,
   "template_version": "local_editorial@3",
-  "license_inventory_revision": "inventory@1",
+  "license_inventory_revision": "inventory@2",
   "environment": "development",
   "stable": false,
   "graphic_schema_version": "1.0",
@@ -24,6 +24,8 @@
   "product_monitor_version": "authorized_sources@1",
   "quality_workflow_version": "creative_quality@1",
   "brief_workflow_version": "directed_video@1",
-  "narration_pipeline_version": "narration_pipeline@1",
-  "video_presentation_version": "video_presentation@1"
+  "narration_pipeline_version": "narration_pipeline@2",
+  "video_presentation_version": "video_presentation@1",
+  "story_direction_version": "story_direction@1",
+  "local_tts_adapter_version": "kokoro_local@1"
 }

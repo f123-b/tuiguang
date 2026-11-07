@@ -2,7 +2,7 @@
 
 让产品的故事，持续发生。根据用户提供的 V2.3 设计文档开发。
 
-**当前：0.15.1-dev / 个人本地使用，DB 0014。** 已接通指定内容、分镜、中文系统配音、同步字幕、预览复核和高清导出。软件产品发布片支持原生排版、真实界面特写和声音整理；本次修复慢速镜头坐标取整造成的步进卡顿。真实操作样片和测试范围见 [连续运动验收](docs/implementation/SMOOTH_CAMERA_VALIDATION.md)。DeepSeek 负责文字，声音由本机系统合成；音色及艺术效果仍需人工判断。详细状态见 [PROJECT_STATUS.md](PROJECT_STATUS.md)。
+**当前：0.16.0-dev / 个人本地使用，DB 0014。** 已接通指定内容、叙事风格、配音、同步字幕、预览复核和高清导出。可选本地神经声音已通过实际预览，安装见 [声音手册](docs/implementation/LOCAL_NEURAL_VOICE.md)。新增故事样片与创作复看，效果与边界见 [本轮验收](docs/implementation/STORY_VIDEO_VALIDATION.md)；它是独立导演剪辑，不代表一键自动产出相同效果。详细状态见 [PROJECT_STATUS.md](PROJECT_STATUS.md)。
 
 AI 负责准备内容；你在第三方平台官方页面亲自上传并发布。软件不需要社媒凭据，登记始终显示“用户自行登记，未经平台验证”。
 

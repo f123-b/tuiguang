@@ -18,6 +18,7 @@ type BriefDocument = {
   content: string;
   audience: string;
   tone: string;
+  narrative_mode?: string;
   verbatim_script: string;
   required_phrases: string[];
   forbidden_phrases: string[];
@@ -58,6 +59,11 @@ type Plan = {
     status: string;
     issues: string[];
     uncertainties: string[];
+    creative_review?: {
+      questions: string[];
+      same_caption_and_narration: number;
+      distinct_shot_durations: number;
+    };
     model_usage?: { prompt_tokens: number; completion_tokens: number };
   };
 };
@@ -253,6 +259,7 @@ export function BriefsPage(props: PageProps) {
                 content: String(f.get("content")),
                 audience: String(f.get("audience")),
                 tone: String(f.get("tone")),
+                narrative_mode: String(f.get("narrative_mode")),
                 verbatim_script: String(f.get("verbatim_script")),
                 required_phrases: lines(f.get("required")),
                 forbidden_phrases: lines(f.get("forbidden")),
@@ -288,6 +295,23 @@ export function BriefsPage(props: PageProps) {
                 defaultValue={brief?.document.topic || ""}
                 placeholder="例如：用 30 秒讲清楚软件如何整理文件"
               />
+            </Field>
+            <Field label="这条视频怎样讲">
+              <select
+                name="narrative_mode"
+                defaultValue={brief?.document.narrative_mode || "story"}
+              >
+                <option value="story">轻剧情：处境、追问、转折、解决</option>
+                <option value="contrast">
+                  反差幽默：前后对比，一个具体例子
+                </option>
+                <option value="documentary">真实故事：细节、过程与回看</option>
+                <option value="overview">功能概览：直接介绍产品</option>
+              </select>
+              <span className="muted">
+                用于 AI
+                分镜；原文模式仍逐行保留你的文字。人物表演、实拍和音色需要相应素材。
+              </span>
             </Field>
             <Field label="视频内容与结构要求">
               <textarea
@@ -642,6 +666,19 @@ function BriefScriptEditor({
         <p className="alert warning">
           待补充或核实：{plan.review.uncertainties.join("；")}
         </p>
+      )}
+      {plan.review.creative_review && (
+        <details>
+          <summary>创作复看：这段内容有吸引力吗？</summary>
+          <p className="muted">
+            以下供你复看画面与听感，不是质量评分。修改脚本后请保存，再查看更新后的提示。
+          </p>
+          <ul>
+            {plan.review.creative_review.questions.map((question) => (
+              <li key={question}>{question}</li>
+            ))}
+          </ul>
+        </details>
       )}
       <Field label="脚本标题 / 工程名称">
         <input

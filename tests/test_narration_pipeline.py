@@ -167,6 +167,22 @@ def test_fixed_duration_never_truncates_voice(client, brand, local_voice):
     assert result["revision"] == 1 and not result["ir"]["audio_tracks"]
 
 
+def test_changed_voice_source_fails_before_synthesis(client, brand, local_voice, monkeypatch):
+    from creator import speech
+
+    monkeypatch.setattr(
+        speech, "voice_snapshot", lambda voice: {"provider": "test", "model_sha256": "before"}
+    )
+    v = project(client, brand)
+    assert start(client, v).status_code == 201
+    monkeypatch.setattr(speech, "voice_snapshot", lambda voice: {"provider": "test", "model_sha256": "after"})
+    process()
+    job = client.get(f"/api/v1/videos/{v['id']}/narration-jobs").json()[0]
+    assert job["status"] == "failed" and job["error_code"] == "TTS_PROVIDER_CHANGED"
+    assert not local_voice
+    assert client.get(f"/api/v1/videos/projects/{v['id']}").json()["revision"] == 1
+
+
 def test_stale_project_does_not_synthesize_or_overwrite(client, brand, local_voice):
     from creator.models import Video
 

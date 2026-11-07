@@ -1,6 +1,6 @@
 {
   "name": "xuliu-creator",
-  "version": "0.15.1-dev",
+  "version": "0.16.0-dev",
   "private": true,
   "workspaces": [
     "apps/web",

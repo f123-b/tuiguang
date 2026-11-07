@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.15.1-dev"
+    "version": "0.16.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -5710,6 +5710,17 @@
             "maxLength": 500,
             "title": "Tone",
             "default": "清楚、克制、不夸张"
+          },
+          "narrative_mode": {
+            "type": "string",
+            "enum": [
+              "overview",
+              "story",
+              "contrast",
+              "documentary"
+            ],
+            "title": "Narrative Mode",
+            "default": "overview"
           },
           "verbatim_script": {
             "type": "string",

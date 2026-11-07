@@ -271,6 +271,9 @@
     "TTS_OUTPUT_NOT_READY": {
       "module": "narration_api"
     },
+    "TTS_PROVIDER_CHANGED": {
+      "module": "narration"
+    },
     "TTS_PROVIDER_UNAVAILABLE": {
       "module": "speech"
     },
