@@ -45,7 +45,7 @@ Python产品命令使用 `.venv/Scripts/python.exe`，设置 PYTHONPATH=services
 | `python .data/qwen_voice_probe.py`（独立环境） | 0 | 两段真实试音，9.52s / 8s，分别17.62s / 14.67s推理；未人工评价听感 |
 | `python .data/make_qwen_film_voice.py` | 0 | 通过实际适配器输出24.8秒整段声音、哈希/语气/资源回执 |
 | `python .data/expressive_actual_pipeline.py`（最终隔离DB） | 0 | 真实API → warm声音 → 3.733秒带声预览HTTP200；未经人工复核高清409；没有写审核记录 |
-| `node .data/motion_server.mjs` + 浏览器逐帧导出 | 0（导出完成） | 实际900张1080pPNG，GPU渲染器确认；服务保持本机监听直到停止 |
+| `node .data/motion_server.mjs` + 浏览器逐帧导出 | —（服务持续运行） | 浏览器命令退出0，导出实际完成900张1080pPNG，GPU渲染器确认；服务之后由本轮停止 |
 | `python examples/video-motion/mix_sample.py` | 0 | 最终MP4/音轨/混音与抽帧图；原始旁白24.8s |
 | `python .data/expressive_media_check.py` | 0 | 完整解码、PTS、双声道音频与播放校验通过；第一次下混测量失败如上 |
 | `npm.cmd run typecheck` / `npm.cmd run check:boundary` | 0 | TS通过；94个源码/配置边界通过 |
@@ -55,6 +55,8 @@ Python产品命令使用 `.venv/Scripts/python.exe`，设置 PYTHONPATH=services
 最终相关用例为30 passed（14.41秒），退出0；Ruff扫描services/tests/infra/scripts/examples通过，最终TypeScript再次通过。120秒用例先失败（测试桩缺少streams），补齐合法audio streams后通过，验证后续镜头不继续合成且作品修订不覆盖；它是受控时长测试，不是真实121秒声音。首次重复使用隔离QA账号的重跑失败，改用新的隔离DB后真实API验证再次成功。核心依赖安全审计按当前CI实际结果；本轮隔离Qwen/Three环境漏洞审计未运行，不能套用产品依赖审计结论。
 
 最终本机已在活动付费/配音/渲染任务均为0时保存一致性SQLite备份，配置独立声音路径并重启0.17.0-dev。浏览器用既有合成QA工作区验证默认qwen:serena/warm、四种语气实际显示，切换Kokoro后语气控件消失；没有提交作品批准。`ruff format --check`本轮9个Python文件通过。交付ZIP共20,261,424 bytes，CRC通过，SHA256 `f6679d5407897737abaa0ece52903815d602389e43d5a59de8ae671509183a6d`；只含试片、音轨、源代码和来源回执，不含账号、数据库、私有配置或模型二进制。
+
+功能提交 `b7d03e5ef2b5a2d8f812050f0b1c58d338ba4da3` 的 [Actions 42405735411](https://github.com/f123-b/tuiguang/actions/runs/42405735411) 已完成：PostgreSQL、SQLite、Web生产构建/npm审计、Python核心依赖审计四项全部success。[PR #38](https://github.com/f123-b/tuiguang/pull/38)仍开放，未合并、未上线。独立试片工具 `node examples/video-motion/serve.mjs` 也已从版本化源码实际启动，浏览器ready=true/duration=30；没有重复创建正式作品或审核。
 
 ## 影响、许可、回滚和未完成
 
