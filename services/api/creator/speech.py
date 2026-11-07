@@ -40,16 +40,27 @@ def powershell(script, payload=None):
 
 
 def voices():
+    from . import neural_speech
+
+    local = neural_speech.voices()
     if os.name != "nt":
-        return []
+        return local
     try:
         result = powershell(
             "$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; try { @($s.GetInstalledVoices() | Where-Object Enabled | ForEach-Object { @{ id=$_.VoiceInfo.Name; language=$_.VoiceInfo.Culture.Name } }) | ConvertTo-Json -Compress } finally { $s.Dispose() }"
         )
         data = json.loads(result or "[]")
-        return data if isinstance(data, list) else [data]
+        return local + (data if isinstance(data, list) else [data])
     except (DomainError, ValueError):
-        return []
+        return local
+
+
+def voice_snapshot(voice):
+    if voice.startswith("kokoro:"):
+        from .neural_speech import snapshot
+
+        return snapshot(voice)
+    return {"provider": "windows_sapi", "voice_id": voice}
 
 
 def synthesize(workspace_id, brand_id, text, voice, rate=0):
@@ -59,24 +70,32 @@ def synthesize(workspace_id, brand_id, text, voice, rate=0):
     directory.mkdir(parents=True, exist_ok=True)
     target = directory / (uid() + ".wav")
     try:
-        powershell(
-            "$d = [Console]::In.ReadToEnd() | ConvertFrom-Json; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; try { $s.SelectVoice($d.voice); $s.Rate = [int]$d.rate; $s.SetOutputToWaveFile($d.path); $s.Speak($d.text) } finally { $s.Dispose() }",
-            {"text": text, "voice": voice, "rate": rate, "path": str(target)},
-        )
+        identity = voice_snapshot(voice)
+        if voice.startswith("kokoro:"):
+            from .neural_speech import synthesize as neural_synthesize
+
+            identity = neural_synthesize(target, text, voice, rate)
+        else:
+            powershell(
+                "$d = [Console]::In.ReadToEnd() | ConvertFrom-Json; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; try { $s.SelectVoice($d.voice); $s.Rate = [int]$d.rate; $s.SetOutputToWaveFile($d.path); $s.Speak($d.text) } finally { $s.Dispose() }",
+                {"text": text, "voice": voice, "rate": rate, "path": str(target)},
+            )
         data = target.read_bytes()
         if not 44 < len(data) <= 50 * 1024 * 1024:
             raise DomainError("TTS_RESULT_INVALID", "离线语音没有产生有效文件", 422)
         sha = store_file(workspace_id, data, ".wav")
-        return Asset(
+        asset = Asset(
             workspace_id=workspace_id,
             brand_id=brand_id,
             name="离线配音.wav",
             sha256=sha,
             suffix=".wav",
             kind="audio",
-            source=f"用户提交文本 / Windows SAPI / {voice}",
-            license_note="系统语音输出；商业使用权未由本软件确认，请根据所用语音条款自行核实。",
+            source="用户提交文本 / " + json.dumps(identity, ensure_ascii=False, sort_keys=True),
+            license_note="本地语音输出；请按实际系统声音或Kokoro模型/运行时许可核实用途，不代表商业授权认证。",
             verified=False,
         )
+        asset.synthesis_receipt = identity
+        return asset
     finally:
         target.unlink(missing_ok=True)

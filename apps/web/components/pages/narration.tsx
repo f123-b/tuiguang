@@ -29,12 +29,16 @@ export function VoiceControls({
   onChange: (v: VoiceSettings) => void;
   disabled?: boolean;
 }) {
-  const [voices, setVoices] = useState<{ id: string; language: string }[]>([]);
+  const [voices, setVoices] = useState<
+    { id: string; language: string; label?: string }[]
+  >([]);
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     let cancelled = false;
-    api<{ voices: { id: string; language: string }[] }>("/videos/voices")
+    api<{ voices: { id: string; language: string; label?: string }[] }>(
+      "/videos/voices",
+    )
       .then((data) => {
         if (cancelled) return;
         setVoices(data.voices);
@@ -70,8 +74,7 @@ export function VoiceControls({
       )}
       {loaded && !voices.length && (
         <p className="alert warning">
-          本机没有可用系统语音。请在 Windows
-          安装中文语音后重试，也可在视频工作室上传自己的配音。
+          本机没有可用声音。可安装中文系统语音或配置本地神经配音，也可在视频工作室上传自己的配音。
         </p>
       )}
       <div className="form-grid">
@@ -83,7 +86,8 @@ export function VoiceControls({
             <option value="">请选择本机声音</option>
             {voices.map((v) => (
               <option key={v.id} value={v.id}>
-                {v.language.startsWith("zh") ? "中文" : v.language} · {v.id}
+                {v.label ||
+                  `${v.language.startsWith("zh") ? "中文" : v.language} · ${v.id}`}
               </option>
             ))}
           </select>
@@ -135,7 +139,7 @@ export function VoiceControls({
             onChange({ ...value, usage_confirmed: e.target.checked })
           }
         />
-        我确认这些文本及所选系统语音可用于本次本地制作，并同意合成配音
+        我确认这些文本及所选本地语音可用于本次制作，并同意合成配音
       </label>
       <p className="muted">
         在本机离线运行，不调用 DeepSeek

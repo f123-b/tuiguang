@@ -20,7 +20,7 @@ from .video_edit import checkpoint, lock_video
 
 from typing import Literal
 
-VERSION = "narration_pipeline@1"
+VERSION = "narration_pipeline@2"
 
 
 class NarrationOptions(DTO):
@@ -96,6 +96,7 @@ def enqueue(db, video, data, key, user_id, trace):
         raise DomainError("TTS_JOB_PENDING", "该视频已有配音制作任务，请等待完成")
     if data.voice_id not in {v["id"] for v in speech.voices()}:
         raise DomainError("TTS_PROVIDER_UNAVAILABLE", "所选本机语音不可用，请重新选择", 422)
+    document["voice_source"] = speech.voice_snapshot(data.voice_id)
     ids = [s["shot_id"] for s in video.ir["shots"]]
     if [line.shot_id for line in data.lines] != ids:
         raise DomainError("TTS_SCRIPT_INVALID", "旁白必须按当前镜头顺序逐镜填写", 422)
@@ -149,6 +150,8 @@ def produce(db, job):
     ir = copy.deepcopy(job.source["ir"])
     clips, segments, cues = [], [], []
     cursor = 0
+    voice_source = doc.get("voice_source")
+    voice_receipts = []
     for i, (shot, line) in enumerate(zip(ir["shots"], doc["lines"], strict=True)):
         job.stage = "narration.synthesizing"
         job.receipt = {"completed_shots": i, "total_shots": len(ir["shots"])}
@@ -157,8 +160,14 @@ def produce(db, job):
         text = line["text"].strip()
         seconds = 0
         if text:
+            if voice_source and speech.voice_snapshot(doc["voice_id"]) != voice_source:
+                raise DomainError("TTS_PROVIDER_CHANGED", "本地声音或模型文件已变化，请重新提交配音任务", 422)
             # This is a local safe operation: restart may repeat synthesis, never a paid model request.
             asset = speech.synthesize(job.workspace_id, video.brand_id, text, doc["voice_id"], doc["rate"])
+            receipt = getattr(asset, "synthesis_receipt", voice_source)
+            if voice_source and {k: (receipt or {}).get(k) for k in voice_source} != voice_source:
+                raise DomainError("TTS_PROVIDER_CHANGED", "合成回执与任务声音来源不符，请重新提交", 422)
+            voice_receipts.append(receipt)
             path = file_path(asset.workspace_id, asset.sha256, asset.suffix)
             media = probe(path)
             seconds = float(media["format"]["duration"])
@@ -267,6 +276,8 @@ def produce(db, job):
     finally:
         output.unlink(missing_ok=True)
     # External synthesis/FFmpeg ran without a long database write lock.
+    if voice_source and speech.voice_snapshot(doc["voice_id"]) != voice_source:
+        raise DomainError("TTS_PROVIDER_CHANGED", "制作期间声音或模型文件已变化，没有覆盖工程", 422)
     lock_video(db, video, job.base_revision)
     assert_current(db, job, video)
     # This explicit production action starts a manual revision, like editor save.
@@ -279,8 +290,8 @@ def produce(db, job):
         sha256=sha,
         suffix=".wav",
         kind="audio",
-        source=f"用户确认文本 / Windows SAPI / {doc['voice_id']} / {VERSION}",
-        license_note="操作者明确确认本次使用权；本地系统语音输出，不代表本软件认证其商业许可。",
+        source=f"用户确认文本 / {voice_source or doc['voice_id']} / {VERSION}",
+        license_note="操作者明确确认本次使用权；本地语音输出，不代表本软件认证其商业许可。",
         verified=True,
     )
     db.add(audio)
@@ -332,6 +343,8 @@ def produce(db, job):
     job.status, job.stage = "completed", "narration.preview_queued"
     job.receipt = {
         "version": VERSION,
+        "voice_source": voice_source,
+        "voice_receipts": voice_receipts,
         "completed_shots": len(segments),
         "total_shots": len(segments),
         "duration_sec": cursor / ir["fps"],

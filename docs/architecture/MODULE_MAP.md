@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+0.16.0 / #35 实现增量：`briefs.py` 接收可选 narrative_mode，`story_direction.py` 提供 story_direction@1 的创作约束；`brief_jobs.py` 按 Run 版本生成提示词。`speech.py` → `neural_speech.py` → 独立 `scripts/kokoro-speech.py` 是可选本地声音路径；`narration.py` 冻结/核对声音来源，既有预览审核链保留。UI 在 briefs.tsx / narration.tsx。没有新增生成式视频引擎或数据库表；见 [本轮报告](../implementation/STORY_VIDEO_VALIDATION.md)。
+
 | 模块责任 | 推荐目录（目标路径） | 入口/主要接口 | 上游 | 下游 | 不可越界的动作 | 关键测试 |
 |---|---|---|---|---|---|---|
 | Web 工作台 | `apps/web/` | `GET /dashboard`、编辑器和人工发布中心 | API | 无 | 不直接写数据库/平台 | UI/E2E、权限 |

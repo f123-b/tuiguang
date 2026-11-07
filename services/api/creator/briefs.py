@@ -22,6 +22,7 @@ class BriefInput(DTO):
     content: str = Field(min_length=1, max_length=6000)
     audience: str = Field(default="", max_length=1000)
     tone: str = Field(default="清楚、克制、不夸张", max_length=500)
+    narrative_mode: Literal["overview", "story", "contrast", "documentary"] = "overview"
     verbatim_script: str = Field(default="", max_length=2400)
     required_phrases: list[Phrase] = Field(default_factory=list, max_length=8)
     forbidden_phrases: list[Phrase] = Field(default_factory=list, max_length=8)
@@ -70,6 +71,9 @@ def snapshot(db, brief):
     brand = owned(db, Brand, brief.brand_id, brief.workspace_id)
     db.refresh(brand)
     doc = BriefInput.model_validate(brief.document).model_dump()
+    # Preserve hashes of pre-existing briefs and their approved script evidence.
+    if "narrative_mode" not in brief.document:
+        doc.pop("narrative_mode")
     facts = [f for f in brand.facts if f["id"] in doc["fact_refs"] and f["verified"]]
     if set(doc["fact_refs"]) != {f["id"] for f in facts}:
         raise DomainError("BRIEF_FACTS_STALE", "所选事实缺失或尚未核实，请重新选择", 422)
@@ -159,6 +163,18 @@ def review_script(frozen, script):
         ],
         "uncertainties": script["uncertainties"],
         "not_verified_facts": True,
+        "creative_review": {
+            "mode": doc.get("narrative_mode", "overview"),
+            "requires_human_judgment": True,
+            "same_caption_and_narration": sum(s["caption"] == s["narration"] for s in script["shots"]),
+            "distinct_shot_durations": len({s["duration_frames"] for s in script["shots"]}),
+            "questions": [
+                "开场是否让目标观众想继续看？",
+                "具体例子有没有解释原因和验证方法？",
+                "画面和声音是否在推进故事？",
+                "产品出现是否提供真实证据？",
+            ],
+        },
     }
 
 
