@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.16.0-dev"
+    "version": "0.17.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -6834,6 +6834,17 @@
             "title": "Rate",
             "default": 0
           },
+          "delivery_style": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "conversational",
+              "warm",
+              "explainer"
+            ],
+            "title": "Delivery Style",
+            "default": "plain"
+          },
           "fit_mode": {
             "type": "string",
             "enum": [
@@ -6876,6 +6887,17 @@
             "minimum": -5.0,
             "title": "Rate",
             "default": 0
+          },
+          "delivery_style": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "conversational",
+              "warm",
+              "explainer"
+            ],
+            "title": "Delivery Style",
+            "default": "plain"
           },
           "fit_mode": {
             "type": "string",
@@ -7878,6 +7900,17 @@
             "maxLength": 120,
             "minLength": 1,
             "title": "Voice Id"
+          },
+          "delivery_style": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "conversational",
+              "warm",
+              "explainer"
+            ],
+            "title": "Delivery Style",
+            "default": "plain"
           },
           "confirmed": {
             "type": "boolean",

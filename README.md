@@ -2,7 +2,7 @@
 
 让产品的故事，持续发生。根据用户提供的 V2.3 设计文档开发。
 
-**当前：0.16.0-dev / 个人本地使用，DB 0014。** 已接通指定内容、叙事风格、配音、同步字幕、预览复核和高清导出。可选本地神经声音已通过实际预览，安装见 [声音手册](docs/implementation/LOCAL_NEURAL_VOICE.md)。新增故事样片与创作复看，效果与边界见 [本轮验收](docs/implementation/STORY_VIDEO_VALIDATION.md)；它是独立导演剪辑，不代表一键自动产出相同效果。详细状态见 [PROJECT_STATUS.md](PROJECT_STATUS.md)。
+**当前：0.17.0-dev / 个人本地使用，DB0014。** 已增加可选本地语气配音，实际合成、音轨、字幕和预览跑通；仍由用户复看。另交付连续空间镜头试片，属于独立剪辑实验，未成为自动视频Provider。详见 [本轮验收](docs/implementation/EXPRESSIVE_MOTION_VALIDATION.md) 与 [本地声音安装](docs/implementation/LOCAL_NEURAL_VOICE.md)。没有生产上线。
 
 AI 负责准备内容；你在第三方平台官方页面亲自上传并发布。软件不需要社媒凭据，登记始终显示“用户自行登记，未经平台验证”。
 

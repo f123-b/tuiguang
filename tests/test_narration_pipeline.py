@@ -183,6 +183,35 @@ def test_changed_voice_source_fails_before_synthesis(client, brand, local_voice,
     assert client.get(f"/api/v1/videos/projects/{v['id']}").json()["revision"] == 1
 
 
+def test_plain_delivery_preserves_existing_request_hash(client, brand, local_voice):
+    from creator.domains import digest
+    from creator.models import NarrationJob
+
+    v = project(client, brand)
+    response = start(client, v)
+    assert response.status_code == 201
+    with SessionLocal() as db:
+        row = db.get(NarrationJob, response.json()["id"])
+        assert row.request_hash == digest({"video_id": v["id"], "document": payload()})
+        assert "delivery_style" not in row.document
+    assert start(client, v, payload(delivery_style="plain")).json()["id"] == response.json()["id"]
+
+
+def test_excessive_duration_stops_before_synthesizing_more_shots(client, brand, local_voice, monkeypatch):
+    from creator import narration
+
+    monkeypatch.setattr(
+        narration, "probe", lambda path: {"format": {"duration": "121"}, "streams": [{"codec_type": "audio"}]}
+    )
+    v = project(client, brand)
+    assert start(client, v).status_code == 201
+    process()
+    job = client.get(f"/api/v1/videos/{v['id']}/narration-jobs").json()[0]
+    assert job["status"] == "failed" and job["error_code"] == "VID_DURATION_INVALID"
+    assert len(local_voice) == 1
+    assert client.get(f"/api/v1/videos/projects/{v['id']}").json()["revision"] == 1
+
+
 def test_stale_project_does_not_synthesize_or_overwrite(client, brand, local_voice):
     from creator.models import Video
 

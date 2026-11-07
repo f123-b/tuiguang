@@ -233,7 +233,10 @@ def build(brief_id: str, plan_id: str, data: Build, db: DB, user: Actor, request
         from .narration import enqueue
         from .domains import digest
 
-        key = "brief-voice:" + plan.id + ":" + digest(data.narration.model_dump())[:32]
+        voice_options = data.narration.model_dump()
+        if voice_options["delivery_style"] == "plain":
+            voice_options.pop("delivery_style")
+        key = "brief-voice:" + plan.id + ":" + digest(voice_options)[:32]
         existing = db.scalar(
             select(NarrationJob).where(
                 NarrationJob.workspace_id == user.workspace_id, NarrationJob.idempotency_key == key

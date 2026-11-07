@@ -1,5 +1,16 @@
 # 可选本地神经声音
 
+0.17.0-dev 新增可选Qwen 1.7B CustomVoice；这是本地GPU语气指导声音，不需要云密钥。当前本机实际配置：
+
+```dotenv
+QWEN_TTS_PYTHON=D:/推广助手/.data/qwen-clean-runtime/Scripts/python.exe
+QWEN_TTS_MODEL_DIR=D:/推广助手/.data/qwen-model
+```
+
+当前独立CPython3.12.14运行时通过.pth引用.data/qwen-tts-runtime的包，两目录均需保留；移动电脑须重新安装，不能复制这两个路径冒充完整安装包。使用独立CPython3.12创建干净环境，按 [Qwen官方说明](https://github.com/QwenLM/Qwen3-TTS#quickstart) 安装和下载本轮指定权重；本机Anaconda环境曾有torch DLL失败，未继续采用。安装时将TEMP/TMP/PIP_CACHE_DIR设到足量磁盘，模型与CUDA依赖有数GB。本机已验证torch2.9.1+cu128、qwen-tts0.1.1、transformers4.57.3；详见 [模型SHA/完整验收](EXPRESSIVE_MOTION_VALIDATION.md)。
+
+配置后在无活动任务时重启，声音选“语气配音 · 温和女声”等，再选语气。模型只接受正常语速；每段最多600字，建议用短口语段落。语气指导不保证每次听感，预览仍需完整试听；没有声音克隆。GPU不足/环境失效会明确报错，不转云端。要回退请先处理完队列，移除两个QWEN配置再重启并选既有声音；不删原音频或数据库。
+
 0.16.0-dev 开始，配音沿用原制作流程，可选完整安装的 Kokoro 中文声音；不需要 API Key，不调用云服务。默认未安装的机器仍只有既有系统声音，软件不会自动下载权重或偷偷切换声音。
 
 本机已安装并实际通过预览：Python 3.12 隔离环境、sherpa-onnx 2.0.1、sherpa-onnx-core 2.0.1、NumPy 2.5.4；四个声音是晓贝、晓妮、云健、云希。听感、语音名字和用途均不代表真人身份或背书。

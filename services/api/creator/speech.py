@@ -1,4 +1,4 @@
-"""Optional offline Windows system voice. No cloud calls or bundled voice weights."""
+"""Installed local voices. No cloud calls or bundled model weights."""
 
 import json
 import os
@@ -40,9 +40,9 @@ def powershell(script, payload=None):
 
 
 def voices():
-    from . import neural_speech
+    from . import expressive_speech, neural_speech
 
-    local = neural_speech.voices()
+    local = expressive_speech.voices() + neural_speech.voices()
     if os.name != "nt":
         return local
     try:
@@ -56,6 +56,10 @@ def voices():
 
 
 def voice_snapshot(voice):
+    if voice.startswith("qwen:"):
+        from .expressive_speech import snapshot
+
+        return snapshot(voice)
     if voice.startswith("kokoro:"):
         from .neural_speech import snapshot
 
@@ -63,15 +67,31 @@ def voice_snapshot(voice):
     return {"provider": "windows_sapi", "voice_id": voice}
 
 
-def synthesize(workspace_id, brand_id, text, voice, rate=0):
+def delivery_snapshot(voice, style="plain"):
+    if style == "plain":
+        return voice_snapshot(voice)
+    if not voice.startswith("qwen:"):
+        raise DomainError("TTS_STYLE_UNSUPPORTED", "此声音不支持语气指导，请选择原声表达或语气配音", 422)
+    from .expressive_speech import snapshot
+
+    return snapshot(voice, style)
+
+
+def synthesize(workspace_id, brand_id, text, voice, rate=0, delivery_style="plain"):
+    if voice.startswith("qwen:") and len(text) > 600:
+        raise DomainError("TTS_SCRIPT_INVALID", "语气配音每段最多 600 字，请拆分镜头", 422)
     if voice not in {v["id"] for v in voices()}:
         raise DomainError("TTS_PROVIDER_UNAVAILABLE", "请选择本机真实安装的语音", 422)
     directory = DATA_DIR / workspace_id / "speech-tmp"
     directory.mkdir(parents=True, exist_ok=True)
     target = directory / (uid() + ".wav")
     try:
-        identity = voice_snapshot(voice)
-        if voice.startswith("kokoro:"):
+        identity = delivery_snapshot(voice, delivery_style)
+        if voice.startswith("qwen:"):
+            from .expressive_speech import synthesize as expressive_synthesize
+
+            identity = expressive_synthesize(target, text, voice, rate, delivery_style)
+        elif voice.startswith("kokoro:"):
             from .neural_speech import synthesize as neural_synthesize
 
             identity = neural_synthesize(target, text, voice, rate)
@@ -92,7 +112,7 @@ def synthesize(workspace_id, brand_id, text, voice, rate=0):
             suffix=".wav",
             kind="audio",
             source="用户提交文本 / " + json.dumps(identity, ensure_ascii=False, sort_keys=True),
-            license_note="本地语音输出；请按实际系统声音或Kokoro模型/运行时许可核实用途，不代表商业授权认证。",
+            license_note="本地语音输出；请按实际系统声音或所用模型/运行时许可核实用途，不代表商业授权认证。",
             verified=False,
         )
         asset.synthesis_receipt = identity

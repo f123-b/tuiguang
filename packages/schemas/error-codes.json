@@ -277,11 +277,17 @@
     "TTS_PROVIDER_UNAVAILABLE": {
       "module": "speech"
     },
+    "TTS_RATE_UNSUPPORTED": {
+      "module": "narration"
+    },
     "TTS_RESULT_INVALID": {
       "module": "speech"
     },
     "TTS_SCRIPT_INVALID": {
-      "module": "narration"
+      "module": "speech"
+    },
+    "TTS_STYLE_UNSUPPORTED": {
+      "module": "speech"
     },
     "TTS_SUBTITLES_EXIST": {
       "module": "narration"

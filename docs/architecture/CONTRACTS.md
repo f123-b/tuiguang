@@ -1,5 +1,7 @@
 # 核心工程契约与稳定标识
 
+0.17.0-dev / #37：NarrationOptions及SpeechInput新增delivery_style=plain/conversational/warm/explainer，缺省plain在旧幂等摘要中省略。qwen:serena/dylan/uncle_fu/vivian提供delivery_styles及max_text_length=600；只接受rate=0，未知语气或不支持的声音明确拒绝。GET /videos/voices顶层provider=local_offline。新错误TTS_STYLE_UNSUPPORTED/TTS_RATE_UNSUPPORTED；冻结spoken_delivery@1，narration_pipeline@3。超过既有120秒上限后不再合成下一镜头。DB0014、IR1.1和正式provider@5不变。
+
 0.16.0-dev / #35：BriefInput.narrative_mode 可选，枚举 overview/story/contrast/documentary，API 缺省 overview；新 UI 缺省 story。旧文档不补字段，旧 Run 不补 direction_version。新 Run 冻结 story_direction@1；plan.review.creative_review 为人工建议，不改变硬性审核门槛。声音条目新增可选 label，kokoro:45/46/49/50 仅完整配置才提供；NarrationJob.document.voice_source 冻结模型哈希，receipt.voice_receipts 包含实际 runtime_version；新错误 TTS_PROVIDER_CHANGED。DB0014 / IR1.1 / provider@5 不变，详见导出 OpenAPI 和 [验收](../implementation/STORY_VIDEO_VALIDATION.md)。
 
 ## 统一 ID
