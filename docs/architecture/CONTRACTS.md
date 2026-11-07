@@ -61,3 +61,5 @@ Schema 文件参见 `engineering/contracts/`。每次发布冻结该版本，避
 ## 0.15 / 发布片可选设计
 
 VideoInput 新增可选 `presentation`（旧请求默认 classic）；Shot 增加 `design`、`narration_text`。设计字段包含版式、主标题、短句、说明、最多三项要点、百分比裁切和镜头运动。裁切必须位于源画面内，界面布局需真实授权素材。创建、全工程保存、历史、哈希及缓存均包含设计；改变设计需要新预览和审核。Brief Build 可选 presentation，仅首次建工程生效，重复请求不覆盖已有视频。音频回执区分响度目标和实际是否启用配乐压低；静音不声称已处理。错误码增加 VID_DESIGN_TEXT_OVERFLOW。无新迁移、无新外部接口。以 packages/schemas 实际导出为准。
+
+0.15.1 修复 studio 相机采样，不改变上述请求/IR/审核契约。Provider 注册版本为 5，镜头缓存及输出 receipt 的 provider_adapter_version 为 pillow_ffmpeg@5，旧缓存不复用；旧输出文件不改写。API 仍只接受 30fps，独立编辑的 60fps 演示文件不作为 API 新能力。

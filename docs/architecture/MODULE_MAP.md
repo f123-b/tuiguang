@@ -18,3 +18,5 @@
 架构约束：Web → API → Domain Services → Queue/Worker/DB；Agent 不得直接写跨领域表。VideoWorker 只通过 Shot Provider 接口运行。发布包任务没有社媒发帖 Connector。PostgreSQL 为内容与任务真相库，Redis 不作为长期记录的唯一来源。
 
 **AI 查错顺序**：先按 `error_code` 找责任域 → 按 `trace_id` 找失败 span → 按 `creator_run_id` / `shot_id` 查业务上下文 → 通过 `git_sha` 和 manifest 确认运行版本 → 在对应模块写复现测试。
+
+实际源码映射见 [IMPLEMENTED_MODULES.md](IMPLEMENTED_MODULES.md)；#33 的唯一主模块是 `services/api/creator/film.py`（产品片相机采样），由 `video.py` 的镜头 Provider 调用；不把本页目标目录当作已实现代码。
