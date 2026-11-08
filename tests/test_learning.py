@@ -1,9 +1,36 @@
 from datetime import date, timedelta
+import pytest
 
 from creator.db import SessionLocal
 from creator.models import Content, Creator, Run
 from creator.observability import release_manifest
 from test_workflow import run_content
+
+pytestmark = pytest.mark.usefixtures("historical_learning_evidence")
+
+
+def test_historical_report_excludes_out_of_window_feedback(client, creator_profile, user):
+    from creator.models import Feedback
+
+    content = run_content(client, creator_profile)
+    with SessionLocal() as db:
+        row = Feedback(
+            workspace_id=db.get(Content, content["id"]).workspace_id,
+            content_id=content["id"],
+            content_revision=1,
+            reason_tag="too_advertising",
+            note="outside fixture",
+            recorded_by=user["id"],
+            created_at="2026-10-30T12:00:00+00:00",
+        )
+        db.add(row)
+        db.commit()
+    response = client.post(
+        "/api/v1/creators/" + creator_profile["id"] + "/learning-reports",
+        json={"period_start": "2026-11-01", "period_end": "2026-11-07"},
+    )
+    assert response.status_code == 201, response.text
+    assert response.json()["report"]["feedback_count"] == 0
 
 
 def metric(c, value=100, **extra):

@@ -1,6 +1,7 @@
 import json
 
 import httpx
+import pytest
 from sqlalchemy import select
 
 from creator.db import SessionLocal
@@ -8,6 +9,8 @@ from creator.jobs import process_pending
 from creator.models import BudgetEntry, Creator, Run
 from test_model_workspace import configure
 from test_workflow import run_content
+
+pytestmark = pytest.mark.usefixtures("historical_learning_evidence")
 
 
 def prepare(client, creator):
