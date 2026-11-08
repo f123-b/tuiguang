@@ -1,6 +1,9 @@
 import json
+import pytest
 
 from test_workflow import run_content
+
+pytestmark = pytest.mark.usefixtures("historical_learning_evidence")
 
 
 def test_withdrawn_feedback_disables_approved_preference(client, creator_profile):

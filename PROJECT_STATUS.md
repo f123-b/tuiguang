@@ -1,5 +1,7 @@
 # 项目真实状态 · 0.17.0-dev
 
+2026-11-08 / #42：修复历史复盘测试用例使用当前创建时间、导致证据落在固定报告周期之外的问题；只调整合成测试数据，未修改生产日期过滤、预算或审核。三个模块11项通过，含周期外反馈不计入回归；见 [验收](docs/implementation/LEARNING_TEST_CLOCK_VALIDATION.md)。应用版本不变。
+
 2026-11-08 / #39 续：按用户“先不管Runway，把视频做完”，已完成44.133333秒《那个选择》本地完整剪辑：3份授权实拍、360帧原创方案动效、真实项目备注操作与高清保存帧、双声线逐句配音、原创程序音乐/动作环境声及字幕。最终1324帧1080p，完整解码与浏览器播放至结尾通过、0丢帧；实测-17LUFS/-2dBFS真峰值。原人物静帧未充当表演，无云生成。艺术质量待用户观看判断，不是正式自动导演新功能。应用API/DB/Prompt/Provider未改；本地choice_edit@1，见 [完整交付与已知CI问题](docs/implementation/LOCAL_CHOICE_FILM_VALIDATION.md)。
 
 2026-11-08 / #39：用户再次否定截图空间试片的素材/动画/剧情。本轮重做《那个选择》40秒前期分镜，实际生成1张人物首帧，补录并核对13.766667秒真实项目备注操作（413输出帧）。两次四格图请求网络失败；Runway连接检查返回工具不可用，未报价或运行动态生成。**尚无新的剧情成片，艺术质量未由用户确认**。独立production_pack@1，不改变正式API、DB0014、IR1.1、provider@5或Prompt；见 [制作包](examples/video-production/youzhao-choice/README.md) 与 [证据/回滚](docs/implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
