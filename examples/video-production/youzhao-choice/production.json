@@ -1,0 +1,264 @@
+{
+  "version": "production_pack@1",
+  "issue": 39,
+  "title": "那个选择",
+  "brand": "有招",
+  "status": "preproduction_incomplete",
+  "is_video_project_ir": false,
+  "fps": 30,
+  "total_frames": 1200,
+  "width": 1920,
+  "height": 1080,
+  "creative_approval": "not_reviewed_by_user",
+  "story_truth": "fictional_rehearsal_and_project_example",
+  "fiction_label": "情景演绎 · 虚构项目练习",
+  "ui_label": "真实界面 · 演示资料",
+  "visual_development": [
+    {
+      "id": "s02-first-frame-v1",
+      "kind": "generated_still",
+      "file": "assets/s02-first-frame-v1.png",
+      "sha256": "fc27f9012ae4667c0cb07fdd9585e04194fd1cc550e7570402309ddca0239afb",
+      "bytes": 2105629,
+      "generator": "built_in_imagegen",
+      "model_id_and_revision": "not_disclosed_by_tool",
+      "status": "generated_awaiting_user_direction_review",
+      "satisfies_dynamic_shot_requirement": false
+    }
+  ],
+  "product_evidence": [
+    {
+      "claim": "项目库中可以输入并保存项目范围或复习备注",
+      "source_commit": "521e1f479c02fc4f00992ef5bcd128ff7fba77cf",
+      "source_file": "apps/desktop/src/renderer/project-library/ProjectLibraryPage.tsx",
+      "source_line": 368,
+      "capture_manifest": ".data/有招实录-20261108/hi-detail.json",
+      "observed_events": { "typing_sec": 0.812, "save_sec": 4.438 },
+      "limitation": "现有截图序列核实界面和保存动作；新台词对应的连续录屏尚未录制。未演示成功的AI问答。"
+    }
+  ],
+  "asset_requirements": [
+    {
+      "id": "actor_rehearsal",
+      "kind": "generated_video",
+      "status": "missing",
+      "rights": "requires_provider_terms_review",
+      "supports_shots": ["S01", "S02", "S09", "S10", "S11"]
+    },
+    {
+      "id": "pencil_memory",
+      "kind": "generated_video",
+      "status": "missing",
+      "rights": "requires_provider_terms_review",
+      "supports_shots": ["S03", "S05"]
+    },
+    {
+      "id": "loading_explanation",
+      "kind": "authored_motion_graphics",
+      "status": "planned_only",
+      "rights": "original_diagram_no_performance_claims",
+      "supports_shots": ["S04", "S07"]
+    },
+    {
+      "id": "ui_pickup",
+      "kind": "real_screen_recording",
+      "status": "captured_technical_checks_passed_edit_pending",
+      "rights": "user_authorized_product_synthetic_demo_data",
+      "file": "assets/youzhao-note-pickup-v1.mp4",
+      "sha256": "faf11b6936c4b90ce16552994ec7f6b7c2203d5d5fc19aed5be79610c1fbe61b",
+      "bytes": 387883,
+      "duration_sec": 13.766667,
+      "capture_method": "native_screencast_timestamps_resampled_to_30fps",
+      "unique_source_frames": 210,
+      "output_frames": 413,
+      "has_audio": false,
+      "creative_approval": "not_reviewed",
+      "supports_shots": ["S06", "S08"]
+    },
+    {
+      "id": "end_card",
+      "kind": "authored_motion_graphics",
+      "status": "planned_only",
+      "rights": "user_product_name_only",
+      "supports_shots": ["S12"]
+    },
+    {
+      "id": "dialogue",
+      "kind": "audio",
+      "status": "not_recorded",
+      "rights": "no_real_person_voice_clone",
+      "supports_shots": [
+        "S01",
+        "S02",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S10",
+        "S11",
+        "S12"
+      ]
+    },
+    {
+      "id": "sound_mix",
+      "kind": "audio",
+      "status": "not_created",
+      "rights": "requires_original_or_licensed_stems",
+      "supports_shots": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S12"
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "duration_frames": 120,
+      "beat": "question",
+      "purpose": "建立尚未得到回答的问题",
+      "action": "主角听完排练提问，维持原来的自信",
+      "camera": "50mm中近景固定，视线位于镜头旁",
+      "dialogue": "画外：当时，为什么没选另一个方案？",
+      "assets": ["actor_rehearsal", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S02",
+      "duration_frames": 135,
+      "beat": "friction",
+      "purpose": "空泛回答被她自己叫停，建立人物与轻微幽默",
+      "action": "答到一半，停顿，看笔，放下笔，微笑后重新抬眼",
+      "camera": "同轴略近，不用持续漂移",
+      "dialogue": "因为……大家都这么做。不对，重来。",
+      "assets": ["actor_rehearsal", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S03",
+      "duration_frames": 45,
+      "beat": "turn",
+      "purpose": "用具体动作从话术转到依据",
+      "action": "笔尖接触方格纸",
+      "camera": "纸面特写，接触点剪辑",
+      "dialogue": "",
+      "assets": ["pencil_memory", "sound_mix"]
+    },
+    {
+      "id": "S04",
+      "duration_frames": 90,
+      "beat": "problem",
+      "purpose": "给出虚构练习项目中的具体问题",
+      "action": "列表记录逐项增多，画面呈现负担",
+      "camera": "俯拍纸面示意，无假产品UI",
+      "dialogue": "文档一多，列表就卡。",
+      "assets": ["loading_explanation", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S05",
+      "duration_frames": 75,
+      "beat": "attempt",
+      "purpose": "说明她尝试过另一条路线",
+      "action": "笔在一次全加载路线旁打叉",
+      "camera": "右手与笔的连续性特写",
+      "dialogue": "我们试过一次全加载。",
+      "assets": ["pencil_memory", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S06",
+      "duration_frames": 135,
+      "beat": "evidence",
+      "purpose": "真实界面展示资料整理与保存，不宣称AI已生成答案",
+      "action": "在实际项目备注中输入练习项目的问题与选择，保存",
+      "camera": "原始比例录屏，必要区域特写，保留阅读时间",
+      "dialogue": "后来，我把问题和当时的选择，记了下来。",
+      "assets": ["ui_pickup", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S07",
+      "duration_frames": 120,
+      "beat": "choice",
+      "purpose": "解释分批方案的顺序差异",
+      "action": "第一批示意记录先出现，后续记录依次进入",
+      "camera": "与上一镜关键词匹配剪辑",
+      "dialogue": "改成分批，先让人找到，再继续看。",
+      "assets": ["loading_explanation", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S08",
+      "duration_frames": 120,
+      "beat": "verification",
+      "purpose": "不把观点当结果，提醒记录验证依据",
+      "action": "真实备注里依次输入职责、选择与验证三句；不伪造三个内置功能区",
+      "camera": "真实备注局部，文字稳定可读",
+      "dialogue": "还要留下：怎么验证。",
+      "assets": ["ui_pickup", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S09",
+      "duration_frames": 60,
+      "beat": "reflection",
+      "purpose": "留出思考空间并从屏幕回到人",
+      "action": "屏幕光下，她圈出一个关键点",
+      "camera": "侧面近景，纸上圆圈匹配光标位置",
+      "dialogue": "",
+      "assets": ["actor_rehearsal", "sound_mix"]
+    },
+    {
+      "id": "S10",
+      "duration_frames": 120,
+      "beat": "answer",
+      "purpose": "以更具体的判断回应开场",
+      "action": "她抬眼，开始解释如何作出选择",
+      "camera": "回到S01机位，极轻推进",
+      "dialogue": "我先测了加载时间，再决定怎么改。",
+      "assets": ["actor_rehearsal", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S11",
+      "duration_frames": 90,
+      "beat": "payoff",
+      "purpose": "让对话自然继续，而非编造录用结果",
+      "action": "听到排练搭档回应，轻点头",
+      "camera": "留住反应，不插入虚构背书人物",
+      "dialogue": "画外：好，从这个选择聊起。",
+      "assets": ["actor_rehearsal", "dialogue", "sound_mix"]
+    },
+    {
+      "id": "S12",
+      "duration_frames": 90,
+      "beat": "action",
+      "purpose": "品牌回扣并提供一个可执行动作",
+      "action": "有招字标与整理一个真实项目的提示",
+      "camera": "统一后期排版",
+      "dialogue": "有招。把做过的，讲到点上。",
+      "assets": ["end_card", "dialogue", "sound_mix"]
+    }
+  ],
+  "cloud_video": {
+    "service_choice": "runway",
+    "user_requested_trial_and_quote_first": true,
+    "connection_status": "not_confirmed_tool_unavailable",
+    "available_models": null,
+    "quote": null,
+    "spend_approved": false,
+    "submitted_request_ids": [],
+    "actual_cost": null
+  },
+  "application_compatibility": {
+    "application_version": "0.17.0-dev",
+    "database_migration": "0014",
+    "prompt_version": "fact_bound@2",
+    "video_ir_schema_version": "1.1",
+    "provider_adapter_version": "pillow_ffmpeg@5",
+    "formal_provider_added": false
+  }
+}

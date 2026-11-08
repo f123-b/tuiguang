@@ -1,0 +1,56 @@
+{
+  "file": "有招-那个选择-完整版.mp4",
+  "bytes": 21449725,
+  "sha256": "45c68345cbb90b8fa1917fcac5183d8f99da8e450783a7df7b8ed7503b56b589",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "frames": 1324,
+  "duration_sec": 44.13333333333333,
+  "dialogue_cues": 12,
+  "stereo_rms": 0.08339442091567387,
+  "sample_peak": 0.7967087030410767,
+  "integrated_lufs": -17.0,
+  "true_peak_dbfs": -2.0,
+  "full_decode": "passed",
+  "artistic_review": "awaiting_user",
+  "cloud_video_used": false,
+  "browser_playback": {
+    "status": "ended",
+    "duration": 44.133333,
+    "currentTime": 44.133333,
+    "totalFrames": 1324,
+    "droppedFrames": 0,
+    "error": null
+  },
+  "portable_reexport": {
+    "sha256": "45c68345cbb90b8fa1917fcac5183d8f99da8e450783a7df7b8ed7503b56b589",
+    "matches_original": true,
+    "overwrite_guard": "repeated export refused; exit 1"
+  },
+  "runtime": {
+    "python": "3.9.1",
+    "numpy": "1.26.4",
+    "pillow": "11.3.0",
+    "qwen_tts": "0.1.1",
+    "torch": "2.9.1+cu128",
+    "three": "0.187.0"
+  },
+  "source_recipe_packaged_hashes": {
+    "diagram-server.mjs": "cea5f5d28e9f67b12127c6599ddcd009a068f122abc6b8089c60ead4224b2a5a",
+    "diagram.html": "2522b9d9ace034f11433ffefd4b469763141f16693cfb2fd653c095e1f22f705",
+    "diagram.js": "c3be8bfe402e64bdf021c6062fd9ea55788f66f69df6066972e739562e1e9a68",
+    "dialogue.json": "a8d8482408da94e7c124a71a703787aad2a17a9ec286971f5fdda07000e238bd",
+    "finish.py": "39c20c59ca79fc397fca28a0a5fc5e47c034036db7949c5934cddda17ec36397",
+    "reexport.py": "399145d45d54d733f166b5ced43c6dc1057de7b91d18d96a51c26d852d5c9e66",
+    "verify.py": "b16808552d00beb7fc75f9ffe1ec07e0f7b60ef5e0ca1400a0548466670a212b",
+    "voice.py": "e744115c54ecb9f22a918b70dff11d755bf2b4d01e9b4fa40df21b3de9d636f7"
+  },
+  "ui_sources": {
+    "native_recording": [1280, 720, 224],
+    "saved_state_capture": [2560, 1440],
+    "saved_note_verified": true,
+    "sha256_saved_state": "4ad168d5afb62d376255c454580a140af536e55aaf10e240ef5a3c052d8c63a9"
+  },
+  "review_status": "technical_passed; artistic_review_awaiting_user; not_published"
+}

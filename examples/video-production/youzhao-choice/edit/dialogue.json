@@ -1,0 +1,108 @@
+{
+  "version": "choice_edit@1",
+  "title": "那个选择",
+  "mode": "first_person_stock_and_real_ui",
+  "fiction_label": "情景演绎 · 虚构项目练习 · 合成配音",
+  "voices": {
+    "questioner": "Serena",
+    "candidate": "Dylan"
+  },
+  "cues": [
+    {
+      "id": "s01",
+      "role": "questioner",
+      "text": "当时，为什么没选另一个方案？",
+      "direction": "自然普通话，像朋友陪对方排练面试，温和好奇，只是在问一个具体问题。轻声、随意，不要审问、播报或广告腔。",
+      "picture": "pencil_question",
+      "tail_sec": 0.55
+    },
+    {
+      "id": "s02",
+      "role": "candidate",
+      "text": "因为……大家都这么做。",
+      "direction": "自然普通话，年轻人排练时随口回答，开头有一点犹豫，说到大家都这么做时自己也觉得这个理由很空泛。语气平实，停顿自然，不要朗诵，不要夸张演戏。",
+      "picture": "coffee_answer",
+      "tail_sec": 0.7
+    },
+    {
+      "id": "s03",
+      "role": "candidate",
+      "text": "不对，重来。",
+      "direction": "自然普通话，轻轻叫停自己的上一个回答，有一点自嘲的笑意，像自言自语，短、轻、松弛，不要兴奋、喊叫或播音。",
+      "picture": "erase_reset",
+      "tail_sec": 0.6
+    },
+    {
+      "id": "s04",
+      "role": "candidate",
+      "text": "文档一多，列表就卡。",
+      "direction": "自然普通话，回想一个实际做过的技术问题，用很日常的说法讲给朋友，思考着说，语速适中，不要解说腔。",
+      "picture": "problem_detail",
+      "tail_sec": 0.25
+    },
+    {
+      "id": "s05",
+      "role": "candidate",
+      "text": "我们试过一次全加载。",
+      "direction": "自然普通话，延续对项目经历的讲述，提到曾经尝试的方法，语气克制，不要强调成失败广告案例，不要朗诵。",
+      "picture": "all_records",
+      "tail_sec": 0.3
+    },
+    {
+      "id": "s06",
+      "role": "candidate",
+      "text": "后来，我改成分批。先让人找到，再继续看。",
+      "direction": "自然普通话，像朋友聊天，讲清自己的一个选择。后来稍有思考停顿，分批这个词清楚但不要夸大，后半句轻快一点，不是播音广告。",
+      "picture": "batch_records",
+      "tail_sec": 0.45
+    },
+    {
+      "id": "s07",
+      "role": "candidate",
+      "text": "我先对比了加载时间，还有滚动的体验。",
+      "direction": "自然普通话，认真但松弛地补充怎么验证，不要朗读报告。加载时间和滚动体验之间有自然语义停顿，像自己想起一段具体经历。",
+      "picture": "verify_notebook",
+      "tail_sec": 0.5
+    },
+    {
+      "id": "s08",
+      "role": "candidate",
+      "text": "这些细节，在有招里记下来。",
+      "direction": "自然普通话，对朋友说一个实用的小动作，温和随意。品牌有招读清楚，但不要变成广告强调，不要播报。",
+      "picture": "real_ui_write",
+      "tail_sec": 0.35
+    },
+    {
+      "id": "s09",
+      "role": "candidate",
+      "text": "我的职责，当时的选择，还有怎么验证。",
+      "direction": "自然普通话，接着整理自己的经历，三个信息点之间稍作思考的停顿，不要像逐项朗读清单，不要机械等长停顿。",
+      "picture": "real_ui_read",
+      "tail_sec": 0.65
+    },
+    {
+      "id": "s10",
+      "role": "questioner",
+      "text": "所以，你为什么这样选？",
+      "direction": "自然普通话，朋友排练时重新问同一个问题，轻松、温和、带一点期待，不要居高临下，不要播音。",
+      "picture": "coffee_return",
+      "tail_sec": 0.4
+    },
+    {
+      "id": "s11",
+      "role": "candidate",
+      "text": "因为这次，我测过。",
+      "direction": "自然普通话，很平静地回答，不是胜利宣言。有一点会心的笑意，测过这两个字清楚自然，说完轻轻收住，不要广告腔。",
+      "picture": "pencil_resolution",
+      "tail_sec": 0.65
+    },
+    {
+      "id": "s12",
+      "role": "candidate",
+      "text": "有招。把做过的，讲到点上。",
+      "direction": "自然普通话，用温和随意的声音收尾，像说完一个小故事，语速略从容，品牌读准确，不要宏大宣传腔或播音。",
+      "picture": "brand_end",
+      "tail_sec": 1.1
+    }
+  ]
+}
