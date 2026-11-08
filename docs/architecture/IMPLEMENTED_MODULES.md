@@ -1,4 +1,6 @@
-# 实际模块地图 · 0.14.0-dev
+# 实际模块地图 · 0.18.0-dev
+
+#41：VIDEO新增video_recipes.py / film_types.py、类型API、逐镜创建与脚本构建复用；五种本地形式的有声预览已实际运行，42项类型测试含受控高清正向通过。真实样片仍待人工审看；云生成和3D未接入。见 [验收](../implementation/VIDEO_TYPES_VALIDATION.md)。
 
 #39续：`examples/video-production/youzhao-choice/edit/` 已实际完成44.133333秒独立本地剪辑与媒体验收；三份实拍、原创方案动效、实际UI、逐句配音、分轨/字幕和离线IR均有来源与回执。无Runway、无新增正式Provider，用户艺术审批未运行。详见 [验收](../implementation/LOCAL_CHOICE_FILM_VALIDATION.md)。
 

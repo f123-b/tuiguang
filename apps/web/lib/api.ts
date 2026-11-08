@@ -180,7 +180,16 @@ export type Presentation = {
 export type SceneDesign = {
   motion?: "still" | "push" | "pan";
   layout:
-    "auto" | "hero" | "features" | "steps" | "screen" | "focus" | "closing";
+    | "auto"
+    | "hero"
+    | "features"
+    | "steps"
+    | "screen"
+    | "focus"
+    | "closing"
+    | "diagram"
+    | "montage"
+    | "comic";
   kicker?: string;
   headline?: string;
   supporting?: string;

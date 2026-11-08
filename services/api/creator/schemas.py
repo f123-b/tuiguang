@@ -145,7 +145,9 @@ class FrameCrop(DTO):
 
 class SceneDesign(DTO):
     motion: Literal["still", "push", "pan"] = "push"
-    layout: Literal["auto", "hero", "features", "steps", "screen", "focus", "closing"] = "auto"
+    layout: Literal[
+        "auto", "hero", "features", "steps", "screen", "focus", "closing", "diagram", "montage", "comic"
+    ] = "auto"
     kicker: str = Field(default="", max_length=40)
     headline: str = Field(default="", max_length=80)
     supporting: str = Field(default="", max_length=240)

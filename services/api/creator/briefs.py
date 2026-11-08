@@ -250,7 +250,17 @@ def assert_current(db, brief, plan):
         raise DomainError("BRIEF_PLAN_STALE", "要求、事实或素材依据已变化，请基于当前要求重新准备脚本")
 
 
-def build_video(db, brief, plan, user_id, trace, queue_preview=True, presentation=None):
+def build_video(
+    db,
+    brief,
+    plan,
+    user_id,
+    trace,
+    queue_preview=True,
+    presentation=None,
+    production_mode=None,
+    recipe_id="feature",
+):
     from .video import validate_ir
     from .video_edit import checkpoint
     from .quality import build_report
@@ -303,6 +313,47 @@ def build_video(db, brief, plan, user_id, trace, queue_preview=True, presentatio
             "user_confirmed_script": True,
         },
     }
+    if production_mode:
+        from .video_recipes import RecipeInput, VERSION as RECIPE_VERSION, compile_recipe
+
+        if any(len(s["caption"]) > 80 for s in plan.document["shots"]):
+            raise DomainError(
+                "VID_DESIGN_TEXT_OVERFLOW",
+                "分类型制作的画面短句最多80字，请缩短画面文字，完整内容保留在旁白",
+                422,
+            )
+        compiled = compile_recipe(
+            db,
+            brief.workspace_id,
+            RecipeInput(
+                brand_id=brief.brand_id,
+                name=ir["name"],
+                mode=production_mode,
+                recipe_id=recipe_id,
+                size=doc["size"],
+                presentation=presentation or {"style": "studio"},
+                scenes=[
+                    {
+                        "headline": s["caption"],
+                        "narration": s["narration"],
+                        "duration_frames": s["duration_frames"],
+                        "asset_id": s["asset_id"],
+                    }
+                    for s in plan.document["shots"]
+                ],
+            ),
+        )
+        ir = {
+            **compiled,
+            "creation_brief": ir["creation_brief"],
+            "production_recipe": {
+                "version": RECIPE_VERSION,
+                "recipe_id": recipe_id,
+                "mode": production_mode,
+                "scope": "creation_provenance",
+                "plan_id": plan.id,
+            },
+        }
     validate_ir(db, brief.workspace_id, ir)
     if plan.run_id:
         ir["source_run_id"] = plan.run_id

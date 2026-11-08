@@ -15,29 +15,33 @@ export function PresentationControls({
   value,
   onChange,
   disabled = false,
+  fixedStudio = false,
 }: {
   value: Presentation;
   onChange: (v: Presentation) => void;
   disabled?: boolean;
+  fixedStudio?: boolean;
 }) {
   return (
     <fieldset className="form-stack film-controls" disabled={disabled}>
       <legend>全片视觉与声音</legend>
       <div className="form-grid">
-        <Field label="制作风格">
-          <select
-            value={value.style}
-            onChange={(e) =>
-              onChange({
-                ...value,
-                style: e.target.value as Presentation["style"],
-              })
-            }
-          >
-            <option value="studio">软件产品发布片</option>
-            <option value="classic">经典文字卡</option>
-          </select>
-        </Field>
+        {!fixedStudio && (
+          <Field label="制作风格">
+            <select
+              value={value.style}
+              onChange={(e) =>
+                onChange({
+                  ...value,
+                  style: e.target.value as Presentation["style"],
+                })
+              }
+            >
+              <option value="studio">分层动效与素材</option>
+              <option value="classic">经典文字卡</option>
+            </select>
+          </Field>
+        )}
         <Field label="画面主题">
           <select
             value={value.theme}
@@ -115,7 +119,7 @@ export function SceneDesignControls({
   const crop = value.crop || { x: 0, y: 0, width: 100, height: 100 };
   return (
     <fieldset className="form-stack film-controls" disabled={disabled}>
-      <legend>发布片分镜设计</legend>
+      <legend>分镜画面设计</legend>
       <Field label="分镜版式">
         <select
           value={value.layout}
@@ -132,12 +136,15 @@ export function SceneDesignControls({
               <option value="hero">开场标题与真实界面</option>
               <option value="screen">界面演示</option>
               <option value="focus">界面重点特写</option>
+              <option value="montage">全画幅素材混剪</option>
+              <option value="comic">插画分镜框</option>
             </>
           ) : (
             <>
               <option value="hero">开场大标题</option>
               <option value="features">功能要点</option>
               <option value="steps">操作步骤</option>
+              <option value="diagram">动态图解</option>
               <option value="closing">品牌收尾</option>
             </>
           )}
@@ -169,7 +176,7 @@ export function SceneDesignControls({
           />
         </Field>
       )}
-      {!media && ["features", "steps"].includes(value.layout) && (
+      {!media && ["features", "steps", "diagram"].includes(value.layout) && (
         <Field label="功能要点 / 步骤（每行一项，最多三项）">
           <textarea
             value={(value.points || []).join("\n")}

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.17.0-dev"
+    "version": "0.18.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -899,6 +899,71 @@
         },
         "responses": {
           "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/recipes": {
+      "get": {
+        "summary": "Production Recipes",
+        "operationId": "production_recipes_api_v1_videos_recipes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/from-recipe": {
+      "post": {
+        "summary": "Produce Recipe",
+        "operationId": "produce_recipe_api_v1_videos_from_recipe_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -5842,6 +5907,37 @@
                 "type": "null"
               }
             ]
+          },
+          "production_mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mg",
+                  "screen_demo",
+                  "montage",
+                  "illustrated",
+                  "mixed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Production Mode"
+          },
+          "recipe_id": {
+            "type": "string",
+            "enum": [
+              "feature",
+              "qa",
+              "tutorial",
+              "story",
+              "release",
+              "brand"
+            ],
+            "title": "Recipe Id",
+            "default": "feature"
           }
         },
         "additionalProperties": false,
@@ -7249,6 +7345,177 @@
         ],
         "title": "PublicationInput"
       },
+      "RecipeInput": {
+        "properties": {
+          "brand_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Brand Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "recipe_id": {
+            "type": "string",
+            "enum": [
+              "feature",
+              "qa",
+              "tutorial",
+              "story",
+              "release",
+              "brand"
+            ],
+            "title": "Recipe Id",
+            "default": "feature"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "mg",
+              "screen_demo",
+              "montage",
+              "illustrated",
+              "mixed"
+            ],
+            "title": "Mode",
+            "default": "mg"
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "wide",
+              "portrait",
+              "square"
+            ],
+            "title": "Size",
+            "default": "wide"
+          },
+          "scenes": {
+            "items": {
+              "$ref": "#/components/schemas/RecipeScene"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Scenes"
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Presentation"
+          },
+          "narration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NarrationOptions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "brand_id",
+          "name",
+          "scenes"
+        ],
+        "title": "RecipeInput"
+      },
+      "RecipeScene": {
+        "properties": {
+          "headline": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Headline"
+          },
+          "narration": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Narration",
+            "default": ""
+          },
+          "supporting": {
+            "type": "string",
+            "maxLength": 240,
+            "title": "Supporting",
+            "default": ""
+          },
+          "points": {
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Points"
+          },
+          "duration_frames": {
+            "type": "integer",
+            "maximum": 1800.0,
+            "minimum": 15.0,
+            "title": "Duration Frames",
+            "default": 150
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          },
+          "trim_start_frame": {
+            "type": "integer",
+            "maximum": 216000.0,
+            "minimum": 0.0,
+            "title": "Trim Start Frame",
+            "default": 0
+          },
+          "motion": {
+            "type": "string",
+            "enum": [
+              "still",
+              "push",
+              "pan"
+            ],
+            "title": "Motion",
+            "default": "push"
+          },
+          "treatment": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "screen",
+              "montage",
+              "comic",
+              "diagram"
+            ],
+            "title": "Treatment",
+            "default": "auto"
+          },
+          "crop": {
+            "$ref": "#/components/schemas/FrameCrop"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "headline"
+        ],
+        "title": "RecipeScene"
+      },
       "Reconcile": {
         "properties": {
           "confirmed": {
@@ -7541,7 +7808,10 @@
               "steps",
               "screen",
               "focus",
-              "closing"
+              "closing",
+              "diagram",
+              "montage",
+              "comic"
             ],
             "title": "Layout",
             "default": "auto"

@@ -24,6 +24,7 @@ from .models import Brand, BriefPlan, CreationBrief, Run, User
 from .observability import record
 from .schemas import DTO, Short, Presentation
 from .narration import NarrationOptions, NarrationRequest
+from .video_recipes import Mode, RecipeID
 
 router = APIRouter(prefix="/api/v1/creation-briefs")
 DB = Annotated[Session, Depends(get_db)]
@@ -54,6 +55,8 @@ class ModelRequest(Confirm):
 class Build(Confirm):
     narration: NarrationOptions | None = None
     presentation: Presentation | None = None
+    production_mode: Mode | None = None
+    recipe_id: RecipeID = "feature"
 
 
 @router.get("")
@@ -227,6 +230,8 @@ def build(brief_id: str, plan_id: str, data: Build, db: DB, user: Actor, request
         request.state.trace_id,
         queue_preview=data.narration is None,
         presentation=data.presentation.model_dump() if data.presentation else None,
+        production_mode=data.production_mode,
+        recipe_id=data.recipe_id,
     )
     if data.narration:
         from .models import NarrationJob, Video

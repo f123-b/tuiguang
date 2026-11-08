@@ -23,7 +23,7 @@
       "module": "video"
     },
     "ASSET_LICENSE_UNVERIFIED": {
-      "module": "video"
+      "module": "video_recipes"
     },
     "ASSET_MISSING": {
       "module": "video"
@@ -339,6 +339,15 @@
     },
     "VID_PROVIDER_UNSUPPORTED": {
       "module": "video"
+    },
+    "VID_RECIPE_ASSETS_REQUIRED": {
+      "module": "video_recipes"
+    },
+    "VID_RECIPE_ASSET_KIND": {
+      "module": "video_recipes"
+    },
+    "VID_RECIPE_KEY_CONFLICT": {
+      "module": "video_recipes"
     },
     "VID_REVISION_CONFLICT": {
       "module": "video_edit"
