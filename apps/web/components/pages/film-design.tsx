@@ -137,6 +137,7 @@ export function SceneDesignControls({
               <option value="screen">界面演示</option>
               <option value="focus">界面重点特写</option>
               <option value="montage">全画幅素材混剪</option>
+              <option value="cinema">剧情画面（仅标识与字幕）</option>
               <option value="comic">插画分镜框</option>
             </>
           ) : (

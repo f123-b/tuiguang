@@ -119,6 +119,7 @@ export type GraphicPage = {
   heading: string;
   text: string;
   asset_id: string | null;
+  generation_job_id?: string;
 };
 export type GraphicDocument = {
   schema_version: "1.0";
@@ -189,6 +190,7 @@ export type SceneDesign = {
     | "closing"
     | "diagram"
     | "montage"
+    | "cinema"
     | "comic";
   kicker?: string;
   headline?: string;

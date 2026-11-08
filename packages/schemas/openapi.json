@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.18.0-dev"
+    "version": "0.19.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -1372,6 +1372,243 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AttachVideo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/video-generation/capabilities": {
+      "get": {
+        "summary": "Capability",
+        "operationId": "capability_api_v1_video_generation_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/video-generation/jobs": {
+      "post": {
+        "summary": "Create",
+        "operationId": "create_api_v1_video_generation_jobs_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Jobs",
+        "operationId": "jobs_api_v1_video_generation_jobs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/video-generation/jobs/{job_id}/video": {
+      "get": {
+        "summary": "Preview",
+        "operationId": "preview_api_v1_video_generation_jobs__job_id__video_get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/video-generation/jobs/{job_id}/cancel": {
+      "post": {
+        "summary": "Cancel",
+        "operationId": "cancel_api_v1_video_generation_jobs__job_id__cancel_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/video-generation/jobs/{job_id}/check-existing": {
+      "post": {
+        "summary": "Check Existing",
+        "operationId": "check_existing_api_v1_video_generation_jobs__job_id__check_existing_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/video-generation/jobs/{job_id}/verify": {
+      "post": {
+        "summary": "Verify",
+        "operationId": "verify_api_v1_video_generation_jobs__job_id__verify_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Verify"
               }
             }
           }
@@ -5917,7 +6154,8 @@
                   "screen_demo",
                   "montage",
                   "illustrated",
-                  "mixed"
+                  "mixed",
+                  "generative"
                 ]
               },
               {
@@ -6403,6 +6641,83 @@
         "additionalProperties": false,
         "type": "object",
         "title": "FrameCrop"
+      },
+      "GenerationInput": {
+        "properties": {
+          "brand_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Brand Id"
+          },
+          "reference_asset_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Reference Asset Id"
+          },
+          "prompt": {
+            "type": "string",
+            "maxLength": 1600,
+            "minLength": 10,
+            "title": "Prompt"
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "realistic",
+              "anime"
+            ],
+            "title": "Style",
+            "default": "realistic"
+          },
+          "seed": {
+            "type": "integer",
+            "maximum": 4294967295.0,
+            "minimum": 0.0,
+            "title": "Seed",
+            "default": 37
+          },
+          "width": {
+            "type": "integer",
+            "maximum": 1280.0,
+            "minimum": 256.0,
+            "title": "Width",
+            "default": 1280
+          },
+          "height": {
+            "type": "integer",
+            "maximum": 1280.0,
+            "minimum": 256.0,
+            "title": "Height",
+            "default": 704
+          },
+          "frames": {
+            "type": "integer",
+            "enum": [
+              49,
+              73,
+              97,
+              121
+            ],
+            "title": "Frames",
+            "default": 121
+          },
+          "usage_confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Usage Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "brand_id",
+          "reference_asset_id",
+          "prompt",
+          "usage_confirmed"
+        ],
+        "title": "GenerationInput"
       },
       "GraphicDocument": {
         "properties": {
@@ -7379,7 +7694,8 @@
               "screen_demo",
               "montage",
               "illustrated",
-              "mixed"
+              "mixed",
+              "generative"
             ],
             "title": "Mode",
             "default": "mg"
@@ -7475,6 +7791,19 @@
               }
             ],
             "title": "Asset Id"
+          },
+          "generation_job_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generation Job Id"
           },
           "trim_start_frame": {
             "type": "integer",
@@ -7811,7 +8140,8 @@
               "closing",
               "diagram",
               "montage",
-              "comic"
+              "comic",
+              "cinema"
             ],
             "title": "Layout",
             "default": "auto"
@@ -8022,6 +8352,19 @@
               }
             ],
             "title": "Asset Id"
+          },
+          "generation_job_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generation Job Id"
           },
           "locked": {
             "type": "boolean",
@@ -8411,6 +8754,28 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "Verify": {
+        "properties": {
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 5,
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "confirmed",
+          "note"
+        ],
+        "title": "Verify"
       },
       "VideoInput": {
         "properties": {

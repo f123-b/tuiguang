@@ -31,7 +31,7 @@
 - 当前实际执行器为独立实现的 Pillow MG + FFmpeg Provider，业务真相为 VideoProjectIR。**没有复制 OpenFilm、Motion Canvas、MoneyPrinterTurbo、HiveMtk 的源码**。因此不会假称这些候选已接入或通过其 PoC。
 - 本机 `ffmpeg -version` 实际为 `9.0.1-essentials_build-www.gyan.dev`，配置含 `--enable-gpl --enable-version3 --enable-libx264`。应按此实际构建审查 GPL 及编解码器义务，不能概括为 LGPL。项目只以独立子进程调用用户安装的二进制，仓库不分发 FFmpeg；是否打包商业安装器须另审。[FFmpeg 上游许可与说明](https://github.com/FFmpeg/FFmpeg/blob/master/LICENSE.md)。本机访问 ffmpeg.org/legal.html 超时，未把该页面记为已读取。
 - OpenFilm [上游 LICENSE](https://github.com/openfilm/openfilm/blob/main/LICENSE) 为 MIT 候选；本轮优先实现最小 Provider 闭环，尚未验证其编辑器集成。Motion Canvas / MoneyPrinterTurbo 待固定具体 commit 并验证，不在运行依赖中。
-- ComfyUI/Wan、Blender、OpenCut、Remotion、HiveMtk 均未安装、未复制、未开启收费服务。尤其不因上游代码许可推定模型权重、节点、声音或字体可商用。UI 的高级引擎明确标为“待接入”。
+- Blender、OpenCut、Remotion、HiveMtk 尚未接入正式运行。0.19已在本机独立安装ComfyUI/Wan，未复制进应用包、未开启收费服务。ComfyUI源码GPL-3.0、固定Wan模型仓库卡标注Apache-2.0；输入、输出、声音和字体仍需独立核实，不据此认证成片商业使用。版本、权重哈希及来源见[本机AI视频](docs/implementation/LOCAL_AI_VIDEO.md)。
 
 ## 字体与素材
 

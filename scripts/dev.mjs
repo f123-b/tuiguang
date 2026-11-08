@@ -11,6 +11,7 @@ if (migration.status !== 0) process.exit(migration.status ?? 1);
 const processes = [
   spawn(python, ["-m", "uvicorn", "creator.main:app", "--host", "127.0.0.1", "--port", "8000"], { env, stdio: "inherit" }),
   spawn(python, ["-m", "creator.worker"], { env, stdio: "inherit" }),
+  spawn(python, ["-m", "creator.video_generation_worker"], { env, stdio: "inherit" }),
   spawn(process.execPath, [path.join(root, "node_modules/next/dist/bin/next"), "dev", "--hostname", "127.0.0.1", "--webpack"], { cwd: path.join(root, "apps/web"), env, stdio: "inherit" })
 ];
 let stopping = false;

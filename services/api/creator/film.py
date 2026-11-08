@@ -57,7 +57,7 @@ def layers_for(shot, canvas):
     p = palette(canvas.get("presentation", {}))
     design = shot.get("design", {})
     layout = scene_layout(shot)
-    if layout in ("diagram", "montage", "comic"):
+    if layout in ("diagram", "montage", "comic", "cinema"):
         from .film_types import type_layers
 
         return type_layers(shot, canvas, p, text_block)
@@ -260,7 +260,7 @@ def render_scene(shot, canvas, target, asset=None):
         chain = f"crop=iw*{crop.get('width', 100)}/100:ih*{crop.get('height', 100)}/100:iw*{crop.get('x', 0)}/100:ih*{crop.get('y', 0)}/100,setpts=PTS/{shot.get('speed_percent', 100) / 100},fps={fps}"
         if shot.get("freeze_end_frames"):
             chain += f",trim=end_frame={frames - shot['freeze_end_frames']},setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop={shot['freeze_end_frames']}"
-        if scene_layout(shot) == "montage":
+        if scene_layout(shot) in ("montage", "cinema"):
             chain += f",scale={vw}:{vh}:force_original_aspect_ratio=increase:force_divisible_by=2:flags=lanczos,crop={vw}:{vh},setsar=1[media]"
         else:
             chain += f",scale={vw}:{vh}:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos,pad={vw}:{vh}:(ow-iw)/2:(oh-ih)/2:color=0x111A20,setsar=1[media]"

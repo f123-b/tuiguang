@@ -467,3 +467,24 @@ class ProductCheck(TenantRecord, Base):
     error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
     trace_id: Mapped[str] = mapped_column(String(32))
     result: Mapped[dict] = mapped_column(JSON, default=dict)
+
+
+class VideoGenerationJob(TenantRecord, Base):
+    __tablename__ = "video_generation_jobs"
+    brand_id: Mapped[str] = mapped_column(ForeignKey("brands.id"))
+    reference_asset_id: Mapped[str] = mapped_column(ForeignKey("brand_assets.id"))
+    requested_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    idempotency_key: Mapped[str] = mapped_column(String(160))
+    request_hash: Mapped[str] = mapped_column(String(64))
+    document: Mapped[dict] = mapped_column(JSON)
+    source: Mapped[dict] = mapped_column(JSON)
+    status: Mapped[str] = mapped_column(String(20), default="queued")
+    stage: Mapped[str] = mapped_column(String(40), default="generation.queued")
+    provider_request_id: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    output_asset_id: Mapped[str | None] = mapped_column(ForeignKey("brand_assets.id"), nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    receipt: Mapped[dict] = mapped_column(JSON, default=dict)
+    lease_until: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    trace_id: Mapped[str] = mapped_column(String(32))
+    __table_args__ = (UniqueConstraint("workspace_id", "idempotency_key"),)

@@ -11,8 +11,8 @@ from .models import Asset, Brand, RenderJob, Video
 from .narration import NarrationOptions, NarrationRequest
 from .schemas import DTO, FrameCrop, Presentation, Short, VideoInput
 
-VERSION = "video_recipes@1"
-Mode = Literal["mg", "screen_demo", "montage", "illustrated", "mixed"]
+VERSION = "video_recipes@2"
+Mode = Literal["mg", "screen_demo", "montage", "illustrated", "mixed", "generative"]
 RecipeID = Literal["feature", "qa", "tutorial", "story", "release", "brand"]
 RECIPES = [
     {"id": "feature", "name": "功能讲解", "roles": ["具体问题", "功能原理", "真实示例", "下一步"]},
@@ -46,8 +46,8 @@ MODES = [
     {
         "id": "generative",
         "name": "AI 动态场景生成",
-        "description": "服务未接入；已有授权生成素材可导入混剪",
-        "available": False,
+        "description": "已生成并经用户检查的真人或动漫片段；本机生成服务单独检测",
+        "available": True,
     },
     {
         "id": "three_d",
@@ -67,6 +67,7 @@ class RecipeScene(DTO):
     )
     duration_frames: int = Field(default=150, ge=15, le=1800)
     asset_id: Short | None = None
+    generation_job_id: Short | None = None
     trim_start_frame: int = Field(default=0, ge=0, le=216000)
     motion: Literal["still", "push", "pan"] = "push"
     treatment: Literal["auto", "screen", "montage", "comic", "diagram"] = "auto"
@@ -103,7 +104,7 @@ def compile_recipe(db, workspace, data):
     if (
         (data.mode == "mg" and any(selected))
         or (data.mode == "mixed" and (not any(selected) or all(selected)))
-        or (data.mode in ("screen_demo", "montage", "illustrated") and not all(selected))
+        or (data.mode in ("screen_demo", "montage", "illustrated", "generative") and not all(selected))
     ):
         raise DomainError(
             "VID_RECIPE_ASSETS_REQUIRED", "MG 只用图解；素材形式逐镜选素材；混合形式须同时有图解和素材", 422
@@ -111,13 +112,36 @@ def compile_recipe(db, workspace, data):
     roles = next(r["roles"] for r in RECIPES if r["id"] == data.recipe_id)
     shots = []
     for index, scene in enumerate(data.scenes):
+        from .models import VideoGenerationJob
+        from sqlalchemy import select
+
+        generated = None
         if scene.asset_id:
             asset = owned(db, Asset, scene.asset_id, workspace)
             if asset.brand_id != brand.id or not asset.verified or asset.applicability_status != "current":
                 raise DomainError("ASSET_LICENSE_UNVERIFIED", "请先核实本品牌当前有效的素材与许可", 422)
             if data.mode == "illustrated" and asset.kind != "image":
                 raise DomainError("VID_RECIPE_ASSET_KIND", "插画故事需要图片；实拍或录屏视频请选择混剪", 422)
-        layout = {"screen_demo": "screen", "montage": "montage", "illustrated": "comic"}.get(data.mode)
+            generated = db.scalar(
+                select(VideoGenerationJob).where(
+                    VideoGenerationJob.workspace_id == workspace,
+                    VideoGenerationJob.output_asset_id == asset.id,
+                )
+            )
+        if (
+            (data.mode == "generative" and not generated)
+            or (generated and scene.generation_job_id != generated.id)
+            or (scene.generation_job_id and not generated)
+        ):
+            raise DomainError("GEN_PROVENANCE_REQUIRED", "请选择具有生成回执且已检查的AI片段", 422)
+        if generated and data.mode not in ("generative", "mixed"):
+            raise DomainError("GEN_PROVENANCE_REQUIRED", "AI片段请选择AI动态短剧或混合制作并保留回执", 422)
+        layout = {
+            "screen_demo": "screen",
+            "montage": "montage",
+            "illustrated": "comic",
+            "generative": "cinema",
+        }.get(data.mode)
         if data.mode == "mixed":
             layout = "montage" if scene.asset_id else "diagram"
             if scene.treatment != "auto":
@@ -133,8 +157,10 @@ def compile_recipe(db, workspace, data):
         shots.append(
             {
                 "shot_id": f"s{index + 1}",
-                "provider": "ffmpeg_media" if scene.asset_id else "pillow_mg",
-                "kind": "screen_demo"
+                "provider": "comfy_wan" if generated else "ffmpeg_media" if scene.asset_id else "pillow_mg",
+                "kind": "ai_creative_scene"
+                if generated
+                else "screen_demo"
                 if layout in ("screen", "focus")
                 else "montage"
                 if scene.asset_id
@@ -143,6 +169,7 @@ def compile_recipe(db, workspace, data):
                 "caption": scene.headline,
                 "narration_text": scene.narration,
                 "asset_id": scene.asset_id,
+                **({"generation_job_id": generated.id} if generated else {}),
                 "trim_start_frame": scene.trim_start_frame,
                 "design": {
                     "layout": layout,
@@ -150,7 +177,7 @@ def compile_recipe(db, workspace, data):
                     "headline": scene.headline,
                     "supporting": scene.supporting,
                     "points": scene.points,
-                    "kicker": roles[min(index, len(roles) - 1)],
+                    "kicker": "AI剧情演绎" if generated else roles[min(index, len(roles) - 1)],
                     "crop": scene.crop.model_dump(),
                 },
             }

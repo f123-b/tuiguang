@@ -20,6 +20,18 @@ def type_layers(shot, canvas, colors, text_block):
 
     title = design.get("headline") or shot.get("caption", "")
     brand = canvas.get("presentation", {}).get("brand_label", "")
+    if layout == "cinema":
+        # Drama keeps the actor unobstructed; dialogue belongs on the subtitle track.
+        overlay = layer()
+        draw = ImageDraw.Draw(overlay)
+        draw.rounded_rectangle(
+            (w * 0.04, h * 0.035, w * 0.31, h * 0.12), radius=max(2, round(8 * unit)), fill=(5, 12, 18, 155)
+        )
+        label = "AI剧情演绎" if shot.get("kind") == "ai_creative_scene" else brand or "素材镜头"
+        text_block(
+            overlay, label, (w * 0.055, h * 0.05, w * 0.24, h * 0.055), 25 * unit, 16 * unit, "#FFFFFF"
+        )
+        return background, layers, (0, 0, w, h)
     if layout == "montage":
         # Full-bleed footage with a graduated title scrim, not a floating UI card.
         overlay = layer()

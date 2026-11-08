@@ -176,7 +176,8 @@
             "closing",
             "diagram",
             "montage",
-            "comic"
+            "comic",
+            "cinema"
           ],
           "title": "Layout",
           "type": "string"
@@ -275,6 +276,20 @@
           ],
           "default": null,
           "title": "Asset Id"
+        },
+        "generation_job_id": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generation Job Id"
         },
         "locked": {
           "default": false,
