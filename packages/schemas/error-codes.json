@@ -59,7 +59,7 @@
       "module": "briefs"
     },
     "BRIEF_BUDGET_EXCEEDED": {
-      "module": "brief_jobs"
+      "module": "drama_jobs"
     },
     "BRIEF_FACTS_REQUIRED": {
       "module": "brief_jobs"
@@ -96,6 +96,51 @@
     },
     "CSRF_ORIGIN_DENIED": {
       "module": "main"
+    },
+    "DRAMA_CONFIRMATION_REQUIRED": {
+      "module": "drama"
+    },
+    "DRAMA_FACTS_STALE": {
+      "module": "drama"
+    },
+    "DRAMA_FIXED_DURATION": {
+      "module": "drama_api"
+    },
+    "DRAMA_MEDIA_REQUIRED": {
+      "module": "drama"
+    },
+    "DRAMA_MEDIA_REVIEW_REQUIRED": {
+      "module": "drama"
+    },
+    "DRAMA_MODEL_FORMAT": {
+      "module": "drama_jobs"
+    },
+    "DRAMA_PLAN_BLOCKED": {
+      "module": "drama"
+    },
+    "DRAMA_PLAN_STALE": {
+      "module": "drama_jobs"
+    },
+    "DRAMA_PROMPT_TOO_LONG": {
+      "module": "drama"
+    },
+    "DRAMA_REFERENCE_REQUIRED": {
+      "module": "drama"
+    },
+    "DRAMA_REVISION_CONFLICT": {
+      "module": "drama"
+    },
+    "DRAMA_SKILL_CHANGED": {
+      "module": "drama_skills"
+    },
+    "DRAMA_SOURCE_RESOLUTION": {
+      "module": "drama"
+    },
+    "DRAMA_TAKE_NOT_SAFE": {
+      "module": "drama"
+    },
+    "DRAMA_VALIDATOR_UNAVAILABLE": {
+      "module": "drama_skills"
     },
     "EDITORIAL_ALREADY_EXECUTED": {
       "module": "editorial_api"

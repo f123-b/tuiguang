@@ -40,6 +40,7 @@ from .graphics_api import router as graphics_router
 from .evidence_api import router as evidence_router
 from .video_edit_api import router as video_edit_router
 from .video_generation_api import router as video_generation_router
+from .drama_api import router as drama_router
 from .learning_api import router as learning_router
 from .settings_api import router as settings_router
 from .analysis_api import router as analysis_router
@@ -84,6 +85,7 @@ app.include_router(graphics_router)
 app.include_router(evidence_router)
 app.include_router(video_edit_router)
 app.include_router(video_generation_router)
+app.include_router(drama_router)
 app.include_router(learning_router)
 app.include_router(settings_router)
 app.include_router(analysis_router)
@@ -453,7 +455,7 @@ def run_diagnostic(run_id: str, db: DB, user: Actor):
         "run": {
             k: v
             for k, v in serialize(run).items()
-            if k != "input_snapshot" or run.release.get("job_kind") != "brief_video"
+            if k != "input_snapshot" or run.release.get("job_kind") not in ("brief_video", "drama_plan")
         },
         "receipts": receipts,
         "observed": "已定位失败阶段" if run.error_code else "见实际运行事件",

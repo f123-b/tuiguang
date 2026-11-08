@@ -88,6 +88,9 @@ export function DramaStudio({ store, action, busy }: PageProps) {
         title="AI 动态短剧"
         description="先生成角色动作，逐镜检查，再配音剪辑。真人、动漫共用一套分镜流程。"
       >
+        <Link className="button secondary" href="/studio/video/drama">
+          从故事开始制作短剧
+        </Link>
         <Link className="button secondary" href="/studio/video/new">
           其他视频形式
         </Link>

@@ -488,3 +488,17 @@ class VideoGenerationJob(TenantRecord, Base):
     lease_until: Mapped[str | None] = mapped_column(String(40), nullable=True)
     trace_id: Mapped[str] = mapped_column(String(32))
     __table_args__ = (UniqueConstraint("workspace_id", "idempotency_key"),)
+
+
+class DramaProject(TenantRecord, Base):
+    __tablename__ = "drama_projects"
+    brand_id: Mapped[str] = mapped_column(ForeignKey("brands.id"))
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    document: Mapped[dict] = mapped_column(JSON)
+    plan: Mapped[dict] = mapped_column(JSON, default=dict)
+    evidence: Mapped[dict] = mapped_column(JSON, default=dict)
+    report: Mapped[dict] = mapped_column(JSON, default=dict)
+    confirmation: Mapped[dict] = mapped_column(JSON, default=dict)
+    bindings: Mapped[dict] = mapped_column(JSON, default=dict)
+    history: Mapped[list] = mapped_column(JSON, default=list)
+    run_id: Mapped[str | None] = mapped_column(ForeignKey("creator_runs.id"), nullable=True)

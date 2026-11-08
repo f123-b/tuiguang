@@ -2,3 +2,5 @@
 *.png binary
 *.pdf binary
 *.mp4 binary
+# Audited upstream packages are hashed byte-for-byte on all platforms.
+vendor/skills/** -text -whitespace

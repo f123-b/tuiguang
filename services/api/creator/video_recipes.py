@@ -200,7 +200,7 @@ def compile_recipe(db, workspace, data):
     }
 
 
-def create_from_recipe(db, user, data, key, trace):
+def create_from_recipe(db, user, data, key, trace, narration_lines=None):
     from .narration import enqueue
     from .observability import record
     from .video import validate_ir
@@ -251,8 +251,13 @@ def create_from_recipe(db, user, data, key, trace):
                 **data.narration.model_dump(),
                 expected_revision=1,
                 lines=[
-                    {"shot_id": s["shot_id"], "text": s["narration_text"] or s["caption"]}
-                    for s in ir["shots"]
+                    {
+                        "shot_id": s["shot_id"],
+                        "text": narration_lines[i]
+                        if narration_lines is not None
+                        else (s["narration_text"] or s["caption"]),
+                    }
+                    for i, s in enumerate(ir["shots"])
                 ],
             ),
             "recipe-voice:" + identifier,

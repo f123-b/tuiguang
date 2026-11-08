@@ -66,6 +66,7 @@ def record(db, workspace_id, trace_id, stage, status, run_id=None, error_code=No
     allowed = {
         "change_id",
         "brief_id",
+        "drama_project_id",
         "plan_id",
         "narration_job_id",
         "generation_job_id",

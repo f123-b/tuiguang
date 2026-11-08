@@ -1,8 +1,8 @@
 {
-  "release_id": "creator-0.19.0-dev",
-  "application_version": "0.19.0-dev",
+  "release_id": "creator-0.20.0-dev",
+  "application_version": "0.20.0-dev",
   "git_sha": "resolved-at-runtime",
-  "database_migration": "0015",
+  "database_migration": "0016",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.1",
@@ -36,5 +36,8 @@
   "video_generation_workflow_version": "wan_ti2v_fixed@2",
   "video_generation_model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
   "video_generation_model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
-  "video_generation_engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e"
+  "video_generation_engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+  "drama_workflow_version": "drama_skills@1",
+  "skill_registry_version": "skill_registry@1",
+  "skill_registry_sha256": "a5effc3b52e6ef92aa3661b6ac1f5236099aa198ecd021c500c96af27eefa301"
 }
