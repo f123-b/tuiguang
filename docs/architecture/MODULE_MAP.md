@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+0.19 / #45：唯一主模块 `video_generation.py`（生成状态机）→ `wan_comfy.py`（固定本机原生工作流）→ 独立 `video_generation_worker.py`；HTTP为`video_generation_api.py`，DB0015。素材经独立用户检查，`video_recipes.py` / `video.py`保留Shot.generation_job_id，cinema版式只留AI标识；WEB为`video-drama.tsx`。真人/动漫均有实际动态片段，不提供对口型或跨镜头一致性保证；见[使用](../implementation/LOCAL_AI_VIDEO.md)及[验收](../implementation/AI_DRAMA_VALIDATION.md)。持续创作与人工发布边界保持。
+
 0.18 / #41：VIDEO新增video_recipes.py（类型目录/配方编译/幂等创建）与film_types.py（三类画面）；video_edit_api.py / brief_api.py提供制作入口，briefs.py按可选类型编译原脚本，narration.py与RenderJob沿用。WEB为video.tsx / briefs.tsx / film-design.tsx；VIDEO IR1.1兼容扩展，provider@7，无DB/Prompt/云生成变更。见 [实际验证](../implementation/VIDEO_TYPES_VALIDATION.md)。
 
 #39续：独立 `examples/video-production/youzhao-choice/edit/` 的 dialogue.json → voice.py / diagram.js / 真实UI采集 → finish.py → verify.py 已产出44秒完整影片与离线IR1.1。正式API、Provider注册、工作台和DB不变；这不是持续任务已具备自动导演。见 [实际范围](../implementation/LOCAL_CHOICE_FILM_VALIDATION.md)。

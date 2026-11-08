@@ -6,13 +6,15 @@ import pytest
 @pytest.mark.skipif(os.name != "nt", reason="Windows offline system voice unavailable on this OS")
 def test_offline_voice_produces_real_unverified_asset(client, brand):
     voices = client.get("/api/v1/videos/voices").json()["voices"]
-    if not voices:
-        pytest.skip("No local voice installed")
+    # This Windows smoke test exercises SAPI, without contending with optional GPU jobs.
+    system_voices = [v for v in voices if not v["id"].startswith(("qwen:", "kokoro:"))]
+    if not system_voices:
+        pytest.skip("No Windows system voice installed")
     response = client.post(
         "/api/v1/videos/speech",
         json={
             "brand_id": brand["id"],
-            "voice_id": voices[0]["id"],
+            "voice_id": system_voices[0]["id"],
             "text": "这是叙流离线语音功能的开发验收样例。",
             "confirmed": True,
         },

@@ -9,6 +9,7 @@ import { Field, PageHeader, type PageProps } from "../page-shared";
 import { VideoEditor } from "./video-editor";
 import { PresentationControls, defaultPresentation } from "./film-design";
 import { VoiceControls, defaultVoiceSettings } from "./narration";
+import { DramaStudio } from "./video-drama";
 
 type Mode = "mg" | "screen_demo" | "montage" | "illustrated" | "mixed";
 type Catalog = {
@@ -43,6 +44,7 @@ const emptyScene = (): Scene => ({
 });
 
 export function VideoPage(props: PageProps) {
+  if (props.path === "/studio/video/ai") return <DramaStudio {...props} />;
   const video = props.store.videos.find(
     (v) => v.id === props.path.split("/")[3],
   );
@@ -110,7 +112,11 @@ export function VideoCreate({ store, action, busy }: PageProps) {
             className={`mode-card ${mode === item.id ? "selected" : ""}`}
             disabled={!item.available || busy}
             aria-pressed={mode === item.id}
-            onClick={() => setMode(item.id as Mode)}
+            onClick={() =>
+              item.id === "generative"
+                ? router.push("/studio/video/ai")
+                : setMode(item.id as Mode)
+            }
           >
             <Clapperboard size={24} />
             <strong>{item.name}</strong>

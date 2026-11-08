@@ -62,7 +62,7 @@ def test_catalog_exposes_real_capabilities_and_six_structures(client, user):
     r = client.get("/api/v1/videos/recipes")
     assert r.status_code == 200, r.text
     catalog = r.json()
-    assert catalog["version"] == "video_recipes@1"
+    assert catalog["version"] == "video_recipes@2"
     assert len(catalog["recipes"]) == 6
     assert {m["id"] for m in catalog["modes"] if m["available"]} == {
         "mg",
@@ -70,8 +70,9 @@ def test_catalog_exposes_real_capabilities_and_six_structures(client, user):
         "montage",
         "illustrated",
         "mixed",
+        "generative",
     }
-    assert all(not m["available"] for m in catalog["modes"] if m["id"] in ("generative", "three_d"))
+    assert all(not m["available"] for m in catalog["modes"] if m["id"] == "three_d")
 
 
 @pytest.mark.parametrize(

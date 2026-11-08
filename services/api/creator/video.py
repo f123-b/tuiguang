@@ -10,7 +10,7 @@ from sqlalchemy import or_, select, update
 from .config import DATA_DIR
 from .domains import digest, file_path, font, owned
 from .errors import DomainError
-from .models import Asset, RenderJob, Video, uid
+from .models import Asset, RenderJob, Video, VideoGenerationJob, uid
 from .film import render_scene, scene_layout
 from .observability import record
 
@@ -23,7 +23,7 @@ PROVIDERS = [
         "editability": "parametric",
         "requires_gpu": False,
         "license": "MIT-CMU",
-        "version": "7",
+        "version": "8",
     },
     {
         "id": "ffmpeg_media",
@@ -33,17 +33,17 @@ PROVIDERS = [
         "editability": "clip_level",
         "requires_gpu": False,
         "license": "depends-on-local-build",
-        "version": "7",
+        "version": "8",
     },
     {
         "id": "comfy_wan",
-        "name": "AI 创意 / 卡通镜头",
-        "available": False,
+        "name": "AI 生成片段 / 真人与动漫",
+        "available": bool(shutil.which("ffmpeg")),
         "types": ["ai_creative_scene"],
         "editability": "regenerate",
-        "requires_gpu": True,
-        "license": "unverified",
-        "version": None,
+        "requires_gpu": False,
+        "license": "model-apache-2.0; input-and-output-require-review",
+        "version": "wan_comfy_local@1",
     },
     {
         "id": "blender",
@@ -136,7 +136,7 @@ def validate_ir(db, workspace_id, ir):
 
     def asset_for(asset_id, kinds):
         asset = owned(db, Asset, asset_id, workspace_id)
-        if asset.brand_id != ir["brand_id"] or not asset.verified:
+        if asset.brand_id != ir["brand_id"] or not asset.verified or asset.applicability_status != "current":
             raise DomainError("ASSET_LICENSE_UNVERIFIED", "请选用当前品牌已核实授权素材", 422)
         if asset.kind not in kinds:
             raise DomainError("VID_IR_INVALID", "素材格式与轨道不匹配", 422)
@@ -149,7 +149,7 @@ def validate_ir(db, workspace_id, ir):
         if ir.get("presentation", {}).get("style") == "studio":
             layout = shot.get("design", {}).get("layout", "auto")
             allowed = (
-                ("auto", "hero", "screen", "focus", "montage", "comic")
+                ("auto", "hero", "screen", "focus", "montage", "comic", "cinema")
                 if shot.get("asset_id")
                 else ("auto", "hero", "features", "steps", "closing", "diagram")
             )
@@ -162,10 +162,35 @@ def validate_ir(db, workspace_id, ir):
             raise DomainError("VID_PROVIDER_UNSUPPORTED", "所选引擎尚未接入，本轮不替换视觉方案", 422)
         if shot["kind"] not in provider["types"]:
             raise DomainError("VID_IR_INVALID", "镜头类型与引擎不兼容", 422)
-        if shot["provider"] == "ffmpeg_media":
+        if shot["provider"] in ("ffmpeg_media", "comfy_wan"):
             if not shot.get("asset_id"):
                 raise DomainError("ASSET_MISSING", "素材镜头需要真实素材", 422)
             asset = asset_for(shot["asset_id"], ("image", "video"))
+            generated = db.scalar(
+                select(VideoGenerationJob).where(
+                    VideoGenerationJob.workspace_id == workspace_id,
+                    VideoGenerationJob.output_asset_id == asset.id,
+                )
+            )
+            if shot["provider"] == "comfy_wan":
+                if (
+                    not generated
+                    or generated.id != shot.get("generation_job_id")
+                    or generated.status != "completed"
+                ):
+                    raise DomainError("GEN_PROVENANCE_REQUIRED", "AI镜头需要对应的已完成生成回执", 422)
+                from .video_generation import _source_current
+
+                _source_current(db, generated)
+                if (
+                    generated.receipt.get("output_sha256") != asset.sha256
+                    or generated.receipt.get("art_review") != "user_confirmed"
+                ):
+                    raise DomainError("GEN_OUTPUT_INVALID", "生成回执与素材字节不一致", 422)
+                if shot.get("design", {}).get("layout") in ("screen", "focus"):
+                    raise DomainError("GEN_NOT_PRODUCT_EVIDENCE", "AI画面不能作为真实产品操作实录", 422)
+            elif generated or shot.get("generation_job_id"):
+                raise DomainError("GEN_PROVENANCE_REQUIRED", "内部生成片段须保留AI引擎及生成回执", 422)
             if asset.kind == "video":
                 media = probe(file_path(workspace_id, asset.sha256, asset.suffix))
                 required = (
@@ -178,7 +203,7 @@ def validate_ir(db, workspace_id, ir):
                     raise DomainError(
                         "VID_MEDIA_TOO_SHORT", "录屏或视频长度不足，请缩短镜头或调整入点/速度", 422
                     )
-        elif shot.get("asset_id"):
+        elif shot.get("asset_id") or shot.get("generation_job_id"):
             raise DomainError("VID_IR_INVALID", "MG 镜头不接受未使用的素材引用", 422)
         hold = shot.get("freeze_end_frames", 0)
         if hold and (hold >= shot["duration_frames"] or not shot.get("asset_id") or asset.kind != "video"):
@@ -401,7 +426,7 @@ def render_project(db, job):
                 "shot": {k: v for k, v in shot.items() if k not in ("shot_revision", "locked")},
                 "canvas": canvas,
                 "asset_sha256": asset.sha256 if asset else None,
-                "provider_adapter_version": "pillow_ffmpeg@7",
+                "provider_adapter_version": "pillow_ffmpeg@8",
                 "font": face,
             }
         )
@@ -435,6 +460,7 @@ def render_project(db, job):
                 "asset_sha256": asset.sha256 if asset else None,
                 "asset_source": asset.source if asset else None,
                 "asset_license_note": asset.license_note if asset else None,
+                **({"generation_job_id": shot["generation_job_id"]} if shot.get("generation_job_id") else {}),
                 **(
                     {
                         "scene_layout": scene_layout(shot),
@@ -459,6 +485,7 @@ def render_project(db, job):
             cached=cached,
             sha256=output_hash,
             video_project_id=job.video_id,
+            generation_job_id=shot.get("generation_job_id"),
         )
         db.commit()
     concat = cache / f"{job.id}.txt"
@@ -559,7 +586,7 @@ def render_project(db, job):
             "audio": "mixed_authorized_assets" if audio_sources else "silent_track_no_voiceover",
             "audio_sources": audio_sources,
             "subtitles": len(ir.get("subtitles", [])),
-            "provider_adapter_version": "pillow_ffmpeg@7",
+            "provider_adapter_version": "pillow_ffmpeg@8",
             "production_recipe": ir.get("production_recipe"),
             "presentation_version": "video_presentation@1" if studio else "classic@1",
             "audio_finishing": {

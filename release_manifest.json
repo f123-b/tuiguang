@@ -1,12 +1,12 @@
 {
-  "release_id": "creator-0.18.0-dev",
-  "application_version": "0.18.0-dev",
+  "release_id": "creator-0.19.0-dev",
+  "application_version": "0.19.0-dev",
   "git_sha": "resolved-at-runtime",
-  "database_migration": "0014",
+  "database_migration": "0015",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.1",
-  "provider_adapter_version": "pillow_ffmpeg@7",
+  "provider_adapter_version": "pillow_ffmpeg@8",
   "model_id": null,
   "model_revision": null,
   "template_version": "local_editorial@3",
@@ -31,5 +31,10 @@
   "expressive_tts_adapter_version": "qwen_local@1",
   "spoken_delivery_version": "spoken_delivery@1",
   "independent_motion_sample_version": "motion_sample@1",
-  "video_recipe_version": "video_recipes@1"
+  "video_recipe_version": "video_recipes@2",
+  "video_generation_adapter_version": "wan_comfy_local@1",
+  "video_generation_workflow_version": "wan_ti2v_fixed@2",
+  "video_generation_model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+  "video_generation_model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+  "video_generation_engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e"
 }

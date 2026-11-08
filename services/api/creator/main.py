@@ -39,6 +39,7 @@ from .editorial_api import router as editorial_router
 from .graphics_api import router as graphics_router
 from .evidence_api import router as evidence_router
 from .video_edit_api import router as video_edit_router
+from .video_generation_api import router as video_generation_router
 from .learning_api import router as learning_router
 from .settings_api import router as settings_router
 from .analysis_api import router as analysis_router
@@ -82,6 +83,7 @@ app.include_router(editorial_router)
 app.include_router(graphics_router)
 app.include_router(evidence_router)
 app.include_router(video_edit_router)
+app.include_router(video_generation_router)
 app.include_router(learning_router)
 app.include_router(settings_router)
 app.include_router(analysis_router)

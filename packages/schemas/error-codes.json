@@ -121,6 +121,72 @@
     "EXPORT_SIZE_LIMIT": {
       "module": "settings_api"
     },
+    "GEN_ALREADY_CLAIMED": {
+      "module": "video_generation_api"
+    },
+    "GEN_INFERENCE_FAILED": {
+      "module": "video_generation"
+    },
+    "GEN_INPUT_INVALID": {
+      "module": "wan_comfy"
+    },
+    "GEN_KEY_CONFLICT": {
+      "module": "video_generation"
+    },
+    "GEN_MODEL_CHANGED": {
+      "module": "video_generation"
+    },
+    "GEN_MODEL_FILES_MISSING": {
+      "module": "wan_comfy"
+    },
+    "GEN_MODEL_HASH_MISMATCH": {
+      "module": "wan_comfy"
+    },
+    "GEN_NOT_PRODUCT_EVIDENCE": {
+      "module": "video"
+    },
+    "GEN_OUTPUT_INVALID": {
+      "module": "wan_comfy"
+    },
+    "GEN_OUTPUT_NOT_READY": {
+      "module": "video_generation_api"
+    },
+    "GEN_OUTPUT_UNAVAILABLE": {
+      "module": "wan_comfy"
+    },
+    "GEN_PROVENANCE_REQUIRED": {
+      "module": "video_recipes"
+    },
+    "GEN_PROVIDER_UNAVAILABLE": {
+      "module": "wan_comfy"
+    },
+    "GEN_QUEUE_FULL": {
+      "module": "video_generation"
+    },
+    "GEN_RECEIPT_REQUIRED": {
+      "module": "video_generation_api"
+    },
+    "GEN_REFERENCE_INVALID": {
+      "module": "video_generation"
+    },
+    "GEN_REFERENCE_UPLOAD_FAILED": {
+      "module": "wan_comfy"
+    },
+    "GEN_SOURCE_CHANGED": {
+      "module": "video_generation"
+    },
+    "GEN_STATUS_UNKNOWN": {
+      "module": "wan_comfy"
+    },
+    "GEN_SUBMISSION_UNKNOWN": {
+      "module": "wan_comfy"
+    },
+    "GEN_WORKER_INTERRUPTED": {
+      "module": "video_generation"
+    },
+    "GEN_WORKFLOW_REJECTED": {
+      "module": "wan_comfy"
+    },
     "GRAPHIC_ASSET_INTEGRITY": {
       "module": "graphics"
     },

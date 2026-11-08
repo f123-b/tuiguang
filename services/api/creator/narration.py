@@ -383,6 +383,16 @@ def produce(db, job):
 
 
 def process_narration_jobs(db):
+    from .models import VideoGenerationJob
+
+    # The dedicated video worker holds the same Qwen inference lock while sampling.
+    # Wait in the queue instead of allowing the speech subprocess to time out.
+    if db.scalar(
+        select(VideoGenerationJob.id)
+        .where(VideoGenerationJob.status.in_(["running", "submitting", "unknown"]))
+        .limit(1)
+    ):
+        return
     now = datetime.now(timezone.utc)
     eligible = or_(
         NarrationJob.status == "queued",

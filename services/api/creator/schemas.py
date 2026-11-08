@@ -3,7 +3,7 @@ from typing import Annotated, Literal
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_serializer, model_validator
 
 Platform = Literal["xiaohongshu", "douyin", "bilibili"]
 Short = Annotated[str, Field(min_length=1, max_length=120)]
@@ -146,7 +146,17 @@ class FrameCrop(DTO):
 class SceneDesign(DTO):
     motion: Literal["still", "push", "pan"] = "push"
     layout: Literal[
-        "auto", "hero", "features", "steps", "screen", "focus", "closing", "diagram", "montage", "comic"
+        "auto",
+        "hero",
+        "features",
+        "steps",
+        "screen",
+        "focus",
+        "closing",
+        "diagram",
+        "montage",
+        "comic",
+        "cinema",
     ] = "auto"
     kicker: str = Field(default="", max_length=40)
     headline: str = Field(default="", max_length=80)
@@ -174,12 +184,20 @@ class Shot(DTO):
     duration_frames: int = Field(ge=15, le=1800)
     caption: str = Field(default="", max_length=180)
     asset_id: str | None = None
+    generation_job_id: Short | None = None
     locked: bool = False
     trim_start_frame: int = Field(default=0, ge=0, le=216000)
     speed_percent: int = Field(default=100, ge=25, le=400)
     freeze_end_frames: int = Field(default=0, ge=0, le=1800)
     design: SceneDesign = Field(default_factory=SceneDesign)
     narration_text: str = Field(default="", max_length=600)
+
+    @model_serializer(mode="wrap")
+    def omit_unused_generation(self, handler):
+        result = handler(self)
+        if self.generation_job_id is None:
+            result.pop("generation_job_id", None)
+        return result
 
 
 class AudioTrack(DTO):

@@ -115,9 +115,7 @@ def test_unavailable_provider_and_cross_brand_asset_denied(client, brand):
         json={
             "brand_id": brand["id"],
             "name": "未接入引擎",
-            "shots": [
-                {"shot_id": "s1", "provider": "comfy_wan", "kind": "ai_creative_scene", "duration_frames": 30}
-            ],
+            "shots": [{"shot_id": "s1", "provider": "blender", "kind": "three_d", "duration_frames": 30}],
         },
     )
     assert r.status_code == 422

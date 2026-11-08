@@ -1,4 +1,6 @@
-# 实际模块地图 · 0.18.0-dev
+# 实际模块地图 · 0.19.0-dev
+
+#45：`video_generation.py` / `wan_comfy.py` / `video_generation_api.py` / `video_generation_worker.py`与0015构成独立本机生成队列；启动器`scripts/start-local-video.mjs`只运行已安装的固定版本。`video-drama.tsx`提供真人/动漫分镜、任务、检查、排序与成片入口；`video_recipes.py`编译generative，`video.py`核对生成来源，`film_types.py`的cinema保留人物画面。真实试镜未替用户艺术确认；未接入唇形驱动、跨镜头身份锁或社媒发布。见[本轮报告](../implementation/AI_DRAMA_VALIDATION.md)。
 
 #41：VIDEO新增video_recipes.py / film_types.py、类型API、逐镜创建与脚本构建复用；五种本地形式的有声预览已实际运行，42项类型测试含受控高清正向通过。真实样片仍待人工审看；云生成和3D未接入。见 [验收](../implementation/VIDEO_TYPES_VALIDATION.md)。
 
