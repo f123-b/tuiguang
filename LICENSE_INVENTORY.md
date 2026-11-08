@@ -51,3 +51,10 @@ PoC 的素材为本软件真实界面截图；画面中的品牌、内容、登�
 
 
 2026-11-07 / #31：发布片视觉是本仓库 Pillow/FFmpeg 代码绘制，未引入新的素材库、字体、音乐或云配音依赖。验收使用本仓库真实界面及合成工作区；数字不是经营结果。未把测试音调用于最终配乐。字体、FFmpeg 本机构建和 Windows 系统语音商业使用仍需操作者独立核对。
+
+## #47 内置短剧技能
+
+- shuohao-skills固定5612d2a0bd5f19d978c3ee19d1e42840335e3b4b，七目录，Apache-2.0；完整LICENSE/NOTICE在vendor/skills/shuohao，原始文件未修改。
+- zenstory-ai/drama-skills固定3d813c30871b4db5f2387d83bdc3a49db8ce7b2b，仅short-drama-review，MIT通知在vendor/skills/zenstory/LICENSE。
+- 128份分发文件哈希冻结在registry.json，禁止运行请求提供的任意脚本。运行时仅固定novel-script离线校验；其余固定参考片段，不启用生图云API或自定义命令。Windows1559项原生自测通过。
+- 上述代码/文档许可不认证原作改编、肖像、音色、参考素材或成片商业权利；仍须逐项核实。[安装、来源和边界](docs/implementation/DRAMA_SKILLS_GUIDE.md)。
