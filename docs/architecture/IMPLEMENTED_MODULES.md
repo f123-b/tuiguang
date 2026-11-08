@@ -1,5 +1,7 @@
 # 实际模块地图 · 0.14.0-dev
 
+#39续：`examples/video-production/youzhao-choice/edit/` 已实际完成44.133333秒独立本地剪辑与媒体验收；三份实拍、原创方案动效、实际UI、逐句配音、分轨/字幕和离线IR均有来源与回执。无Runway、无新增正式Provider，用户艺术审批未运行。详见 [验收](../implementation/LOCAL_CHOICE_FILM_VALIDATION.md)。
+
 #39：新增独立 `examples/video-production/youzhao-choice/` 前期包（production_pack@1）、原创静帧与13.77秒真实项目备注操作素材。动态人物生成服务尚不可用、未取得报价；没有新增正式Provider、自动导演或工作台功能。状态见 [实际缺口](../implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
 
 0.17.0-dev：可选Qwen 1.7B内置声音、语气预设、离线GPU推理与资源回执已通过真实配音预览；最终人工审核仍未执行。连续空间镜头代码位于examples/video-motion，仅固定试片工具，未加入正式渲染注册。详见 [证据与边界](../implementation/EXPRESSIVE_MOTION_VALIDATION.md)。

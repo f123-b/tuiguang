@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+#39续：独立 `examples/video-production/youzhao-choice/edit/` 的 dialogue.json → voice.py / diagram.js / 真实UI采集 → finish.py → verify.py 已产出44秒完整影片与离线IR1.1。正式API、Provider注册、工作台和DB不变；这不是持续任务已具备自动导演。见 [实际范围](../implementation/LOCAL_CHOICE_FILM_VALIDATION.md)。
+
 #39 / production_pack@1：`examples/video-production/youzhao-choice/` 是独立前期制作包和采集资料，含40秒分镜、实际生成首帧、真实UI补录、来源和缺口清单。未接入正式API/Provider，未完成演员动态试拍或整片。不得把其中的production.json当VideoProjectIR或艺术质量通过。见 [本轮证据](../implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
 
 0.17.0 / #37：speech.py按声音路由expressive_speech.py → 独立scripts/qwen-speech.py；narration.py冻结delivery_style与来源，brief_api.py保留缺省幂等。UI为narration.tsx共享控件。examples/video-motion是独立剪辑实验，未注册正式Provider；API和DB依然不接触站外发布。见 [本轮验收](../implementation/EXPRESSIVE_MOTION_VALIDATION.md)。
