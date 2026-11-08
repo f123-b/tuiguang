@@ -1,0 +1,27 @@
+{
+  "version": "production_pack@1",
+  "shot_id": "S02",
+  "status": "requires_keyframe_review_connection_quote_and_spend_approval",
+  "duration_sec": 8,
+  "aspect_ratio": "16:9",
+  "requested_resolution": "1080p",
+  "model": null,
+  "start_frame": {
+    "file": "assets/s02-first-frame-v1.png",
+    "sha256": "fc27f9012ae4667c0cb07fdd9585e04194fd1cc550e7570402309ddca0239afb",
+    "user_direction_approval": "pending"
+  },
+  "native_audio_preference": "dialogue_if_available_and_quoted",
+  "prompt": "One continuous intimate cinematic shot, eight seconds, 16:9. The same original fictional Chinese woman from the approved first frame rehearses a job interview alone at her home desk, speaking towards an imagined interviewer just beside the camera. Preserve her exact face, chin-length black bob, charcoal cardigan, ivory T-shirt, graphite laptop foreground left, graph-paper notebook, black mechanical pencil in her right hand, burgundy mug, green banker lamp on camera right and cool rainy window on camera left. Eye-level 50mm medium close-up; locked camera, no zoom or orbit. At first she tries to give a polished answer. She says in natural conversational Mandarin: 因为……大家都这么做。 She hears how empty that sounds, stops, briefly looks down at the pencil, gently sets it on the notebook with one anatomically correct right hand, gives a tiny self-conscious half-smile and a soft exhale. Then she lifts her eyes back to the same off-camera point and quietly says: 不对，重来。 Leave a real pause and a settled ending; do not keep the face or hands moving continuously. Warm practical lamp against muted cool window light, natural tactile skin, restrained film grain, subtle halation, rich shadow detail. The humor is recognition, not clowning. Synchronized subtle pencil contact and room tone; no music, no narrator, no subtitles, no logos, no invented software interface, no cut, no rubbery hand or changing objects. This is a fictional rehearsal, not a testimonial or evidence of hiring success.",
+  "fallback_if_native_dialogue_unavailable": "在明确可用模型和新报价后，只拍相同静默反应与放笔动作；对白另行制作并检查口型。不得悄悄替换模型或把不匹配口型的片段宣称通过。",
+  "review_checks": [
+    "用户已审看实际首帧，而非只读提示词",
+    "当前工作区真实可用模型与参数已确认",
+    "向用户显示该次调用的具体费用并取得确认",
+    "同一张脸、衣服、光位、右手与道具连续",
+    "停顿、目光和微笑有动机，不做夸张广告表演",
+    "手、笔、桌面接触关系稳定，无新增或漂移物件",
+    "若带对白，中文内容与口型、声音人物一致",
+    "取得实际任务回执与产物后观看，不能以请求成功代替镜头通过"
+  ]
+}

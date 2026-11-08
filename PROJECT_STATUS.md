@@ -1,5 +1,7 @@
 # 项目真实状态 · 0.17.0-dev
 
+2026-11-08 / #39：用户再次否定截图空间试片的素材/动画/剧情。本轮重做《那个选择》40秒前期分镜，实际生成1张人物首帧，补录并核对13.766667秒真实项目备注操作（413输出帧）。两次四格图请求网络失败；Runway连接检查返回工具不可用，未报价或运行动态生成。**尚无新的剧情成片，艺术质量未由用户确认**。独立production_pack@1，不改变正式API、DB0014、IR1.1、provider@5或Prompt；见 [制作包](examples/video-production/youzhao-choice/README.md) 与 [证据/回滚](docs/implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
+
 2026-11-08 / #37：新增可选Qwen本地语气配音，四个声音、四种表达预设；整段实际合成24.8秒，真实API已完成3.733秒有声预览，未复核的高清仍409。另制作30秒连续空间镜头试片，GPU渲染900帧并实际播放至结尾、0丢帧；该固定剪辑实验未注册正式Video Provider。全量168 passed / 1 skipped，后续补充上限用例的针对性结果见 [本轮验收](docs/implementation/EXPRESSIVE_MOTION_VALIDATION.md)。旧系统/Kokoro声音保留，无生产上线。
 
 2026-11-08 / #35：增加指定内容叙事风格、创作复看清单和可选 Kokoro 本地神经声音，已通过真实接口生成 4.33 秒神经配音预览；未记录人工审核，高清仍被 409 阻断。独立剪辑了 57.5 秒《别让“我们”挤掉“我”》，包含情景追问、具体示例、实拍与真实界面；这是导演剪辑样片，不是自动导演输出。全量 160 passed / 1 skipped；详见 [叙事与声音验收](docs/implementation/STORY_VIDEO_VALIDATION.md) 和 [安装使用](docs/implementation/LOCAL_NEURAL_VOICE.md)。DB 0014 / IR 1.1 / provider @5 保持，无生产发布。

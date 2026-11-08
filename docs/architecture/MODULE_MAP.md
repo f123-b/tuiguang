@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+#39 / production_pack@1：`examples/video-production/youzhao-choice/` 是独立前期制作包和采集资料，含40秒分镜、实际生成首帧、真实UI补录、来源和缺口清单。未接入正式API/Provider，未完成演员动态试拍或整片。不得把其中的production.json当VideoProjectIR或艺术质量通过。见 [本轮证据](../implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
+
 0.17.0 / #37：speech.py按声音路由expressive_speech.py → 独立scripts/qwen-speech.py；narration.py冻结delivery_style与来源，brief_api.py保留缺省幂等。UI为narration.tsx共享控件。examples/video-motion是独立剪辑实验，未注册正式Provider；API和DB依然不接触站外发布。见 [本轮验收](../implementation/EXPRESSIVE_MOTION_VALIDATION.md)。
 
 0.16.0 / #35 实现增量：`briefs.py` 接收可选 narrative_mode，`story_direction.py` 提供 story_direction@1 的创作约束；`brief_jobs.py` 按 Run 版本生成提示词。`speech.py` → `neural_speech.py` → 独立 `scripts/kokoro-speech.py` 是可选本地声音路径；`narration.py` 冻结/核对声音来源，既有预览审核链保留。UI 在 briefs.tsx / narration.tsx。没有新增生成式视频引擎或数据库表；见 [本轮报告](../implementation/STORY_VIDEO_VALIDATION.md)。

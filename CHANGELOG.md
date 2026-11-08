@@ -2,6 +2,8 @@
 
 ## 0.17.0-dev · 本地语气配音与动效试片
 
+- #39 补充独立《那个选择》前期制作包：40秒具体分镜、实际人物静帧、真实UI备注操作素材、来源与未完成项。不是新增自动导演功能；角色动态生成/报价和整片仍未完成，详见 [本轮状态](docs/implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
+
 - 可选Qwen CustomVoice，四种内置声音与原声/聊天/温和/解释预设；冻结指令、seed与模型文件，记录GPU资源和实际回执。旧声音与缺省幂等保持兼容。
 - 声音列表标记local_offline；语气模型正常语速、每段600字，实测总时长超120秒后提前停止。
 - 独立连续空间动效实验与30秒有声试片，未加入正式Video Provider，不代表自动导演能力。DB0014/IR1.1/provider@5不变；见 [验收和回滚](docs/implementation/EXPRESSIVE_MOTION_VALIDATION.md)。

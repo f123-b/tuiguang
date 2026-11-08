@@ -1,0 +1,80 @@
+{
+  "version": "production_pack@1",
+  "source_application": {
+    "commit": "521e1f479c02fc4f00992ef5bcd128ff7fba77cf",
+    "compiled_main_sha256": "33a6ad32fd75309f3107758f656266681b18ba6569a1fefb3cfa4b8a9ad96255",
+    "capture_data": "isolated synthetic project; no actual resume/account/interview audio"
+  },
+  "capture": {
+    "viewport": [1920, 1080],
+    "capture_method": "CDP Page.startScreencast; native timestamps; not interval screenshots",
+    "overlay": "editorial pointer only",
+    "duration": 13.865,
+    "events": [
+      {
+        "t": 1.073,
+        "name": "focus_note",
+        "x": 1625,
+        "y": 261.5625
+      },
+      {
+        "t": 1.074,
+        "name": "typing_start"
+      },
+      {
+        "t": 6.324,
+        "name": "typing_end"
+      },
+      {
+        "t": 9.109,
+        "name": "click_save",
+        "x": 1549,
+        "y": 372.5
+      },
+      {
+        "t": 11.748,
+        "name": "saved_value_verified"
+      },
+      {
+        "t": 13.556,
+        "name": "end"
+      }
+    ]
+  },
+  "raw_frame_manifest_sha256": "327bc5b2060bd0e96da8504459e67b4ba69abfb55d4afcf4cdb6e048be8e6387",
+  "media": {
+    "capture_method": "CDP Page.startScreencast; native timestamps; not interval screenshots",
+    "source_frames": 210,
+    "leading_viewport_transition_frames_trimmed": 1,
+    "source_native_duration_sec": 12.088740825653076,
+    "source_cadence": "variable; includes unchanged screen intervals; not 30 unique images per second",
+    "resampling": "hold latest source frame by native timestamp at 30fps; no optical-flow interpolation or altered operation speed",
+    "output": "assets/youzhao-note-pickup-v1.mp4",
+    "bytes": 387883,
+    "sha256": "faf11b6936c4b90ce16552994ec7f6b7c2203d5d5fc19aed5be79610c1fbe61b",
+    "width": 1920,
+    "height": 1080,
+    "output_rate": "30/1",
+    "decoded_frames": 413,
+    "duration_sec": 13.766667,
+    "contains_audio": false,
+    "saved_note_verified": true,
+    "creative_approval": "not_reviewed",
+    "note": "真实隔离演示操作素材，尚未剪入新片；恒定帧率封装不等于艺术质量或每秒30个独立采集帧。"
+  },
+  "keyframe": {
+    "file": "assets/s02-first-frame-v1.png",
+    "dimensions": [1672, 941],
+    "sha256": "fc27f9012ae4667c0cb07fdd9585e04194fd1cc550e7570402309ddca0239afb",
+    "source": "built_in_imagegen; generated fiction; not a photographed actor",
+    "model_revision": "unknown; not returned"
+  },
+  "cloud_video": {
+    "connection_check_result": "Runway -32001 Unknown tool",
+    "quote": null,
+    "submitted_tasks": []
+  },
+  "ffmpeg_version": "ffmpeg version 9.0.1-essentials_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "creative_review": "not_completed",
+  "final_video": "not_created"
+}

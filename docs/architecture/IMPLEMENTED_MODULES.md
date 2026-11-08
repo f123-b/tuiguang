@@ -1,5 +1,7 @@
 # 实际模块地图 · 0.14.0-dev
 
+#39：新增独立 `examples/video-production/youzhao-choice/` 前期包（production_pack@1）、原创静帧与13.77秒真实项目备注操作素材。动态人物生成服务尚不可用、未取得报价；没有新增正式Provider、自动导演或工作台功能。状态见 [实际缺口](../implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。
+
 0.17.0-dev：可选Qwen 1.7B内置声音、语气预设、离线GPU推理与资源回执已通过真实配音预览；最终人工审核仍未执行。连续空间镜头代码位于examples/video-motion，仅固定试片工具，未加入正式渲染注册。详见 [证据与边界](../implementation/EXPRESSIVE_MOTION_VALIDATION.md)。
 
 0.16.0-dev：已接入叙事风格字段、按版本冻结的 direction 指令、人工创作复看问题；可选 Kokoro 中文神经声音已通过真实 API → 本地合成 → 实测时长 → 字幕 → 预览，未执行人工审核或高清批准。独立 57.5 秒故事样片不是服务端自动导演效果。详见 [实际范围](../implementation/STORY_VIDEO_VALIDATION.md)。

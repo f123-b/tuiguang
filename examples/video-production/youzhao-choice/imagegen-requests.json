@@ -1,0 +1,36 @@
+{
+  "version": "production_pack@1",
+  "tool_mode": "built_in_imagegen",
+  "cli_fallback_used": false,
+  "requests": [
+    {
+      "id": "four-frame-board-attempt-1",
+      "status": "failed",
+      "error": "network error: error sending request",
+      "artifact": null
+    },
+    {
+      "id": "s02-first-frame-v1",
+      "status": "generated",
+      "artifact": "assets/s02-first-frame-v1.png",
+      "transparent_background": false,
+      "referenced_image_paths": [],
+      "prompt": "Cinematic photographic keyframe for a fictional Chinese software brand short film about an engineer rehearsing for an interview, landscape 16:9. An original fictional Chinese woman aged 27 with a chin-length straight black bob, charcoal knit cardigan over ivory T-shirt sits at a lived-in oak desk in her small apartment at night. In a believable caught moment she has stopped mid-rehearsal, looks towards an unseen interviewer just beside camera with one eyebrow slightly raised and a tiny self-conscious half-smile, about to put her black mechanical pencil down; her hand has natural anatomy. Unbranded graphite laptop in the lower-left foreground, cream graph-paper notebook, burgundy ceramic cup, warm green banker desk lamp camera right, cool rain-wet window camera left. Intimate high-end naturalistic brand-film cinematography, subtle grain and halation, rich shadow detail, warm practical light and muted cool window light, elegant layered foreground/midground/background, 50mm lens, eye-level medium close-up, shallow but realistic depth of field. Emotion is intelligent and understated, never a stock-photo sales grin. No text, no logo, no watermark, no floating UI, no graphics. This still is a first-frame reference for a later live-motion shot, not finished video. Natural tactile set and skin texture."
+    },
+    {
+      "id": "four-frame-board-attempt-2",
+      "status": "failed",
+      "error": "network error: error sending request",
+      "artifact": null,
+      "transparent_background": false,
+      "referenced_image_paths": ["assets/s02-first-frame-v1.png"],
+      "prompt": "Use the supplied image as an identity, costume, set and cinematography reference, not as a layout to preserve. Make a single 2x2 photographic storyboard contact sheet, four different 16:9 film frames arranged with very thin black dividers, overall landscape 16:9. This is PREPRODUCTION KEY ART for the same fictional interview rehearsal story. All four frames must be the SAME ORIGINAL FICTIONAL CHINESE WOMAN and the SAME desk, cardigan, hair, rain window left, green banker lamp right, burgundy cup and graphite laptop as in the reference. No written captions or labels anywhere. Upper left: a fresh wider 35mm three-quarter angle in this room, she leans back slightly after a stalled rehearsal answer with a small self-conscious smile, laptop foreground, not posing. Upper right: beautiful oblique 85mm macro of her RIGHT hand drawing two alternative simple rectangle-flow diagrams in her cream graph-paper notebook with the same black mechanical pencil, one route crossed out, pencil shadows and eraser crumbs, no legible text. Lower left: over-shoulder 35mm at the desk, the back/side of her same bob in foreground and her fingertip near the laptop display; the laptop display is a flat neutral dark grey slate with no UI, no text and no generated app graphics, specifically reserved for compositing genuine product recording later. Lower right: intimate 65mm close portrait, her same face lifts eyes just beside camera with a thoughtful calm half-smile, ready to give a specific answer, not a sales grin; same setting and late-night light, do not change time of day dramatically. Naturalistic premium brand-film cinematography, tactile everyday objects, true skin detail, consistent warm lamp/cool wet window light, deep dimensional shadows with detail, restrained grain and halation. Precise hand anatomy and plausible body orientation. This is the same continuous story, not four stock photos. Avoid text, labels, logos, watermarks, neon, levitating objects, holographic UI, paper flying, CGI, screenshots, and fake software features."
+    }
+  ],
+  "unreturned_metadata": [
+    "exact_model_id",
+    "model_revision",
+    "seed",
+    "per_call_price"
+  ]
+}
