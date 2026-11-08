@@ -173,7 +173,10 @@
             "steps",
             "screen",
             "focus",
-            "closing"
+            "closing",
+            "diagram",
+            "montage",
+            "comic"
           ],
           "title": "Layout",
           "type": "string"

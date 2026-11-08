@@ -1,29 +1,51 @@
 "use client";
 import { Badge, Button, Card, EmptyState, StatusBadge } from "@xuliu/ui";
-import {
-  ArrowDownToLine,
-  Check,
-  ChevronRight,
-  Clapperboard,
-  FolderOpen,
-  Layers,
-  Play,
-  Plus,
-  Sparkles,
-  WandSparkles,
-} from "lucide-react";
+import { Clapperboard, Plus, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { api, post, type Shot, type Video } from "../../lib/api";
-
+import { useEffect, useRef, useState } from "react";
+import { api, post, type Video } from "../../lib/api";
 import { Field, PageHeader, type PageProps } from "../page-shared";
 import { VideoEditor } from "./video-editor";
 import { PresentationControls, defaultPresentation } from "./film-design";
+import { VoiceControls, defaultVoiceSettings } from "./narration";
+
+type Mode = "mg" | "screen_demo" | "montage" | "illustrated" | "mixed";
+type Catalog = {
+  version: string;
+  recipes: { id: string; name: string; roles: string[] }[];
+  modes: {
+    id: string;
+    name: string;
+    description: string;
+    available: boolean;
+  }[];
+};
+type Scene = {
+  headline: string;
+  narration: string;
+  supporting: string;
+  points: string;
+  asset_id: string;
+  seconds: number;
+  start: number;
+  treatment: "auto" | "screen" | "montage" | "comic" | "diagram";
+};
+const emptyScene = (): Scene => ({
+  headline: "",
+  narration: "",
+  supporting: "",
+  points: "",
+  asset_id: "",
+  seconds: 5,
+  start: 0,
+  treatment: "auto",
+});
+
 export function VideoPage(props: PageProps) {
-  const { store, path } = props;
-  const id = path.split("/")[3];
-  const video = store.videos.find((v) => v.id === id);
+  const video = props.store.videos.find(
+    (v) => v.id === props.path.split("/")[3],
+  );
   return video ? (
     <VideoEditor {...props} video={video} />
   ) : (
@@ -33,365 +55,430 @@ export function VideoPage(props: PageProps) {
 
 export function VideoCreate({ store, action, busy }: PageProps) {
   const router = useRouter();
-  const [mode, setMode] = useState("auto");
-  const brand = store.brands[0];
-  const [presentation, setPresentation] = useState(defaultPresentation);
-  const availableAssets = store.assets.filter(
-    (a) => a.verified && a.kind !== "audio" && a.brand_id === brand?.id,
+  const [catalog, setCatalog] = useState<Catalog>();
+  const [error, setError] = useState("");
+  const [brandId, setBrandId] = useState(store.brands[0]?.id || "");
+  const brand = store.brands.find((b) => b.id === brandId) || store.brands[0];
+  const [mode, setMode] = useState<Mode>("mg");
+  const [recipeId, setRecipeId] = useState("feature");
+  const [scenes, setScenes] = useState<Scene[]>(() =>
+    Array.from({ length: 4 }, emptyScene),
   );
-  const effectiveMode =
-    mode === "auto" ? (availableAssets.length ? "mixed" : "pillow_mg") : mode;
+  const [presentation, setPresentation] = useState(defaultPresentation);
+  const [withVoice, setWithVoice] = useState(true);
+  const [voice, setVoice] = useState(defaultVoiceSettings);
+  const submission = useRef<{ body: string; key: string } | null>(null);
+  useEffect(() => {
+    api<Catalog>("/videos/recipes")
+      .then(setCatalog)
+      .catch((e) => setError(e.message));
+  }, []);
+  const assets = store.assets.filter(
+    (a) =>
+      a.verified &&
+      a.kind !== "audio" &&
+      a.brand_id === brand?.id &&
+      a.applicability_status === "current",
+  );
+  const roles = catalog?.recipes.find((r) => r.id === recipeId)?.roles || [];
+  const patch = (index: number, value: Partial<Scene>) =>
+    setScenes((old) =>
+      old.map((s, i) => (i === index ? { ...s, ...value } : s)),
+    );
+  const total = scenes.reduce((n, s) => n + s.seconds, 0);
   return (
     <>
       <PageHeader
         eyebrow="VIDEO STUDIO"
-        title="把产品，拍成一个清楚的故事"
-        description="开场价值点、功能要点、真实界面与重点特写，再用品牌画面收尾。每一镜都能继续编辑。"
+        title="选一种形式，讲好这条内容"
+        description="从真实内容和逐镜素材开始，制作配音、字幕与可审看的视频。"
       >
-        <Link className="button" href="/studio/briefs/new">
-          按我的主题和内容创作
+        <Link className="button secondary" href="/studio/briefs/new">
+          先让 AI 帮我写主题与脚本
         </Link>
         <Link className="button secondary" href="/studio/assets">
-          <FolderOpen size={15} />
-          准备素材
+          准备授权素材
         </Link>
       </PageHeader>
+      {error && <p role="alert">{error}</p>}
+      {!catalog && !error && <p role="status">正在读取本机制作能力…</p>}
       <div className="video-mode-grid">
-        {[
-          ["auto", "自动推荐", "按当前真实素材推荐本地方案", Sparkles, true],
-          [
-            "pillow_mg",
-            "2D / MG 动画",
-            "动态文字与图形，参数可编辑",
-            Sparkles,
-            true,
-          ],
-          [
-            "ffmpeg_media",
-            "软件实录 / 混剪",
-            "真实截图、录屏与授权视频",
-            Clapperboard,
-            true,
-          ],
-          [
-            "screen_demo",
-            "软件录屏讲解",
-            "完整呈现已授权界面，支持裁切入点",
-            Clapperboard,
-            true,
-          ],
-          ["mixed", "混合制作", "MG + 真实素材，组合你的故事", Layers, true],
-          [
-            "ai",
-            "AI 创意 / 卡通",
-            "生成式镜头，待接入模型",
-            WandSparkles,
-            false,
-          ],
-          ["3d", "3D / CG 动画", "高级三维引擎，尚未接入", Clapperboard, false],
-        ].map(([value, title, desc, Icon, available]) => (
+        {catalog?.modes.map((item) => (
           <button
-            key={String(value)}
-            className={`mode-card ${mode === value ? "selected" : ""}`}
-            disabled={!available}
-            onClick={() => setMode(String(value))}
+            key={item.id}
+            type="button"
+            className={`mode-card ${mode === item.id ? "selected" : ""}`}
+            disabled={!item.available || busy}
+            aria-pressed={mode === item.id}
+            onClick={() => setMode(item.id as Mode)}
           >
-            {typeof Icon === "function" || typeof Icon === "object" ? (
-              <Icon size={24} />
-            ) : null}
-            <strong>{String(title)}</strong>
-            <p>{String(desc)}</p>
-            <Badge tone={available ? "success" : "neutral"}>
-              {available ? "本地可运行" : "待接入"}
+            <Clapperboard size={24} />
+            <strong>{item.name}</strong>
+            <p>{item.description}</p>
+            <Badge tone={item.available ? "success" : "neutral"}>
+              {item.available ? "本地可制作" : "待接入"}
             </Badge>
           </button>
         ))}
       </div>
       <div className="form-columns">
         <Card>
-          <h2>建立可编辑的视频工程</h2>
+          <h2>内容与分镜</h2>
           {brand ? (
             <form
               className="form-stack"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const f = new FormData(e.currentTarget);
-                const seconds = Number(f.get("duration"));
-                const assetId = String(f.get("asset") || "");
-                const caption = String(f.get("caption"));
-                const support = String(f.get("supporting") || "");
-                const points = String(f.get("points") || "")
-                  .split("\n")
-                  .map((s) => s.trim())
-                  .filter(Boolean);
-                const closing = String(f.get("closing") || "");
-                const frames = seconds * 30;
-                let shots: Partial<Shot>[] =
-                  effectiveMode === "mixed"
-                    ? [
-                        {
-                          shot_id: "s1",
-                          provider: "pillow_mg",
-                          kind: "motion_graphics",
-                          duration_frames: Math.round(frames / 3),
-                          caption,
-                          asset_id: null,
-                          locked: false,
-                        },
-                        {
-                          shot_id: "s2",
-                          provider: "ffmpeg_media",
-                          kind: "montage",
-                          duration_frames: frames - 2 * Math.round(frames / 3),
-                          caption: "真实产品素材",
-                          asset_id: assetId,
-                          locked: false,
-                        },
-                        {
-                          shot_id: "s3",
-                          provider: "pillow_mg",
-                          kind: "motion_graphics",
-                          duration_frames: Math.round(frames / 3),
-                          caption: "了解产品，亲自体验",
-                          asset_id: null,
-                          locked: false,
-                        },
-                      ]
-                    : [
-                        {
-                          shot_id: "s1",
-                          provider:
-                            effectiveMode === "screen_demo"
-                              ? "ffmpeg_media"
-                              : effectiveMode,
-                          kind:
-                            effectiveMode === "pillow_mg"
-                              ? "motion_graphics"
-                              : effectiveMode === "screen_demo"
-                                ? "screen_demo"
-                                : "montage",
-                          duration_frames: frames,
-                          caption,
-                          asset_id:
-                            effectiveMode === "pillow_mg" ? null : assetId,
-                          locked: false,
-                        },
-                      ];
-                if (presentation.style === "studio") {
-                  const scenes: {
-                    layout: NonNullable<Shot["design"]>["layout"];
-                    text: string;
-                    detail?: string;
-                    media?: boolean;
-                    focus?: boolean;
-                  }[] = [
-                    {
-                      layout: "hero",
-                      text: caption,
-                      detail: support,
-                      media: !!assetId,
-                    },
-                    ...(points.length
-                      ? [
-                          {
-                            layout: "features" as const,
-                            text: "功能一览",
-                            detail: points.join("，"),
-                          },
-                        ]
-                      : []),
-                    ...(assetId
-                      ? [
-                          {
-                            layout: "screen" as const,
-                            text: String(f.get("screen_title") || "界面演示"),
-                            media: true,
-                          },
-                          {
-                            layout: "focus" as const,
-                            text: String(
-                              f.get("focus_title") || "看清操作重点",
-                            ),
-                            media: true,
-                            focus: true,
-                          },
-                        ]
-                      : []),
-                    { layout: "closing", text: closing },
-                  ];
-                  const weights = scenes.map((s) => (s.media ? 1.5 : 1));
-                  const weight = weights.reduce((a, b) => a + b, 0);
-                  let remaining = frames;
-                  shots = scenes.map((s, i) => {
-                    const duration =
-                      i === scenes.length - 1
-                        ? remaining
-                        : Math.round((frames * weights[i]) / weight);
-                    remaining -= duration;
-                    return {
-                      shot_id: `s${i + 1}`,
-                      shot_revision: 1,
-                      provider: s.media ? "ffmpeg_media" : "pillow_mg",
-                      kind: s.media ? "screen_demo" : "motion_graphics",
-                      duration_frames: duration,
-                      caption: s.text,
-                      asset_id: s.media ? assetId : null,
-                      locked: false,
-                      narration_text:
-                        s.layout === "features"
-                          ? points.join("。")
-                          : [s.text, s.detail].filter(Boolean).join("。"),
-                      design: {
-                        layout: s.layout,
-                        headline: s.text,
-                        supporting:
-                          s.layout === "features" ? "" : s.detail || "",
-                        points: s.layout === "features" ? points : [],
-                        crop: s.focus
-                          ? { x: 20, y: 15, width: 60, height: 70 }
-                          : { x: 0, y: 0, width: 100, height: 100 },
-                      },
-                    };
-                  });
-                }
-                action(async () => {
-                  const video = await api<Video>(
-                    "/videos/projects",
-                    post({
-                      brand_id: brand.id,
-                      name: f.get("name"),
-                      width: f.get("ratio") === "16:9" ? 1920 : 1080,
-                      height: f.get("ratio") === "9:16" ? 1920 : 1080,
-                      fps: 30,
-                      preview_required: true,
-                      presentation: {
-                        ...presentation,
-                        brand_label: presentation.brand_label || brand.name,
-                      },
-                      shots,
-                    }),
-                  );
-                  router.push(`/studio/video/${video.id}`);
-                }, "视频工程已保存");
+              onSubmit={(event) => {
+                event.preventDefault();
+                const fields = new FormData(event.currentTarget);
+                const body = JSON.stringify({
+                  brand_id: brand.id,
+                  name: fields.get("name"),
+                  mode,
+                  recipe_id: recipeId,
+                  size: fields.get("size"),
+                  presentation: {
+                    ...presentation,
+                    style: "studio",
+                    brand_label:
+                      presentation.brand_label || brand.name.slice(0, 40),
+                  },
+                  scenes: scenes.map((s) => ({
+                    headline: s.headline,
+                    narration: s.narration,
+                    supporting: s.supporting,
+                    points: s.points
+                      .split("\n")
+                      .map((p) => p.trim())
+                      .filter(Boolean),
+                    asset_id: mode === "mg" ? null : s.asset_id || null,
+                    duration_frames: Math.round(s.seconds * 30),
+                    trim_start_frame: Math.round(s.start * 30),
+                    treatment: s.treatment,
+                  })),
+                  ...(withVoice ? { narration: voice } : {}),
+                });
+                if (submission.current?.body !== body)
+                  submission.current = { body, key: crypto.randomUUID() };
+                const key = submission.current.key;
+                action(
+                  async () => {
+                    const video = await api<Video>("/videos/from-recipe", {
+                      ...post(),
+                      body,
+                      headers: { "Idempotency-Key": key },
+                    });
+                    router.push(`/studio/video/${video.id}`);
+                  },
+                  withVoice
+                    ? "工程已创建，正在制作配音和预览"
+                    : "工程已创建，正在合成无旁白预览",
+                );
               }}
             >
+              <div className="form-grid">
+                <Field label="品牌">
+                  <select
+                    value={brand.id}
+                    onChange={(e) => {
+                      setBrandId(e.target.value);
+                      setScenes((old) =>
+                        old.map((s) => ({ ...s, asset_id: "" })),
+                      );
+                    }}
+                  >
+                    {store.brands.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.name}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+                <Field label="内容结构">
+                  <select
+                    value={recipeId}
+                    onChange={(e) => setRecipeId(e.target.value)}
+                  >
+                    {catalog?.recipes.map((r) => (
+                      <option key={r.id} value={r.id}>
+                        {r.name}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              </div>
               <Field label="项目名称">
                 <input
                   name="name"
                   required
                   maxLength={120}
-                  placeholder={`${brand.name} · 产品宣传片`}
+                  placeholder={`${brand.name} · 新视频`}
                 />
               </Field>
-              <Field label="开场文案">
-                <textarea
-                  name="caption"
-                  rows={2}
-                  required
-                  maxLength={presentation.style === "studio" ? 80 : 180}
-                  placeholder="写下你想讲述的真实产品信息"
-                />
-              </Field>
-              {presentation.style === "studio" && (
-                <>
-                  <Field label="开场补充说明">
-                    <textarea
-                      name="supporting"
-                      rows={2}
-                      maxLength={160}
-                      placeholder="给主标题增加必要背景，避免整段旁白堆在画面上"
-                    />
-                  </Field>
-                  <Field label="真实功能要点（每行一项，最多三项、每项最多 90 字）">
-                    <textarea
-                      name="points"
-                      rows={3}
-                      maxLength={272}
-                      placeholder="只写产品已经具备、可以核对的功能"
-                    />
-                  </Field>
-                  <Field label="结尾行动文案">
-                    <input
-                      name="closing"
-                      required
-                      maxLength={80}
-                      placeholder="例如：打开产品，亲自体验"
-                    />
-                  </Field>
-                </>
-              )}
               <div className="form-grid">
                 <Field label="画面比例">
-                  <select name="ratio">
-                    <option value="16:9">16:9 · 1920 × 1080</option>
-                    <option value="9:16">9:16 · 1080 × 1920</option>
-                    <option value="1:1">1:1 · 1080 × 1080</option>
+                  <select name="size">
+                    <option value="wide">横屏 · 16:9</option>
+                    <option value="portrait">竖屏 · 9:16</option>
+                    <option value="square">方形 · 1:1</option>
                   </select>
                 </Field>
-                <Field label="视频时长">
-                  <select name="duration">
-                    <option value="20">20 秒</option>
-                    <option value="30">30 秒</option>
-                    <option value="15">15 秒</option>
-                  </select>
-                </Field>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() =>
+                    setMode(
+                      assets.length >= 2
+                        ? "mixed"
+                        : assets.length
+                          ? "screen_demo"
+                          : "mg",
+                    )
+                  }
+                >
+                  <Sparkles size={15} />
+                  按素材推荐形式
+                </Button>
               </div>
-              {effectiveMode !== "pillow_mg" && (
-                <Field label="已确认授权的素材">
-                  <select name="asset" required>
-                    <option value="">选择真实素材</option>
-                    {availableAssets.map((a) => (
-                      <option value={a.id} key={a.id}>
-                        {a.name}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
+              {recipeId === "release" && (
+                <p className="muted">
+                  请在分镜中注明实际版本与来源；规划中的功能不能当作已上线能力。
+                </p>
               )}
-              {presentation.style === "studio" &&
-                effectiveMode !== "pillow_mg" && (
-                  <>
-                    <Field label="界面演示标题">
+              {recipeId === "story" && (
+                <p className="muted">
+                  虚构情节请在文案中标注“情景演绎”，实际用户经历须有授权和依据。
+                </p>
+              )}
+              {mode === "mixed" && (
+                <p className="muted">
+                  至少保留一镜图解和一镜素材；逐镜选择实录、全画幅混剪或插画分镜。
+                </p>
+              )}
+              {mode === "illustrated" && (
+                <p className="muted">
+                  使用你已授权的插画，添加镜头运动与对白。这一形式不会生成角色动作或口型。
+                </p>
+              )}
+              {scenes.map((scene, i) => {
+                const textOnly =
+                  mode === "mg" || (mode === "mixed" && !scene.asset_id);
+                return (
+                  <fieldset
+                    className="form-stack film-controls"
+                    key={i}
+                    disabled={busy}
+                  >
+                    <legend>
+                      镜头 {i + 1} ·{" "}
+                      {roles[Math.min(i, roles.length - 1)] || "补充镜头"}
+                    </legend>
+                    <Field label={`镜头 ${i + 1} 画面短句`}>
                       <input
-                        name="screen_title"
                         required
                         maxLength={80}
-                        placeholder="这一镜演示什么操作"
+                        value={scene.headline}
+                        onChange={(e) => patch(i, { headline: e.target.value })}
+                        placeholder="这一镜让观众看见什么"
                       />
                     </Field>
-                    <Field label="重点特写标题">
-                      <input
-                        name="focus_title"
-                        required
-                        maxLength={80}
-                        placeholder="这一镜希望观众看清什么"
+                    <Field label={`镜头 ${i + 1} 旁白`}>
+                      <textarea
+                        rows={2}
+                        maxLength={600}
+                        value={scene.narration}
+                        onChange={(e) =>
+                          patch(i, { narration: e.target.value })
+                        }
+                        placeholder="写自然说话的句子；留空时用画面短句配音"
                       />
                     </Field>
-                    <p className="muted">
-                      特写默认取素材中部区域，创建后可调整百分比裁切。请使用清晰截图或足够长的录屏，预览后核对取景与时长。
-                    </p>
-                  </>
-                )}
-              <PresentationControls
-                value={presentation}
-                onChange={setPresentation}
-              />
-              <p className="muted">
-                本地 CPU
-                渲染，不调用付费服务。可在工程中添加授权旁白、配乐和字幕；离线系统语音仅在本机可用时显示。未选择音频时导出静音轨。
-              </p>
-              <Button disabled={busy} type="submit">
+                    <Field label={`镜头 ${i + 1} 补充文字`}>
+                      <textarea
+                        rows={2}
+                        maxLength={240}
+                        value={scene.supporting}
+                        onChange={(e) =>
+                          patch(i, { supporting: e.target.value })
+                        }
+                      />
+                    </Field>
+                    {mode !== "mg" && (
+                      <Field label={`镜头 ${i + 1} 授权素材`}>
+                        <select
+                          required={mode !== "mixed"}
+                          value={scene.asset_id}
+                          onChange={(e) =>
+                            patch(i, { asset_id: e.target.value })
+                          }
+                        >
+                          <option value="">
+                            {mode === "mixed" ? "图解 / 动态文字" : "选择素材"}
+                          </option>
+                          {assets
+                            .filter(
+                              (a) =>
+                                mode !== "illustrated" || a.kind === "image",
+                            )
+                            .map((a) => (
+                              <option key={a.id} value={a.id}>
+                                {a.name} ·{" "}
+                                {a.kind === "video" ? "视频" : "图片"}
+                              </option>
+                            ))}
+                        </select>
+                      </Field>
+                    )}
+                    {mode === "mixed" && scene.asset_id && (
+                      <Field label={`镜头 ${i + 1} 素材呈现`}>
+                        <select
+                          value={scene.treatment}
+                          onChange={(e) =>
+                            patch(i, {
+                              treatment: e.target.value as Scene["treatment"],
+                            })
+                          }
+                        >
+                          <option value="auto">全画幅混剪</option>
+                          <option value="screen">真实界面讲解</option>
+                          <option value="montage">全画幅素材</option>
+                          <option value="comic">插画分镜（图片）</option>
+                        </select>
+                      </Field>
+                    )}
+                    {textOnly && (
+                      <Field
+                        label={`镜头 ${i + 1} 图解节点（每行一项，最多三项）`}
+                      >
+                        <textarea
+                          rows={3}
+                          value={scene.points}
+                          onChange={(e) => patch(i, { points: e.target.value })}
+                          placeholder="只写有依据的步骤、关系或信息；没有数据不画假图表"
+                        />
+                      </Field>
+                    )}
+                    <div className="form-grid">
+                      <Field label={`镜头 ${i + 1} 时长（秒）`}>
+                        <input
+                          type="number"
+                          min={0.5}
+                          max={60}
+                          step={0.1}
+                          required
+                          value={scene.seconds}
+                          onChange={(e) =>
+                            patch(i, { seconds: Number(e.target.value) })
+                          }
+                        />
+                      </Field>
+                      {!textOnly && (
+                        <Field label={`镜头 ${i + 1} 素材入点（秒）`}>
+                          <input
+                            type="number"
+                            min={0}
+                            max={7200}
+                            step={0.1}
+                            required
+                            value={scene.start}
+                            onChange={(e) =>
+                              patch(i, { start: Number(e.target.value) })
+                            }
+                          />
+                        </Field>
+                      )}
+                    </div>
+                    <div className="inline-actions">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        disabled={i === 0}
+                        onClick={() =>
+                          setScenes((old) => {
+                            const next = [...old];
+                            [next[i - 1], next[i]] = [next[i], next[i - 1]];
+                            return next;
+                          })
+                        }
+                      >
+                        前移
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        disabled={scenes.length <= 2}
+                        onClick={() =>
+                          setScenes((old) =>
+                            old.filter((_, index) => index !== i),
+                          )
+                        }
+                      >
+                        删除这一镜
+                      </Button>
+                    </div>
+                  </fieldset>
+                );
+              })}
+              <Button
+                type="button"
+                variant="secondary"
+                disabled={scenes.length >= 12 || busy}
+                onClick={() => setScenes((old) => [...old, emptyScene()])}
+              >
                 <Plus size={16} />
-                创建视频工程
+                添加镜头
+              </Button>
+              <p className="muted">
+                当前 {scenes.length} 镜 · {total.toFixed(1)} 秒。制作上限 120
+                秒；配音自动延长后仍受此限制。短录屏会提示修改入点或时长。
+              </p>
+              <PresentationControls
+                fixedStudio
+                value={{ ...presentation, style: "studio" }}
+                onChange={(v) => setPresentation({ ...v, style: "studio" })}
+              />
+              <label className="checkline">
+                <input
+                  type="checkbox"
+                  checked={withVoice}
+                  onChange={(e) => setWithVoice(e.target.checked)}
+                />
+                同时制作本机配音与同步字幕
+              </label>
+              {withVoice && (
+                <VoiceControls
+                  value={voice}
+                  onChange={setVoice}
+                  disabled={busy}
+                />
+              )}
+              {!withVoice && (
+                <p className="muted">
+                  本次先生成无旁白预览，可在工程内继续配音和添加授权音乐。
+                </p>
+              )}
+              <p className="muted">
+                不调用付费视频接口。素材与声音许可由你核实；先审看带水印预览，再确认高清合成。
+              </p>
+              <Button
+                disabled={
+                  busy ||
+                  !catalog ||
+                  !catalog.modes.find((m) => m.id === mode)?.available ||
+                  total > 120 ||
+                  (withVoice && (!voice.voice_id || !voice.usage_confirmed))
+                }
+                type="submit"
+              >
+                创建并制作预览
               </Button>
             </form>
           ) : (
             <EmptyState
-              title="先添加你的品牌"
-              description="视频工程需要关联真实产品。"
+              title="先添加品牌"
+              description="视频需要关联你的产品资料。"
               action={
-                <Link href="/studio/briefs/new" className="button primary">
-                  添加产品项目
+                <Link className="button" href="/brand">
+                  添加品牌
                 </Link>
               }
             />
@@ -409,18 +496,17 @@ export function VideoCreate({ store, action, busy }: PageProps) {
                   <div>
                     <strong>{v.name}</strong>
                     <p>
-                      {v.ir.width} × {v.ir.height} · {v.ir.shots.length} 个镜头
+                      {v.ir.width} × {v.ir.height} · {v.ir.shots.length} 镜
                     </p>
                     <StatusBadge status={v.status} />
                   </div>
-                  <ChevronRight size={17} />
                 </Link>
               ))}
             </div>
           ) : (
             <EmptyState
-              title="第一条宣传片，准备开场"
-              description="选择一种表达方式，创建真实的视频工程。"
+              title="第一条视频，从分镜开始"
+              description="选择形式，填写内容，生成真实可播放的预览。"
             />
           )}
         </Card>

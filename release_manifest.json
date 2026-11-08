@@ -1,12 +1,12 @@
 {
-  "release_id": "creator-0.17.0-dev",
-  "application_version": "0.17.0-dev",
+  "release_id": "creator-0.18.0-dev",
+  "application_version": "0.18.0-dev",
   "git_sha": "resolved-at-runtime",
   "database_migration": "0014",
   "agent_graph_version": "creator_graph@2",
   "prompt_version": "fact_bound@2",
   "video_ir_schema_version": "1.1",
-  "provider_adapter_version": "pillow_ffmpeg@5",
+  "provider_adapter_version": "pillow_ffmpeg@7",
   "model_id": null,
   "model_revision": null,
   "template_version": "local_editorial@3",
@@ -30,5 +30,6 @@
   "local_tts_adapter_version": "kokoro_local@1",
   "expressive_tts_adapter_version": "qwen_local@1",
   "spoken_delivery_version": "spoken_delivery@1",
-  "independent_motion_sample_version": "motion_sample@1"
+  "independent_motion_sample_version": "motion_sample@1",
+  "video_recipe_version": "video_recipes@1"
 }

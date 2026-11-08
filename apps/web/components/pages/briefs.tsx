@@ -407,7 +407,9 @@ export function BriefsPage(props: PageProps) {
                   defaultValue={brief?.document.visual_mode || "mg"}
                 >
                   <option value="mg">MG 动态文字</option>
-                  <option value="screen_demo">真实图片 / 录屏讲解</option>
+                  <option value="screen_demo">
+                    素材分镜（实录 / 实拍 / 插画）
+                  </option>
                   <option value="mixed">MG 与真实素材混合</option>
                 </select>
               </Field>
@@ -621,6 +623,7 @@ function BriefScriptEditor({
   const [confirmed, setConfirmed] = useState(false);
   const [withVoice, setWithVoice] = useState(true);
   const [presentation, setPresentation] = useState(defaultPresentation);
+  const [productionMode, setProductionMode] = useState("auto");
   const [voiceSettings, setVoiceSettings] =
     useState<VoiceSettings>(defaultVoiceSettings);
   const [error, setError] = useState("");
@@ -635,6 +638,9 @@ function BriefScriptEditor({
       shots: draft.shots.map((s, i) => (i === index ? { ...s, ...patch } : s)),
     });
   const total = draft.shots.reduce((sum, s) => sum + s.duration_frames, 0);
+  const hasMedia = draft.shots.some((s) => !!s.asset_id);
+  const allMedia = draft.shots.every((s) => !!s.asset_id);
+  const recommendedMode = allMedia ? "screen_demo" : hasMedia ? "mixed" : "mg";
   return (
     <Card>
       <h2>3. 检查脚本与分镜，再制作预览</h2>
@@ -913,7 +919,31 @@ function BriefScriptEditor({
         为这份脚本制作配音、同步字幕和视频
       </label>
       {!plan.video_id && (
+        <Field label="成片画面形式">
+          <select
+            value={productionMode}
+            disabled={busy || locked || dirty || !!plan.stale}
+            onChange={(e) => setProductionMode(e.target.value)}
+          >
+            <option value="auto">按当前分镜推荐</option>
+            {!hasMedia && <option value="mg">MG 图解与动态文字</option>}
+            {allMedia && (
+              <>
+                <option value="screen_demo">保留界面比例的录屏教程</option>
+                <option value="montage">全画幅素材混剪</option>
+                <option value="illustrated">插画故事（每镜需要图片）</option>
+              </>
+            )}
+            {hasMedia && !allMedia && (
+              <option value="mixed">图解与素材混合制作</option>
+            )}
+            <option value="legacy">原产品发布片版式</option>
+          </select>
+        </Field>
+      )}
+      {!plan.video_id && (
         <PresentationControls
+          fixedStudio={productionMode !== "legacy"}
           value={presentation}
           onChange={setPresentation}
           disabled={busy || locked || dirty || !!plan.stale}
@@ -956,6 +986,22 @@ function BriefScriptEditor({
                   confirmed: true,
                   ...(withVoice ? { narration: voiceSettings } : {}),
                   ...(!plan.video_id ? { presentation } : {}),
+                  ...(!plan.video_id && productionMode !== "legacy"
+                    ? {
+                        production_mode:
+                          productionMode === "auto"
+                            ? recommendedMode
+                            : productionMode,
+                        recipe_id:
+                          brief.document.narrative_mode === "story"
+                            ? "story"
+                            : brief.document.narrative_mode === "documentary"
+                              ? "tutorial"
+                              : brief.document.narrative_mode === "contrast"
+                                ? "qa"
+                                : "feature",
+                      }
+                    : {}),
                 }),
               );
               router.push(`/studio/video/${result.video_id}`);

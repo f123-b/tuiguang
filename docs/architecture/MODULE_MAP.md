@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+0.18 / #41：VIDEO新增video_recipes.py（类型目录/配方编译/幂等创建）与film_types.py（三类画面）；video_edit_api.py / brief_api.py提供制作入口，briefs.py按可选类型编译原脚本，narration.py与RenderJob沿用。WEB为video.tsx / briefs.tsx / film-design.tsx；VIDEO IR1.1兼容扩展，provider@7，无DB/Prompt/云生成变更。见 [实际验证](../implementation/VIDEO_TYPES_VALIDATION.md)。
+
 #39续：独立 `examples/video-production/youzhao-choice/edit/` 的 dialogue.json → voice.py / diagram.js / 真实UI采集 → finish.py → verify.py 已产出44秒完整影片与离线IR1.1。正式API、Provider注册、工作台和DB不变；这不是持续任务已具备自动导演。见 [实际范围](../implementation/LOCAL_CHOICE_FILM_VALIDATION.md)。
 
 #39 / production_pack@1：`examples/video-production/youzhao-choice/` 是独立前期制作包和采集资料，含40秒分镜、实际生成首帧、真实UI补录、来源和缺口清单。未接入正式API/Provider，未完成演员动态试拍或整片。不得把其中的production.json当VideoProjectIR或艺术质量通过。见 [本轮证据](../implementation/CINEMATIC_PRODUCTION_VALIDATION.md)。

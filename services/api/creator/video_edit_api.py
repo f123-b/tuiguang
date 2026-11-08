@@ -1,6 +1,6 @@
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header, Request
 from fastapi.responses import Response
 from pydantic import Field
 from sqlalchemy import select
@@ -17,10 +17,27 @@ from .models import Brand
 from .schemas import DTO, VideoInput
 from .video import validate_ir
 from .video_edit import checkpoint, current_output, lock_video, subtitles_srt
+from .video_recipes import RecipeInput, catalog, create_from_recipe
 
 router = APIRouter(prefix="/api/v1")
 DB = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
+
+
+@router.get("/videos/recipes")
+def production_recipes(user: Actor):
+    return catalog()
+
+
+@router.post("/videos/from-recipe", status_code=201)
+def produce_recipe(
+    data: RecipeInput,
+    db: DB,
+    user: Actor,
+    request: Request,
+    idempotency_key: str = Header(min_length=1, max_length=160),
+):
+    return serialize(create_from_recipe(db, user, data, idempotency_key, request.state.trace_id))
 
 
 class SaveProject(DTO):
@@ -89,6 +106,8 @@ def save_project(video_id: str, data: SaveProject, db: DB, user: Actor):
     video = owned(db, Video, video_id, user.workspace_id)
     lock_video(db, video, data.expected_revision)
     ir = {"schema_version": "1.1", **data.document.model_dump()}
+    if video.ir.get("production_recipe"):
+        ir["production_recipe"] = video.ir["production_recipe"]
     new = {s["shot_id"]: s for s in ir["shots"]}
     for old in video.ir["shots"]:
         if old["locked"] and new.get(old["shot_id"]) != old:

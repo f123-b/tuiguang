@@ -57,6 +57,10 @@ def layers_for(shot, canvas):
     p = palette(canvas.get("presentation", {}))
     design = shot.get("design", {})
     layout = scene_layout(shot)
+    if layout in ("diagram", "montage", "comic"):
+        from .film_types import type_layers
+
+        return type_layers(shot, canvas, p, text_block)
     portrait = h > w
     unit = min(w, h) / 1080
     margin = round(w * 0.065)
@@ -256,7 +260,10 @@ def render_scene(shot, canvas, target, asset=None):
         chain = f"crop=iw*{crop.get('width', 100)}/100:ih*{crop.get('height', 100)}/100:iw*{crop.get('x', 0)}/100:ih*{crop.get('y', 0)}/100,setpts=PTS/{shot.get('speed_percent', 100) / 100},fps={fps}"
         if shot.get("freeze_end_frames"):
             chain += f",trim=end_frame={frames - shot['freeze_end_frames']},setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop={shot['freeze_end_frames']}"
-        chain += f",scale={vw}:{vh}:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos,pad={vw}:{vh}:(ow-iw)/2:(oh-ih)/2:color=0x111A20,setsar=1[media]"
+        if scene_layout(shot) == "montage":
+            chain += f",scale={vw}:{vh}:force_original_aspect_ratio=increase:force_divisible_by=2:flags=lanczos,crop={vw}:{vh},setsar=1[media]"
+        else:
+            chain += f",scale={vw}:{vh}:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos,pad={vw}:{vh}:(ow-iw)/2:(oh-ih)/2:color=0x111A20,setsar=1[media]"
         motion = shot.get("design", {}).get("motion", "push")
         if motion != "still":
             chain = chain.removesuffix("[media]")
@@ -281,7 +288,7 @@ def render_scene(shot, canvas, target, asset=None):
         input_index += 1
     for i, image in enumerate(layers):
         png_input(image, f"-layer-{i}")
-        delay = min(0.35, i * 0.12)
+        delay = min(duration * 0.35, i * 0.18) if scene_layout(shot) == "diagram" else min(0.35, i * 0.12)
         fade = min(0.32, duration / 4)
         filters.append(f"[{input_index}:v]format=rgba,fade=t=in:st={delay}:d={fade}:alpha=1[layer{i}]")
         offset = round(25 * min(w, h) / 1080)
@@ -290,6 +297,27 @@ def render_scene(shot, canvas, target, asset=None):
         )
         base = f"v{i}"
         input_index += 1
+    if scene_layout(shot) == "diagram" and len(shot.get("design", {}).get("points", [])) > 1:
+        radius = max(3, round(9 * min(w, h) / 1080))
+        marker = Image.new("RGBA", (radius * 4, radius * 4))
+        md = ImageDraw.Draw(marker)
+        md.ellipse((0, 0, radius * 4 - 1, radius * 4 - 1), fill=(255, 255, 255, 45))
+        md.ellipse((radius, radius, radius * 3, radius * 3), fill=palette(canvas["presentation"])["accent"])
+        png_input(marker, "-marker")
+        count = len(shot["design"]["points"])
+        progress = f"(0.5-0.5*cos(PI*min(1,max(0,(t-0.3)/{max(0.2, duration - 0.6)}))))"
+        x = (
+            f"{w * 0.14 - radius * 2}"
+            if h > w
+            else f"{w * 0.16 - radius * 2}+{w * 0.3075 * (count - 1)}*{progress}"
+        )
+        y = (
+            f"{h * 0.4875 - radius * 2}+{h * 0.115 * (count - 1)}*{progress}"
+            if h > w
+            else str(h * 0.63 - radius * 2)
+        )
+        filters.append(f"[{base}][{input_index}:v]overlay=x='{x}':y='{y}':eof_action=repeat[diagram]")
+        base = "diagram"
     if canvas.get("presentation", {}).get("transition") == "dip":
         length = min(0.18, duration / 5)
         filters.append(
