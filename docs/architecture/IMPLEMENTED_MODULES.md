@@ -1,4 +1,6 @@
-# 实际模块地图 · 0.19.0-dev
+# 实际模块地图 · 0.20.0-dev
+
+#47：`drama.py`（计划/门禁/逐镜绑定）→`drama_jobs.py`（共享预算模型规划）/`drama_skills.py`（固定来源与离线校验）→既有video_generation/video_recipes/narration。DB0016 DramaProject保存要求、计划、依据、确认、绑定与历史；HTTP为drama_api，工作台为video-drama-skills。八技能只执行已接入的参考与检查，不假称原生七环节报告均已生成。见[验收](../implementation/DRAMA_SKILLS_VALIDATION.md)。
 
 #45：`video_generation.py` / `wan_comfy.py` / `video_generation_api.py` / `video_generation_worker.py`与0015构成独立本机生成队列；启动器`scripts/start-local-video.mjs`只运行已安装的固定版本。`video-drama.tsx`提供真人/动漫分镜、任务、检查、排序与成片入口；`video_recipes.py`编译generative，`video.py`核对生成来源，`film_types.py`的cinema保留人物画面。真实试镜未替用户艺术确认；未接入唇形驱动、跨镜头身份锁或社媒发布。见[本轮报告](../implementation/AI_DRAMA_VALIDATION.md)。
 

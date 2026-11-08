@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "叙流 · AI 持续创作者",
-    "version": "0.19.0-dev"
+    "version": "0.20.0-dev"
   },
   "paths": {
     "/api/v1/creators/{creator_id}/plan": {
@@ -1615,6 +1615,410 @@
         },
         "responses": {
           "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/skills": {
+      "get": {
+        "summary": "Skills",
+        "operationId": "skills_api_v1_dramas_skills_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas": {
+      "get": {
+        "summary": "Projects",
+        "operationId": "projects_api_v1_dramas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create",
+        "operationId": "create_api_v1_dramas_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DramaBrief"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}": {
+      "get": {
+        "summary": "Detail",
+        "operationId": "detail_api_v1_dramas__identifier__get",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}/plan": {
+      "put": {
+        "summary": "Edit",
+        "operationId": "edit_api_v1_dramas__identifier__plan_put",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Edit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}/confirm": {
+      "post": {
+        "summary": "Accept",
+        "operationId": "accept_api_v1_dramas__identifier__confirm_post",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/creator__drama_api__Confirm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}/plan-ai": {
+      "post": {
+        "summary": "Plan Ai",
+        "operationId": "plan_ai_api_v1_dramas__identifier__plan_ai_post",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanAI"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}/shots/{shot_id}/request": {
+      "get": {
+        "summary": "Preview Request",
+        "operationId": "preview_request_api_v1_dramas__identifier__shots__shot_id__request_get",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          },
+          {
+            "name": "shot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Shot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}/shots/{shot_id}/generate": {
+      "post": {
+        "summary": "Generate",
+        "operationId": "generate_api_v1_dramas__identifier__shots__shot_id__generate_post",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          },
+          {
+            "name": "shot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Shot Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Generate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dramas/{identifier}/build": {
+      "post": {
+        "summary": "Build",
+        "operationId": "build_api_v1_dramas__identifier__build_post",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/creator__drama_api__Build"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -3926,7 +4330,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Build"
+                "$ref": "#/components/schemas/creator__brief_api__Build"
               }
             }
           }
@@ -5841,6 +6245,75 @@
         ],
         "title": "AudioTrack"
       },
+      "Beat": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Id"
+          },
+          "cause_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cause Id"
+          },
+          "character_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Character Id"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "hook",
+              "setup",
+              "choice",
+              "payoff",
+              "cliff"
+            ],
+            "title": "Role"
+          },
+          "action": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Action"
+          },
+          "obstacle": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Obstacle"
+          },
+          "result": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Result"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "character_id",
+          "role",
+          "action",
+          "obstacle",
+          "result"
+        ],
+        "title": "Beat"
+      },
       "Body_metric_columns_api_v1_analytics_import_columns_post": {
         "properties": {
           "file": {
@@ -6113,79 +6586,6 @@
         ],
         "title": "BriefInput"
       },
-      "Build": {
-        "properties": {
-          "expected_revision": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Revision"
-          },
-          "confirmed": {
-            "type": "boolean",
-            "const": true,
-            "title": "Confirmed"
-          },
-          "narration": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/NarrationOptions"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "presentation": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Presentation"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "production_mode": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "mg",
-                  "screen_demo",
-                  "montage",
-                  "illustrated",
-                  "mixed",
-                  "generative"
-                ]
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Production Mode"
-          },
-          "recipe_id": {
-            "type": "string",
-            "enum": [
-              "feature",
-              "qa",
-              "tutorial",
-              "story",
-              "release",
-              "brand"
-            ],
-            "title": "Recipe Id",
-            "default": "feature"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "expected_revision",
-          "confirmed"
-        ],
-        "title": "Build"
-      },
       "ChangeDecision": {
         "properties": {
           "decision": {
@@ -6250,6 +6650,56 @@
           "product_version"
         ],
         "title": "ChangeInput"
+      },
+      "Character": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^C\\d{2}$",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "goal": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Goal"
+          },
+          "flaw": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Flaw"
+          },
+          "appearance": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Appearance"
+          },
+          "voice_hint": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Voice Hint"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "goal",
+          "flaw",
+          "appearance",
+          "voice_hint"
+        ],
+        "title": "Character"
       },
       "CheckInput": {
         "properties": {
@@ -6536,6 +6986,348 @@
         ],
         "title": "Decision"
       },
+      "DramaBrief": {
+        "properties": {
+          "brand_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Brand Id"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "story": {
+            "type": "string",
+            "maxLength": 6000,
+            "minLength": 10,
+            "title": "Story"
+          },
+          "theme": {
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1,
+            "title": "Theme"
+          },
+          "genre": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Genre",
+            "default": "职场剧情"
+          },
+          "duration_sec": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 10.0,
+            "title": "Duration Sec",
+            "default": 30
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "realistic",
+              "anime"
+            ],
+            "title": "Style",
+            "default": "realistic"
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "wide",
+              "portrait"
+            ],
+            "title": "Size",
+            "default": "wide"
+          },
+          "fact_refs": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Fact Refs"
+          },
+          "rights_confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Rights Confirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "brand_id",
+          "title",
+          "story",
+          "theme",
+          "rights_confirmed"
+        ],
+        "title": "DramaBrief"
+      },
+      "DramaPlan": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "logline": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Logline"
+          },
+          "hook": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Hook"
+          },
+          "characters": {
+            "items": {
+              "$ref": "#/components/schemas/Character"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Characters"
+          },
+          "scenes": {
+            "items": {
+              "$ref": "#/components/schemas/Scene"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Scenes"
+          },
+          "beats": {
+            "items": {
+              "$ref": "#/components/schemas/Beat"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 3,
+            "title": "Beats"
+          },
+          "shots": {
+            "items": {
+              "$ref": "#/components/schemas/DramaShot"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 3,
+            "title": "Shots"
+          },
+          "uncertainties": {
+            "items": {
+              "type": "string",
+              "maxLength": 700,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Uncertainties"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "logline",
+          "hook",
+          "characters",
+          "scenes",
+          "beats",
+          "shots"
+        ],
+        "title": "DramaPlan"
+      },
+      "DramaShot": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Id"
+          },
+          "beat_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Beat Id"
+          },
+          "scene_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Scene Id"
+          },
+          "character_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Character Ids"
+          },
+          "action": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Action"
+          },
+          "frame_prompt": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Frame Prompt"
+          },
+          "motion_prompt": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Motion Prompt"
+          },
+          "framing": {
+            "type": "string",
+            "enum": [
+              "wide",
+              "medium",
+              "close",
+              "insert"
+            ],
+            "title": "Framing"
+          },
+          "camera": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Camera"
+          },
+          "start_positions": {
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "left",
+                "center",
+                "right",
+                "offscreen"
+              ]
+            },
+            "propertyNames": {
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "Start Positions"
+          },
+          "end_positions": {
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "left",
+                "center",
+                "right",
+                "offscreen"
+              ]
+            },
+            "propertyNames": {
+              "maxLength": 120,
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "End Positions"
+          },
+          "transition_reason": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Transition Reason",
+            "default": ""
+          },
+          "narration": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Narration",
+            "default": ""
+          },
+          "delivery": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Delivery",
+            "default": "平静自然"
+          },
+          "frames": {
+            "type": "integer",
+            "enum": [
+              49,
+              73,
+              97,
+              121
+            ],
+            "title": "Frames",
+            "default": 121
+          },
+          "reference_asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Asset Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "beat_id",
+          "scene_id",
+          "character_ids",
+          "action",
+          "frame_prompt",
+          "motion_prompt",
+          "framing",
+          "camera",
+          "start_positions",
+          "end_positions"
+        ],
+        "title": "DramaShot"
+      },
+      "Edit": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "document": {
+            "$ref": "#/components/schemas/DramaPlan"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "document"
+        ],
+        "title": "Edit"
+      },
       "FactInput": {
         "properties": {
           "claim": {
@@ -6641,6 +7433,40 @@
         "additionalProperties": false,
         "type": "object",
         "title": "FrameCrop"
+      },
+      "Generate": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "take_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Take Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "Generate"
       },
       "GenerationInput": {
         "properties": {
@@ -7407,6 +8233,41 @@
         ],
         "title": "Period"
       },
+      "PlanAI": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "creator_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Creator Id"
+          },
+          "max_cost_cents": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Max Cost Cents"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed",
+          "creator_id",
+          "max_cost_cents"
+        ],
+        "title": "PlanAI"
+      },
       "PreferenceInput": {
         "properties": {
           "notification_mode": {
@@ -8115,6 +8976,56 @@
           "document"
         ],
         "title": "SaveProject"
+      },
+      "Scene": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^S\\d{2}$",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Description"
+          },
+          "lighting": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Lighting"
+          },
+          "axis": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Axis"
+          },
+          "palette": {
+            "type": "string",
+            "maxLength": 700,
+            "minLength": 1,
+            "title": "Palette"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "lighting",
+          "axis",
+          "palette"
+        ],
+        "title": "Scene"
       },
       "SceneDesign": {
         "properties": {
@@ -8858,6 +9769,79 @@
         ],
         "title": "VideoInput"
       },
+      "creator__brief_api__Build": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "narration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NarrationOptions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "presentation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Presentation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "production_mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mg",
+                  "screen_demo",
+                  "montage",
+                  "illustrated",
+                  "mixed",
+                  "generative"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Production Mode"
+          },
+          "recipe_id": {
+            "type": "string",
+            "enum": [
+              "feature",
+              "qa",
+              "tutorial",
+              "story",
+              "release",
+              "brand"
+            ],
+            "title": "Recipe Id",
+            "default": "feature"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "Build"
+      },
       "creator__brief_api__Confirm": {
         "properties": {
           "expected_revision": {
@@ -8876,6 +9860,65 @@
         "required": [
           "expected_revision",
           "confirmed"
+        ],
+        "title": "Confirm"
+      },
+      "creator__drama_api__Build": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "narration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NarrationOptions"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed"
+        ],
+        "title": "Build"
+      },
+      "creator__drama_api__Confirm": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 5,
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "confirmed",
+          "note"
         ],
         "title": "Confirm"
       },

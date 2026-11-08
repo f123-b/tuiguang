@@ -182,6 +182,11 @@ def process_pending(db):
             continue
         db.refresh(run)
         try:
+            if run.release.get("job_kind") == "drama_plan":
+                from .drama_jobs import process
+
+                process(db, run, creator)
+                continue
             if run.release.get("job_kind") == "brief_video":
                 from .brief_jobs import process
 
@@ -334,6 +339,7 @@ def process_pending(db):
                 "model_probe": "model.probe",
                 "quality_review": "quality.model",
                 "brief_video": "brief.model",
+                "drama_plan": "drama.model",
                 "learning_review": "learning.model",
             }.get(run.release.get("job_kind"), "content.script")
             record(db, run.workspace_id, run.trace_id, stage, "error", run.id, error.code)

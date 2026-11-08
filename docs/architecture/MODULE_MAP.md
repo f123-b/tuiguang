@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+0.20 / #47：主模块`services/api/creator/drama.py`负责原创短剧计划、因果/覆盖/站位/源尺寸和逐镜绑定，`drama_api.py`提供HTTP，`drama_jobs.py`复用Run/预算/模型授权，`drama_skills.py`核对固定技能并由`scripts/drama-skill-check.mjs`实际执行上游剧本检查。DB0016独立DramaProject，私有导出和历史保留。WEB`video-drama-skills.tsx`位于`/studio/video/drama`，下接既有生成Worker、video_recipes/narration及人工预览复核。其他原生技能报告/生图未自动接入。见[使用与边界](../implementation/DRAMA_SKILLS_GUIDE.md)。
+
 0.19 / #45：唯一主模块 `video_generation.py`（生成状态机）→ `wan_comfy.py`（固定本机原生工作流）→ 独立 `video_generation_worker.py`；HTTP为`video_generation_api.py`，DB0015。素材经独立用户检查，`video_recipes.py` / `video.py`保留Shot.generation_job_id，cinema版式只留AI标识；WEB为`video-drama.tsx`。真人/动漫均有实际动态片段，不提供对口型或跨镜头一致性保证；见[使用](../implementation/LOCAL_AI_VIDEO.md)及[验收](../implementation/AI_DRAMA_VALIDATION.md)。持续创作与人工发布边界保持。
 
 0.18 / #41：VIDEO新增video_recipes.py（类型目录/配方编译/幂等创建）与film_types.py（三类画面）；video_edit_api.py / brief_api.py提供制作入口，briefs.py按可选类型编译原脚本，narration.py与RenderJob沿用。WEB为video.tsx / briefs.tsx / film-design.tsx；VIDEO IR1.1兼容扩展，provider@7，无DB/Prompt/云生成变更。见 [实际验证](../implementation/VIDEO_TYPES_VALIDATION.md)。

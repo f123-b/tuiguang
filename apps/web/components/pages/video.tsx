@@ -10,6 +10,7 @@ import { VideoEditor } from "./video-editor";
 import { PresentationControls, defaultPresentation } from "./film-design";
 import { VoiceControls, defaultVoiceSettings } from "./narration";
 import { DramaStudio } from "./video-drama";
+import { DramaSkillsStudio } from "./video-drama-skills";
 
 type Mode = "mg" | "screen_demo" | "montage" | "illustrated" | "mixed";
 type Catalog = {
@@ -44,6 +45,8 @@ const emptyScene = (): Scene => ({
 });
 
 export function VideoPage(props: PageProps) {
+  if (props.path === "/studio/video/drama")
+    return <DramaSkillsStudio {...props} />;
   if (props.path === "/studio/video/ai") return <DramaStudio {...props} />;
   const video = props.store.videos.find(
     (v) => v.id === props.path.split("/")[3],
@@ -114,7 +117,7 @@ export function VideoCreate({ store, action, busy }: PageProps) {
             aria-pressed={mode === item.id}
             onClick={() =>
               item.id === "generative"
-                ? router.push("/studio/video/ai")
+                ? router.push("/studio/video/drama")
                 : setMode(item.id as Mode)
             }
           >
