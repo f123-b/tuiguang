@@ -5,7 +5,9 @@ from pathlib import Path
 
 _temp = tempfile.TemporaryDirectory()
 os.environ["DATA_DIR"] = _temp.name
-os.environ["DATABASE_URL"] = os.getenv("TEST_DATABASE_URL") or "sqlite:///" + str(Path(_temp.name) / "test.db")
+os.environ["DATABASE_URL"] = os.getenv("TEST_DATABASE_URL") or "sqlite:///" + str(
+    Path(_temp.name) / "test.db"
+)
 os.environ["JWT_SECRET"] = "test-only-secret-32-characters-or-more"
 os.environ["GENERATION_MODE"] = "template"
 
@@ -69,3 +71,22 @@ def creator_profile(client, brand):
     )
     assert r.status_code == 201, r.text
     return r.json()
+
+
+@pytest.fixture
+def historical_learning_evidence():
+    """Keep synthetic evidence inside the explicitly historical report period."""
+    from sqlalchemy import event
+    from creator.models import Content, ContentRevision, Feedback
+
+    def timestamp(mapper, connection, target):
+        if target.created_at is None:
+            target.created_at = "2026-11-05T12:00:00+00:00"
+
+    for model in (Content, ContentRevision, Feedback):
+        event.listen(model, "before_insert", timestamp)
+    try:
+        yield
+    finally:
+        for model in (Content, ContentRevision, Feedback):
+            event.remove(model, "before_insert", timestamp)
