@@ -1,0 +1,8 @@
+{
+  "official_url": "https://download.pytorch.org/models/resnet18-5c106cde.pth",
+  "sha256": "5c106cde386e87d4033832f2996f5493238eda96ccf559d1d62760c4de0613f8",
+  "converted_sha256": "83c8c9d2dc81e2c9ae8c6a07eb9b39583fd44240e121400230433216bfd3e4d8",
+  "tensor_count": 102,
+  "all_tensor_values_equal": true,
+  "reason": "legacy tar cannot weights-only load in torch2.9"
+}

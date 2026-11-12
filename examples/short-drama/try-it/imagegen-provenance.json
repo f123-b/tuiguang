@@ -1,0 +1,59 @@
+{
+  "version": "imagegen_story_frames@1",
+  "task": "#51",
+  "tool": "built-in ImageGen",
+  "model_id": null,
+  "model_revision": null,
+  "actual_charge": null,
+  "uncertainty": "The built-in image tool did not return a model revision or actual charge.",
+  "fictional_actors": true,
+  "frames": [
+    {
+      "id": "S01",
+      "file": "assets/s01-two-shot-v1.png",
+      "references": [
+        "examples/short-drama/dont-say-we/assets/s01-opening-v1.png"
+      ],
+      "request_summary": "Preserve the fictional woman's identity and wardrobe; afternoon design studio, man screen-left in olive overshirt holding one black phone in right hand, woman screen-right by laptop, medium two-shot before handoff. No text or black bars.",
+      "exact_request_included": false
+    },
+    {
+      "id": "S02",
+      "file": "assets/s02-stop-v1.png",
+      "references": [
+        "assets/s01-two-shot-v1.png"
+      ],
+      "prompt": "Use case: photorealistic-natural. ONE widescreen film still, identity-preserving new camera angle for the original micro-drama 你来试试. Input is the scene and both character identity reference. Show ONLY the same fictional woman with the same face, black bob, charcoal knit cardigan, white T-shirt, seated at the same wood desk in the bright afternoon design studio. Camera stays on near side of the desk and character axis, a medium close-up from slightly left of the laptop, clearly see her face in three-quarter front view. She is at screen right looking slightly up toward screen LEFT at her standing male friend (entirely outside frame). Her right hand has just started reaching to screen left across the wood table, open naturally without an object, mid reach, elbow still bent; her left hand rests near the open silver laptop at the bottom right. Thoughtful surprised look, brow relaxing as she notices a problem, not smiling yet. Simple warm pale wall and softly blurred desk organizers behind her, daylight from upper left, the same lighting and wardrobe. Face well exposed, eyes and skin crisp, coherent five-finger hand, ordinary candid performance, no dramatic beauty lighting. The hand reach stays well within lower frame, no clipping wrist. No second person or phone within frame, no text, no decorative lights, no captions, no logos, no black bars. Single16:9 image.",
+      "exact_request_included": true
+    },
+    {
+      "id": "S03",
+      "file": "assets/s03-work-v1.png",
+      "references": [
+        "assets/s01-two-shot-v1.png",
+        "assets/s02-stop-v1.png"
+      ],
+      "prompt": "Use case: photorealistic-natural. Single16:9 original micro-drama first frame. Input 1 is scene/character reference, input 2 is identity and matching coverage reference for the woman. Same fictional black-bob woman, charcoal cardigan, white T-shirt, same bright afternoon studio with wood desk, frosted window LEFT and silver laptop on RIGHT of desk. Medium three-quarter profile shot of her seated, from near side of desk without crossing the axis. She is finishing looking toward her standing offscreen friend to screen LEFT, but her shoulders are beginning to turn toward the laptop screen to screen RIGHT. Her right hand is close to the laptop trackpad, ready to work, left forearm on table. Both hands visible and coherent. The laptop screen back is visible to viewer, no need to generate readable interface. Her expression attentive and purposeful, lips relaxed, face well exposed. Make the spatial arrangement physically plausible: laptop to her left from HER perspective and screen right from camera perspective, right arm can reach across naturally. Keep original hair/face/wardrobe/materials/warm daylight, simple background, natural pores and cloth. No second person, no random lights, no captions, no writing/logos, no added gadgets, no phone in her hand, no black bars. One candid drama still, not a posed advertisement.",
+      "exact_request_included": true
+    },
+    {
+      "id": "S04",
+      "file": "assets/s04-retry-v1.png",
+      "references": [
+        "assets/s01-two-shot-v1.png"
+      ],
+      "prompt": "Use case: photorealistic-natural. ONE widescreen film still of the SAME fictional man from the input scene reference, preserving his face exactly, short black hair, olive green overshirt, sand T-shirt. This is the reverse coverage in the original drama 你来试试. He stands on screen LEFT in the same bright afternoon design studio, medium close-up waist to top of head, camera on the near side of the same wood desk and does not cross the left-right axis. Right hand holding the SAME single black smartphone vertically at lower chest; left index finger is poised near phone but not yet touching, both hands coherent and visible. Head slightly turned toward screen RIGHT, eyeline down to his seated friend who remains completely outside frame. His frustration has subsided; attentive uncertain neutral expression, naturally parted lips suitable for speaking, not big grin. Left frosted window softly visible behind, pale wall and simple shelf in background, soft warm window light left, sharp natural skin and fabric, restrained realistic workplace drama. Clean uncomplicated composition, no other person, no duplicate phone, no earphones, no writing, no logos, no subtitles, no black bars. One16:9 still.",
+      "exact_request_included": true
+    },
+    {
+      "id": "S06",
+      "file": "assets/s06-smile-v1.png",
+      "references": [
+        "assets/s01-two-shot-v1.png",
+        "assets/s02-stop-v1.png"
+      ],
+      "prompt": "Use case: photorealistic-natural. Single16:9 original micro-drama reaction first frame. Input 1 is the scene and characters reference, input 2 is the fictional woman's face and matching close medium coverage. Preserve same black bob, recognizable face, charcoal cardigan and white T-shirt. Same afternoon studio, same desk and silver laptop lower RIGHT, same soft warm daylight from LEFT. Medium close shot of the woman seated at screen RIGHT, face in near-front three-quarter view, looking slightly UP toward screen LEFT where her friend stands offscreen. Her extended right hand is now fully withdrawn and rests beside her left hand on the wood tabletop. She has just heard a teasing comment: a brief attentive puzzled look, eyebrows slightly raised, lips parted naturally, not smiling YET. Leave room for her subsequent amused smile, do not exaggerate expression or make her look sad. Coherent hands resting on table, relaxed shoulders. Maintain camera on near side of desk, no axis reversal, no other people in frame, simple pale wall and blurred studio shelf behind. Sharp natural skin and eyes, film still, no lettering, no graphics, no logos, no black bars.",
+      "exact_request_included": true
+    }
+  ]
+}

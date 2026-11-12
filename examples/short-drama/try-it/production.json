@@ -1,0 +1,44 @@
+{
+  "version": "action_drama@2",
+  "task": "#51",
+  "title": "你来试试",
+  "status": "film_output_pending_user_review",
+  "format": "真人风格原创职场短剧",
+  "target_seconds": 22,
+  "actual_seconds": 21.9,
+  "actual_frames": 657,
+  "logline": "朋友找不到入口，把手机递回来。设计师伸手，却选择先改设计；第二次测试终于不需要她代劳。",
+  "fiction_notice": "AI剧情演绎 · 合成声音 · 虚构项目",
+  "characters": [
+    {"id":"lin","goal":"让朋友自己完成上传","initial_strategy":"指挥朋友按自己设计的路径操作","change":"承认入口藏得太深，去掉欢迎页","appearance":"黑色短发、深灰开衫、白T恤","voice":"serena"},
+    {"id":"chen","goal":"完成测试后离开","initial_strategy":"找不到就交给设计师代劳","change":"自己找到入口，反过来打趣朋友","appearance":"短黑发、橄榄绿衬衫、米色T恤","voice":"dylan"}
+  ],
+  "scene": {"place":"下午的小型设计工作室","axis":"陈站画左向右看，小林坐画右向左看；摄影机保持桌子近侧，不越人物轴线","anchors":"左侧磨砂窗、木桌、画右银色电脑、陈右手一部深色手机","lighting":"左窗柔光，清晰暖肤色，不用夜雨背景"},
+  "beats": [
+    {"id":"B1","cause":null,"action":"陈皱眉，把手机向小林递出","result":"他要放弃自己操作，目标受阻"},
+    {"id":"B2","cause":"B1","action":"小林伸手接机前停住，抬头看陈","result":"她不再替测试者完成操作"},
+    {"id":"B3","cause":"B2","action":"小林转向电脑，改掉入口前的欢迎页","result":"她付出修改设计的代价"},
+    {"id":"B4","cause":"B3","action":"陈收回手机，低头重新尝试","result":"这次他自己完成操作"},
+    {"id":"B5","cause":"B4","action":"陈抬起手机笑着看她，她先愣住再笑","result":"埋怨变为朋友之间的调侃"},
+    {"id":"B6","cause":"B5","action":"小林把这次具体取舍记入有招项目备注","result":"为以后讲述项目留下具体经历"}
+  ],
+  "cues": [
+    {"id":"01-give-up","role":"chen","speaker":"dylan","text":"算了，你来。","direction":"普通话，朋友之间说话，试了几次没找到入口，轻轻有点烦但不生气，不播音，不训人，尾音落下。"},
+    {"id":"02-wait","role":"lin","speaker":"serena","text":"等一下。","direction":"普通话，突然意识到问题，短促叫住朋友，真实自然，不惊叫。"},
+    {"id":"03-fault","role":"lin","speaker":"serena","text":"不是你不会用，是我藏得太深了。","direction":"普通话，朋友间诚恳承认自己的设计有问题，轻松自嘲，第一句接住对方，后半说给自己听，不说教不朗诵。"},
+    {"id":"04a-change","role":"lin","speaker":"serena","text":"欢迎页，先拿掉。","direction":"普通话，边修改自己的设计边随口说给朋友听，确认具体取舍，声音平实，不朗诵，欢迎页后有短停顿。"},
+    {"id":"04-again","role":"lin","speaker":"serena","text":"再试试。","direction":"普通话，改完东西请朋友再操作一次，带一点期待，简短随口说。"},
+    {"id":"05-found","role":"chen","speaker":"dylan","text":"找到了。你早放这儿不就好了。","direction":"普通话，找到入口以后放松，后半轻轻调侃熟悉的朋友，微微带笑但不大笑，非广告口吻。"},
+    {"id":"06-answer-v2","role":"lin","speaker":"serena","text":"对哦。","direction":"普通话，朋友之间随口接一句，带一点自嘲笑意，简短自然、松弛，不刻意拖长，不升华道理。"}
+  ],
+  "shots": [
+    {"id":"S01","beat":"B1","purpose":"双人中景建立关系和失败测试，递手机是开场动作","start":"陈右手持机靠胸，小林双手在桌边","end":"陈右手前伸，小林开始伸手","frames":73,"reference":"s01-two-shot-v1.png","prompt":"The standing man on the left extends his right arm and offers the upright black smartphone toward the seated woman on the right. He is mildly frustrated after trying the phone. The seated woman looks at the offered phone and starts to reach with her right hand. Simple ordinary gesture, both faces and hands remain consistent. Locked camera, normal real-time movement, warm daylight. The phone stays in the man's right hand, no completed exchange, no camera cut."},
+    {"id":"S02","beat":"B2","purpose":"接动作切女主，停手后看对方，体现策略改变","start":"女主右手前伸，视线在手机","end":"女主手停住，眼睛看向画左上方陈","frames":121,"reference":"s02-stop-v1.png","prompt":"The woman stops reaching, softly lifts her open right palm briefly to pause her offscreen friend, then lowers her right hand back onto the wood desk. She looks up to the LEFT toward her standing friend with a thoughtful, apologetic expression and relaxed eyebrows. Ordinary conversational gestures, one continuous shot, natural normal-speed body movement, consistent face and five fingers, laptop stays at right. No camera movement, no other person enters."},
+    {"id":"S03","beat":"B3","purpose":"侧面中景转向电脑并实际操作，行动承担转折","start":"女主面对画左陈，电脑在画右","end":"女主身体右转，右手在触控板","frames":97,"reference":"s03-work-v1.png","prompt":"The seated woman turns her shoulders toward the silver laptop on her RIGHT and begins working on its trackpad with her right hand. She focuses on the laptop screen, her expression becoming purposeful, then pauses and glances up to her offscreen friend on the LEFT. Common natural laptop work, single coherent gesture, fingers remain plausible, natural real-time motion, daylight, camera locked, no other person enters, background stays unchanged."},
+    {"id":"S04","beat":"B4","additional_beats":["B5"],"purpose":"同一镜头内先操作再反应，结果引起表情改变","start":"陈站画左，右手持机，朝右看小林","end":"陈低头用左手操作手机，然后看向画右小林轻笑","frames":121,"reference":"s04-retry-v1.png","prompt":"The man looks down at the single black smartphone held upright in his right hand. He taps its screen with the index finger of his left hand in an ordinary phone-use action, then lifts his head to look at his seated offscreen friend to the RIGHT and gives her a small relieved amused smile. Keep the phone upright in his right hand throughout. Natural conversational performance with relaxed shoulders, normal-speed movement, fixed medium shot, no camera movement or cuts, no extra person."},
+    {"id":"S06","beat":"B5","purpose":"女主先接收调侃，再笑，留出反应时间","start":"女主看画左上方陈","end":"女主松肩笑，保持座位","frames":97,"reference":"s06-smile-v1.png","prompt":"The woman listens to her offscreen friend to the LEFT for a brief moment, then her puzzled expression relaxes into an amused warm smile. She briefly glances down with a small self-deprecating smile, then looks back UP LEFT toward her friend. Her shoulders relax naturally, her hands stay resting together on the wooden desk. Ordinary spontaneous reaction, not an advertising pose, normal real-time movement, same face and hair, fixed camera, no extra people, background unchanged."},
+    {"id":"S07","beat":"B6","purpose":"简短真实界面记录，不打断主戏","start":"实际项目备注编辑框","end":"三句虚构项目复盘记录","source":"existing isolated product capture; exact selection pending"}
+  ],
+  "quality_gate": {"requires":"实际试镜的递机动作、眼神关系、口型和脸部接缝先审看；未合格不声称整片完成","approval":"用户未审看；不写入软件审核记录"},
+  "impact": {"api":"none","database":"none","formal_engine":"unchanged","cloud_cost":"none submitted","media":"independent local trial","product_facts":"仅项目备注事实，测试经历和效果均为虚构"}
+}

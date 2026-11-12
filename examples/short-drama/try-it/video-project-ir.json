@@ -1,0 +1,315 @@
+{
+  "brand_id": "offline-youzhao-51",
+  "name": "你来试试·独立短剧",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "shots": [
+    {
+      "shot_id": "S01",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 81,
+      "caption": "",
+      "asset_id": "6a33357bc342a92cfe9a3512bcebeae2",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "S02",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 138,
+      "caption": "",
+      "asset_id": "ac97409dddd8a2cf17d32abfa85b7c5b",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "S03",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 120,
+      "caption": "",
+      "asset_id": "17b929ae0aa14500be167b3765d31ecb",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "S04",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 144,
+      "caption": "",
+      "asset_id": "c0cb6d03ff44a089aa2da2b1f399d5f4",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "S06",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 42,
+      "caption": "",
+      "asset_id": "01acb280a0e5269ccaa96c8b434920c9",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "S07",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 72,
+      "caption": "",
+      "asset_id": "3dbcaec80db703c8b8e3c4c4a23a66ab",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "END",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 60,
+      "caption": "",
+      "asset_id": "5806cdcdebc50ae94fa52cfe262b3456",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    }
+  ],
+  "audio_tracks": [
+    {
+      "track_id": "final-mix",
+      "asset_id": "07dc9c84dbf569f34f20bc2171836562",
+      "role": "voiceover",
+      "start_frame": 0,
+      "duration_frames": 657,
+      "source_start_frame": 0,
+      "volume_percent": 100,
+      "loop": false
+    }
+  ],
+  "subtitles": [
+    {
+      "cue_id": "01-give-up",
+      "start_frame": 18,
+      "end_frame": 49,
+      "text": "算了，你来。"
+    },
+    {
+      "cue_id": "02-wait",
+      "start_frame": 86,
+      "end_frame": 107,
+      "text": "等一下。"
+    },
+    {
+      "cue_id": "03-fault",
+      "start_frame": 126,
+      "end_frame": 203,
+      "text": "不是你不会用，是我藏得太深了。"
+    },
+    {
+      "cue_id": "04a-change",
+      "start_frame": 219,
+      "end_frame": 291,
+      "text": "欢迎页，先拿掉。"
+    },
+    {
+      "cue_id": "04-again",
+      "start_frame": 294,
+      "end_frame": 328,
+      "text": "再试试。"
+    },
+    {
+      "cue_id": "05-found",
+      "start_frame": 402,
+      "end_frame": 467,
+      "text": "找到了。你早放这儿不就好了。"
+    },
+    {
+      "cue_id": "06-answer-v2",
+      "start_frame": 486,
+      "end_frame": 508,
+      "text": "对哦。"
+    }
+  ],
+  "preview_required": true,
+  "presentation": {
+    "style": "classic",
+    "theme": "ink",
+    "accent": "#B7F56B",
+    "brand_label": "",
+    "transition": "clean",
+    "audio_finish": true
+  },
+  "schema_version": "1.1",
+  "offline_assets": {
+    "6a33357bc342a92cfe9a3512bcebeae2": {
+      "path": ".data\\short-drama-51\\edit-v2-00.mp4",
+      "sha256": "6a33357bc342a92cfe9a3512bcebeae2575a90c2b855e48afcfedc1a15e204f4",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "ac97409dddd8a2cf17d32abfa85b7c5b": {
+      "path": ".data\\short-drama-51\\edit-v2-01.mp4",
+      "sha256": "ac97409dddd8a2cf17d32abfa85b7c5be3430c82d2e425a4d73bf6c28a08af57",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "17b929ae0aa14500be167b3765d31ecb": {
+      "path": ".data\\short-drama-51\\edit-v2-02.mp4",
+      "sha256": "17b929ae0aa14500be167b3765d31ecb2b4cd0f373832d4b1d9ebbf3f214b7bb",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "c0cb6d03ff44a089aa2da2b1f399d5f4": {
+      "path": ".data\\short-drama-51\\edit-v2-03.mp4",
+      "sha256": "c0cb6d03ff44a089aa2da2b1f399d5f4818e8a52941943f544f582e36a6cd3a5",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "01acb280a0e5269ccaa96c8b434920c9": {
+      "path": ".data\\short-drama-51\\edit-v2-04.mp4",
+      "sha256": "01acb280a0e5269ccaa96c8b434920c9ed9669805bf54197fa3536cef2c5739f",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "3dbcaec80db703c8b8e3c4c4a23a66ab": {
+      "path": ".data\\short-drama-51\\edit-v2-05.mp4",
+      "sha256": "3dbcaec80db703c8b8e3c4c4a23a66ab003f88373323df28e0db437182547f7a",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "5806cdcdebc50ae94fa52cfe262b3456": {
+      "path": ".data\\short-drama-51\\edit-v2-06.mp4",
+      "sha256": "5806cdcdebc50ae94fa52cfe262b34562e35f84903f6122e953c4e021ff9375a",
+      "scope": "finished independent edited clip; maps to a real authorized asset only on import"
+    },
+    "07dc9c84dbf569f34f20bc2171836562": {
+      "path": ".data\\short-drama-51\\mix.wav",
+      "sha256": "07dc9c84dbf569f34f20bc217183656271ce13cb225d347d0234f679587f8820"
+    }
+  },
+  "offline_exact_edit_manifest": "edit-v2.json",
+  "offline_scope": "Clip-level edit only, body generation and lipsync provenance in takes/sync receipts. Not imported to app. Map real brand/assets then render a new preview and obtain user review.",
+  "user_approval": false
+}

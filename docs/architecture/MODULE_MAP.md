@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+#51 / `action_drama@2`：独立作品主模块 `examples/short-drama/try-it/`；production/edit → 高清首帧/本机Wan/库存声 → 独立MuseTalk口型试验 → FFmpeg/check/export-ir/archive → 8790本地审看。21.9秒v2；正式API/DB/Provider/人工审核未变，不代表软件已集成口型或自动导演；见[实际证据](../implementation/TRY_IT_DRAMA_VALIDATION.md)。
+
 #49 / `short_drama_cut@1`：独立制作主模块 `examples/short-drama/dont-say-we/`，production → 库存合成声音/高清首帧/本机Wan/隔离真实UI → finish/check/archive → 8785本地观看。41秒v2成片及离线IR1.1，不注册正式Provider、不写用户审核通过，不修改DB/API。作品和软件能力必须分开记录；见[实际证据](../implementation/DONT_SAY_WE_FILM_VALIDATION.md)。
 
 0.20 / #47：主模块`services/api/creator/drama.py`负责原创短剧计划、因果/覆盖/站位/源尺寸和逐镜绑定，`drama_api.py`提供HTTP，`drama_jobs.py`复用Run/预算/模型授权，`drama_skills.py`核对固定技能并由`scripts/drama-skill-check.mjs`实际执行上游剧本检查。DB0016独立DramaProject，私有导出和历史保留。WEB`video-drama-skills.tsx`位于`/studio/video/drama`，下接既有生成Worker、video_recipes/narration及人工预览复核。其他原生技能报告/生图未自动接入。见[使用与边界](../implementation/DRAMA_SKILLS_GUIDE.md)。

@@ -1,0 +1,18 @@
+{
+  "duration": 21.9,
+  "ended": true,
+  "events": [
+    {
+      "name": "ended",
+      "t": 21.9
+    }
+  ],
+  "frames": {
+    "dropped": 13,
+    "total": 657
+  },
+  "height": 1080,
+  "muted": false,
+  "time": 21.9,
+  "width": 1920
+}

@@ -1,5 +1,7 @@
 # 依赖与素材许可台账 · inventory@3
 
+2026-11-12 / #51 / 独立 `musetalk_trial@1`：虚构AI人物、五张内置ImageGen首帧、五条Wan动态片及Qwen库存声，无真人克隆；配乐/环境/拟音为程序生成。MuseTalk源码固定 `0a89dec45a0192b824e3cf4daf96c239440c5ed8`，MIT及传递依赖声明保留在[notice](examples/short-drama/try-it/notices/MuseTalk-LICENSE.txt)，上游[许可说明](https://github.com/TMElyralab/MuseTalk/tree/0a89dec45a0192b824e3cf4daf96c239440c5ed8#disclaimerlicense)。冻结模型库的卡片声明分别为MuseTalk MIT、SD-VAE MIT、Whisper Apache-2.0、face-parse镜像WTFPL，见[哈希清单](examples/short-drama/try-it/sync-models.json)；这些声明不是全部训练资料/组件/输出的商业认证。旧ResNet与PyTorch官网完整SHA一致后进行102个张量的无损格式转换，没有接受任意上传pickle。权重/运行时不入仓、不入ZIP；独立环境漏洞审计未运行。ImageGen模型revision/实际费用、电费及全部商业发行权利仍不确定。此项不改变正式应用依赖或已冻结的inventory@3业务发行。
+
 2026-11-12 / #49：独立《别说“我们”》使用三张实际ImageGen合成人物首帧、三条本机Wan新片及两个既有自制AI高清片段、真实有招隔离虚构项目画面，未引入外部歌曲/真人克隆。声音为Qwen库存Serena/Dylan，音乐和雨声为程序生成。来源/回执/哈希与不确定项见[制作包](examples/short-drama/dont-say-we/README.md)。内置ImageGen模型revision和实际费用未返回，记为不确定；模型/代码许可不等于输出、微软字体、FFmpeg/CUDA或全部商业发行许可，未认证商业使用。
 
 2026-11-08 / #37：可选Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice模型卡为Apache-2.0，revision 0c0e3051f131929182e2c023b9537f8b1c68adfe；qwen-tts0.1.1/transformers4.57.3实际METADATA为Apache，torch2.9.1+cu128为BSD-3-Clause，SoundFile0.14.0为BSD。独立试片使用Three.js0.187.0（实际LICENSE为MIT）。权重/二进制不分发入仓；CUDA、其他打包组件、字体和声音用途须分别核实。来源与SHA见 [本轮验收](docs/implementation/EXPRESSIVE_MOTION_VALIDATION.md)。没有克隆真人或外部歌曲；音乐/音效为程序合成。当前隔离语音/动效环境漏洞审计未运行，不套用核心依赖的审计结论。

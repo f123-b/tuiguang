@@ -1,0 +1,18 @@
+{
+  "version":"try_it_edit@2",
+  "status":"takes_inspected_for_edit",
+  "fps":30,
+  "canvas":[1920,1080],
+  "segments":[
+    {"id":"S01","take":"s01-handoff-v1","frames":81,"crop":[1280,704,0,0],"speech":[["01-give-up",0.6]],"sync_bbox":[305,55,520,285],"sync_take":"S01-timed-v1"},
+    {"id":"S02","take":"s02-stop-v1","frames":138,"crop":[896,504,384,0],"speech":[["02-wait",0.15],["03-fault",1.5]],"sync_bbox":[700,90,905,355],"sync_take":"S02-timed-v1"},
+    {"id":"S03","take":"s03-work-v1","frames":120,"crop":[640,360,640,344],"speech":[["04a-change",0.0],["04-again",2.5]],"sync_bbox":null,"note":"手部操作特写，台词随动作画外续接；跟踪失败的口型试验不用于成片"},
+    {"id":"S04","take":"s04-retry-v1","frames":144,"crop":[1280,704,0,0],"crop_switch_sec":1.6,"second_crop":[640,360,128,344],"speech":[["05-found",2.1]],"sync_bbox":[350,50,595,310],"sync_take":"S04-timed-v1","note":"1.6秒后以手机操作特写覆盖；侧脸口型软化段不显示在成片，台词画外续接"},
+    {"id":"S06","take":"s06-smile-v1","frames":42,"crop":[832,468,448,0],"speech":[["06-answer-v2",0.1]],"sync_bbox":[650,50,885,310],"sync_take":"S06-timed-v5","timed_audio":"S06-timed-v5.wav","sync_source_in_sec":2.6,"note":"剪掉前段反复摇头，只用原片2.6至4.0秒的笑容回应；不慢放或循环"},
+    {"id":"S07","source":"examples/short-drama/dont-say-we/assets/youzhao-project-note-v8.mp4","in_sec":17.9,"frames":72,"crop":[832,468,1712,200],"speech":[],"sync_bbox":null,"note":"真实隔离录屏里的虚构项目记录；不能冒充手机原型界面"},
+    {"id":"END","frames":60,"speech":[],"note":"原生图形片尾"}
+  ],
+  "retime_policy":"no slow motion; native body motion preserved; 30fps interpolation only",
+  "source_defects":{"S02":"画左幻觉人物穿紫色，不符合陈的设定；裁切排除","S03":"画左陌生人物进入；操作镜头仅取手部和电脑","S04":"约1.7秒后画右出现长发蓝衣女性；1.6秒后切左侧特写排除","S06":"画左出现浅蓝衣陌生人物；裁切排除"},
+  "human_art_approval":false
+}
