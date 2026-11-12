@@ -1,0 +1,479 @@
+{
+  "brand_id": "offline-youzhao-49",
+  "name": "别说“我们”·独立短剧",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "shots": [
+    {
+      "shot_id": "01-listen",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 84,
+      "caption": "",
+      "asset_id": "fad2222aff29117c4dc5e18acf66b8cd",
+      "generation_job_id": "50777b88173a41579b1bb8f64fbfc7d3",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "02-undervalue",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 132,
+      "caption": "",
+      "asset_id": "36d7586ccdb25d6a5c67671554d647d9",
+      "generation_job_id": "d08c95da5e8244e7bc555e9733baebc3",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 82,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "03-why",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 70,
+      "caption": "",
+      "asset_id": "fad2222aff29117c4dc5e18acf66b8cd",
+      "generation_job_id": "50777b88173a41579b1bb8f64fbfc7d3",
+      "locked": false,
+      "trim_start_frame": 80,
+      "speed_percent": 93,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "04-observe",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "screen_demo",
+      "duration_frames": 111,
+      "caption": "",
+      "asset_id": "e31133b378008820c388d7d68e5d2f59",
+      "locked": false,
+      "trim_start_frame": 215,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "05-choice",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "screen_demo",
+      "duration_frames": 114,
+      "caption": "",
+      "asset_id": "e31133b378008820c388d7d68e5d2f59",
+      "locked": false,
+      "trim_start_frame": 329,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "06-after",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 54,
+      "caption": "",
+      "asset_id": "36d7586ccdb25d6a5c67671554d647d9",
+      "generation_job_id": "d08c95da5e8244e7bc555e9733baebc3",
+      "locked": false,
+      "trim_start_frame": 102,
+      "speed_percent": 83,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "07-result",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "screen_demo",
+      "duration_frames": 92,
+      "caption": "",
+      "asset_id": "e31133b378008820c388d7d68e5d2f59",
+      "locked": false,
+      "trim_start_frame": 443,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "08-missing",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 112,
+      "caption": "",
+      "asset_id": "8661e770612d6f5dcb60d1a232328248",
+      "generation_job_id": "2d7788fc96df4141b18f7dfd341bc36b",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 67,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "09-too-small",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 92,
+      "caption": "",
+      "asset_id": "bdf2276e982a74fe44512e50a7640f44",
+      "generation_job_id": "0b2442ada41c46e2b141e1378de0bf0a",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 61,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "10-offer-and-resolve",
+      "shot_revision": 1,
+      "provider": "comfy_wan",
+      "kind": "ai_creative_scene",
+      "duration_frames": 190,
+      "caption": "",
+      "asset_id": "d39678b9ef8f4e3400a8b6002e3676c2",
+      "generation_job_id": "96c918ae82ff4af18a0741ddd0da51c6",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 76,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "11-remember",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "screen_demo",
+      "duration_frames": 75,
+      "caption": "",
+      "asset_id": "e31133b378008820c388d7d68e5d2f59",
+      "locked": false,
+      "trim_start_frame": 533,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    },
+    {
+      "shot_id": "12-end",
+      "shot_revision": 1,
+      "provider": "ffmpeg_media",
+      "kind": "montage",
+      "duration_frames": 104,
+      "caption": "",
+      "asset_id": "0f8bd64cc11b284ba96fbd55b252759f",
+      "locked": false,
+      "trim_start_frame": 0,
+      "speed_percent": 100,
+      "freeze_end_frames": 0,
+      "design": {
+        "motion": "still",
+        "layout": "cinema",
+        "kicker": "",
+        "headline": "",
+        "supporting": "",
+        "points": [],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 100
+        }
+      },
+      "narration_text": ""
+    }
+  ],
+  "audio_tracks": [
+    {
+      "track_id": "final-mix",
+      "asset_id": "b0973ba49edb881fdad65b0cc68cb7ae",
+      "role": "voiceover",
+      "start_frame": 0,
+      "duration_frames": 1230,
+      "source_start_frame": 0,
+      "volume_percent": 100,
+      "loop": false
+    }
+  ],
+  "subtitles": [
+    {
+      "cue_id": "01-question",
+      "start_frame": 18,
+      "end_frame": 76,
+      "text": "别说我们。你做了什么？"
+    },
+    {
+      "cue_id": "02-small",
+      "start_frame": 104,
+      "end_frame": 200,
+      "text": "我……就改了个按钮。"
+    },
+    {
+      "cue_id": "03-why",
+      "start_frame": 220,
+      "end_frame": 256,
+      "text": "那为什么改？"
+    },
+    {
+      "cue_id": "04-problem",
+      "start_frame": 285,
+      "end_frame": 374,
+      "text": "有人试了三次，都没找到入口。"
+    },
+    {
+      "cue_id": "05-choice",
+      "start_frame": 402,
+      "end_frame": 512,
+      "text": "我把欢迎页拿掉了，入口放到第一屏。"
+    },
+    {
+      "cue_id": "06-after",
+      "start_frame": 540,
+      "end_frame": 566,
+      "text": "后来呢？"
+    },
+    {
+      "cue_id": "07-result",
+      "start_frame": 586,
+      "end_frame": 632,
+      "text": "她一次就找到了。"
+    },
+    {
+      "cue_id": "08-missing",
+      "start_frame": 675,
+      "end_frame": 740,
+      "text": "这些，为什么简历里没有？"
+    },
+    {
+      "cue_id": "09-too-small",
+      "start_frame": 770,
+      "end_frame": 856,
+      "text": "我以为……太小了。"
+    },
+    {
+      "cue_id": "10-again",
+      "start_frame": 906,
+      "end_frame": 959,
+      "text": "那从这里，重新讲。"
+    },
+    {
+      "cue_id": "11-start",
+      "start_frame": 999,
+      "end_frame": 1112,
+      "text": "好。这次，我知道为什么。"
+    }
+  ],
+  "preview_required": true,
+  "presentation": {
+    "style": "classic",
+    "theme": "ink",
+    "accent": "#B7F56B",
+    "brand_label": "",
+    "transition": "clean",
+    "audio_finish": true
+  },
+  "schema_version": "1.1",
+  "offline_scope": "Independent film. Map real brand/assets/jobs and exact editorial filters before app import; DTO validation is not an import or render approval.",
+  "offline_assets": {
+    "fad2222aff29117c4dc5e18acf66b8cd": {
+      "path": ".data\\short-drama-49\\takes\\s01-opening-v1.webm",
+      "sha256": "fad2222aff29117c4dc5e18acf66b8cd07198ebec7e90b5e38355ec97bed1914"
+    },
+    "36d7586ccdb25d6a5c67671554d647d9": {
+      "path": ".data\\short-drama-49\\takes\\s02-side-v1.webm",
+      "sha256": "36d7586ccdb25d6a5c67671554d647d94d2068c722088605d4997b900febc26c"
+    },
+    "e31133b378008820c388d7d68e5d2f59": {
+      "path": "examples\\short-drama\\dont-say-we\\assets\\youzhao-project-note-v8.mp4",
+      "sha256": "e31133b378008820c388d7d68e5d2f59e6035090dcac833ca07a6ef4f10c7d11"
+    },
+    "8661e770612d6f5dcb60d1a232328248": {
+      "path": ".data\\ai-drama-quality-v2\\closeup.webm",
+      "sha256": "8661e770612d6f5dcb60d1a2323282485c8d16221b1bd32e72ab55a989688022"
+    },
+    "bdf2276e982a74fe44512e50a7640f44": {
+      "path": ".data\\ai-drama-quality-v2\\native.webm",
+      "sha256": "bdf2276e982a74fe44512e50a7640f449e06af937ff67f1deb49788f274ea37c"
+    },
+    "d39678b9ef8f4e3400a8b6002e3676c2": {
+      "path": ".data\\short-drama-49\\takes\\s03-resolve-v1.webm",
+      "sha256": "d39678b9ef8f4e3400a8b6002e3676c24a92b10729a47ffb794c799302442d0e"
+    },
+    "0f8bd64cc11b284ba96fbd55b252759f": {
+      "path": ".data\\short-drama-49\\end-card.png",
+      "sha256": "0f8bd64cc11b284ba96fbd55b252759f36887449292b338ac5f219be3d6814c5"
+    },
+    "b0973ba49edb881fdad65b0cc68cb7ae": {
+      "path": ".data\\short-drama-49\\mix.wav",
+      "sha256": "b0973ba49edb881fdad65b0cc68cb7ae70cf52a152d3d60878a4cdb128206705"
+    }
+  },
+  "offline_exact_edit_manifest": "v2-edit-manifest.json",
+  "user_approval": false
+}

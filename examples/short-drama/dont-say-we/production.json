@@ -1,0 +1,40 @@
+{
+  "version": "short_drama_cut@1",
+  "task": "#49",
+  "title": "别说“我们”",
+  "format": "真人风格原创职场内心短剧",
+  "target_seconds": 41,
+  "canvas": [1920, 1080],
+  "fps": 30,
+  "fiction_notice": "AI剧情演绎 · 合成声音 · 虚构项目练习",
+  "logline": "求职者以为自己改的一个按钮不值得讲，面试官追问原因；一页当时的记录，让她找回自己的判断。",
+  "characters": [
+    {"id":"C01", "name":"小林", "goal":"讲清自己的贡献", "flaw":"把团队结果看得太大，把自己的判断看得太小", "appearance":"虚构东亚女性，二十多岁，黑色短发，深灰针织开衫、白色圆领T恤", "voice":"Serena / 迟疑到自然笃定"},
+    {"id":"C02", "name":"面试官", "goal":"听到具体判断，而非团队口号", "appearance":"始终画外，不生成第二张脸", "voice":"Dylan / 平静追问，避免训诫腔"}
+  ],
+  "scene": {"id":"S01","place":"夜间书桌，面试前十分钟，脑海中的复盘对话","axis":"人物在右，电脑在左前，窗在左、绿色台灯在右；面试官始终画外，女主为心声，不伪装口型同步","lighting":"柔暖台灯与偏冷窗光，脸部清楚，背景稳定"},
+  "beats": [
+    {"id":"B1","cause":null,"action":"追问打断背诵，小林看向电脑","result":"她不能再用我们回避个人贡献"},
+    {"id":"B2","cause":"B1","action":"她把贡献缩成一个小按钮","result":"面试官追问为什么改"},
+    {"id":"B3","cause":"B2","action":"她打开有招项目备注，找回当时的记录","result":"想起有人三次找不到入口"},
+    {"id":"B4","cause":"B3","action":"说出取舍：取消欢迎页，把入口提前","result":"虚构项目中，使用者一次找到"},
+    {"id":"B5","cause":"B4","action":"对方问为何简历没写，她承认觉得太小","result":"意识到大小判断挡住了表达"},
+    {"id":"B6","cause":"B5","action":"她放松肩膀，抬头准备重新开始讲","result":"从背团队结果转为解释自己的选择"}
+  ],
+  "cues": [
+    {"id":"01-question","role":"interviewer","speaker":"dylan","text":"别说我们。你做了什么？","direction":"普通话，平静地接住对方的话，自然面试对话，不训斥，不播报，重音轻放在你，句末留一点等待。"},
+    {"id":"02-small","role":"lin","speaker":"serena","text":"我……就改了个按钮。","direction":"年轻女性，普通话，像面对熟人的真实回答，有点不确定，前半轻轻吸气迟疑，后半自嘲地收小音量，不朗诵。"},
+    {"id":"03-why","role":"interviewer","speaker":"dylan","text":"那为什么改？","direction":"短促但温和的真实追问，有好奇，不严肃，不播报。"},
+    {"id":"04-problem","role":"lin","speaker":"serena","text":"有人试了三次，都没找到入口。","direction":"普通话，自然回忆，语速稍慢，三次轻微强调，像突然想起具体事情。"},
+    {"id":"05-choice","role":"lin","speaker":"serena","text":"我把欢迎页拿掉了，入口放到第一屏。","direction":"普通话，清楚而自然，解释实际取舍，欢迎页之后有短暂停顿，不念广告，不端着。"},
+    {"id":"06-after","role":"interviewer","speaker":"dylan","text":"后来呢？","direction":"普通话，轻轻接话，短而自然，真诚等她继续。"},
+    {"id":"07-result","role":"lin","speaker":"serena","text":"她一次就找到了。","direction":"年轻女性，普通话，像回忆那个小小的瞬间，轻松一点点，带一点笑意但不笑出声。"},
+    {"id":"08-missing","role":"interviewer","speaker":"dylan","text":"这些，为什么简历里没有？","direction":"普通话，平静好奇，不责备，在这些后短暂停顿，真实对话的语气。"},
+    {"id":"09-too-small","role":"lin","speaker":"serena","text":"我以为……太小了。","direction":"普通话，声音放轻，承认自己的迟疑，像突然意识到自己忽略了什么，不煽情。"},
+    {"id":"10-again","role":"interviewer","speaker":"dylan","text":"那从这里，重新讲。","direction":"普通话，温和鼓励，像把机会交还给她，不讲道理，不广告配音。"},
+    {"id":"11-start","role":"lin","speaker":"serena","text":"好。这次，我知道为什么。","direction":"普通话，短停顿，先轻声回答好，再自然地落定，克制、自信、微微带笑，不刻意拔高。"}
+  ],
+  "product_fact": {"claim":"有招项目设置可记录备注；部分负责时显示我的负责边界","source":"真实产品ProjectLibraryPage及已授权隔离录制；只显示合成项目资料","uncertainty":"不证明提高面试成功率；剧情里的测试次数、改动和结果均属虚构"},
+  "output_policy": "独立影片待用户审看，不写软件人审通过，不发布到第三方平台",
+  "source_version": {"application":"0.20.0-dev","database":"unchanged","video_ir":"1.1","skill_registry":"skill_registry@1","film_edit":"short_drama_cut@1"}
+}

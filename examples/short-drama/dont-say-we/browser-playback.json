@@ -1,0 +1,15 @@
+{
+  "duration": 41,
+  "ended": true,
+  "errors": 0,
+  "frames": {
+    "dropped": 23,
+    "total": 1230
+  },
+  "height": 1080,
+  "muted": false,
+  "stalled": 0,
+  "time": 41,
+  "waiting": 0,
+  "width": 1920
+}

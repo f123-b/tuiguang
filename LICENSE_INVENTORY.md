@@ -1,5 +1,7 @@
 # 依赖与素材许可台账 · inventory@3
 
+2026-11-12 / #49：独立《别说“我们”》使用三张实际ImageGen合成人物首帧、三条本机Wan新片及两个既有自制AI高清片段、真实有招隔离虚构项目画面，未引入外部歌曲/真人克隆。声音为Qwen库存Serena/Dylan，音乐和雨声为程序生成。来源/回执/哈希与不确定项见[制作包](examples/short-drama/dont-say-we/README.md)。内置ImageGen模型revision和实际费用未返回，记为不确定；模型/代码许可不等于输出、微软字体、FFmpeg/CUDA或全部商业发行许可，未认证商业使用。
+
 2026-11-08 / #37：可选Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice模型卡为Apache-2.0，revision 0c0e3051f131929182e2c023b9537f8b1c68adfe；qwen-tts0.1.1/transformers4.57.3实际METADATA为Apache，torch2.9.1+cu128为BSD-3-Clause，SoundFile0.14.0为BSD。独立试片使用Three.js0.187.0（实际LICENSE为MIT）。权重/二进制不分发入仓；CUDA、其他打包组件、字体和声音用途须分别核实。来源与SHA见 [本轮验收](docs/implementation/EXPRESSIVE_MOTION_VALIDATION.md)。没有克隆真人或外部歌曲；音乐/音效为程序合成。当前隔离语音/动效环境漏洞审计未运行，不套用核心依赖的审计结论。
 
 2026-11-08 / #35 新增可选运行时和独立样片素材：Kokoro 模型包 LICENSE 为 Apache-2.0；sherpa-onnx / core 2.0.1 METADATA 为 Apache，隔离环境 NumPy 2.5.4。未将二进制或权重打包进仓库，espeak 数据及其他随附组件的分发义务尚未完整核对，不能据顶层许可认证商业兼容。官方依据、实际权重 SHA 和限制见 [声音手册](docs/implementation/LOCAL_NEURAL_VOICE.md)。

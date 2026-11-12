@@ -1,0 +1,27 @@
+{
+  "task": "#49",
+  "take": "v2",
+  "result": "technical_pass",
+  "duration": "41.000000",
+  "frames": 1230,
+  "sha256": "3630236cd915b953aa6fbb24057c45cbbda225a8a4b4b3137852485a3c8849b0",
+  "full_decode": "pass",
+  "voice_cues": 11,
+  "native_new_shots": 3,
+  "rms": 0.08870483190077427,
+  "sample_peak": 0.8405685424804688,
+  "loudness": {
+    "input_i": "-15.66",
+    "input_tp": "-1.50",
+    "input_lra": "4.90",
+    "input_thresh": "-28.34",
+    "output_i": "-16.02",
+    "output_tp": "-1.50",
+    "output_lra": "4.50",
+    "output_thresh": "-28.42",
+    "normalization_type": "dynamic",
+    "target_offset": "0.02"
+  },
+  "art_review": "requires_user",
+  "commercial_license": "not_approved"
+}

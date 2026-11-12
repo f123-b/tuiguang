@@ -1,5 +1,7 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+#49 / `short_drama_cut@1`：独立制作主模块 `examples/short-drama/dont-say-we/`，production → 库存合成声音/高清首帧/本机Wan/隔离真实UI → finish/check/archive → 8785本地观看。41秒v2成片及离线IR1.1，不注册正式Provider、不写用户审核通过，不修改DB/API。作品和软件能力必须分开记录；见[实际证据](../implementation/DONT_SAY_WE_FILM_VALIDATION.md)。
+
 0.20 / #47：主模块`services/api/creator/drama.py`负责原创短剧计划、因果/覆盖/站位/源尺寸和逐镜绑定，`drama_api.py`提供HTTP，`drama_jobs.py`复用Run/预算/模型授权，`drama_skills.py`核对固定技能并由`scripts/drama-skill-check.mjs`实际执行上游剧本检查。DB0016独立DramaProject，私有导出和历史保留。WEB`video-drama-skills.tsx`位于`/studio/video/drama`，下接既有生成Worker、video_recipes/narration及人工预览复核。其他原生技能报告/生图未自动接入。见[使用与边界](../implementation/DRAMA_SKILLS_GUIDE.md)。
 
 0.19 / #45：唯一主模块 `video_generation.py`（生成状态机）→ `wan_comfy.py`（固定本机原生工作流）→ 独立 `video_generation_worker.py`；HTTP为`video_generation_api.py`，DB0015。素材经独立用户检查，`video_recipes.py` / `video.py`保留Shot.generation_job_id，cinema版式只留AI标识；WEB为`video-drama.tsx`。真人/动漫均有实际动态片段，不提供对口型或跨镜头一致性保证；见[使用](../implementation/LOCAL_AI_VIDEO.md)及[验收](../implementation/AI_DRAMA_VALIDATION.md)。持续创作与人工发布边界保持。

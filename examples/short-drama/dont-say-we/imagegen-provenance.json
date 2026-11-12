@@ -1,0 +1,32 @@
+{
+  "source": "Built-in image_gen tool in this task; edited fictional AI references, no real actor photo",
+  "model_revision": "not returned / unknown",
+  "seed": "not returned / unknown",
+  "charge": "not returned / unknown",
+  "transparent_background": false,
+  "outputs": [
+    {
+      "file": "assets/s01-opening-v1.png",
+      "size": [1672,941],
+      "sha256": "663922a9c7e6c883b4e7b7fcf017613667121695416b8e263078d851805d902a",
+      "reference": "examples/video-production/youzhao-choice/assets/s02-first-frame-v1.png",
+      "reference_sha256": "fc27f9012ae4667c0cb07fdd9585e04194fd1cc550e7570402309ddca0239afb",
+      "request_summary_not_verbatim": "Same fictional short-bob woman, charcoal cardigan and white shirt; cleaner medium shot by laptop left, rainy window left and green lamp right; sharp naturally textured face, steady blurred study, closed lips, one person, no text or foreground stranger."
+    },
+    {
+      "file": "assets/s02-side-v1.png",
+      "size": [1672,941],
+      "sha256": "01f7c5d849df5ac8c9f2b33af1e112d790099403f48b783fab55d7472d76ea59",
+      "references": ["assets/s01-opening-v1.png"],
+      "request": "Create ONE matching cinematic live-action frame for another shot in the same original short film. Preserve this exact fictional woman's identity, short black bob hair, dark charcoal knit cardigan, white T-shirt, same rainy night wooden study with green banker lamp on right and rain-covered window on left. A new SIDE PROFILE MEDIUM-WIDE SHOT from slightly to her right: she is seated on right half facing left, looking at laptop on wooden desk at left. We see her head, upper body, and desk. Her right hand rests relaxed on the closed notebook with an ordinary blue pen resting ON the notebook, five natural fingers, not holding objects. Laptop screen turned away from camera, NO readable screen. Soft amber lamp light mixed with blue rain window, visible face is clean and sharp, consistent realistic skin, no facial makeover. Body slightly hunched with thought, lips closed, no speaking. Camera at seated shoulder height, locked off, cinematic 16:9 framing, realistic shallow depth of field but sharp character. Background stays sparse with blurred shelves. ONLY ONE person, no silhouette, no foreground head, no invented text, no titles or watermark. This is a still input for actual video generation, not a poster."
+    },
+    {
+      "file": "assets/s03-resolve-v1.png",
+      "size": [1672,941],
+      "sha256": "ab61934ba64d9ab450b3af469a53bcdc12392ca1009349e606dbfcdd89ae78d3",
+      "references": ["assets/s01-opening-v1.png","assets/s02-side-v1.png"],
+      "request": "ONE cinematic still for the final reaction shot of the same original realistic short drama. Preserve exact fictional East Asian woman identity from reference, short black bob, charcoal knit cardigan, white crew-neck shirt, exact same rainy night wooden study. Camera is now near laptop eye line, a STRAIGHT-ON CLOSE-UP that crops from upper chest to just above hair, clear naturally textured face, no hands in frame. She has just understood her own contribution: shoulders relaxed, eyes looking gently toward camera's left edge, mouth closed, a VERY slight relieved warm smile, not grinning. Neutral soft high quality warm lamp key on face with cool dim window in background on left, green lamp only a soft out-of-focus green glow at far right. Background only the study and soft books, no other person or human silhouette, no foreground objects entering frame, keep simple clean negative space. 16:9 cinematic landscape. Face is the sharpest and brightest focus without blown highlights, realistic skin not beauty airbrush, no text, no watermark. Static camera. A believable small human response, not an advertising headshot."
+    }
+  ],
+  "boundary": "These PNGs are input stills. Only completed Wan WEBM receipts count as dynamic footage. Output usage rights are not inferred from repository code licenses."
+}
