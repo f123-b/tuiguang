@@ -1,0 +1,403 @@
+{
+  "task": "#51",
+  "origin": "independent local film; not app/production",
+  "creator_run_id": null,
+  "content_id": null,
+  "video_project_id": null,
+  "render_job_id": null,
+  "native": [
+    {
+      "trace_id": "18253b14ba6e476998155b1a041e1782",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S01",
+      "render_job_id": null,
+      "job_id": "54bb49ca08b54c0e9957eb000e943c27",
+      "provider_request_id": "6e25d6cc-5ba7-4e16-9ea3-9f89e1f1145a",
+      "status": "complete",
+      "source": "examples\\short-drama\\try-it\\assets\\s01-two-shot-v1.png",
+      "source_sha256": "abb27c7594fa59a4847e7e48dbdf8a2b02b20b81b7db4785679b3a2cfd003ded",
+      "input": {
+        "style": "realistic",
+        "prompt": "The standing man on the left extends his right arm and offers the upright black smartphone toward the seated woman on the right. He is mildly frustrated after trying the phone. The seated woman looks at the offered phone and starts to reach with her right hand. Simple ordinary gesture, both faces and hands remain consistent. Locked camera, normal real-time movement, warm daylight. The phone stays in the man's right hand, no completed exchange, no camera cut.",
+        "seed": 5101,
+        "width": 1280,
+        "height": 704,
+        "frames": 73
+      },
+      "workflow_version": "action_drama_fp8_tiled@1",
+      "prompt_id": "6e25d6cc-5ba7-4e16-9ea3-9f89e1f1145a",
+      "elapsed_sec": 520.9013562202454,
+      "sha256": "34cd8d496e5d2cc703add2d513323cd98e317a45bc064d330422cd63b375e2a8",
+      "receipt_path": ".data\\short-drama-51\\takes\\s01-handoff-v1-receipt.json",
+      "receipt_sha256": "64d451d1958601e7652eb7ca32b39fbd3c5930a9d0bc0719ab8587bf5ce7ceb2",
+      "canonical_graph_sha256": "e673d2aeac2a4e150a050120c3706b181d85fd2b40f3709833b97ca489ad3c99",
+      "model": {
+        "version": "wan_comfy_local@1",
+        "workflow_version": "wan_ti2v_fixed@2",
+        "model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+        "model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+        "model_sha256": {
+          "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+          "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+          "vae/wan2.2_vae.safetensors": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156"
+        },
+        "comfyui_version": "0.44.0",
+        "engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+        "pytorch_version": "2.9.1+cu128",
+        "runtime_flags": [
+          "--lowvram",
+          "--cache-none"
+        ]
+      }
+    },
+    {
+      "trace_id": "1856f0ca3dbe45518b8e271a21ffc986",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S02",
+      "render_job_id": null,
+      "job_id": "4510bdbefe6440f78678665b241803cc",
+      "provider_request_id": "63aca9b0-6fb3-4ec4-8c62-6541ce098a58",
+      "status": "complete",
+      "source": "examples\\short-drama\\try-it\\assets\\s02-stop-v1.png",
+      "source_sha256": "ce4aa04a080426b24ee0b07464966d202d8363128428cf5dcd600b8f76ac4f22",
+      "input": {
+        "style": "realistic",
+        "prompt": "The woman stops reaching, softly lifts her open right palm briefly to pause her offscreen friend, then lowers her right hand back onto the wood desk. She looks up to the LEFT toward her standing friend with a thoughtful, apologetic expression and relaxed eyebrows. Ordinary conversational gestures, one continuous shot, natural normal-speed body movement, consistent face and five fingers, laptop stays at right. No camera movement, no other person enters.",
+        "seed": 5101,
+        "width": 1280,
+        "height": 704,
+        "frames": 121
+      },
+      "workflow_version": "action_drama_fp8_tiled@1",
+      "prompt_id": "63aca9b0-6fb3-4ec4-8c62-6541ce098a58",
+      "elapsed_sec": 981.7150256633759,
+      "sha256": "c1fbc0bf3844657244933fcf682a3b26377c9f164c07d44af4c2b79c9743d21f",
+      "receipt_path": ".data\\short-drama-51\\takes\\s02-stop-v1-receipt.json",
+      "receipt_sha256": "0b3f1e04a4affd89cc163e31df6f860630bdc7b4cc94ba3c12bf94ccd351d5d6",
+      "canonical_graph_sha256": "63d8e8c8182a99716d675bdc9d6e2915b0fdd385195e6ddbb75920a929b8327c",
+      "model": {
+        "version": "wan_comfy_local@1",
+        "workflow_version": "wan_ti2v_fixed@2",
+        "model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+        "model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+        "model_sha256": {
+          "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+          "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+          "vae/wan2.2_vae.safetensors": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156"
+        },
+        "comfyui_version": "0.44.0",
+        "engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+        "pytorch_version": "2.9.1+cu128",
+        "runtime_flags": [
+          "--lowvram",
+          "--cache-none"
+        ]
+      }
+    },
+    {
+      "trace_id": "01fb86a59d58469b8e4b6dc8c9858188",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S03",
+      "render_job_id": null,
+      "job_id": "e17c7a59e04b4550916f15b7a0882264",
+      "provider_request_id": "f9acc24f-90fc-4e43-9934-3c678662dd84",
+      "status": "complete",
+      "source": "examples\\short-drama\\try-it\\assets\\s03-work-v1.png",
+      "source_sha256": "ae800a776d79f9d024f3e57b463d6c70f17960b440ee14e899f2bc804c32a1aa",
+      "input": {
+        "style": "realistic",
+        "prompt": "The seated woman turns her shoulders toward the silver laptop on her RIGHT and begins working on its trackpad with her right hand. She focuses on the laptop screen, her expression becoming purposeful, then pauses and glances up to her offscreen friend on the LEFT. Common natural laptop work, single coherent gesture, fingers remain plausible, natural real-time motion, daylight, camera locked, no other person enters, background stays unchanged.",
+        "seed": 5101,
+        "width": 1280,
+        "height": 704,
+        "frames": 97
+      },
+      "workflow_version": "action_drama_fp8_tiled@1",
+      "prompt_id": "f9acc24f-90fc-4e43-9934-3c678662dd84",
+      "elapsed_sec": 741.2882747650146,
+      "sha256": "f77dbf1c0f8dd18b27493d60cf253de438b3b8fd6f2134d172ddbe132d3aba20",
+      "receipt_path": ".data\\short-drama-51\\takes\\s03-work-v1-receipt.json",
+      "receipt_sha256": "07a94089394ce061e31641873124917d1a98ff7fddc32c28ec58a308e89a6e75",
+      "canonical_graph_sha256": "b32af944cdc7f5f316b00f638ab3625cd7be58502eef31c1663f46ddfe999770",
+      "model": {
+        "version": "wan_comfy_local@1",
+        "workflow_version": "wan_ti2v_fixed@2",
+        "model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+        "model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+        "model_sha256": {
+          "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+          "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+          "vae/wan2.2_vae.safetensors": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156"
+        },
+        "comfyui_version": "0.44.0",
+        "engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+        "pytorch_version": "2.9.1+cu128",
+        "runtime_flags": [
+          "--lowvram",
+          "--cache-none"
+        ]
+      }
+    },
+    {
+      "trace_id": "036c1f4a219049e8a413008f41477e30",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S04",
+      "render_job_id": null,
+      "job_id": "d00c5397d4204f2cb89d03e31338ddac",
+      "provider_request_id": "cddae9b5-70ef-46db-b7bd-bc838fa80dc0",
+      "status": "complete",
+      "source": "examples\\short-drama\\try-it\\assets\\s04-retry-v1.png",
+      "source_sha256": "07be81cb853be6246fe746a36c915ff5d59ddb137fa9e496d3461ea260f2e767",
+      "input": {
+        "style": "realistic",
+        "prompt": "The man looks down at the single black smartphone held upright in his right hand. He taps its screen with the index finger of his left hand in an ordinary phone-use action, then lifts his head to look at his seated offscreen friend to the RIGHT and gives her a small relieved amused smile. Keep the phone upright in his right hand throughout. Natural conversational performance with relaxed shoulders, normal-speed movement, fixed medium shot, no camera movement or cuts, no extra person.",
+        "seed": 5101,
+        "width": 1280,
+        "height": 704,
+        "frames": 121
+      },
+      "workflow_version": "action_drama_fp8_tiled@1",
+      "prompt_id": "cddae9b5-70ef-46db-b7bd-bc838fa80dc0",
+      "elapsed_sec": 991.7679128646851,
+      "sha256": "6e4bb2adf19d0f03cbeb13f7f3615b6d15498bcfce6b8ca4f20eca741f7aac41",
+      "receipt_path": ".data\\short-drama-51\\takes\\s04-retry-v1-receipt.json",
+      "receipt_sha256": "8d76d7e79e86249cc5898b9805389753a6f4486f4d75503e01996307e812c40e",
+      "canonical_graph_sha256": "49e6839d499e64edbc1d3942e0e1d344738dd66669ab24ea7deca0c5341a15b6",
+      "model": {
+        "version": "wan_comfy_local@1",
+        "workflow_version": "wan_ti2v_fixed@2",
+        "model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+        "model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+        "model_sha256": {
+          "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+          "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+          "vae/wan2.2_vae.safetensors": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156"
+        },
+        "comfyui_version": "0.44.0",
+        "engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+        "pytorch_version": "2.9.1+cu128",
+        "runtime_flags": [
+          "--lowvram",
+          "--cache-none"
+        ]
+      }
+    },
+    {
+      "trace_id": "eb2d66291a58441f83a4d7296cfbc6a5",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S06",
+      "render_job_id": null,
+      "job_id": "29edfc76deb54721b1bdb7f0775c5bc4",
+      "provider_request_id": "ca4f73c5-f56d-4e88-a50f-ba1d2e2a142f",
+      "status": "complete",
+      "source": "examples\\short-drama\\try-it\\assets\\s06-smile-v1.png",
+      "source_sha256": "2129e62c78665c916eebbbe09add9b98b19c5d2f357301b32a86f9075d95d42c",
+      "input": {
+        "style": "realistic",
+        "prompt": "The woman listens to her offscreen friend to the LEFT for a brief moment, then her puzzled expression relaxes into an amused warm smile. She briefly glances down with a small self-deprecating smile, then looks back UP LEFT toward her friend. Her shoulders relax naturally, her hands stay resting together on the wooden desk. Ordinary spontaneous reaction, not an advertising pose, normal real-time movement, same face and hair, fixed camera, no extra people, background unchanged.",
+        "seed": 5101,
+        "width": 1280,
+        "height": 704,
+        "frames": 97
+      },
+      "workflow_version": "action_drama_fp8_tiled@1",
+      "prompt_id": "ca4f73c5-f56d-4e88-a50f-ba1d2e2a142f",
+      "elapsed_sec": 731.2045011520386,
+      "sha256": "3ee96d290d0965c9987f9f1bd8205f4c9e7d2997970c7a33db8fef0c42ea8af4",
+      "receipt_path": ".data\\short-drama-51\\takes\\s06-smile-v1-receipt.json",
+      "receipt_sha256": "9aabe2556af2dd0d520ded4cc62bfb5487063df3a192908520f399f1df16a801",
+      "canonical_graph_sha256": "f396932ea749c309ad86cbdab2f1af05ba5924e536abc5894c202a26182fa4a0",
+      "model": {
+        "version": "wan_comfy_local@1",
+        "workflow_version": "wan_ti2v_fixed@2",
+        "model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+        "model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+        "model_sha256": {
+          "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+          "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+          "vae/wan2.2_vae.safetensors": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156"
+        },
+        "comfyui_version": "0.44.0",
+        "engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+        "pytorch_version": "2.9.1+cu128",
+        "runtime_flags": [
+          "--lowvram",
+          "--cache-none"
+        ]
+      }
+    }
+  ],
+  "sync": [
+    {
+      "status": "complete",
+      "source": ".data\\short-drama-51\\takes\\s01-handoff-v1.webm",
+      "source_sha256": "34cd8d496e5d2cc703add2d513323cd98e317a45bc064d330422cd63b375e2a8",
+      "audio": ".data\\short-drama-51\\voices\\S01-timed.wav",
+      "audio_sha256": "67f51539a602af742f8fb5c69f5886b006d0d3744d8d037e529f98a25e4aa77d",
+      "source_revision": "0a89dec45a0192b824e3cf4daf96c239440c5ed8",
+      "initial_bbox": [
+        305,
+        55,
+        520,
+        285
+      ],
+      "tracking": "manual_ROI_optical_flow@1",
+      "fps": 25,
+      "seed": 5101,
+      "workflow_version": "offline_musetalk_trial@1",
+      "source_in_sec": null,
+      "roi_file": null,
+      "roi_sha256": null,
+      "frames": 67,
+      "elapsed_sec": 18.62,
+      "sha256": "9d6a2b28c987e7f6b2347d78ef158def76372ca64da416361ea0f695ace8f6a9",
+      "output": ".data\\short-drama-51\\sync\\S01-timed-v1.mp4",
+      "peak_cuda_allocated_bytes": 5310692864,
+      "receipt_path": ".data\\short-drama-51\\sync\\S01-timed-v1.json",
+      "receipt_sha256": "3db3523ce43340093fde38de8d97908f2a6a407e50bf167e85902d2309bcc6f4"
+    },
+    {
+      "status": "complete",
+      "source": ".data\\short-drama-51\\takes\\s02-stop-v1.webm",
+      "source_sha256": "c1fbc0bf3844657244933fcf682a3b26377c9f164c07d44af4c2b79c9743d21f",
+      "audio": ".data\\short-drama-51\\voices\\S02-timed.wav",
+      "audio_sha256": "c66b44dcc305eb4e5a1a914ab754a876c2a5aa53593ff78c647c2026e4f9901d",
+      "source_revision": "0a89dec45a0192b824e3cf4daf96c239440c5ed8",
+      "initial_bbox": [
+        700,
+        90,
+        905,
+        355
+      ],
+      "tracking": "manual_ROI_optical_flow@1",
+      "fps": 25,
+      "seed": 5101,
+      "workflow_version": "offline_musetalk_trial@1",
+      "source_in_sec": null,
+      "roi_file": null,
+      "roi_sha256": null,
+      "frames": 114,
+      "elapsed_sec": 24.84,
+      "sha256": "6cda8fed900e3c6e01cab87951626a5c1c90bf4b38da1094a83f58852f82d8a2",
+      "output": ".data\\short-drama-51\\sync\\S02-timed-v1.mp4",
+      "peak_cuda_allocated_bytes": 5310692864,
+      "receipt_path": ".data\\short-drama-51\\sync\\S02-timed-v1.json",
+      "receipt_sha256": "5c55aa8c4a21a3a4c68ae0e4261f2f3502a4a6852af58072cc78db1f14ac16e6"
+    },
+    {
+      "status": "complete",
+      "source": ".data\\short-drama-51\\takes\\s04-retry-v1.webm",
+      "source_sha256": "6e4bb2adf19d0f03cbeb13f7f3615b6d15498bcfce6b8ca4f20eca741f7aac41",
+      "audio": ".data\\short-drama-51\\voices\\S04-timed.wav",
+      "audio_sha256": "6528b253ae05e0ecf235b4e2afd9f1b3167719d583b8f16d45b33a0795455dbf",
+      "source_revision": "0a89dec45a0192b824e3cf4daf96c239440c5ed8",
+      "initial_bbox": [
+        350,
+        50,
+        595,
+        310
+      ],
+      "tracking": "manual_ROI_optical_flow@1",
+      "fps": 25,
+      "seed": 5101,
+      "workflow_version": "offline_musetalk_trial@1",
+      "source_in_sec": null,
+      "roi_file": null,
+      "roi_sha256": null,
+      "frames": 120,
+      "elapsed_sec": 28.33,
+      "sha256": "a661ec8e55eb9a89c30c1961164d8e1737af0b5c8d872ece2af06a5250035189",
+      "output": ".data\\short-drama-51\\sync\\S04-timed-v1.mp4",
+      "peak_cuda_allocated_bytes": 5310692864,
+      "receipt_path": ".data\\short-drama-51\\sync\\S04-timed-v1.json",
+      "receipt_sha256": "531cd2cafb45f660ac10e7a3c4b7ad4e358c93f120bfb74f88c52618b0ab7a72"
+    },
+    {
+      "status": "complete",
+      "source": ".data\\short-drama-51\\takes\\s06-smile-v1.webm",
+      "source_sha256": "3ee96d290d0965c9987f9f1bd8205f4c9e7d2997970c7a33db8fef0c42ea8af4",
+      "audio": ".data\\short-drama-51\\voices\\S06-timed-v5.wav",
+      "audio_sha256": "22e1e22e46cf66dc381cfd5f6d2848c0a7a44be0a76e8f6feb9bef82a7f5d98d",
+      "source_revision": "0a89dec45a0192b824e3cf4daf96c239440c5ed8",
+      "initial_bbox": [
+        650,
+        50,
+        885,
+        310
+      ],
+      "tracking": "explicit_measured_ROI_sequence@1",
+      "fps": 25,
+      "seed": 5101,
+      "workflow_version": "offline_musetalk_trial@1",
+      "source_in_sec": 2.6,
+      "roi_file": ".data\\short-drama-51\\s06-measured-roi-v1.json",
+      "roi_sha256": "babfaf0c874501887fb7d96032c47d9fd6ddbd97c51a9186778a405d53c7390f",
+      "frames": 35,
+      "elapsed_sec": 12.59,
+      "sha256": "3d69d5743ba4fcffb25b8e85919d9166cb5998f9445a2e330080b2940342d98a",
+      "output": ".data\\short-drama-51\\sync\\S06-timed-v5.mp4",
+      "peak_cuda_allocated_bytes": 5310692864,
+      "receipt_path": ".data\\short-drama-51\\sync\\S06-timed-v5.json",
+      "receipt_sha256": "0f37ad35638c7db60dd8fb4434a76e0624bc2a63eaa9b7b40cf6c931c4193d94"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "name": "feasibility-v1",
+      "receipt_status": "prepared",
+      "observed_process_exit": 1,
+      "error_type": null,
+      "source_sha256": "fad2222aff29117c4dc5e18acf66b8cd07198ebec7e90b5e38355ec97bed1914",
+      "audio_sha256": "a6ce3a0b0c8c83cee003edb14965a149ba5db196cba3ac010cc89b9ffd531be5"
+    },
+    {
+      "name": "S03-timed-v1",
+      "receipt_status": "error",
+      "observed_process_exit": 1,
+      "error_type": "RuntimeError",
+      "source_sha256": "f77dbf1c0f8dd18b27493d60cf253de438b3b8fd6f2134d172ddbe132d3aba20",
+      "audio_sha256": "cf3c51b0212d62b9ed60239129405c7b445d84fc3085220f287dfd7d940e28ef"
+    },
+    {
+      "name": "S06-timed-v1",
+      "receipt_status": "error",
+      "observed_process_exit": 1,
+      "error_type": "RuntimeError",
+      "source_sha256": "3ee96d290d0965c9987f9f1bd8205f4c9e7d2997970c7a33db8fef0c42ea8af4",
+      "audio_sha256": "4b3ff23d075a3c636495d252c304496b2e210d53dd6d3150b39c2e5a805dd4b6"
+    },
+    {
+      "name": "S06-timed-v2",
+      "receipt_status": "error",
+      "observed_process_exit": 1,
+      "error_type": "RuntimeError",
+      "source_sha256": "3ee96d290d0965c9987f9f1bd8205f4c9e7d2997970c7a33db8fef0c42ea8af4",
+      "audio_sha256": "4b3ff23d075a3c636495d252c304496b2e210d53dd6d3150b39c2e5a805dd4b6"
+    },
+    {
+      "name": "S06-timed-v3",
+      "receipt_status": "error",
+      "observed_process_exit": 1,
+      "error_type": "FileNotFoundError",
+      "source_sha256": "3ee96d290d0965c9987f9f1bd8205f4c9e7d2997970c7a33db8fef0c42ea8af4",
+      "audio_sha256": "4b3ff23d075a3c636495d252c304496b2e210d53dd6d3150b39c2e5a805dd4b6"
+    }
+  ],
+  "v1_visual_rejection": {
+    "film_sha256": "76d42059e91712c8f7c489fba2701a86f8947e740dda5aa2c30eadeb1e8ac4bf",
+    "observed": "male side-profile lipsync softens lower face; replaced by phone insert after local1.6sec in v2",
+    "source_preserved": true
+  },
+  "version": "action_drama_provenance@1",
+  "full_receipts": "Raw takes and sync receipts remain in local ignored output and the ZIP at their recorded relative paths"
+}

@@ -1,0 +1,186 @@
+{
+  "version": "try_it_edit@2",
+  "film": ".data\\short-drama-51\\你来试试-v2.mp4",
+  "sha256": "d02e7135d42a165c1110cd07dee2da3a795361d0ef0743c68e2ee3b627e2906b",
+  "bytes": 18486658,
+  "frames": 657,
+  "fps": 30,
+  "duration_sec": 21.9,
+  "segments": [
+    {
+      "shot_id": "S01",
+      "file": ".data\\short-drama-51\\sync\\S01-timed-v1.mp4",
+      "sha256": "9d6a2b28c987e7f6b2347d78ef158def76372ca64da416361ea0f695ace8f6a9",
+      "start_frame": 0,
+      "id": "S01",
+      "take": "s01-handoff-v1",
+      "frames": 81,
+      "crop": [
+        1280,
+        704,
+        0,
+        0
+      ],
+      "speech": [
+        [
+          "01-give-up",
+          0.6
+        ]
+      ],
+      "sync_bbox": [
+        305,
+        55,
+        520,
+        285
+      ],
+      "sync_take": "S01-timed-v1"
+    },
+    {
+      "shot_id": "S02",
+      "file": ".data\\short-drama-51\\sync\\S02-timed-v1.mp4",
+      "sha256": "6cda8fed900e3c6e01cab87951626a5c1c90bf4b38da1094a83f58852f82d8a2",
+      "start_frame": 81,
+      "id": "S02",
+      "take": "s02-stop-v1",
+      "frames": 138,
+      "crop": [
+        896,
+        504,
+        384,
+        0
+      ],
+      "speech": [
+        [
+          "02-wait",
+          0.15
+        ],
+        [
+          "03-fault",
+          1.5
+        ]
+      ],
+      "sync_bbox": [
+        700,
+        90,
+        905,
+        355
+      ],
+      "sync_take": "S02-timed-v1"
+    },
+    {
+      "shot_id": "S03",
+      "file": ".data\\short-drama-51\\takes\\s03-work-v1.webm",
+      "sha256": "f77dbf1c0f8dd18b27493d60cf253de438b3b8fd6f2134d172ddbe132d3aba20",
+      "start_frame": 219,
+      "id": "S03",
+      "take": "s03-work-v1",
+      "frames": 120,
+      "crop": [
+        640,
+        360,
+        640,
+        344
+      ],
+      "speech": [
+        [
+          "04a-change",
+          0.0
+        ],
+        [
+          "04-again",
+          2.5
+        ]
+      ],
+      "sync_bbox": null,
+      "note": "手部操作特写，台词随动作画外续接；跟踪失败的口型试验不用于成片"
+    },
+    {
+      "shot_id": "S04",
+      "file": ".data\\short-drama-51\\sync\\S04-timed-v1.mp4",
+      "sha256": "a661ec8e55eb9a89c30c1961164d8e1737af0b5c8d872ece2af06a5250035189",
+      "start_frame": 339,
+      "id": "S04",
+      "take": "s04-retry-v1",
+      "frames": 144,
+      "crop": [
+        1280,
+        704,
+        0,
+        0
+      ],
+      "crop_switch_sec": 1.6,
+      "second_crop": [
+        640,
+        360,
+        128,
+        344
+      ],
+      "speech": [
+        [
+          "05-found",
+          2.1
+        ]
+      ],
+      "sync_bbox": [
+        350,
+        50,
+        595,
+        310
+      ],
+      "sync_take": "S04-timed-v1",
+      "note": "1.6秒后以手机操作特写覆盖；侧脸口型软化段不显示在成片，台词画外续接"
+    },
+    {
+      "shot_id": "S06",
+      "file": ".data\\short-drama-51\\sync\\S06-timed-v5.mp4",
+      "sha256": "3d69d5743ba4fcffb25b8e85919d9166cb5998f9445a2e330080b2940342d98a",
+      "start_frame": 483,
+      "id": "S06",
+      "take": "s06-smile-v1",
+      "frames": 42,
+      "crop": [
+        832,
+        468,
+        448,
+        0
+      ],
+      "speech": [
+        [
+          "06-answer-v2",
+          0.1
+        ]
+      ],
+      "sync_bbox": [
+        650,
+        50,
+        885,
+        310
+      ],
+      "sync_take": "S06-timed-v5",
+      "timed_audio": "S06-timed-v5.wav",
+      "sync_source_in_sec": 2.6,
+      "note": "剪掉前段反复摇头，只用原片2.6至4.0秒的笑容回应；不慢放或循环"
+    },
+    {
+      "shot_id": "S07",
+      "file": "examples\\short-drama\\dont-say-we\\assets\\youzhao-project-note-v8.mp4",
+      "sha256": "e31133b378008820c388d7d68e5d2f59e6035090dcac833ca07a6ef4f10c7d11",
+      "start_frame": 525,
+      "id": "S07",
+      "source": "examples/short-drama/dont-say-we/assets/youzhao-project-note-v8.mp4",
+      "in_sec": 17.9,
+      "frames": 72,
+      "crop": [
+        832,
+        468,
+        1712,
+        200
+      ],
+      "speech": [],
+      "sync_bbox": null,
+      "note": "真实隔离录屏里的虚构项目记录；不能冒充手机原型界面"
+    }
+  ],
+  "human_art_approval": false,
+  "production_deployed": false
+}

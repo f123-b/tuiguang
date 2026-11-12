@@ -1,0 +1,59 @@
+{
+  "status": "technical_checks_passed",
+  "film_sha256": "d02e7135d42a165c1110cd07dee2da3a795361d0ef0743c68e2ee3b627e2906b",
+  "bytes": 18486658,
+  "frames": 657,
+  "duration_sec": 21.9,
+  "fully_decoded": true,
+  "native_sources": [
+    {
+      "shot_id": "S01",
+      "provider_request_id": "6e25d6cc-5ba7-4e16-9ea3-9f89e1f1145a",
+      "sha256": "34cd8d496e5d2cc703add2d513323cd98e317a45bc064d330422cd63b375e2a8",
+      "native_frames": 73
+    },
+    {
+      "shot_id": "S02",
+      "provider_request_id": "63aca9b0-6fb3-4ec4-8c62-6541ce098a58",
+      "sha256": "c1fbc0bf3844657244933fcf682a3b26377c9f164c07d44af4c2b79c9743d21f",
+      "native_frames": 121
+    },
+    {
+      "shot_id": "S03",
+      "provider_request_id": "f9acc24f-90fc-4e43-9934-3c678662dd84",
+      "sha256": "f77dbf1c0f8dd18b27493d60cf253de438b3b8fd6f2134d172ddbe132d3aba20",
+      "native_frames": 97
+    },
+    {
+      "shot_id": "S04",
+      "provider_request_id": "cddae9b5-70ef-46db-b7bd-bc838fa80dc0",
+      "sha256": "6e4bb2adf19d0f03cbeb13f7f3615b6d15498bcfce6b8ca4f20eca741f7aac41",
+      "native_frames": 121
+    },
+    {
+      "shot_id": "S06",
+      "provider_request_id": "ca4f73c5-f56d-4e88-a50f-ba1d2e2a142f",
+      "sha256": "3ee96d290d0965c9987f9f1bd8205f4c9e7d2997970c7a33db8fef0c42ea8af4",
+      "native_frames": 97
+    }
+  ],
+  "cues": 7,
+  "rms": 0.08000454412483932,
+  "sample_peak": 0.8441989421844482,
+  "loudness": {
+    "input_i": "-16.08",
+    "input_tp": "-1.47",
+    "input_lra": "21.20",
+    "input_thresh": "-29.38",
+    "output_i": "-16.47",
+    "output_tp": "-1.50",
+    "output_lra": "4.20",
+    "output_thresh": "-28.97",
+    "normalization_type": "dynamic",
+    "target_offset": "0.47"
+  },
+  "human_listening": "not_run",
+  "user_art_approval": false,
+  "commercial_release_approval": false,
+  "production_deployed": false
+}

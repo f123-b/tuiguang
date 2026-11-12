@@ -1,0 +1,64 @@
+{
+  "changes": [
+    {
+      "dropped": 2,
+      "mediaTime": 1.333333,
+      "presented": 39,
+      "time": 1.313061,
+      "total": 45
+    },
+    {
+      "dropped": 4,
+      "mediaTime": 4.8,
+      "presented": 141,
+      "time": 4.77988,
+      "total": 149
+    },
+    {
+      "dropped": 6,
+      "mediaTime": 8.166667,
+      "presented": 240,
+      "time": 8.146608,
+      "total": 250
+    },
+    {
+      "dropped": 7,
+      "mediaTime": 11.4,
+      "presented": 336,
+      "time": 11.412878,
+      "total": 347
+    },
+    {
+      "dropped": 9,
+      "mediaTime": 13.5,
+      "presented": 397,
+      "time": 13.481198,
+      "total": 410
+    },
+    {
+      "dropped": 10,
+      "mediaTime": 17.333333,
+      "presented": 511,
+      "time": 17.346264,
+      "total": 525
+    },
+    {
+      "dropped": 12,
+      "mediaTime": 19.333333,
+      "presented": 569,
+      "time": 19.313955,
+      "total": 585
+    }
+  ],
+  "final": {
+    "dropped": 12,
+    "ended": true,
+    "time": 21.9,
+    "total": 657
+  },
+  "initial": {
+    "dropped": 0,
+    "time": 0,
+    "total": 0
+  }
+}
