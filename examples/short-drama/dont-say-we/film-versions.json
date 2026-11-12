@@ -1,0 +1,27 @@
+{
+  "film_version": "short_drama_cut@1",
+  "application_version": "0.20.0-dev",
+  "database_migration": "0016 / unchanged",
+  "agent_graph_version": "creator_graph@2 / not invoked by this independent edit",
+  "prompt_version": "dont_say_we_director@1 / production.json",
+  "video_ir_schema_version": "1.1 / offline DTO with exact editorial manifest",
+  "provider_adapter_version": "wan_comfy_local@1 / independent runner, not the app worker",
+  "workflows_used": ["short_drama_fp8@1", "short_drama_fp8_tiled@2"],
+  "model_id": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+  "model_revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+  "engine_revision": "0decb39ee5b5e17c200334589fc317dbbe98310e",
+  "voice_model_id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "voice_model_revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+  "template_version": "dont_say_we_edit@1",
+  "license_inventory_revision": "inventory@3 + film source receipts; commercial use not approved",
+  "skill_registry_version": "skill_registry@1",
+  "skill_source_references": [
+    "vendor/skills/shuohao/novel-script/references/script-pass.md",
+    "vendor/skills/zenstory/short-drama-review/references/anti-template-repair.md"
+  ],
+  "image_generation": "Built-in ImageGen; model revision/cost not returned, uncertain; requests recorded separately",
+  "cost": {"local_video_cloud_fee": 0, "electricity": "unknown", "imagegen_charge": "unknown"},
+  "environment": "local personal review",
+  "production_deployed": false,
+  "user_art_approval": false
+}

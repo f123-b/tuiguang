@@ -1,0 +1,140 @@
+{
+  "target": "file:///D:/%E7%94%B5%E8%84%91%E9%9D%A2%E8%AF%95/apps/desktop/out/renderer/index.html?rendering=compatibility",
+  "viewport": [
+    1280,
+    720
+  ],
+  "device_scale": 2,
+  "focus_emulation": true,
+  "capture_method": "CDP captureScreenshot, measured wall timestamps, up to 10Hz; native high-DPI UI, not generated motion",
+  "note": "观察：试了三次，没找到入口。\n取舍：去掉欢迎页，入口放到第一屏。\n复测：一次就找到了。",
+  "duration": 20.361,
+  "events": [
+    {
+      "t": 0.63,
+      "name": "typing_start"
+    },
+    {
+      "t": 4.434,
+      "name": "typing_end"
+    },
+    {
+      "t": 5.05,
+      "name": "save"
+    },
+    {
+      "t": 6.299,
+      "name": "saved_verified",
+      "ownership": "partial"
+    },
+    {
+      "t": 7.107,
+      "name": "recall_line_1"
+    },
+    {
+      "t": 10.915,
+      "name": "recall_line_2"
+    },
+    {
+      "t": 14.73,
+      "name": "recall_line_3"
+    },
+    {
+      "t": 20.045,
+      "name": "end"
+    }
+  ],
+  "first_frame_wall": 0,
+  "native_duration_sec": 20.361,
+  "actual_width": 2560,
+  "actual_height": 1440,
+  "actual_capture_frames_per_sec": 5.452,
+  "source_frames": 111,
+  "source": "Unmodified real 有招 0.2.24, isolated new synthetic data, external HTTP(S) blocked",
+  "source_git_sha": "521e1f479c02fc4f00992ef5bcd128ff7fba77cf",
+  "sha256": "e31133b378008820c388d7d68e5d2f59e6035090dcac833ca07a6ef4f10c7d11",
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "mime_codec_string": "avc1.640032",
+        "width": 2560,
+        "height": 1440,
+        "coded_width": 2560,
+        "coded_height": 1440,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 50,
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 4,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 312832,
+        "duration": "20.366667",
+        "bit_rate": "416576",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "611",
+        "nb_read_frames": "611",
+        "extradata_size": 46,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "encoder": "Lavc63.1.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "D:\\推广助手\\examples\\short-drama\\dont-say-we\\assets\\youzhao-project-note-v8.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "20.366667",
+      "size": "1068733",
+      "bit_rate": "419796",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf63.1.101"
+      }
+    }
+  }
+}

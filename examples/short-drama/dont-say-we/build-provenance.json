@@ -1,0 +1,14 @@
+{
+  "product": "有招",
+  "package_version": "0.2.24",
+  "source_repository": "D:/电脑面试 / read-only code access",
+  "source_head_at_capture": "521e1f479c02fc4f00992ef5bcd128ff7fba77cf",
+  "limitation": "Git HEAD alone does not prove a bundle was built from that exact source. These are actual loaded build hashes, not an inferred build attestation.",
+  "loaded_build_sha256": {
+    "apps/desktop/out/main/index.js": "33a6ad32fd75309f3107758f656266681b18ba6569a1fefb3cfa4b8a9ad96255",
+    "apps/desktop/out/preload/index.mjs": "33b09d8861f48cd8f01e57d00c6c201d76dcf935a247bef8f734af872a249b21",
+    "apps/desktop/out/renderer/assets/ProjectLibraryPage-AkoO-yBx.js": "7a5bd1b0c0481c6066a5487a2191022dd3d042da4528cf9375013a3c86a6248c"
+  },
+  "privacy": "New isolated synthetic profile; external HTTP(S) blocked. No personal account, resume, recording, release secret or existing real-user database copied.",
+  "captured_claim": "Project settings support ownership and project notes / responsibility boundary. Fictional project only, not product performance evidence."
+}
