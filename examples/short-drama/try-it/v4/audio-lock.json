@@ -1,0 +1,198 @@
+[
+  {
+    "id": "01-give-up",
+    "role": "chen",
+    "speaker": "dylan",
+    "source": ".data/short-drama-53/v4/voices/chen-master-v2.wav",
+    "source_sha256": "bbaf00df8d4f4e4bd7adf2a819652d5213cd16e4cedb313a63910ca062403327",
+    "source_in_sec": 0,
+    "source_out_sec": 1.2,
+    "atempo": 0.8,
+    "pitch_shift": false,
+    "duration_sec": 1.4885,
+    "path": ".data/short-drama-53/v4/voices/01-give-up-v4.wav",
+    "sha256": "d41d7d5bce36a19906525c4a7b4c8825fe648a50de121f628b213a77ee6da656",
+    "human_listening_review": false
+  },
+  {
+    "id": "02-wait",
+    "role": "lin",
+    "speaker": "serena",
+    "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+    "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "source_in_sec": 0,
+    "source_out_sec": 1.12,
+    "atempo": 0.95,
+    "pitch_shift": false,
+    "duration_sec": 1.16525,
+    "path": ".data/short-drama-53/v4/voices/02-wait-v4.wav",
+    "sha256": "4be5747b6d8ec86a2d62f0c011bd72e81002bdb5824ed13133b173e59f518da1",
+    "human_listening_review": false
+  },
+  {
+    "id": "03-fault",
+    "role": "lin",
+    "speaker": "serena",
+    "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+    "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "source_in_sec": 1.3,
+    "source_out_sec": 4.45,
+    "atempo": 0.95,
+    "pitch_shift": false,
+    "duration_sec": 3.2986666666666666,
+    "path": ".data/short-drama-53/v4/voices/03-fault-v4.wav",
+    "sha256": "861cfd6112928fcd3848476aa7f7ef83919555da138b83f9e450ec9a4128f3b4",
+    "human_listening_review": false
+  },
+  {
+    "id": "04-change",
+    "role": "lin",
+    "speaker": "serena",
+    "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+    "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "source_in_sec": 4.6,
+    "source_out_sec": 6.2,
+    "atempo": 0.95,
+    "pitch_shift": false,
+    "duration_sec": 1.6662083333333333,
+    "path": ".data/short-drama-53/v4/voices/04-change-v4.wav",
+    "sha256": "fc4effe540c4b549a23f2c5e6c9cc1b6d24156e6d15fb7a3421556e413fb61fb",
+    "human_listening_review": false
+  },
+  {
+    "id": "04-again",
+    "role": "lin",
+    "speaker": "serena",
+    "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+    "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "source_in_sec": 6.2,
+    "source_out_sec": 7.28,
+    "atempo": 0.95,
+    "pitch_shift": false,
+    "duration_sec": 1.129,
+    "path": ".data/short-drama-53/v4/voices/04-again-v4.wav",
+    "sha256": "438a73e758431d8128cd4cf4fd0a86434660ef1610d9402bc54ee4a4e4c7ce69",
+    "human_listening_review": false
+  },
+  {
+    "id": "05-found",
+    "role": "chen",
+    "speaker": "dylan",
+    "source": ".data/short-drama-53/v4/voices/chen-master-v2.wav",
+    "source_sha256": "bbaf00df8d4f4e4bd7adf2a819652d5213cd16e4cedb313a63910ca062403327",
+    "source_in_sec": 1.3,
+    "source_out_sec": 3.28,
+    "atempo": 0.8,
+    "pitch_shift": false,
+    "duration_sec": 2.4495,
+    "path": ".data/short-drama-53/v4/voices/05-found-v4.wav",
+    "sha256": "ce00844bba88c3d9e0a88c3820a0da2fa73d247dce23cc6968f4ba094373a8f0",
+    "human_listening_review": false
+  },
+  {
+    "id": "06-answer",
+    "role": "lin",
+    "speaker": "serena",
+    "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+    "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "source_in_sec": 7.28,
+    "source_out_sec": 8.16,
+    "atempo": 0.95,
+    "pitch_shift": false,
+    "duration_sec": 0.9199166666666667,
+    "path": ".data/short-drama-53/v4/voices/06-answer-v4.wav",
+    "sha256": "3ddcdabc119917f1f9eae59c73f868e5e124fc573a89589ffaadc2c67818254a",
+    "human_listening_review": false
+  },
+  {
+    "shot_id": "S01",
+    "duration_sec": 2.3125,
+    "path": ".data/short-drama-53/v4/voices/S01-audio-short-v4.wav",
+    "sha256": "16ed359874f0fa4eef95984deeb9617ce754cce3cb521a117e2cca86e03377e0",
+    "cues": [
+      [
+        0.18,
+        "01-give-up"
+      ]
+    ],
+    "fixed_before_video": true,
+    "previous_audio_preserved": "S01-audio-v4.wav"
+  },
+  {
+    "shot_id": "S02",
+    "duration_sec": 4.8125,
+    "path": ".data/short-drama-53/v4/voices/S02-audio-v4.wav",
+    "sha256": "f14e5746e61f937094d6599ccb4eedd69d75a3cd44ddaf380e562cfcf5626c9c",
+    "cues": [
+      [
+        0.08,
+        "02-wait"
+      ],
+      [
+        1.38,
+        "03-fault"
+      ]
+    ],
+    "fixed_before_video": true
+  },
+  {
+    "shot_id": "S04",
+    "duration_sec": 4.8125,
+    "path": ".data/short-drama-53/v4/voices/S04-audio-v4.wav",
+    "sha256": "7b1c8b398e4565fde9234ebba15bf62adbe66cede1dd42e8f4eed33d65a337c5",
+    "cues": [
+      [
+        0.28,
+        "05-found"
+      ]
+    ],
+    "fixed_before_video": true
+  },
+  {
+    "shot_id": "S06",
+    "duration_sec": 4.8125,
+    "path": ".data/short-drama-53/v4/voices/S06-audio-v4.wav",
+    "sha256": "bb4abbc44131aea2a3d413c37bb541d46f58ad1f2730bc11912a4681aa55b92f",
+    "cues": [
+      [
+        0.25,
+        "06-answer"
+      ]
+    ],
+    "fixed_before_video": true
+  },
+  {
+    "shot_id": "LIN",
+    "cast_role": "lin",
+    "duration_sec": 9.0625,
+    "path": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+    "sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+    "master_source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+    "master_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "atempo": 0.95,
+    "lead_sec": 0.15,
+    "fixed_before_video": true
+  },
+  {
+    "shot_id": "LIN1",
+    "cast_role": "lin",
+    "duration_sec": 4.8125,
+    "path": ".data/short-drama-53/v4/voices/LIN1-audio-v4.wav",
+    "sha256": "e3d64766b27ac510ae6236f0ebe5fecab5aa0c75c05fb7e6d3bc175b1ae893f4",
+    "whole_audio": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+    "whole_audio_sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+    "source_in_sec": 0,
+    "fixed_before_video": true
+  },
+  {
+    "shot_id": "LIN2",
+    "cast_role": "lin",
+    "duration_sec": 4.3125,
+    "path": ".data/short-drama-53/v4/voices/LIN2-audio-v4.wav",
+    "sha256": "31608c65e4816ca1c5319d8a6035fa90d4c9e66eae7df8628e3639b5c05bf8ba",
+    "whole_audio": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+    "whole_audio_sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+    "source_in_sec": 4.75,
+    "fixed_before_video": true
+  }
+]

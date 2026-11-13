@@ -1,0 +1,94 @@
+{
+  "version": "audio_drama_edit@4",
+  "edit_sha256": "9a7f9e8dce5115e2083fcc345fc6a1737aecfcf5769258065c24675d02ca25ef",
+  "frames": 438,
+  "fps": 24,
+  "duration_sec": 18.25,
+  "picture": "1920×1080 delivery; generated native832×480, neural1664×960; operation native1280×704/neural2560×1408, fit without facial crop",
+  "shots": [
+    {
+      "shot_id": "S01",
+      "source": ".data/short-drama-53/v4/takes/S01-audio-driven-v1.webm",
+      "generated_in_sec": 0,
+      "source_crop": [
+        832,
+        448,
+        0,
+        0
+      ],
+      "prepared_sha256": "9dbb4e062f2049a83d16b31fe0b541b1a677f2726a172c92ad4e9e109296a296",
+      "sr_sha256": "7190e14b7fbb0f0460db491ab0324e99a316672465be70a3c87f7248d6f9c9c3",
+      "frames": 56,
+      "neural_picture": [
+        1664,
+        896
+      ]
+    },
+    {
+      "shot_id": "S02",
+      "source": ".data/short-drama-53/v4/takes/LIN-part1-audio-driven-v2.webm",
+      "generated_in_sec": 0,
+      "source_crop": null,
+      "prepared_sha256": "746fcbef41a7dbf9ae0bbdf7d0bda239ec1c37f64e4bbaf8026547d575b5ad29",
+      "sr_sha256": "4ba36b0b71781b9b9621114c45c9a6f7049d948ea1b0c1f8a8d93e491e802d03",
+      "frames": 114,
+      "neural_picture": [
+        1664,
+        960
+      ]
+    },
+    {
+      "shot_id": "S03",
+      "source": ".data/short-drama-53/takes/s03-hands-v3.webm",
+      "generated_in_sec": 0,
+      "source_crop": null,
+      "prepared_sha256": "5097b41afe246a9e35680af95abe777ddb41cd5ab50b88dd639081a55a48f77e",
+      "sr_sha256": "4a0b1bd996690378f7d8872d93024925e4293a9665574e3b177a9e81208513ef",
+      "frames": 75,
+      "neural_picture": [
+        2560,
+        1408
+      ]
+    },
+    {
+      "shot_id": "S04",
+      "source": ".data/short-drama-53/v4/takes/S04-audio-driven-v1.webm",
+      "generated_in_sec": 0,
+      "source_crop": null,
+      "prepared_sha256": "443fb21b581a5a97d08800ff533eaa5630dc348ee8ec32fd6939dd3040aa064f",
+      "sr_sha256": "ad1832802c4addb072f508c4ac29342637b143130d29a86a89dfc099db5d4153",
+      "frames": 68,
+      "neural_picture": [
+        1664,
+        960
+      ]
+    },
+    {
+      "shot_id": "S06",
+      "source": ".data/short-drama-53/v4/takes/LIN-part2-audio-driven-v2.webm",
+      "generated_in_sec": 3.125,
+      "source_crop": null,
+      "prepared_sha256": "9197826e5d330ae0431429c127f20ae58dd1a6e8c7b005fccbcaf31ca2f91dd3",
+      "sr_sha256": "362f5a64ae4dbc3f656acab00e77d197a0058fa2c8132306b2ed24d6f81fc4cf",
+      "frames": 29,
+      "neural_picture": [
+        1664,
+        960
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".data/short-drama-53/v4/你来试试-v4-超分成片.mp4",
+      "sha256": "3a26687322ce3f261a676790e4a23d2ae4a518376a9faab21436839c85996ae1",
+      "bytes": 20975375
+    },
+    {
+      "path": ".data/short-drama-53/v4/你来试试-v4-超分前对照.mp4",
+      "sha256": "135f407234430e18d3123b7ae8add8b5bb0caae2539185ba4b63b26e58ced837",
+      "bytes": 18339264
+    }
+  ],
+  "human_art_approval": false,
+  "production_deployed": false
+}

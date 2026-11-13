@@ -1,0 +1,101 @@
+{
+  "status": "technical_checks_passed",
+  "outputs": [
+    {
+      "file": "你来试试-v3-1080p.mp4",
+      "frames": 528,
+      "decode": "pass",
+      "canvas": [
+        1920,
+        1080
+      ],
+      "duration_sec": 22,
+      "sha256": "58749a69e59e106f0295eae83940e01e925d3c5f53bca5c2e9ed20d5318aab93"
+    },
+    {
+      "file": "你来试试-v3-2K超分.mp4",
+      "frames": 528,
+      "decode": "pass",
+      "canvas": [
+        2560,
+        1440
+      ],
+      "duration_sec": 22,
+      "sha256": "1ec77b7295d47371abdb9a34fb79150f13aca2e453289ce21c044c2a1344064c"
+    },
+    {
+      "file": "你来试试-v3-原片对照.mp4",
+      "frames": 528,
+      "decode": "pass",
+      "canvas": [
+        2560,
+        1440
+      ],
+      "duration_sec": 22,
+      "sha256": "9b773d6c631883a6d3ea68e6f5da1f77f609e6a5ce0fd29645d72e9648b7fe16"
+    }
+  ],
+  "native_takes": [
+    {
+      "shot_id": "S02",
+      "prompt_id": "31a662e5-2dc8-48c0-9d71-fd85f59086d0",
+      "frames": 121,
+      "elapsed_sec": 951.4702472686768
+    },
+    {
+      "shot_id": "S03",
+      "prompt_id": "e8203403-1b74-4544-80ca-0dea4810477b",
+      "frames": 97,
+      "elapsed_sec": 711.1625900268555
+    },
+    {
+      "shot_id": "S04",
+      "prompt_id": "a4502752-5774-48d0-8ae2-19e93845b4f6",
+      "frames": 121,
+      "elapsed_sec": 991.6174304485321
+    },
+    {
+      "shot_id": "S06",
+      "prompt_id": "f4d237ba-2a9c-41d3-b9c5-fcbb803a7645",
+      "frames": 73,
+      "elapsed_sec": 520.9560060501099
+    }
+  ],
+  "superresolution": [
+    {
+      "shot_id": "S01",
+      "frames": 64,
+      "elapsed_sec": 80.14,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+    },
+    {
+      "shot_id": "S02",
+      "frames": 112,
+      "elapsed_sec": 139.02,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+    },
+    {
+      "shot_id": "S03",
+      "frames": 96,
+      "elapsed_sec": 121.03,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+    },
+    {
+      "shot_id": "S04",
+      "frames": 116,
+      "elapsed_sec": 148.06,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+    },
+    {
+      "shot_id": "S06",
+      "frames": 34,
+      "elapsed_sec": 44.47,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+    }
+  ],
+  "cue_count": 7,
+  "human_art_approval": false,
+  "commercial_clearance": "unconfirmed",
+  "production_deployed": false,
+  "user_art_review": "rejected"
+}

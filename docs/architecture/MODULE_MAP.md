@@ -1,5 +1,9 @@
 # 系统模块地图（目标拓扑，不代表源码已经存在）
 
+#53续 / `audio_drama_edit@4`：独立主模块`examples/short-drama/try-it/v4/`；连续角色母带→audio-lock/固定16fps音频条件S2V→逐镜切选/24fps插帧→原生尺寸神经x2→finish/check/archive→8792本地审看。两片18.25秒/438帧，v3用户否决历史保留。9项结构契约与真实媒体验证不能替代人工艺术/逐字听审；正式API/DB/Provider/30fps IR和审核未改。见[实际证据](../implementation/AUDIO_DRIVEN_DRAMA_VALIDATION.md)。
+
+#53 / `drama_production@3`：独立主模块`examples/short-drama/try-it/v3/`，剧本/三视图/空场景/分镜→复用耐久Wan单镜runner→校正ROI的Muse口型/原生细节混合→独立RealESRGAN x2→master/check/archive→8791本地审看。22秒三种对照输出；正式应用API/DB/Provider/人工审核未改。24fps/2560时间线与当前30fps/1080或1920的VideoInput不同，未伪造可导入IR。见[实际验证](../implementation/DRAMA_MASTERING_VALIDATION.md)。
+
 #51 / `action_drama@2`：独立作品主模块 `examples/short-drama/try-it/`；production/edit → 高清首帧/本机Wan/库存声 → 独立MuseTalk口型试验 → FFmpeg/check/export-ir/archive → 8790本地审看。21.9秒v2；正式API/DB/Provider/人工审核未变，不代表软件已集成口型或自动导演；见[实际证据](../implementation/TRY_IT_DRAMA_VALIDATION.md)。
 
 #49 / `short_drama_cut@1`：独立制作主模块 `examples/short-drama/dont-say-we/`，production → 库存合成声音/高清首帧/本机Wan/隔离真实UI → finish/check/archive → 8785本地观看。41秒v2成片及离线IR1.1，不注册正式Provider、不写用户审核通过，不修改DB/API。作品和软件能力必须分开记录；见[实际证据](../implementation/DONT_SAY_WE_FILM_VALIDATION.md)。

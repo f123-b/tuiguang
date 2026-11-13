@@ -1,0 +1,46 @@
+[
+  {
+    "role": "chen",
+    "speaker": "dylan",
+    "seed": 5411,
+    "text": "算了，你来。找到了，你早放这儿不就好了。",
+    "direction": "普通话，和熟悉朋友面对面自然聊天，清楚、平实、松弛，不急促，不播音，不广告，不夸张。保持一致声线。",
+    "sample_rate": 24000,
+    "duration_sec": 3.28,
+    "sha256": "bbaf00df8d4f4e4bd7adf2a819652d5213cd16e4cedb313a63910ca062403327",
+    "elapsed_sec": 8.09,
+    "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "model_revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+    "status": "duration_checked",
+    "human_listening_review": false,
+    "generation_params": {
+      "do_sample": true,
+      "temperature": 0.75,
+      "top_p": 0.9,
+      "subtalker_temperature": 0.9,
+      "max_new_tokens": 384
+    }
+  },
+  {
+    "role": "lin",
+    "speaker": "serena",
+    "seed": 5412,
+    "text": "等一下。不是你不会用，是我藏得太深了。欢迎页先拿掉。再试试。对哦。",
+    "direction": "普通话，和熟悉朋友面对面自然聊天，清楚、平实、松弛，不急促，不播音，不广告，不夸张。保持一致声线。",
+    "sample_rate": 24000,
+    "duration_sec": 8.16,
+    "sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+    "elapsed_sec": 18.67,
+    "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "model_revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+    "status": "duration_checked",
+    "human_listening_review": false,
+    "generation_params": {
+      "do_sample": true,
+      "temperature": 0.75,
+      "top_p": 0.9,
+      "subtalker_temperature": 0.9,
+      "max_new_tokens": 384
+    }
+  }
+]

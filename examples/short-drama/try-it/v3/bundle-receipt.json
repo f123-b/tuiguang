@@ -1,0 +1,10 @@
+{
+  "file": ".data/short-drama-53/你来试试-v3-制作包.zip",
+  "bytes": 296173437,
+  "sha256": "25e9295177925eadc5d1b5c2035eb81b8d2d94a82de29b21017b8e851176567a",
+  "files": 139,
+  "crc_check": "passed",
+  "credential_pattern_scan": "passed",
+  "model_weights_included": false,
+  "human_art_approval": false
+}

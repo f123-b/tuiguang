@@ -1,0 +1,293 @@
+{
+  "task": 53,
+  "scope": "Independent film, not deployed app",
+  "generation_receipts": [
+    {
+      "status": "error",
+      "trace_id": "de5fa1b9f2474d82bc3ecc5343247444",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "LIN",
+      "render_job_id": null,
+      "job_id": "4c582bc3ca274808aa3c2b62b926516e",
+      "prompt_id": "52985c79-d193-435b-8911-fec16e7a6da2",
+      "workflow_version": "audio_drama_s2v@1",
+      "source": "examples/short-drama/try-it/v3/assets/s02-close-v3.png",
+      "source_sha256": "f5c8c692afb9d76b69b2e17d21d2103344357190122768421d77e551a9eec71a",
+      "audio": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+      "audio_sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+      "sha256": null,
+      "native_frames": 145,
+      "elapsed_sec": null,
+      "fps": 16,
+      "native_canvas": [
+        832,
+        480
+      ],
+      "receipt_sha256": "7703db8981350d766b61d73835937b14aa0b998255a8e223e5c619c69adb17cd",
+      "full_receipt": ".data/short-drama-53/v4/takes/LIN-audio-driven-v1.json",
+      "first_failure": {
+        "node_id": "sample",
+        "class_type": "KSampler",
+        "exception": "torch.OutOfMemoryError",
+        "formal_error_code": null,
+        "mapping_status": "independent runner not integrated with formal error catalog"
+      }
+    },
+    {
+      "status": "complete",
+      "trace_id": "018d49210950493aae4d1d43696945ab",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "LIN1",
+      "render_job_id": null,
+      "job_id": "c55c6849ae72408aabd0769df4231e39",
+      "prompt_id": "329823f4-e3a0-4004-ba00-cbe303a5c774",
+      "workflow_version": "audio_drama_s2v@1",
+      "source": "examples/short-drama/try-it/v3/assets/s02-close-v3.png",
+      "source_sha256": "f5c8c692afb9d76b69b2e17d21d2103344357190122768421d77e551a9eec71a",
+      "audio": ".data/short-drama-53/v4/voices/LIN1-audio-v4.wav",
+      "audio_sha256": "e3d64766b27ac510ae6236f0ebe5fecab5aa0c75c05fb7e6d3bc175b1ae893f4",
+      "sha256": "465c493390af9d641b6846be993fdb8990f8fbb3ddf0674394b4720bf6a647a2",
+      "native_frames": 77,
+      "elapsed_sec": 2253.497484922409,
+      "fps": 16,
+      "native_canvas": [
+        832,
+        480
+      ],
+      "receipt_sha256": "1d4c6cfdae773ed8c9ecd0158553358037ae8a20f118925f607a2650f367673b",
+      "full_receipt": ".data/short-drama-53/v4/takes/LIN-part1-audio-driven-v2.json"
+    },
+    {
+      "status": "complete",
+      "trace_id": "68274784f8264680a6099e4eaa402677",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "LIN2",
+      "render_job_id": null,
+      "job_id": "920815c3c73f4657b0ad6b87b6d68ae7",
+      "prompt_id": "73a59e7a-1733-4f7c-b80a-791386b898fa",
+      "workflow_version": "audio_drama_s2v@1",
+      "source": "examples/short-drama/try-it/v3/assets/s06-close-v3.png",
+      "source_sha256": "65447efd4fbe7cb76f69ffdd649269a551ceb5b1582255c46f8c1d3cb11b524b",
+      "audio": ".data/short-drama-53/v4/voices/LIN2-audio-v4.wav",
+      "audio_sha256": "31608c65e4816ca1c5319d8a6035fa90d4c9e66eae7df8628e3639b5c05bf8ba",
+      "sha256": "53022189df513dae687df736596f3ee422efb0c9cb75b319c642866e93c64864",
+      "native_frames": 69,
+      "elapsed_sec": 1943.0178034305573,
+      "fps": 16,
+      "native_canvas": [
+        832,
+        480
+      ],
+      "receipt_sha256": "fa244e76a529cc47b3a4cf1025a5292631188a2775e12abde4f8fa199e83699d",
+      "full_receipt": ".data/short-drama-53/v4/takes/LIN-part2-audio-driven-v2.json"
+    },
+    {
+      "status": "complete",
+      "trace_id": "8b9cccc1ab0d4f6fb6c73e017e80b048",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S01",
+      "render_job_id": null,
+      "job_id": "d175598cef4f427586ae893e9f3c4fe5",
+      "prompt_id": "d39f78ee-1e42-4608-98ac-70a7031d4686",
+      "workflow_version": "audio_drama_s2v@1",
+      "source": "examples/short-drama/try-it/v3/assets/s04-close-v3.png",
+      "source_sha256": "f2ec7335ae4976b02c48594d6c338a408a909c536ae8720f7885cd73047ee3f6",
+      "audio": ".data/short-drama-53/v4/voices/S01-audio-short-v4.wav",
+      "audio_sha256": "16ed359874f0fa4eef95984deeb9617ce754cce3cb521a117e2cca86e03377e0",
+      "sha256": "a0b8ef4917402f138b800a08aa12e9f9fd80d0e8b95620ccaba2944620be497d",
+      "native_frames": 37,
+      "elapsed_sec": 901.4895923137665,
+      "fps": 16,
+      "native_canvas": [
+        832,
+        480
+      ],
+      "receipt_sha256": "dfef11d47ba67bdc827fbff47f1a20486a258ff4bf40d03f3790d816d0af2c74",
+      "full_receipt": ".data/short-drama-53/v4/takes/S01-audio-driven-v1.json"
+    },
+    {
+      "status": "complete",
+      "trace_id": "339f24d47dc7452da06db91de6cb09a1",
+      "creator_run_id": null,
+      "content_id": null,
+      "video_project_id": null,
+      "shot_id": "S04",
+      "render_job_id": null,
+      "job_id": "e9794a184b1a44f3a4a8146f0669f5d6",
+      "prompt_id": "16c26cd0-b282-4040-98da-d08fb016af4d",
+      "workflow_version": "audio_drama_s2v@1",
+      "source": "examples/short-drama/try-it/v3/assets/s04-close-v3.png",
+      "source_sha256": "f2ec7335ae4976b02c48594d6c338a408a909c536ae8720f7885cd73047ee3f6",
+      "audio": ".data/short-drama-53/v4/voices/S04-audio-v4.wav",
+      "audio_sha256": "7b1c8b398e4565fde9234ebba15bf62adbe66cede1dd42e8f4eed33d65a337c5",
+      "sha256": "e62ac87fcb574331b2699211958d17316b803960c49e440bbb1b936960138361",
+      "native_frames": 77,
+      "elapsed_sec": 2223.158791065216,
+      "fps": 16,
+      "native_canvas": [
+        832,
+        480
+      ],
+      "receipt_sha256": "bc3327a107d9287f728d1aa13174642f23530ecfa294263915b1d5277b5356ec",
+      "full_receipt": ".data/short-drama-53/v4/takes/S04-audio-driven-v1.json"
+    }
+  ],
+  "sr_receipts": [
+    {
+      "status": "complete",
+      "shot_id": "S01",
+      "workflow": "native_size_rrdb_x2@2",
+      "source": ".data/short-drama-53/v4/prepared/S01-picture-v4-r2.mp4",
+      "source_sha256": "9dbb4e062f2049a83d16b31fe0b541b1a677f2726a172c92ad4e9e109296a296",
+      "native_picture": [
+        832,
+        448
+      ],
+      "neural_picture": [
+        1664,
+        896
+      ],
+      "frames": 56,
+      "fps": 24,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb",
+      "params": {
+        "tile": 384,
+        "context_pad": 24,
+        "precision": "fp16",
+        "face_replacement": false
+      },
+      "human_art_approval": false,
+      "sha256": "7190e14b7fbb0f0460db491ab0324e99a316672465be70a3c87f7248d6f9c9c3",
+      "elapsed_sec": 42.31
+    },
+    {
+      "status": "complete",
+      "shot_id": "S02",
+      "workflow": "native_size_rrdb_x2@2",
+      "source": ".data/short-drama-53/v4/prepared/S02-picture-v4-cut2.mp4",
+      "source_sha256": "746fcbef41a7dbf9ae0bbdf7d0bda239ec1c37f64e4bbaf8026547d575b5ad29",
+      "native_picture": [
+        832,
+        480
+      ],
+      "neural_picture": [
+        1664,
+        960
+      ],
+      "frames": 114,
+      "fps": 24,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb",
+      "params": {
+        "tile": 384,
+        "context_pad": 24,
+        "precision": "fp16",
+        "face_replacement": false
+      },
+      "human_art_approval": false,
+      "sha256": "4ba36b0b71781b9b9621114c45c9a6f7049d948ea1b0c1f8a8d93e491e802d03",
+      "elapsed_sec": 97.5
+    },
+    {
+      "status": "complete",
+      "shot_id": "S03",
+      "workflow": "native_size_rrdb_x2@2",
+      "source": ".data/short-drama-53/v4/prepared/S03-picture-v4-cut2.mp4",
+      "source_sha256": "5097b41afe246a9e35680af95abe777ddb41cd5ab50b88dd639081a55a48f77e",
+      "native_picture": [
+        1280,
+        704
+      ],
+      "neural_picture": [
+        2560,
+        1408
+      ],
+      "frames": 75,
+      "fps": 24,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb",
+      "params": {
+        "tile": 384,
+        "context_pad": 24,
+        "precision": "fp16",
+        "face_replacement": false
+      },
+      "human_art_approval": false,
+      "sha256": "4a0b1bd996690378f7d8872d93024925e4293a9665574e3b177a9e81208513ef",
+      "elapsed_sec": 94.92
+    },
+    {
+      "status": "complete",
+      "shot_id": "S04",
+      "workflow": "native_size_rrdb_x2@2",
+      "source": ".data/short-drama-53/v4/prepared/S04-picture-v4-cut2.mp4",
+      "source_sha256": "443fb21b581a5a97d08800ff533eaa5630dc348ee8ec32fd6939dd3040aa064f",
+      "native_picture": [
+        832,
+        480
+      ],
+      "neural_picture": [
+        1664,
+        960
+      ],
+      "frames": 68,
+      "fps": 24,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb",
+      "params": {
+        "tile": 384,
+        "context_pad": 24,
+        "precision": "fp16",
+        "face_replacement": false
+      },
+      "human_art_approval": false,
+      "sha256": "ad1832802c4addb072f508c4ac29342637b143130d29a86a89dfc099db5d4153",
+      "elapsed_sec": 58.0
+    },
+    {
+      "status": "complete",
+      "shot_id": "S06",
+      "workflow": "native_size_rrdb_x2@2",
+      "source": ".data/short-drama-53/v4/prepared/S06-picture-v4-cut2.mp4",
+      "source_sha256": "9197826e5d330ae0431429c127f20ae58dd1a6e8c7b005fccbcaf31ca2f91dd3",
+      "native_picture": [
+        832,
+        480
+      ],
+      "neural_picture": [
+        1664,
+        960
+      ],
+      "frames": 29,
+      "fps": 24,
+      "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb",
+      "params": {
+        "tile": 384,
+        "context_pad": 24,
+        "precision": "fp16",
+        "face_replacement": false
+      },
+      "human_art_approval": false,
+      "sha256": "362f5a64ae4dbc3f656acab00e77d197a0058fa2c8132306b2ed24d6f81fc4cf",
+      "elapsed_sec": 25.2
+    }
+  ],
+  "mix_measurement": {
+    "integrated_lufs": -16.53,
+    "true_peak_dbtp": -1.49,
+    "lra": 3.2,
+    "source": "ffmpeg loudnorm analysis input values"
+  },
+  "browser_failed_checks": {
+    "stdin_invocations": "returned null, page script did not execute as expected",
+    "offscreen_button": "initial selection unverified, actual source still film.mp4",
+    "wait_tool_error": "os10060; not counted as successful baseline playback"
+  },
+  "human_art_approval": false,
+  "human_listening_review": false
+}

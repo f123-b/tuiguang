@@ -1,0 +1,86 @@
+{
+  "version": "try_it_edit@3",
+  "frames": 528,
+  "fps": 24,
+  "duration_sec": 22,
+  "shots": [
+    {
+      "shot_id": "S01",
+      "frames": 64,
+      "source": ".data/short-drama-51/sync/S01-timed-v1.mp4",
+      "source_sha256": "9d6a2b28c987e7f6b2347d78ef158def76372ca64da416361ea0f695ace8f6a9",
+      "sr": ".data\\short-drama-53\\sr\\S01-sr-v3.mp4",
+      "sr_sha256": "7c698080c52825caa6f56f16c36ffad79461dd200050db4ee90ef15f1ebdf57a",
+      "spatial_crop": null
+    },
+    {
+      "shot_id": "S02",
+      "frames": 112,
+      "source": ".data/short-drama-53/sync/S02-detail-v4.mp4",
+      "source_sha256": "314bd4daa35ccc0cef76be1d6dd44f043e774b702f181c0351df92e862b4b040",
+      "sr": ".data\\short-drama-53\\sr\\S02-sr-v4.mp4",
+      "sr_sha256": "347228c1107f2c7e0cf6e568b8fa2d4fdf02d4970e40036d6f5c5b35fa1c09ce",
+      "spatial_crop": null
+    },
+    {
+      "shot_id": "S03",
+      "frames": 96,
+      "source": ".data/short-drama-53/takes/s03-hands-v3.webm",
+      "source_sha256": "c6aa48f4812f812105dba3375db786af28592e5e75fa83f127cd8693acf9b1a2",
+      "sr": ".data\\short-drama-53\\sr\\S03-sr-v3.mp4",
+      "sr_sha256": "997738cf27fb7ec28a792c0acaeceb90fc3f06da20dddfd59fb5e034fb74c569",
+      "spatial_crop": null
+    },
+    {
+      "shot_id": "S04",
+      "frames": 116,
+      "source": ".data/short-drama-53/sync/S04-detail-v4.mp4",
+      "source_sha256": "d411e3dd81a73eddd826f2abe61782596f2790ca4928da1a8eb4d4b4bb4f3854",
+      "sr": ".data\\short-drama-53\\sr\\S04-sr-v4.mp4",
+      "sr_sha256": "db08b21d4f0ceaa332a733f93c8fb0e2f4f4413a5150250d405a75158572930a",
+      "spatial_crop": null
+    },
+    {
+      "shot_id": "S06",
+      "frames": 34,
+      "source": ".data/short-drama-53/sync/S06-detail-v4.mp4",
+      "source_sha256": "bafd3b7f24ea08147764d83553d0080a89cd77df5b007d36c27d387e659a5c37",
+      "sr": ".data\\short-drama-53\\sr\\S06-sr-v4.mp4",
+      "sr_sha256": "24d3d3f28b7303e8f9e1892d36620721e43e5e09d543ffa356540a6aa28d899c",
+      "spatial_crop": null
+    },
+    {
+      "shot_id": "S07",
+      "source": "examples/short-drama/dont-say-we/assets/youzhao-project-note-v8.mp4",
+      "source_sha256": "e31133b378008820c388d7d68e5d2f59e6035090dcac833ca07a6ef4f10c7d11",
+      "frames": 58,
+      "ai_sr": false,
+      "real_ui": true,
+      "notice": "真实界面虚构数据，UI文字不经神经重绘；原录屏裁切832×468，非原生2K文字"
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".data\\short-drama-53\\你来试试-v3-1080p.mp4",
+      "bytes": 22173251,
+      "sha256": "58749a69e59e106f0295eae83940e01e925d3c5f53bca5c2e9ed20d5318aab93"
+    },
+    {
+      "path": ".data\\short-drama-53\\你来试试-v3-2K超分.mp4",
+      "bytes": 48844023,
+      "sha256": "1ec77b7295d47371abdb9a34fb79150f13aca2e453289ce21c044c2a1344064c"
+    },
+    {
+      "path": ".data\\short-drama-53\\你来试试-v3-原片对照.mp4",
+      "bytes": 37914332,
+      "sha256": "9b773d6c631883a6d3ea68e6f5da1f77f609e6a5ce0fd29645d72e9648b7fe16"
+    }
+  ],
+  "human_art_approval": false,
+  "deployed": false,
+  "motion_interpolation": false,
+  "boundary_hold_max_sec": 0.08,
+  "edit_sha256": "5d86775feb83309c233908afbcebae4ef654b000dcd3534fdb8128098982f1e2",
+  "user_art_review": "rejected",
+  "rejection_reason": "用户指出嘴型、动作、音色错乱；技术检查不代表同步表演通过"
+}

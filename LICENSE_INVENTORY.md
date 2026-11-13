@@ -62,3 +62,13 @@ PoC 的素材为本软件真实界面截图；画面中的品牌、内容、登�
 - zenstory-ai/drama-skills固定3d813c30871b4db5f2387d83bdc3a49db8ce7b2b，仅short-drama-review，MIT通知在vendor/skills/zenstory/LICENSE。
 - 128份分发文件哈希冻结在registry.json，禁止运行请求提供的任意脚本。运行时仅固定novel-script离线校验；其余固定参考片段，不启用生图云API或自定义命令。Windows1559项原生自测通过。
 - 上述代码/文档许可不认证原作改编、肖像、音色、参考素材或成片商业权利；仍须逐项核实。[安装、来源和边界](docs/implementation/DRAMA_SKILLS_GUIDE.md)。
+# 2026-11-13 · #53 独立超分制作补充
+
+RealESRGAN_x2plus来自[xinntao/Real-ESRGAN官方v0.2.1模型资产](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth)，67061725字节/SHA49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb。官方代码BSD-3-Clause完整通知保留在examples/short-drama/try-it/v3/notices；使用已有spandrel0.4.2和torch2.9.1+cu128，没有新增正式依赖或分发权重。新增七张内置ImageGen虚构人物/场景/首帧，模型revision/实际费用未知。库存声音、Muse模型及UI授权沿用#51来源，完整商业发行权、隔离环境漏洞审计和艺术确认仍未完成。正式inventory@3未变；见[实际范围](docs/implementation/DRAMA_MASTERING_VALIDATION.md)。
+
+## 2026-11-13 · #53续 独立音频驱动制作
+
+- [官方原生S2V流程](https://docs.comfy.org/tutorials/video/wan/wan2-2-s2v)，[固定模型仓库卡](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged)标注Apache-2.0；revision ee6f4a40737a995bf5818954cfce6d59443b0f04，S2V14B/wav2vec2/wanVAE实际文件SHA见v4/s2v-models.json。Comfy GPL-3.0源码和权重均不进Git/制作包。
+- Qwen固定revision及库存Dylan/Serena连续声音母带，非真人录音克隆；不能从模型顶层许可推定音色/训练数据/输出的全部商业权利。v4不使用MuseTalk或换脸。
+- 隔离CPU诊断mediapipe0.10.31，[SDK源码Apache-2.0许可](https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE)；官方FaceLandmarker float16 v1模型SHA64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff，仅作嘴部开合测量，不授予艺术审核通过。模型未分发。
+- 没有新增正式应用依赖；本机额外模型约17.28GB与CPU环境。RealESRGAN/FFmpeg/字体/AI图像沿用上述来源，完整商业发行许可、环境漏洞审计仍未确认。正式inventory@3不变，独立audio_drama@1；见[实际范围](docs/implementation/AUDIO_DRIVEN_DRAMA_VALIDATION.md)。

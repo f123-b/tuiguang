@@ -1,0 +1,14 @@
+{
+  "version":"audio_drama_edit@4","fps":24,"canvas":[1920,1080],"human_art_approval":false,
+  "segments":[
+    {"id":"S01","frames":56,"source":".data/short-drama-53/v4/takes/S01-audio-driven-v1.webm","in_sec":0,"source_fps":16,"source_crop":[832,448,0,0],"picture_take":"S01-picture-v4-r2","sr_take":"S01-x2-v4-r2","crop_reason":"原片下缘出现参考图没有的腕表；裁去底部32px，保留整张脸和原生横向采样，不是嘴部遮盖","audio":".data/short-drama-53/v4/voices/S01-audio-short-v4.wav","audio_in_sec":0,"cues":[[0.18,1.68,"算了，你来。"]]},
+    {"id":"S02","frames":114,"source":".data/short-drama-53/v4/takes/LIN-part1-audio-driven-v2.webm","in_sec":0,"source_fps":16,"audio":".data/short-drama-53/v4/voices/LIN-audio-v4.wav","audio_in_sec":0,"cues":[[0.2,1.2,"等一下。"],[1.65,4.55,"不是你不会用，是我藏得太深了。"]]},
+    {"id":"S03","frames":75,"source":".data/short-drama-53/takes/s03-hands-v3.webm","in_sec":0,"source_fps":24,"audio":".data/short-drama-53/v4/voices/LIN-audio-v4.wav","audio_in_sec":4.75,"cues":[[0.4,1.82,"欢迎页，先拿掉。"],[2.15,2.99,"再试试。"]]},
+    {"id":"S04","frames":68,"source":".data/short-drama-53/v4/takes/S04-audio-driven-v1.webm","in_sec":0,"source_fps":16,"audio":".data/short-drama-53/v4/voices/S04-audio-v4.wav","audio_in_sec":0,"cues":[[0.28,2.75,"找到了。你早放这儿不就好了。"]]},
+    {"id":"S06","frames":29,"source":".data/short-drama-53/v4/takes/LIN-part2-audio-driven-v2.webm","in_sec":3.125,"source_fps":16,"audio":".data/short-drama-53/v4/voices/LIN-audio-v4.wav","audio_in_sec":7.875,"cues":[[0.24,1.08,"对哦。"]]},
+    {"id":"S07","frames":54,"source":"examples/short-drama/dont-say-we/assets/youzhao-project-note-v8.mp4","in_sec":17.9,"real_ui":true,"crop":[832,468,1712,200],"cues":[]},
+    {"id":"END","frames":42,"cues":[]}
+  ],
+  "timing_policy":"NativeS2V16fps with exact frozen input audio; interpolation24fps only within each shot, no speech retiming. Boundary padding at most one output frame. Final subtitles/UI after neuralSR. Whole female audio master remains continuous across S02/S03; S06 selects corresponding same audio and generated interval.",
+  "scope":"Independent local film. Not a deployed app feature, user approval pending."
+}

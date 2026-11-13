@@ -1,0 +1,71 @@
+{
+  "status": "technical_checks_passed",
+  "edit_sha256": "9a7f9e8dce5115e2083fcc345fc6a1737aecfcf5769258065c24675d02ca25ef",
+  "mix_sha256": "8e17f8bcfe03a8bfef6176a6100a292953e083bae53acd6375fd0756d6a2422e",
+  "outputs": [
+    {
+      "file": "你来试试-v4-超分成片.mp4",
+      "frames": 438,
+      "duration_sec": 18.25,
+      "decode": "pass",
+      "sha256": "3a26687322ce3f261a676790e4a23d2ae4a518376a9faab21436839c85996ae1"
+    },
+    {
+      "file": "你来试试-v4-超分前对照.mp4",
+      "frames": 438,
+      "duration_sec": 18.25,
+      "decode": "pass",
+      "sha256": "135f407234430e18d3123b7ae8add8b5bb0caae2539185ba4b63b26e58ced837"
+    }
+  ],
+  "performances": [
+    {
+      "name": "S01-audio-driven-v1",
+      "prompt_id": "d39f78ee-1e42-4608-98ac-70a7031d4686",
+      "native_frames": 37,
+      "elapsed_sec": 901.4895923137665,
+      "audio_sha256": "16ed359874f0fa4eef95984deeb9617ce754cce3cb521a117e2cca86e03377e0"
+    },
+    {
+      "name": "S04-audio-driven-v1",
+      "prompt_id": "16c26cd0-b282-4040-98da-d08fb016af4d",
+      "native_frames": 77,
+      "elapsed_sec": 2223.158791065216,
+      "audio_sha256": "7b1c8b398e4565fde9234ebba15bf62adbe66cede1dd42e8f4eed33d65a337c5"
+    },
+    {
+      "name": "LIN-part1-audio-driven-v2",
+      "prompt_id": "329823f4-e3a0-4004-ba00-cbe303a5c774",
+      "native_frames": 77,
+      "elapsed_sec": 2253.497484922409,
+      "audio_sha256": "e3d64766b27ac510ae6236f0ebe5fecab5aa0c75c05fb7e6d3bc175b1ae893f4"
+    },
+    {
+      "name": "LIN-part2-audio-driven-v2",
+      "prompt_id": "73a59e7a-1733-4f7c-b80a-791386b898fa",
+      "native_frames": 69,
+      "elapsed_sec": 1943.0178034305573,
+      "audio_sha256": "31608c65e4816ca1c5319d8a6035fa90d4c9e66eae7df8628e3639b5c05bf8ba"
+    }
+  ],
+  "female_master_mapping": [
+    {
+      "file": "LIN1-audio-v4.wav",
+      "whole_source_start_sec": 0,
+      "samples_equal": true
+    },
+    {
+      "file": "LIN2-audio-v4.wav",
+      "whole_source_start_sec": 4.75,
+      "samples_equal": true
+    }
+  ],
+  "mix_correlation_lag_samples": 0,
+  "mix_correlation_lag_ms": 0.0,
+  "cue_count": 7,
+  "neural_frames": 342,
+  "human_art_approval": false,
+  "user_rejected_previous_version": "v3",
+  "limitations": "Metrics do not certify phoneme accuracy, acting or voice preference. Generated native832×480/16fps, not native1080p.",
+  "production_deployed": false
+}

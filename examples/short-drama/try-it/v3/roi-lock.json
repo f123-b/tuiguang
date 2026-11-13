@@ -1,0 +1,59 @@
+[
+  {
+    "shot_id": "S04",
+    "source_sha256": "aaa7c8da5382bfeb257d4155480618c0aaff7a1bb852b322a7411c5eb305076c",
+    "detector": "OpenCV 4.10 Haar frontalface_default; first frame; scaleFactor1.1/minNeighbors5/minSize120",
+    "detected_xywh": [
+      521,
+      171,
+      264,
+      264
+    ],
+    "crop_xyxy": [
+      521,
+      171,
+      785,
+      471
+    ],
+    "bottom_extension_px": 36,
+    "selection": "manual lower-face coverage after detector; not automatic artistic approval"
+  },
+  {
+    "shot_id": "S02",
+    "source_sha256": "ec82b7bc5e5dc4a3bd7b807579af4aee875204a27ed09fb89fc12940483aa0e9",
+    "detector": "OpenCV 4.10 Haar frontalface_default; first frame; scaleFactor1.1/minNeighbors5/minSize120",
+    "detected_xywh": [
+      570,
+      107,
+      284,
+      284
+    ],
+    "crop_xyxy": [
+      570,
+      107,
+      854,
+      427
+    ],
+    "bottom_extension_px": 36,
+    "selection": "manual lower-face coverage after detector; not automatic artistic approval"
+  },
+  {
+    "shot_id": "S06",
+    "source_sha256": "21f34fb7de79a2a191679da6fa731187f314f18172d1830794610df6ec78a890",
+    "detector": "OpenCV 4.10 Haar frontalface_default; first frame; scaleFactor1.1/minNeighbors5/minSize120",
+    "detected_xywh": [
+      581,
+      111,
+      286,
+      286
+    ],
+    "crop_xyxy": [
+      581,
+      111,
+      867,
+      437
+    ],
+    "bottom_extension_px": 40,
+    "selection": "manual lower-face coverage after detector; not automatic artistic approval"
+  }
+]
