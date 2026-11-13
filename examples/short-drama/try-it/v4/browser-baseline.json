@@ -1,0 +1,18 @@
+{
+  "source": "http://127.0.0.1:8792/baseline.mp4",
+  "events": {
+    "waiting": 0,
+    "stalled": 0,
+    "error": 0
+  },
+  "started": 480089.40000000224,
+  "ended": true,
+  "currentTime": 18.25,
+  "duration": 18.25,
+  "width": 1920,
+  "height": 1080,
+  "total_frames": 438,
+  "dropped_frames": 8,
+  "elapsed_sec": 18.781,
+  "human_listening_review": false
+}

@@ -1,0 +1,10 @@
+{
+  "path": ".data/short-drama-53/v4/你来试试-v4-制作包.zip",
+  "bytes": 120391220,
+  "sha256": "4a3128995574332d172e7bda90b427ff2220456eeead608eb232e8fa7076c9ae",
+  "files": 143,
+  "crc_check": "passed",
+  "credential_pattern_scan": "passed",
+  "model_weights_included": false,
+  "human_art_approval": false
+}

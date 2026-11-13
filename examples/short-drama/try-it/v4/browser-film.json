@@ -1,0 +1,17 @@
+{
+  "source": "http://127.0.0.1:8792/film.mp4",
+  "width": 1920,
+  "height": 1080,
+  "duration": 18.25,
+  "currentTime": 18.25,
+  "ended": true,
+  "muted": false,
+  "total_frames": 438,
+  "dropped_frames": 4,
+  "events": {
+    "waiting": 0,
+    "stalled": 0,
+    "error": 0
+  },
+  "human_listening_review": false
+}

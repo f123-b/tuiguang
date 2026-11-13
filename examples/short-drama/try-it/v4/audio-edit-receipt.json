@@ -1,0 +1,94 @@
+{
+  "frames": 438,
+  "duration_sec": 18.25,
+  "sources": [
+    {
+      "shot_id": "S01",
+      "path": ".data/short-drama-53/v4/voices/S01-audio-short-v4.wav",
+      "sha256": "16ed359874f0fa4eef95984deeb9617ce754cce3cb521a117e2cca86e03377e0",
+      "source_in_sec": 0,
+      "timeline_start_sec": 0.0,
+      "no_independent_tempo_or_offset_change": true
+    },
+    {
+      "shot_id": "S02",
+      "path": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+      "sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+      "source_in_sec": 0,
+      "timeline_start_sec": 2.3333333333333335,
+      "no_independent_tempo_or_offset_change": true
+    },
+    {
+      "shot_id": "S03",
+      "path": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+      "sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+      "source_in_sec": 4.75,
+      "timeline_start_sec": 7.083333333333333,
+      "no_independent_tempo_or_offset_change": true
+    },
+    {
+      "shot_id": "S04",
+      "path": ".data/short-drama-53/v4/voices/S04-audio-v4.wav",
+      "sha256": "7b1c8b398e4565fde9234ebba15bf62adbe66cede1dd42e8f4eed33d65a337c5",
+      "source_in_sec": 0,
+      "timeline_start_sec": 10.208333333333334,
+      "no_independent_tempo_or_offset_change": true
+    },
+    {
+      "shot_id": "S06",
+      "path": ".data/short-drama-53/v4/voices/LIN-audio-v4.wav",
+      "sha256": "92f1fabeed1dd9d8fa29253726c1558b8d5d9aec226a14b413263011cc3a2b7b",
+      "source_in_sec": 7.875,
+      "timeline_start_sec": 13.041666666666666,
+      "no_independent_tempo_or_offset_change": true
+    }
+  ],
+  "cues": [
+    {
+      "shot_id": "S01",
+      "text": "算了，你来。",
+      "start": 0.18,
+      "end": 1.68
+    },
+    {
+      "shot_id": "S02",
+      "text": "等一下。",
+      "start": 2.5333333333333337,
+      "end": 3.533333333333333
+    },
+    {
+      "shot_id": "S02",
+      "text": "不是你不会用，是我藏得太深了。",
+      "start": 3.9833333333333334,
+      "end": 6.883333333333333
+    },
+    {
+      "shot_id": "S03",
+      "text": "欢迎页，先拿掉。",
+      "start": 7.483333333333333,
+      "end": 8.903333333333332
+    },
+    {
+      "shot_id": "S03",
+      "text": "再试试。",
+      "start": 9.233333333333333,
+      "end": 10.073333333333334
+    },
+    {
+      "shot_id": "S04",
+      "text": "找到了。你早放这儿不就好了。",
+      "start": 10.488333333333333,
+      "end": 12.958333333333334
+    },
+    {
+      "shot_id": "S06",
+      "text": "对哦。",
+      "start": 13.281666666666666,
+      "end": 14.121666666666666
+    }
+  ],
+  "mix_sha256": "8e17f8bcfe03a8bfef6176a6100a292953e083bae53acd6375fd0756d6a2422e",
+  "voice_master_count": 2,
+  "speaker_changes_within_role": false,
+  "human_listening_review": false
+}

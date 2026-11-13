@@ -1,0 +1,17 @@
+{
+  "currentTime": 22,
+  "deltaDropped": 10,
+  "deltaFrames": 528,
+  "duration": 22,
+  "elapsed_sec": 25.303300000000743,
+  "ended": true,
+  "events": {
+    "error": 0,
+    "stalled": 0,
+    "waiting": 1
+  },
+  "height": 1440,
+  "muted": false,
+  "src": "http://127.0.0.1:8791/sr.mp4",
+  "width": 2560
+}

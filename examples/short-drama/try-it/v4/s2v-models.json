@@ -1,0 +1,30 @@
+{
+  "revision": "ee6f4a40737a995bf5818954cfce6d59443b0f04",
+  "model_card_license": "apache-2.0",
+  "files": [
+    {
+      "file": "split_files/audio_encoders/wav2vec2_large_english_fp16.safetensors",
+      "path": ".data/wan22-models/audio_encoders/wav2vec2_large_english_fp16.safetensors",
+      "sha256": "f0017a43ea57ef6b3d4866be607844bbd8cada6d30966f7d70044ed0d63d3f9e",
+      "bytes": 630997322,
+      "elapsed_sec": 280.75,
+      "status": "verified"
+    },
+    {
+      "file": "split_files/diffusion_models/wan2.2_s2v_14B_fp8_scaled.safetensors",
+      "path": ".data/wan22-models/diffusion_models/wan2.2_s2v_14B_fp8_scaled.safetensors",
+      "sha256": "140e75af5534ac3d91e710d9df756f7032addd64b341ba2c1c70e3e6da9aa216",
+      "bytes": 16394832474,
+      "elapsed_sec": 1878.9840000000004,
+      "status": "verified"
+    },
+    {
+      "file": "split_files/vae/wan_2.1_vae.safetensors",
+      "path": ".data/wan22-models/vae/wan_2.1_vae.safetensors",
+      "sha256": "2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b",
+      "bytes": 253815318,
+      "elapsed_sec": 108.875,
+      "status": "verified"
+    }
+  ]
+}

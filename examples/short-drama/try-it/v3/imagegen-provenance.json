@@ -1,0 +1,78 @@
+{
+  "version": "character_scene_frames@1",
+  "task": 53,
+  "fictional_actors": true,
+  "reference": "../assets/s01-two-shot-v1.png",
+  "entries": [
+    {
+      "asset": "assets/lin-three-view-v1.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "lin-three-view-v1-prompt.txt",
+      "full_prompt": "Use case: identity-preserve. Create one professional fictional character reference sheet for the same seated young adult East Asian woman on the RIGHT of the input photograph, for a contemporary live-action short drama. Three equal full-body orthographic photographic views on a single wide sheet: front, exact 90-degree right-facing profile, back. Same person repeated in all three panels; consistent face, straight chin-length black bob, charcoal knitted cardigan unbuttoned over plain white crewneck T-shirt, straight dark trousers and simple dark shoes. Hands relaxed by sides. Reference is identity and wardrobe only, remove desk, laptop, man and location. Neutral warm-grey seamless studio background, soft directional light, realistic skin pores, precise fabric knit, no beauty retouching, no CGI. All feet visible, consistent height in three panels. Tiny unobtrusive labels FRONT / SIDE / BACK at bottom. This is an actor turnaround production asset, not a storyboard or scene. Preserve facial identity of reference, do not invent accessories.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-adf4bd0a-f0bd-45e6-be0e-c04d44b52256.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    },
+    {
+      "asset": "assets/chen-three-view-v1.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "chen-three-view-v1-prompt.txt",
+      "full_prompt": "Use case: identity-preserve. Create one professional fictional character reference sheet for the same standing adult East Asian man on the LEFT of the input photograph, for a contemporary live-action short drama. Three equal full-body orthographic photographic views on a single wide sheet: front, exact 90-degree right-facing profile, back. Same person repeated in all three panels; consistent face, short tousled black hair, olive cotton overshirt with sleeves loosely rolled to forearms, plain sand-beige crewneck T-shirt, charcoal straight trousers and simple dark shoes. No glasses, no watch, hands relaxed and EMPTY. Reference is identity and wardrobe only, remove phone, woman and location. Neutral warm-grey seamless studio background, soft directional light, realistic skin pores and cotton texture, no beauty retouching, no CGI. All feet visible, consistent height in three panels. Tiny unobtrusive labels FRONT / SIDE / BACK at bottom. This is an actor turnaround production asset, not a scene. Preserve facial identity from reference.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-d65fb083-07b5-49ca-81b4-0d07869b5865.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    },
+    {
+      "asset": "assets/scene-empty-v1.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "scene-empty-v1-prompt.txt",
+      "full_prompt": "Use case: identity-preserve for environment continuity. Create a single wide 16:9 photographic empty set reference for the very same contemporary small design studio in the input photograph. Remove both people and the phone. Keep the black mullioned frosted window on LEFT, pale warm wall with the same small taped architectural sketches and two material photos, long wooden desk foreground, silver laptop on the RIGHT, rear wooden shelf with white storage boxes and a small potted plant. Warm late-afternoon soft daylight from left. Physically plausible ordinary studio, realistic wood and fabric details, crisp natural photograph, no CGI, no text overlay. Eye level, 35mm view, moderate depth of field, no added decor or extra props. Empty scene, absolutely no people, no portraits, no reflected figures.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-a6e0a498-ba44-4ce8-ae5d-a37af09fcd7f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    },
+    {
+      "asset": "assets/s02-close-v3.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "s02-close-v3-prompt.txt",
+      "full_prompt": "Use case: identity-preserve. A single clean 16:9 CINEMA FRAME, not a sheet. Input 1 is the same design studio and actors; input 2 is the female actor identity/wardrobe only, never reproduce its panels. Move camera close to the woman for a head-and-upper-torso shot. Her head occupies about 55 percent of picture height, centered slightly right, full hair visible. Same chin-length black bob, charcoal knit cardigan over white T-shirt. She is seated and looking slightly UP and screen LEFT at the eye of the standing man beyond frame; camera sees both eyes and frontal mouth clearly, near-frontal with only 10 degree left turn. Her RIGHT hand just lifted at lower left of frame, palm gently outward, a quiet 'wait' gesture, surprised recognition not fear. Man completely outside frame. Laptop outside frame at right. Background only the same pale studio wall and a softly out-of-focus rear shelf, no people or silhouettes or photos of people. Warm light from screen left, detailed natural skin and individual hair, neutral highlights, clean optical focus on eyes, f4 moderate background blur. Natural candid performance. No title, no montage, no extra persons, no phone in this shot.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-3e8f0159-c43f-4b8d-82c8-98cd556fcc2b.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    },
+    {
+      "asset": "assets/s03-hands-v3.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "s03-hands-v3-prompt.txt",
+      "full_prompt": "Use case: identity-preserve. One 16:9 cinema insert frame. Preserve the SAME woman's charcoal knitted sleeves, wooden desk, warm daylight and silver laptop from references. Camera is above and slightly behind her RIGHT shoulder, tightly framing both forearms, hands, trackpad and keyboard, with only a narrow edge of white T-shirt at extreme left. Right hand rests naturally on the trackpad, right index fingertip poised over it, left hand resting beside keyboard. Ordinary anatomically correct five-finger hands, crisp visible keyboard and fine knit texture, no jewelry. Laptop screen only an oblique blurred sliver at upper edge, no readable text or logos. No face, no head, no other people, no phone. Optical sharpness, no plastic skin, no CGI. This image is itself the full shot, not a crop of a wide scene.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-8c096162-173b-4765-9cc9-4d8ddcd6fe23.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    },
+    {
+      "asset": "assets/s04-close-v3.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "s04-close-v3-prompt.txt",
+      "full_prompt": "Use case: identity-preserve. One 16:9 cinema frame of the SAME man from input 1 and the male turnaround reference. Bring camera close: head and chest fill frame, head 50 percent of frame height centered slightly LEFT, with a single black smartphone upright in his RIGHT hand at chest height in lower middle. His LEFT index finger rests lightly near the phone. Same short tousled black hair, olive overshirt over sand beige T-shirt, no glasses. He looks down toward the phone; near-frontal face turned only 10 degrees toward screen RIGHT so both eyes and mouth visible. The phone screen faces him, back faces camera; same simple phone as reference, no readable logo. Same pale studio wall and black mullioned frosted window behind him on LEFT, window light from LEFT. Woman outside frame. Only one person. Natural candid photograph, fine hair and skin, crisp eyes and fabric texture, moderate depth of field f4, no text, no panels.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-353a8744-b99e-49dd-8aa0-bde3536a7909.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    },
+    {
+      "asset": "assets/s06-close-v3.png",
+      "mode": "built-in imagegen",
+      "prompt_file": "s06-close-v3-prompt.txt",
+      "full_prompt": "Use case: identity-preserve. One 16:9 cinema frame, same woman and SAME camera position/framing/light/background as input female close-up. Use the actor reference for identity. Head and upper torso, full hair visible, face slightly right of center. SAME chin-length black bob and charcoal knitted cardigan over white T-shirt. Change her pose to listening quietly: her right hand has been lowered completely out of frame, both shoulders relaxed. She looks gently UP toward screen LEFT, mouth closed and neutral, eyes attentive, BEFORE a small amused smile. Her face is almost frontal, both eyes clearly visible. Same pale wall, softly blurred wooden shelf and small plant, warm light from LEFT. Realistic skin and hair, no beauty retouching, moderate depth of field. One woman only, no other people or silhouettes, no phone, no laptop, no text or montage.",
+      "output_hint": "Generated images are saved to C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090 as C:\\Users\\lenovo\\.codex\\generated_images\\01a1ab6a-8491-7e03-85b3-3d718646c090\\exec-2b25a988-e167-42f2-bf40-890d4774f6f7.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "model_revision": null,
+      "actual_charge": null,
+      "human_art_approval": false
+    }
+  ]
+}

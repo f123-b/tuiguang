@@ -1,0 +1,14 @@
+{
+  "version":"try_it_edit@3","status":"preproduction_ready_pending_motion_inspection","fps":24,"canvas":[2560,1440],
+  "segments":[
+    {"id":"S01","frames":64,"source":".data/short-drama-51/sync/S01-timed-v1.mp4","speech":[["01-give-up",0.6]],"sync_bbox":null},
+    {"id":"S02","frames":112,"source":".data/short-drama-53/sync/S02-detail-v4.mp4","sr_take":"S02-sr-v4","native":".data/short-drama-53/takes/s02-close-v3.webm","speech":[["02-wait",0.15],["03-fault",1.5]],"sync_bbox":[570,107,854,427]},
+    {"id":"S03","frames":96,"source":".data/short-drama-53/takes/s03-hands-v3.webm","speech":[["04a-change",0.0],["04-again",2.5]],"sync_bbox":null},
+    {"id":"S04","frames":116,"source":".data/short-drama-53/sync/S04-detail-v4.mp4","sr_take":"S04-sr-v4","native":".data/short-drama-53/takes/s04-close-v3.webm","speech":[["05-found",2.1]],"sync_bbox":[521,171,785,471]},
+    {"id":"S06","frames":34,"source":".data/short-drama-53/sync/S06-detail-v4.mp4","sr_take":"S06-sr-v4","native":".data/short-drama-53/takes/s06-close-v3.webm","native_in_sec":1.3,"speech":[["06-answer-v2",0.25]],"sync_bbox":[581,111,867,437]},
+    {"id":"S07","frames":58,"source":"examples/short-drama/dont-say-we/assets/youzhao-project-note-v8.mp4","in_sec":17.9,"crop":[832,468,1712,200],"speech":[],"sync_bbox":null,"real_ui":true},
+    {"id":"END","frames":48,"speech":[],"sync_bbox":null}
+  ],
+  "policy":"No spatial crop on AI footage. No motion interpolation. No AI super-resolution on product text, subtitles or title. 1280×704 native body motion→neural x2→2560×1408 picture plus 16px top/bottom mattes.",
+  "human_art_approval":false
+}

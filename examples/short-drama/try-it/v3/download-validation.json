@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "attachments": [
+    {
+      "route": "film.mp4",
+      "status": 200,
+      "sha256": "58749a69e59e106f0295eae83940e01e925d3c5f53bca5c2e9ed20d5318aab93",
+      "attachment": true
+    },
+    {
+      "route": "sr.mp4",
+      "status": 200,
+      "sha256": "1ec77b7295d47371abdb9a34fb79150f13aca2e453289ce21c044c2a1344064c",
+      "attachment": true
+    },
+    {
+      "route": "native.mp4",
+      "status": 200,
+      "sha256": "9b773d6c631883a6d3ea68e6f5da1f77f609e6a5ce0fd29645d72e9648b7fe16",
+      "attachment": true
+    },
+    {
+      "route": "subtitles.srt",
+      "status": 200,
+      "sha256": "bc789de3527c949976d9c2d1d9adc7e6f9861df59fc9d88b7e9dcaff16de7597",
+      "attachment": true
+    },
+    {
+      "route": "production.zip",
+      "status": 200,
+      "sha256": "25e9295177925eadc5d1b5c2035eb81b8d2d94a82de29b21017b8e851176567a",
+      "attachment": true
+    }
+  ],
+  "range": 206,
+  "invalid_range": 416,
+  "post": 405,
+  "env_route": 404,
+  "reference_routes": 7,
+  "browser_save_dialog": "not automated"
+}

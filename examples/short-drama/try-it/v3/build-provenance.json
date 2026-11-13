@@ -1,0 +1,348 @@
+{
+  "full_receipts_in_production_zip": true,
+  "records": [
+    {
+      "path": ".data/short-drama-53/takes/s02-close-v3-receipt.json",
+      "receipt_file_sha256": "e24cea640b9eae8d160fa3b3d8bd665ac1fed829b6078d885f21dcc5efd204d7",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S02",
+        "trace_id": "a1f56e6ed562455dbb221021dcf34079",
+        "job_id": "a0cd0e3216dc451e9499ea986db23541",
+        "prompt_id": "31a662e5-2dc8-48c0-9d71-fd85f59086d0",
+        "source": "examples\\short-drama\\try-it\\v3\\assets\\s02-close-v3.png",
+        "source_sha256": "f5c8c692afb9d76b69b2e17d21d2103344357190122768421d77e551a9eec71a",
+        "sha256": "ec82b7bc5e5dc4a3bd7b807579af4aee875204a27ed09fb89fc12940483aa0e9",
+        "elapsed_sec": 951.4702472686768,
+        "workflow_version": "action_drama_fp8_tiled@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/takes/s03-hands-v3-receipt.json",
+      "receipt_file_sha256": "c788533ebd0df5e679b466663a12c4bb1324b6f16a78acf3777e156859969680",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S03",
+        "trace_id": "bcca1bead4ca44c7a6395ee6cc553920",
+        "job_id": "3478aeb911e34f58a286643f14872d9e",
+        "prompt_id": "e8203403-1b74-4544-80ca-0dea4810477b",
+        "source": "examples\\short-drama\\try-it\\v3\\assets\\s03-hands-v3.png",
+        "source_sha256": "455b28245eb1c14e2b3ecfad7ee91f8930973a4f21bf00755479d94093bd74d6",
+        "sha256": "c6aa48f4812f812105dba3375db786af28592e5e75fa83f127cd8693acf9b1a2",
+        "elapsed_sec": 711.1625900268555,
+        "workflow_version": "action_drama_fp8_tiled@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/takes/s04-close-v3-receipt.json",
+      "receipt_file_sha256": "169c01d2c2e919d0c7c5f9fab6187233e0ec0842812f7f3d9683854805a0a735",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S04",
+        "trace_id": "ac65276e8a8548938fb1365f0e781d5a",
+        "job_id": "e0a002535fd84024aa7174e293eea43e",
+        "prompt_id": "a4502752-5774-48d0-8ae2-19e93845b4f6",
+        "source": "examples\\short-drama\\try-it\\v3\\assets\\s04-close-v3.png",
+        "source_sha256": "f2ec7335ae4976b02c48594d6c338a408a909c536ae8720f7885cd73047ee3f6",
+        "sha256": "aaa7c8da5382bfeb257d4155480618c0aaff7a1bb852b322a7411c5eb305076c",
+        "elapsed_sec": 991.6174304485321,
+        "workflow_version": "action_drama_fp8_tiled@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/takes/s06-close-v3-receipt.json",
+      "receipt_file_sha256": "eb278129445dbc8aade0c24279facad76ce4919fce61bb1a2a852935687b846e",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S06",
+        "trace_id": "6eb347fa8c8347fba905cefc958f08df",
+        "job_id": "ddddf5c368464d519f20f4feba333439",
+        "prompt_id": "f4d237ba-2a9c-41d3-b9c5-fcbb803a7645",
+        "source": "examples\\short-drama\\try-it\\v3\\assets\\s06-close-v3.png",
+        "source_sha256": "65447efd4fbe7cb76f69ffdd649269a551ceb5b1582255c46f8c1d3cb11b524b",
+        "sha256": "21f34fb7de79a2a191679da6fa731187f314f18172d1830794610df6ec78a890",
+        "elapsed_sec": 520.9560060501099,
+        "workflow_version": "action_drama_fp8_tiled@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S02-detail-v3.json",
+      "receipt_file_sha256": "d9a00e9db2144996837c1549fb170295352699be9fcdc1f01776fd2de07ecb98",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s02-close-v3.webm",
+        "source_sha256": "ec82b7bc5e5dc4a3bd7b807579af4aee875204a27ed09fb89fc12940483aa0e9",
+        "sha256": "c9aca7e0ea3a67a63285f88c6ff18b8f5b4b0698342606de4e7fa6ac16337fbe",
+        "frames": 116,
+        "workflow": "native_detail_mouth_blend@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S02-detail-v4.json",
+      "receipt_file_sha256": "2160ebe954112eddda12d4baab4f597d1022160d5f17e6018c26e7b06d6c709e",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s02-close-v3.webm",
+        "source_sha256": "ec82b7bc5e5dc4a3bd7b807579af4aee875204a27ed09fb89fc12940483aa0e9",
+        "sha256": "314bd4daa35ccc0cef76be1d6dd44f043e774b702f181c0351df92e862b4b040",
+        "frames": 116,
+        "workflow": "native_detail_mouth_blend@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S02-lips-v3.json",
+      "receipt_file_sha256": "4c05084221656ff3cd5a9df8a575a63c82ac5185daaa30319a18b9c49dbd295a",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s02-close-v3.webm",
+        "source_sha256": "ec82b7bc5e5dc4a3bd7b807579af4aee875204a27ed09fb89fc12940483aa0e9",
+        "sha256": "c7bfb4a88e2ecbcaa525ccfeb28cb04f30d73585f58798e6aa2ab7726051b0b0",
+        "frames": 116,
+        "elapsed_sec": 30.14,
+        "workflow_version": "offline_musetalk_trial@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S02-lips-v4.json",
+      "receipt_file_sha256": "ddd3debb7f6aa36a3c906e09f2711366ad7be3e1430ba4b9e3ab85aa3a7fbc78",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s02-close-v3.webm",
+        "source_sha256": "ec82b7bc5e5dc4a3bd7b807579af4aee875204a27ed09fb89fc12940483aa0e9",
+        "sha256": "62604901581deb519f25fd1b629a2883eaa398aa14a7e13b5d3f31e4d5eebf4f",
+        "frames": 116,
+        "elapsed_sec": 24.66,
+        "workflow_version": "offline_musetalk_trial@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S04-detail-v3.json",
+      "receipt_file_sha256": "297045e07a314ce1dc8adaeb338bff160a2e3c05d1f90fbc2ec2336461f0cebd",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s04-close-v3.webm",
+        "source_sha256": "aaa7c8da5382bfeb257d4155480618c0aaff7a1bb852b322a7411c5eb305076c",
+        "sha256": "953d1143b0766f9e0a1bf332ef9f9e428abc191d2f75bf012ff7571f7e61a8f8",
+        "frames": 120,
+        "workflow": "native_detail_mouth_blend@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S04-detail-v4.json",
+      "receipt_file_sha256": "19c7315fc10347ba6a615eeae034edee4a14b1f94b535046d90a43d9365a0699",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s04-close-v3.webm",
+        "source_sha256": "aaa7c8da5382bfeb257d4155480618c0aaff7a1bb852b322a7411c5eb305076c",
+        "sha256": "d411e3dd81a73eddd826f2abe61782596f2790ca4928da1a8eb4d4b4bb4f3854",
+        "frames": 120,
+        "workflow": "native_detail_mouth_blend@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S04-lips-v3.json",
+      "receipt_file_sha256": "21421200b0fa23cb4970420c6a47b06449d67be85121e0c1f8915b9f1d3aa3cc",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s04-close-v3.webm",
+        "source_sha256": "aaa7c8da5382bfeb257d4155480618c0aaff7a1bb852b322a7411c5eb305076c",
+        "sha256": "a7217a49c7e66b7a546787621a748289b2f7ac048a216ff3a58fa1c52c9dd0ef",
+        "frames": 120,
+        "elapsed_sec": 27.09,
+        "workflow_version": "offline_musetalk_trial@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S04-lips-v4.json",
+      "receipt_file_sha256": "f720f2df54814c649c2b142e7a200ecc3568e7a1103c17e943b37a6a0e128660",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s04-close-v3.webm",
+        "source_sha256": "aaa7c8da5382bfeb257d4155480618c0aaff7a1bb852b322a7411c5eb305076c",
+        "sha256": "7bf934eca8ddf822c140e21361d33e8ab821befe78c04f533f99efe0f2329c85",
+        "frames": 120,
+        "elapsed_sec": 25.5,
+        "workflow_version": "offline_musetalk_trial@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S06-detail-v3.json",
+      "receipt_file_sha256": "042e61758ce23a327e954cca985ab67c4cdbb3a1f2bd18528c22edfb0f53a79c",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s06-close-v3.webm",
+        "source_sha256": "21f34fb7de79a2a191679da6fa731187f314f18172d1830794610df6ec78a890",
+        "sha256": "5e55322c8db5aef6bfee5d1cb8ca8f6941995ddd0b3eddb7fa19e883689c154e",
+        "frames": 35,
+        "workflow": "native_detail_mouth_blend@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S06-detail-v4.json",
+      "receipt_file_sha256": "d1329a8140fd278ad72a302838576f0fc19fb3724f61d3285d19a10e85759da9",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s06-close-v3.webm",
+        "source_sha256": "21f34fb7de79a2a191679da6fa731187f314f18172d1830794610df6ec78a890",
+        "sha256": "bafd3b7f24ea08147764d83553d0080a89cd77df5b007d36c27d387e659a5c37",
+        "frames": 35,
+        "workflow": "native_detail_mouth_blend@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S06-lips-v3.json",
+      "receipt_file_sha256": "ad078318578c0962a53a253535bc818789d39b846fe2a538112c92eb42e5ef72",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s06-close-v3.webm",
+        "source_sha256": "21f34fb7de79a2a191679da6fa731187f314f18172d1830794610df6ec78a890",
+        "sha256": "37e2e1a37a2e532d96aa55e2043cdd8133190a0fb53de0760d77c8260992aaeb",
+        "frames": 35,
+        "elapsed_sec": 13.67,
+        "workflow_version": "offline_musetalk_trial@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sync/S06-lips-v4.json",
+      "receipt_file_sha256": "469b4b195c82fa7f900048089c605f0045c7f151fb46bde2b62e6a4b7d663355",
+      "summary": {
+        "status": "complete",
+        "source": ".data\\short-drama-53\\takes\\s06-close-v3.webm",
+        "source_sha256": "21f34fb7de79a2a191679da6fa731187f314f18172d1830794610df6ec78a890",
+        "sha256": "0bf36e858a3bfc8ead48b234f9b85e983645dab83b52bbd00e81c5f46cfb03e5",
+        "frames": 35,
+        "elapsed_sec": 12.27,
+        "workflow_version": "offline_musetalk_trial@1"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S01-sr-v3.json",
+      "receipt_file_sha256": "30f42993f8886489d065514dace2f11982c284a54dc04ea93b5c6f6b59c7c760",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S01",
+        "trace_id": "168769872a3a436b8e51c48423cb6af7",
+        "input_sha256": "9d6a2b28c987e7f6b2347d78ef158def76372ca64da416361ea0f695ace8f6a9",
+        "sha256": "7c698080c52825caa6f56f16c36ffad79461dd200050db4ee90ef15f1ebdf57a",
+        "frames": 64,
+        "elapsed_sec": 80.14,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S02-sr-v3.json",
+      "receipt_file_sha256": "4d4732365d37a78d1f7a3f91f720002ec73f3f08b6c1aba319c983cc5e51490f",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S02",
+        "trace_id": "dfe255117ce341918ee5b2e8524ecb78",
+        "input_sha256": "c9aca7e0ea3a67a63285f88c6ff18b8f5b4b0698342606de4e7fa6ac16337fbe",
+        "sha256": "14ab41368d40bc36f91197d10e1ee19ad5ee0d2e635ed44353eff4ae9d8e44db",
+        "frames": 112,
+        "elapsed_sec": 139.49,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S02-sr-v4.json",
+      "receipt_file_sha256": "f262e09837224ae2ef344fb1f9b1ffca79f67625c664b0e91ac0aba3e6a977ff",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S02",
+        "trace_id": "fe435f26cbff41e7959726775d98fd2a",
+        "input_sha256": "314bd4daa35ccc0cef76be1d6dd44f043e774b702f181c0351df92e862b4b040",
+        "sha256": "347228c1107f2c7e0cf6e568b8fa2d4fdf02d4970e40036d6f5c5b35fa1c09ce",
+        "frames": 112,
+        "elapsed_sec": 139.02,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S03-sr-v3.json",
+      "receipt_file_sha256": "1dc4d8746283c81e48e4a208497697c30d0ecdc8d579396014dc9badbb78eb91",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S03",
+        "trace_id": "6629f05e71304ebbadf8114ab1b60148",
+        "input_sha256": "c6aa48f4812f812105dba3375db786af28592e5e75fa83f127cd8693acf9b1a2",
+        "sha256": "997738cf27fb7ec28a792c0acaeceb90fc3f06da20dddfd59fb5e034fb74c569",
+        "frames": 96,
+        "elapsed_sec": 121.03,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S04-sr-v3.json",
+      "receipt_file_sha256": "171287c17ea8e32c1611e4b3f3f8a02324aab29f343fa1a19f21ada5e7175bab",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S04",
+        "trace_id": "b85a5678035e4279a619d302e3e177c8",
+        "input_sha256": "953d1143b0766f9e0a1bf332ef9f9e428abc191d2f75bf012ff7571f7e61a8f8",
+        "sha256": "325f5280fbdf67555057c6c26ea863a8195d6317f96a9864599893cb321e1397",
+        "frames": 116,
+        "elapsed_sec": 148.95,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S04-sr-v4.json",
+      "receipt_file_sha256": "d1765b757eb11c688f8b86bf63855e56aa35a23fbc28e5551f1c8e45f0d842da",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S04",
+        "trace_id": "ff2e63d2ff4b405393d0d6e3e008c25b",
+        "input_sha256": "d411e3dd81a73eddd826f2abe61782596f2790ca4928da1a8eb4d4b4bb4f3854",
+        "sha256": "db08b21d4f0ceaa332a733f93c8fb0e2f4f4413a5150250d405a75158572930a",
+        "frames": 116,
+        "elapsed_sec": 148.06,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S06-sr-v3.json",
+      "receipt_file_sha256": "07a12391158f5007a9a264ee3202eb817711ecffa55d5fa6e41ab642c9ec9943",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S06",
+        "trace_id": "9f7da0e5d58e417cbc3919c8bf2b67f9",
+        "input_sha256": "5e55322c8db5aef6bfee5d1cb8ca8f6941995ddd0b3eddb7fa19e883689c154e",
+        "sha256": "9a3774ae62aea1075363b33dd579f9b94848480048d25e6e3d8b0a6e4a29200b",
+        "frames": 34,
+        "elapsed_sec": 44.91,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    },
+    {
+      "path": ".data/short-drama-53/sr/S06-sr-v4.json",
+      "receipt_file_sha256": "111b0716273937a1a7c84018d26785cd53731b1678d0383544843163ec543e85",
+      "summary": {
+        "status": "complete",
+        "shot_id": "S06",
+        "trace_id": "4535328ee0e44641b6229184f36ce8cf",
+        "input_sha256": "bafd3b7f24ea08147764d83553d0080a89cd77df5b007d36c27d387e659a5c37",
+        "sha256": "24d3d3f28b7303e8f9e1892d36620721e43e5e09d543ffa356540a6aa28d899c",
+        "frames": 34,
+        "elapsed_sec": 44.47,
+        "workflow": "rrdb_x2_tiled@1",
+        "model": "RealESRGAN_x2plus",
+        "weight_sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+      }
+    }
+  ],
+  "human_art_approval": false
+}

@@ -1,0 +1,279 @@
+{
+  "graph": {
+    "model": {
+      "class_type": "UNETLoader",
+      "inputs": {
+        "unet_name": "wan2.2_s2v_14B_fp8_scaled.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    "shift": {
+      "class_type": "ModelSamplingSD3",
+      "inputs": {
+        "model": [
+          "model",
+          0
+        ],
+        "shift": 8
+      }
+    },
+    "clip": {
+      "class_type": "CLIPLoader",
+      "inputs": {
+        "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+        "type": "wan",
+        "device": "cpu"
+      }
+    },
+    "vae": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "wan_2.1_vae.safetensors"
+      }
+    },
+    "image": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "creator_ref_e9794a184b1a44f3a4a8146f0669f5d6.png"
+      }
+    },
+    "audio": {
+      "class_type": "LoadAudio",
+      "inputs": {
+        "audio": "creator_audio_e9794a184b1a44f3a4a8146f0669f5d6.wav"
+      }
+    },
+    "audio_model": {
+      "class_type": "AudioEncoderLoader",
+      "inputs": {
+        "audio_encoder_name": "wav2vec2_large_english_fp16.safetensors"
+      }
+    },
+    "audio_features": {
+      "class_type": "AudioEncoderEncode",
+      "inputs": {
+        "audio_encoder": [
+          "audio_model",
+          0
+        ],
+        "audio": [
+          "audio",
+          0
+        ]
+      }
+    },
+    "positive": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "clip": [
+          "clip",
+          0
+        ],
+        "text": "The young man in an olive overshirt speaks naturally in sync with the audio, with a friendly small smile. His right hand holds one black smartphone steadily at chest height. He looks to screen right and slightly downward. Head and shoulders move only subtly, no repeated nodding. Only one man, same face and hair, fixed camera, warm daylight."
+      }
+    },
+    "negative": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "clip": [
+          "clip",
+          0
+        ],
+        "text": "blurred face, deformed mouth, extra person, duplicated phone, extra fingers, exaggerated gestures, repeated head shaking, camera cut, subtitles, text, watermark"
+      }
+    },
+    "condition": {
+      "class_type": "WanSoundImageToVideo",
+      "inputs": {
+        "positive": [
+          "positive",
+          0
+        ],
+        "negative": [
+          "negative",
+          0
+        ],
+        "vae": [
+          "vae",
+          0
+        ],
+        "width": 832,
+        "height": 480,
+        "length": 77,
+        "batch_size": 1,
+        "audio_encoder_output": [
+          "audio_features",
+          0
+        ],
+        "ref_image": [
+          "image",
+          0
+        ]
+      }
+    },
+    "sample": {
+      "class_type": "KSampler",
+      "inputs": {
+        "model": [
+          "shift",
+          0
+        ],
+        "seed": 5408,
+        "steps": 20,
+        "cfg": 6,
+        "sampler_name": "uni_pc",
+        "scheduler": "simple",
+        "positive": [
+          "condition",
+          0
+        ],
+        "negative": [
+          "condition",
+          1
+        ],
+        "latent_image": [
+          "condition",
+          2
+        ],
+        "denoise": 1
+      }
+    },
+    "decode": {
+      "class_type": "VAEDecodeTiled",
+      "inputs": {
+        "samples": [
+          "sample",
+          0
+        ],
+        "vae": [
+          "vae",
+          0
+        ],
+        "tile_size": 512,
+        "overlap": 64,
+        "temporal_size": 32,
+        "temporal_overlap": 8
+      }
+    },
+    "save": {
+      "class_type": "SaveWEBM",
+      "inputs": {
+        "images": [
+          "decode",
+          0
+        ],
+        "filename_prefix": "creator_jobs/e9794a184b1a44f3a4a8146f0669f5d6",
+        "codec": "vp9",
+        "fps": 16,
+        "crf": 16
+      }
+    }
+  },
+  "actor_cuts": [
+    {
+      "id": "01-give-up",
+      "role": "chen",
+      "speaker": "dylan",
+      "source": ".data/short-drama-53/v4/voices/chen-master-v2.wav",
+      "source_sha256": "bbaf00df8d4f4e4bd7adf2a819652d5213cd16e4cedb313a63910ca062403327",
+      "source_in_sec": 0,
+      "source_out_sec": 1.2,
+      "atempo": 0.8,
+      "pitch_shift": false,
+      "duration_sec": 1.4885,
+      "path": ".data/short-drama-53/v4/voices/01-give-up-v4.wav",
+      "sha256": "d41d7d5bce36a19906525c4a7b4c8825fe648a50de121f628b213a77ee6da656",
+      "human_listening_review": false
+    },
+    {
+      "id": "02-wait",
+      "role": "lin",
+      "speaker": "serena",
+      "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+      "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+      "source_in_sec": 0,
+      "source_out_sec": 1.12,
+      "atempo": 0.95,
+      "pitch_shift": false,
+      "duration_sec": 1.16525,
+      "path": ".data/short-drama-53/v4/voices/02-wait-v4.wav",
+      "sha256": "4be5747b6d8ec86a2d62f0c011bd72e81002bdb5824ed13133b173e59f518da1",
+      "human_listening_review": false
+    },
+    {
+      "id": "03-fault",
+      "role": "lin",
+      "speaker": "serena",
+      "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+      "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+      "source_in_sec": 1.3,
+      "source_out_sec": 4.45,
+      "atempo": 0.95,
+      "pitch_shift": false,
+      "duration_sec": 3.2986666666666666,
+      "path": ".data/short-drama-53/v4/voices/03-fault-v4.wav",
+      "sha256": "861cfd6112928fcd3848476aa7f7ef83919555da138b83f9e450ec9a4128f3b4",
+      "human_listening_review": false
+    },
+    {
+      "id": "04-change",
+      "role": "lin",
+      "speaker": "serena",
+      "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+      "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+      "source_in_sec": 4.6,
+      "source_out_sec": 6.2,
+      "atempo": 0.95,
+      "pitch_shift": false,
+      "duration_sec": 1.6662083333333333,
+      "path": ".data/short-drama-53/v4/voices/04-change-v4.wav",
+      "sha256": "fc4effe540c4b549a23f2c5e6c9cc1b6d24156e6d15fb7a3421556e413fb61fb",
+      "human_listening_review": false
+    },
+    {
+      "id": "04-again",
+      "role": "lin",
+      "speaker": "serena",
+      "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+      "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+      "source_in_sec": 6.2,
+      "source_out_sec": 7.28,
+      "atempo": 0.95,
+      "pitch_shift": false,
+      "duration_sec": 1.129,
+      "path": ".data/short-drama-53/v4/voices/04-again-v4.wav",
+      "sha256": "438a73e758431d8128cd4cf4fd0a86434660ef1610d9402bc54ee4a4e4c7ce69",
+      "human_listening_review": false
+    },
+    {
+      "id": "05-found",
+      "role": "chen",
+      "speaker": "dylan",
+      "source": ".data/short-drama-53/v4/voices/chen-master-v2.wav",
+      "source_sha256": "bbaf00df8d4f4e4bd7adf2a819652d5213cd16e4cedb313a63910ca062403327",
+      "source_in_sec": 1.3,
+      "source_out_sec": 3.28,
+      "atempo": 0.8,
+      "pitch_shift": false,
+      "duration_sec": 2.4495,
+      "path": ".data/short-drama-53/v4/voices/05-found-v4.wav",
+      "sha256": "ce00844bba88c3d9e0a88c3820a0da2fa73d247dce23cc6968f4ba094373a8f0",
+      "human_listening_review": false
+    },
+    {
+      "id": "06-answer",
+      "role": "lin",
+      "speaker": "serena",
+      "source": ".data/short-drama-53/v4/voices/lin-master-v2.wav",
+      "source_sha256": "22b309c2b848a1db3509f34d0748b422eeb16271213912507cd9562f7b29ea15",
+      "source_in_sec": 7.28,
+      "source_out_sec": 8.16,
+      "atempo": 0.95,
+      "pitch_shift": false,
+      "duration_sec": 0.9199166666666667,
+      "path": ".data/short-drama-53/v4/voices/06-answer-v4.wav",
+      "sha256": "3ddcdabc119917f1f9eae59c73f868e5e124fc573a89589ffaadc2c67818254a",
+      "human_listening_review": false
+    }
+  ]
+}

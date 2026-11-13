@@ -1,0 +1,8 @@
+{
+  "videoPlaying": true,
+  "audioPaused": [
+    true,
+    true
+  ],
+  "exclusive_playback_passed": true
+}

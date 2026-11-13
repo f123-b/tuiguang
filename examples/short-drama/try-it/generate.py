@@ -37,7 +37,7 @@ def run(shot, name):
         else:
             source=PACK/'assets'/shot['reference']
             identifier=uuid.uuid4().hex
-            data=dict(style='realistic',prompt=shot['prompt'],seed=5101,width=1280,height=704,frames=shot['frames'])
+            data=dict(style='realistic',prompt=shot['prompt'],seed=shot.get('seed',5101),width=1280,height=704,frames=shot['frames'])
             assert data['frames'] in (49,73,97,121)
             image=client.upload(identifier,source.read_bytes())
             graph=wan_comfy.workflow(data,image,identifier)

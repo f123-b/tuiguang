@@ -1,0 +1,212 @@
+{
+  "version": "drama_production@3",
+  "task": "#53",
+  "title": "你来试试",
+  "human_art_approval": false,
+  "fiction": "当代虚构人物、虚构项目；AI表演与库存合成声音。不是有招手机界面或真实测试效果。",
+  "period": "2026年当代",
+  "logline": "一次失败的产品试用，让设计师放下替别人操作的冲动，承担修改设计的代价，再把选择交还给朋友。",
+  "characters": [
+    {
+      "id": "lin",
+      "reference": "lin-three-view-v1.png",
+      "age": "成年，与既有演员视觉一致，不作为真人年龄事实",
+      "costume": "黑短发、深灰开衫、白T、深灰直筒裤、深色鞋",
+      "want": "证明自己的设计能用",
+      "obstacle": "朋友找不到入口",
+      "decision": "停手，不替他操作，删掉自己做的欢迎页",
+      "change": "从解释设计改为观察使用者",
+      "voice": "Serena库存声，无克隆"
+    },
+    {
+      "id": "chen",
+      "reference": "chen-three-view-v1.png",
+      "age": "成年，与既有演员视觉一致，不作为真人年龄事实",
+      "costume": "短黑发、橄榄衬衫、米色T、炭灰裤、深色鞋；无眼镜",
+      "want": "自己完成上传测试",
+      "obstacle": "入口被欢迎页挡住",
+      "decision": "给朋友一次修改和重新测试的机会",
+      "change": "放弃到成功后的友善调侃",
+      "voice": "Dylan库存声，无克隆"
+    }
+  ],
+  "scene": {
+    "id": "STUDIO_DAY",
+    "reference": "scene-empty-v1.png",
+    "intent": "两人近距离工作的小空间，无法用漂亮演示回避朋友真实的困惑",
+    "anchors": [
+      "画左黑框磨砂窗",
+      "浅暖墙上的建筑草图",
+      "木桌",
+      "右侧银色电脑",
+      "后架白收纳盒"
+    ],
+    "light": "左窗下午暖日光，肤色保持中性，不换夜景",
+    "axis": "陈在画左站着向右下看，小林在画右坐着向左上看；所有机位在桌近侧，不跨人物连线",
+    "props": "唯一深色手机始终在陈右手，小林不接机；电脑在小林右手侧；修设计和记录项目是不同画面"
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "source": "../assets/s01-two-shot-v1.png",
+      "reuse": "原73帧双人递手机，保留全幅。此前两人同框动作建立地理关系。",
+      "purpose": "冲突：他放弃自己操作",
+      "dialogue": [
+        "算了，你来。"
+      ],
+      "start": "手机在陈胸前右手",
+      "end": "手机仍在陈右手向右递出，小林将抬右手",
+      "lens": "35mm中景",
+      "camera": "桌近侧平视双人，固定",
+      "eyeline": "陈看小林；小林看手机",
+      "focus": "两张脸与递出的手机",
+      "output_crop": "不裁切人物全幅"
+    },
+    {
+      "id": "S02",
+      "reference": "s02-close-v3.png",
+      "frames": 121,
+      "seed": 5302,
+      "purpose": "选择：小林停止代劳，承认设计问题",
+      "dialogue": [
+        "等一下。",
+        "不是你不会用，是我藏得太深了。"
+      ],
+      "start": "右掌抬起，视线左上",
+      "end": "右掌落下，头保持朝左上，肩放松",
+      "lens": "65mm近景，中等景深",
+      "camera": "女主近正面，固定，不跨轴",
+      "eyeline": "左上陈的眼睛",
+      "focus": "眼睛、嘴部、右手",
+      "prompt": "A single continuous close-up of the seated woman. She gently lowers her raised right palm out of the lower frame while keeping her eyes looking slightly up and to the LEFT. Her surprised expression settles into an apologetic, small self-conscious smile as she speaks naturally. Tiny head movement, relaxed shoulders, occasional natural blink. Same adult woman, same bob haircut and charcoal knitted cardigan. Only one woman in this frame. The pale wall and wooden shelf remain stationary. Locked camera, normal real-time motion, stable lighting, sharply focused eyes, no camera cut."
+    },
+    {
+      "id": "S03",
+      "reference": "s03-hands-v3.png",
+      "frames": 97,
+      "seed": 5303,
+      "purpose": "代价：实际修改设计，而非用一段道理解决冲突",
+      "dialogue": [
+        "欢迎页，先拿掉。",
+        "再试试。"
+      ],
+      "start": "右手落在触控板，左手靠键盘",
+      "end": "右手轻点后停住",
+      "lens": "60mm操作插入，中等景深",
+      "camera": "小林右后方偏上，固定，屏幕内容不作产品事实",
+      "eyeline": "操作点，画外续接台词",
+      "focus": "手、触控板、电脑键盘",
+      "prompt": "A single close detail shot of a woman's hands working on a silver laptop on a wooden desk. Her right index finger makes one ordinary gentle tap on the trackpad, then the right hand rests. Her left hand stays near the keyboard. The dark charcoal knitted sleeves remain unchanged. Warm sunlight from the left, realistic skin and laptop keys. Static camera, normal-speed small gesture, clean stable tabletop. No faces, no new objects, no phone, no scene change."
+    },
+    {
+      "id": "S04",
+      "reference": "s04-close-v3.png",
+      "frames": 121,
+      "seed": 5304,
+      "purpose": "结果：朋友独立完成，埋怨转为调侃",
+      "dialogue": [
+        "找到了。你早放这儿不就好了。"
+      ],
+      "start": "眼睛向下看右手手机",
+      "end": "抬眼向右下小林笑，手机仍在右手",
+      "lens": "65mm中近景，中等景深",
+      "camera": "男主近正面，固定，不跨轴",
+      "eyeline": "下方手机→画右下小林",
+      "focus": "眼睛、嘴、同一部手机",
+      "prompt": "A single continuous medium close-up of the same young adult man in the olive overshirt. Holding the same upright black smartphone in his RIGHT hand at chest height, he looks down at the phone briefly, then lifts his eyes toward screen RIGHT and slightly DOWN, his brows relax and he smiles warmly as he speaks conversationally. His LEFT hand relaxes below frame after one small touch near the phone. Same face and short black hair, phone remains in the right hand throughout. Locked camera, normal real-time acting. Only one man in the frame, clean pale wall and frosted window remain still. No camera cut."
+    },
+    {
+      "id": "S06",
+      "reference": "s06-close-v3.png",
+      "frames": 73,
+      "seed": 5306,
+      "purpose": "余味：她接住调侃，自嘲一笑，不升华口号",
+      "dialogue": [
+        "对哦。"
+      ],
+      "start": "面朝左上，平静听",
+      "end": "短暂停顿后自然笑开",
+      "lens": "65mm近景，与S02一致",
+      "camera": "同S02机位，固定",
+      "eyeline": "画左上陈的眼睛",
+      "focus": "双眼与嘴角",
+      "prompt": "A single close-up of the same woman seated in the charcoal cardigan. Looking slightly UP and to the LEFT, she listens for a brief moment, then gives one small spontaneous warm smile, her eyes soften and her shoulders relax. Her head remains almost still, no repeated nodding, no head shaking. Same face and bob haircut, natural blink, stable warm daylight. Only one woman fills the frame, background pale wall and shelf stay unchanged. Static camera, real-time simple reaction, no scene change."
+    },
+    {
+      "id": "S07",
+      "source": "examples/short-drama/dont-say-we/assets/youzhao-project-note-v8.mp4",
+      "purpose": "记录这一次观察和取舍，衔接有招真实项目备注",
+      "dialogue": [],
+      "lens": "真实界面截取",
+      "camera": "真实录屏",
+      "eyeline": "备注文字",
+      "focus": "观察、取舍、复测三句",
+      "notice": "数据虚构，界面真实；不能冒充手机原型界面"
+    }
+  ],
+  "finish": {
+    "native": "1280×704/24fps原生动态；小幅比例裁切到1280×720画幅用留边，禁止640裁切放大",
+    "sr": "RealESRGAN_x2plus 本机神经x2，原片对照保留，禁止把Lanczos叫AI超分",
+    "face": "不另用生成式脸修复改换身份，口型缺陷需审看",
+    "publish": "仅本地审看，人工艺术确认仍为false"
+  },
+  "scope": {
+    "api": "unchanged",
+    "database": "0016 unchanged",
+    "provider": "formal engine unchanged",
+    "prompt": "independent drama_production@3",
+    "cost": "local GPU electricity unpriced; built-in ImageGen account usage unknown; no paid video service submitted"
+  },
+  "cues": [
+    {
+      "id": "01-give-up",
+      "role": "chen",
+      "speaker": "dylan",
+      "text": "算了，你来。",
+      "direction": "普通话，朋友之间说话，试了几次没找到入口，轻轻有点烦但不生气，不播音，不训人，尾音落下。"
+    },
+    {
+      "id": "02-wait",
+      "role": "lin",
+      "speaker": "serena",
+      "text": "等一下。",
+      "direction": "普通话，突然意识到问题，短促叫住朋友，真实自然，不惊叫。"
+    },
+    {
+      "id": "03-fault",
+      "role": "lin",
+      "speaker": "serena",
+      "text": "不是你不会用，是我藏得太深了。",
+      "direction": "普通话，朋友间诚恳承认自己的设计有问题，轻松自嘲，第一句接住对方，后半说给自己听，不说教不朗诵。"
+    },
+    {
+      "id": "04a-change",
+      "role": "lin",
+      "speaker": "serena",
+      "text": "欢迎页，先拿掉。",
+      "direction": "普通话，边修改自己的设计边随口说给朋友听，确认具体取舍，声音平实，不朗诵，欢迎页后有短停顿。"
+    },
+    {
+      "id": "04-again",
+      "role": "lin",
+      "speaker": "serena",
+      "text": "再试试。",
+      "direction": "普通话，改完东西请朋友再操作一次，带一点期待，简短随口说。"
+    },
+    {
+      "id": "05-found",
+      "role": "chen",
+      "speaker": "dylan",
+      "text": "找到了。你早放这儿不就好了。",
+      "direction": "普通话，找到入口以后放松，后半轻轻调侃熟悉的朋友，微微带笑但不大笑，非广告口吻。"
+    },
+    {
+      "id": "06-answer-v2",
+      "role": "lin",
+      "speaker": "serena",
+      "text": "对哦。",
+      "direction": "普通话，朋友之间随口接一句，带一点自嘲笑意，简短自然、松弛，不刻意拖长，不升华道理。"
+    }
+  ],
+  "user_art_review": "rejected"
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "file": "chen-three-view-v1.png",
+    "bytes": 1836853,
+    "sha256": "1ad099f34cb1e6c75284d5c73bf91f96efaaf4a24fb3de27b5aae0b72d686e39"
+  },
+  {
+    "file": "lin-three-view-v1.png",
+    "bytes": 1894382,
+    "sha256": "3f9c9b59b97998f4b4904c748cf9db295a89480c640d33b0f3c48be7f04964d6"
+  },
+  {
+    "file": "s02-close-v3.png",
+    "bytes": 2058407,
+    "sha256": "f5c8c692afb9d76b69b2e17d21d2103344357190122768421d77e551a9eec71a"
+  },
+  {
+    "file": "s03-hands-v3.png",
+    "bytes": 2570999,
+    "sha256": "455b28245eb1c14e2b3ecfad7ee91f8930973a4f21bf00755479d94093bd74d6"
+  },
+  {
+    "file": "s04-close-v3.png",
+    "bytes": 2129684,
+    "sha256": "f2ec7335ae4976b02c48594d6c338a408a909c536ae8720f7885cd73047ee3f6"
+  },
+  {
+    "file": "s06-close-v3.png",
+    "bytes": 2071349,
+    "sha256": "65447efd4fbe7cb76f69ffdd649269a551ceb5b1582255c46f8c1d3cb11b524b"
+  },
+  {
+    "file": "scene-empty-v1.png",
+    "bytes": 2038656,
+    "sha256": "ccdcc1a666698e618c630d4a49db47438fc56a4c3659de2de90706048440993a"
+  }
+]
